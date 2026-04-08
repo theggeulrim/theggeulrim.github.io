@@ -3,93 +3,124 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>U+핫딜센터 - 단독 혜택 안내</title>
+    <title>U+핫딜센터</title>
     <style>
-        /* 기본 스타일 */
-        body { text-align: center; font-family: 'Malgun Gothic', sans-serif; margin: 0; padding: 0; background-color: #f8f9fa; padding-top: 70px; }
+        /* 기본 스타일 초기화 */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif; color: #333; background-color: #ffffff; }
         
-        .container { max-width: 600px; margin: 0 auto; padding: 20px; background-color: #ffffff; box-shadow: 0 4px 6px rgba(0,0,0,0.1); min-height: 100vh; }
-        .banner-img { max-width: 100%; height: auto; border-radius: 8px; margin-bottom: 20px; }
-        h1 { color: #E6007E; font-size: 24px; margin-bottom: 10px; }
-        p { color: #333; line-height: 1.6; font-size: 16px; }
-        .highlight { font-weight: bold; color: #E6007E; font-size: 18px;}
-        .btn-kakao { display: block; background-color: #FEE500; color: #000000; padding: 15px; text-decoration: none; font-weight: bold; border-radius: 8px; margin-top: 30px; font-size: 18px; }
+        /* 전체 컨테이너 (화면 중앙 정렬 및 최대 너비 설정) */
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
 
-        /* ▼ 상단 고정바 기본(모바일) 스타일 ▼ */
-        .sticky-header { 
-            position: fixed; top: 0; left: 0; width: 100%; height: 65px; 
-            background-color: #ffffff; 
-            display: flex; justify-content: space-between; align-items: center; 
-            padding: 0 15px; box-sizing: border-box; 
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1); 
-            z-index: 1000; 
+        /* 메인 1페이지 (히어로 섹션) 영역 */
+        .hero-section {
+            padding: 80px 0; /* 상하 여백 */
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 50px;
         }
-        
-        /* 로고 영역 한 줄 배치 설정 */
-        .header-logo { 
-            display: flex; 
-            align-items: center; /* 세로 중앙 정렬 */
-            gap: 8px; /* LGU+ 와 설명 문구 사이 간격 */
-            color: #333; 
-            white-space: nowrap; /* 줄바꿈 방지 */
-            overflow: hidden; /* 모바일에서 텍스트가 넘칠 경우 숨김 처리 */
-        }
-        .logo-pink { color: #E6007E; font-size: 18px; font-weight: 900; }
-        .logo-sub { color: #666; font-size: 12px; font-weight: 600; }
-        
-        .header-btns { display: flex; gap: 6px; flex-shrink: 0; }
-        .btn-top-kakao { font-size: 12px; color: #000; text-decoration: none; font-weight: bold; padding: 8px 10px; border-radius: 20px; background-color: #FEE500; white-space: nowrap; }
-        .btn-top-reg { font-size: 12px; color: #fff; text-decoration: none; font-weight: bold; padding: 8px 10px; border-radius: 20px; background-color: #E6007E; white-space: nowrap; }
 
-        /* ▼ PC 화면용 최적화 (화면 너비 768px 이상일 때 적용) ▼ */
-        @media (min-width: 768px) {
-            .sticky-header {
-                padding: 0 40px; 
-                height: 75px; 
+        /* 좌측 텍스트 영역 */
+        .hero-text-box { flex: 1; }
+        
+        .hero-title {
+            font-size: 40px;
+            font-weight: 800;
+            line-height: 1.3;
+            letter-spacing: -1px;
+            margin-bottom: 24px;
+            word-break: keep-all;
+        }
+        .text-black { color: #000000; }
+        .text-pink { color: #E6007E; font-size: 48px; } /* U+핫딜센터 글씨를 조금 더 크게 강조 */
+
+        .hero-desc {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #555;
+            margin-bottom: 40px;
+            word-break: keep-all;
+        }
+
+        /* 버튼 그룹 */
+        .button-group {
+            display: flex;
+            gap: 12px;
+        }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px 28px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 12px; /* 둥근 모서리 */
+            text-decoration: none;
+            transition: opacity 0.2s;
+        }
+        .btn:hover { opacity: 0.8; }
+        
+        .btn-kakao { background-color: #FEE500; color: #000000; }
+        .btn-phone { background-color: #E6007E; color: #ffffff; }
+
+        /* 우측 이미지 영역 */
+        .hero-img-box {
+            flex: 1;
+            max-width: 550px; /* 이미지 최대 크기 제한 */
+            position: relative;
+        }
+        .hero-img-box img {
+            width: 100%;
+            height: auto;
+            border-radius: 24px; /* 레퍼런스처럼 둥근 테두리 적용 */
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08); /* 부드러운 그림자 효과 */
+            display: block;
+        }
+
+        /* ▼ 모바일 화면용 최적화 (화면 너비 768px 이하일 때) ▼ */
+        @media (max-width: 768px) {
+            .hero-section {
+                flex-direction: column; /* 세로로 배치 */
+                padding: 40px 0;
+                text-align: center; /* 모바일에서는 가운데 정렬 */
+                gap: 30px;
             }
-            .logo-pink { 
-                font-size: 24px; /* 메인 LGU+ 로고 크게 */
+            .hero-title { font-size: 28px; }
+            .text-pink { font-size: 34px; }
+            .hero-desc { font-size: 15px; }
+            
+            .button-group {
+                flex-direction: column; /* 모바일에서는 버튼을 위아래로 배치 */
+                width: 100%;
             }
-            .logo-sub { 
-                font-size: 16px; /* 서브 텍스트 크게 */
-            }
-            .header-btns {
-                gap: 10px; 
-            }
-            .btn-top-kakao, .btn-top-reg { 
-                font-size: 14px; 
-                padding: 10px 18px; 
-            }
-            body { padding-top: 80px; } 
+            .btn { width: 100%; } /* 모바일에서 버튼이 꽉 차게 */
         }
     </style>
 </head>
 <body>
-    
-    <header class="sticky-header">
-        <div class="header-logo">
-            <span class="logo-pink">LGU+</span> 
-            <span class="logo-sub">| U+ 공식인증 온라인 스토어 (U+핫딜센터)</span>
-        </div>
-        <div class="header-btns">
-            <a href="http://pf.kakao.com/_xlyGxin/chat" class="btn-top-kakao" target="_blank">카카오톡 상담</a>
-            <a href="tel:010-7774-0184" class="btn-top-reg">전화 상담</a>
-        </div>
-    </header>
 
-    <div class="container">
+    <section class="hero-section container">
         
-        <img src="이미지주소.jpg" alt="U+핫딜센터 배너" class="banner-img">
-        
-        <h1>LGU+ 공식인증 온라인 스토어 U+핫딜센터</h1>
-        <p>온라인 고객님들만을 위한 <strong>특별 단가</strong>를 확인해 보세요!</p>
-        
-        <p><span class="highlight">갤럭시 S26</span> & <span class="highlight">아이폰 17</span><br>
-        고객님만의 특별한 "비밀 지원금" 을 확인해 보세요! 🤫</p>
-        
-        <a href="http://pf.kakao.com/_xlyGxin/chat" class="btn-kakao" target="_blank">💬 카카오톡 실시간 상담하기</a>
-        
-        <br><br><br><br><br><br><br><br><br><br>
-    </div>
-</body>
+        <div class="hero-text-box">
+            <h1 class="hero-title">
+                <span class="text-black">LG유플러스 공식인증 온라인 스토어</span><br>
+                <span class="text-pink">U+핫딜센터</span>
+            </h1>
+            <p class="hero-desc">
+                U+ 핫딜센터는 LG유플러스 본사 직영으로 운영되는 기업형 통신 대리점입니다.<br>
+                서울&경기 지역에 총 22개 직영 매장을 운영하고 있으며, 오랜 경험과 전문성을 바탕으로 고객님께 가장 합리적이고 투명한 정보를 제공합니다.
+            </p>
+            <div class="button-group">
+                <a href="http://pf.kakao.com/_xlyGxin/chat" class="btn btn-kakao" target="_blank">💬 카카오톡 상담하기</a>
+                <a href="tel:010-7774-0184" class="btn btn-phone">📞 전화 상담</a>
+            </div>
+        </div>
+
+        <div class="hero-img-box">
+            <img src="https://via.placeholder.com/600x400/eeeeee/999999?text=Store+Image+Here" alt="U+핫딜센터 매장 전경">
+        </div>
+
+    </section>
+    </body>
 </html>
