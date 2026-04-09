@@ -7,106 +7,62 @@
     <style>
         /* 기본 스타일 초기화 */
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { 
-            font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif; 
-            color: #333; 
-            background-color: #ffffff; 
-            padding-top: 60px; /* 상단바 높이만큼 여백 */
-        }
+        body { font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif; color: #333; background-color: #ffffff; padding-top: 60px; }
         
-        /* ================================
-           1. 상단 고정바 (모바일 중심)
-        ================================ */
+        /* 1. 상단 고정바 */
         .sticky-header { 
             position: fixed; top: 0; left: 0; width: 100%; height: 60px; 
-            background-color: #ffffff; 
-            display: flex; justify-content: space-between; align-items: center; 
-            padding: 0 10px; /* 모바일에서 좌우 여백 축소하여 텍스트 공간 확보 */
-            box-sizing: border-box; 
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1); 
-            z-index: 1000; 
+            background-color: #ffffff; display: flex; justify-content: space-between; align-items: center; 
+            padding: 0 10px; box-sizing: border-box; box-shadow: 0 2px 10px rgba(0,0,0,0.1); z-index: 1000; 
         }
-        
-        /* 텍스트가 길 경우 자연스럽게 ... 처리 */
-        .header-logo { 
-            display: flex; align-items: center; gap: 4px; 
-            overflow: hidden; flex: 1; margin-right: 8px; 
-        }
+        .header-logo { display: flex; align-items: center; gap: 4px; overflow: hidden; flex: 1; margin-right: 8px; }
         .logo-pink { color: #E6007E; font-size: 15px; font-weight: 900; white-space: nowrap; }
-        .logo-sub { 
-            color: #666; font-size: 11px; font-weight: 600; letter-spacing: -0.5px;
-            white-space: nowrap; overflow: hidden; text-overflow: ellipsis; /* 말줄임표 적용 */
-        }
+        .logo-sub { color: #666; font-size: 11px; font-weight: 600; letter-spacing: -0.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         
-        /* 상단 버튼 모바일 크기 최적화 */
         .header-btns { display: flex; gap: 4px; flex-shrink: 0; }
-        .btn-top-kakao, .btn-top-reg { 
-            font-size: 11px; text-decoration: none; font-weight: bold; 
-            padding: 7px 8px; border-radius: 20px; white-space: nowrap; 
-        }
+        .btn-top-kakao, .btn-top-reg { font-size: 11px; text-decoration: none; font-weight: bold; padding: 7px 8px; border-radius: 20px; white-space: nowrap; }
         .btn-top-kakao { background-color: #FEE500; color: #000; }
         .btn-top-reg { background-color: #E6007E; color: #fff; }
 
-        /* ================================
-           2. 메인 1페이지 (Hero Section)
-        ================================ */
+        /* 2. 메인 1페이지 (Hero Section) */
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-
-        .hero-section {
-            padding: 80px 0; 
-            display: flex; align-items: center; justify-content: space-between; gap: 50px;
-        }
+        .hero-section { padding: 80px 0; display: flex; align-items: center; justify-content: space-between; gap: 50px; }
         .hero-text-box { flex: 1; }
         
-        .hero-title {
-            font-size: 40px; font-weight: 800; line-height: 1.3;
-            letter-spacing: -1px; margin-bottom: 24px; word-break: keep-all;
-        }
+        .hero-title { font-size: 40px; font-weight: 800; line-height: 1.3; letter-spacing: -1px; margin-bottom: 24px; word-break: keep-all; }
         .text-black { color: #000000; }
         .text-pink-title { color: #E6007E; font-size: 48px; } 
 
-        .hero-desc {
-            font-size: 16px; line-height: 1.6; color: #555;
-            margin-bottom: 40px; word-break: keep-all;
-        }
+        .hero-desc { font-size: 16px; line-height: 1.6; color: #555; margin-bottom: 40px; word-break: keep-all; }
 
         .button-group { display: flex; gap: 12px; }
-        .btn {
-            display: inline-flex; align-items: center; justify-content: center;
-            padding: 16px 28px; font-size: 16px; font-weight: bold; border-radius: 12px; 
-            text-decoration: none; transition: opacity 0.2s;
-        }
+        .btn { display: inline-flex; align-items: center; justify-content: center; padding: 16px 28px; font-size: 16px; font-weight: bold; border-radius: 12px; text-decoration: none; transition: opacity 0.2s; }
         .btn:hover { opacity: 0.8; }
         .btn-kakao { background-color: #FEE500; color: #000000; }
         .btn-phone { background-color: #E6007E; color: #ffffff; }
 
-        .hero-img-box { flex: 1; max-width: 550px; position: relative; }
-        .hero-img-box img {
-            width: 100%; height: auto; border-radius: 24px; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08); display: block;
+        /* ★ 슬라이드쇼 이미지 영역 ★ */
+        .hero-img-box { 
+            flex: 1; max-width: 550px; width: 100%; position: relative; 
+            aspect-ratio: 4 / 3; border-radius: 24px; overflow: hidden; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08); background-color: #f0f0f0; /* 이미지가 뜨기 전 임시 배경색 */
         }
-
-        /* ================================
-           3. 반응형 디자인 (모바일 / PC)
-        ================================ */
         
-        /* ▼ 모바일 최적화 (768px 이하) ▼ */
+        .slide {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            object-fit: cover; opacity: 0; transition: opacity 1s ease-in-out; 
+        }
+        .slide.active { opacity: 1; }
+
+        /* 3. 반응형 디자인 */
         @media (max-width: 768px) {
             .hero-section { flex-direction: column; padding: 40px 0; text-align: center; gap: 30px; }
             .hero-title { font-size: 28px; }
             .text-pink-title { font-size: 34px; }
             .hero-desc { font-size: 15px; padding: 0 10px; }
-            
-            /* 버튼 좌우 여백 추가 */
-            .button-group { 
-                flex-direction: column; 
-                width: 100%; 
-                padding: 0 15px; /* 강북점 레퍼런스처럼 양옆 여백 확보 */
-            }
+            .button-group { flex-direction: column; width: 100%; padding: 0 15px; }
             .btn { width: 100%; } 
         }
-
-        /* ▼ PC 최적화 (769px 이상) ▼ */
         @media (min-width: 769px) {
             body { padding-top: 75px; } 
             .sticky-header { padding: 0 40px; height: 75px; }
@@ -123,7 +79,7 @@
     <header class="sticky-header">
         <div class="header-logo">
             <span class="logo-pink">LGU+</span> 
-            <span class="logo-sub">| U+ 공식인증 온라인 스토어 (U+핫딜센터)</span>
+            <span class="logo-sub">| U+ 공식인증 온라인 스토어 (U+ 핫딜센터)</span>
         </div>
         <div class="header-btns">
             <a href="http://pf.kakao.com/_xlyGxin/chat" class="btn-top-kakao" target="_blank">카카오톡 상담</a>
@@ -136,7 +92,7 @@
         <div class="hero-text-box">
             <h1 class="hero-title">
                 <span class="text-black">LG유플러스 공식인증 온라인 스토어</span><br>
-                <span class="text-pink-title">U+ 핫딜센터</span>
+                <span class="text-pink-title">U+핫딜센터</span>
             </h1>
             <p class="hero-desc">
                 U+ 핫딜센터는 LG유플러스 본사 직영으로 운영되는 기업형 통신 대리점입니다.<br>
@@ -148,11 +104,46 @@
             </div>
         </div>
 
-        <div class="hero-img-box">
-            <img src="https://via.placeholder.com/600x400/eeeeee/999999?text=Store+Image+Here" alt="U+핫딜센터 매장 전경">
+        <div class="hero-img-box" id="slider">
+            <img src="가산중간.jpeg" class="slide active" alt="가산동 디지털단지오거리점">
+            <img src="강서구청중간.jpeg" class="slide" alt="난곡동 난곡점">
+            <img src="관양중간.jpeg" class="slide" alt="남현동 관악점">
+            <img src="낙성대중간.jpeg" class="slide" alt="당산동 영등포구청점">
+            <img src="난곡중간.jpeg" class="slide" alt="대림3동 대림역9번출구점">
+            <img src="남문중간.jpeg" class="slide" alt="대림동 대림역11번출구점">
+            <img src="남현중간.jpeg" class="slide" alt="독산동 남문시장점">
+            <img src="대림9번중간.jpeg" class="slide" alt="문래동 문래힐스테이트점">
+            <img src="대림11번중간.jpeg" class="slide" alt="사당동 사당점">
+            <img src="대림공원중간.jpeg" class="slide" alt="10번째 매장"> 
+            <img src="문래중간.jpeg" class="slide" alt="11번째 매장">
+            <img src="범계중간.jpeg" class="slide" alt="12번째 매장">
+            <img src="봉천중간.jpeg" class="slide" alt="13번째 매장">
+            <img src="비산중간.jpeg" class="slide" alt="14번째 매장">
+            <img src="사당중간.jpeg" class="slide" alt="15번째 매장">
+            <img src="신림중간.jpeg" class="slide" alt="16번째 매장">
+            <img src="영등포구청중간.jpeg" class="slide" alt="17번째 매장">
+            <img src="일번가중간.jpeg" class="slide" alt="18번째 매장">
+            <img src="증미중간.jpeg" class="slide" alt="19번째 매장">
+            <img src="칠보중간.jpeg" class="slide" alt="20번째 매장">
+            <img src="학원가중간.jpeg" class="slide" alt="21번째 매장">
+            <img src="호계중간.jpeg" class="slide" alt="22번째 매장">
         </div>
 
     </section>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const slides = document.querySelectorAll('.slide');
+            let currentSlide = 0;
+
+            if (slides.length > 1) {
+                setInterval(() => {
+                    slides[currentSlide].classList.remove('active');
+                    currentSlide = (currentSlide + 1) % slides.length;
+                    slides[currentSlide].classList.add('active');
+                }, 3000); // 3000 = 3초
+            }
+        });
+    </script>
 </body>
 </html>
