@@ -16,6 +16,10 @@
             padding: 0 10px; box-sizing: border-box; box-shadow: 0 2px 10px rgba(0,0,0,0.1); z-index: 1000; 
         }
         .header-logo { display: flex; align-items: center; gap: 6px; overflow: hidden; flex: 1; margin-right: 8px; }
+        
+        /* ★ 로고 이미지 기본 사이즈 (모바일용) ★ */
+        .logo-img { height: 28px; width: auto; } 
+
         .logo-sub { color: #666; font-size: 11px; font-weight: 600; letter-spacing: -0.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         
         .header-btns { display: flex; gap: 4px; flex-shrink: 0; }
@@ -65,6 +69,10 @@
             body { padding-top: 75px; } 
             .sticky-header { padding: 0 40px; height: 75px; }
             .header-logo { gap: 10px; margin-right: 0; overflow: visible; }
+            
+            /* ★ 로고 이미지 확장 사이즈 (PC용) ★ */
+            .logo-img { height: 40px; } 
+
             .logo-sub { font-size: 16px; overflow: visible; }
             .header-btns { gap: 10px; }
             .btn-top-kakao, .btn-top-reg { font-size: 14px; padding: 10px 18px; }
@@ -75,7 +83,7 @@
 
     <header class="sticky-header">
         <div class="header-logo">
-            <img src="logo.png" alt="LGU+ 로고" style="height: 24px;"> 
+            <img src="logo.png" alt="LGU+ 로고" class="logo-img"> 
             <span class="logo-sub">| U+ 공식인증 온라인 스토어 (U+핫딜센터)</span>
         </div>
         <div class="header-btns">
@@ -138,7 +146,7 @@
                     slides[currentSlide].classList.remove('active');
                     currentSlide = (currentSlide + 1) % slides.length;
                     slides[currentSlide].classList.add('active');
-                }, 3000); // 2초마다 변경
+                }, 3000); 
             }
         });
     </script>
