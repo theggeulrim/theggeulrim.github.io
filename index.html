@@ -101,8 +101,59 @@
         
         <div class="hero-text-box">
             <h1 class="hero-title">
-                <span class="text-black">LGU+ 공식인증 온라인 몰</span><br>
+                <span class="text-black">U+ 공식인증 온라인 스토어</span><br>
                 <img src="hotdeal_logo.png" alt="U+ 핫딜센터" class="main-title-logo">
             </h1>
             <p class="hero-desc">
-                U+ 핫딜센터는 LG유플
+                U+ 핫딜센터는 LG유플러스 본사 직영으로 운영되는 기업형 통신 대리점입니다.<br>
+                서울&경기 지역에 총 22개 직영 매장을 운영하고 있으며, 오랜 경험과 전문성을 바탕으로 고객님께 가장 합리적이고 투명한 정보를 제공합니다.
+            </p>
+            <div class="button-group">
+                <a href="http://pf.kakao.com/_xlyGxin/chat" class="btn btn-kakao" target="_blank">💬 카카오톡 상담하기</a>
+                <a href="tel:010-7774-0184" class="btn btn-phone">📞 전화 상담</a>
+            </div>
+        </div>
+
+        <div class="hero-img-box" id="slider">
+            <img src="store13.jpeg" class="slide active" alt="봉천사거리점">
+            <img src="store2.jpeg" class="slide" alt="강서구청점">
+            <img src="store3.jpeg" class="slide" alt="관양점">
+            <img src="store4.jpeg" class="slide" alt="낙성대점">
+            <img src="store5.jpeg" class="slide" alt="난곡점">
+            <img src="store6.jpeg" class="slide" alt="남문점">
+            <img src="store7.jpeg" class="slide" alt="남현점">
+            <img src="store8.jpeg" class="slide" alt="대림9번출구점">
+            <img src="store9.jpeg" class="slide" alt="대림11번출구점">
+            <img src="store10.jpeg" class="slide" alt="대림공원점">
+            <img src="store11.jpeg" class="slide" alt="문래점">
+            <img src="store12.jpeg" class="slide" alt="범계점">
+            <img src="store1.jpeg" class="slide" alt="디지털단지오거리점">
+            <img src="store14.jpeg" class="slide" alt="비산점">
+            <img src="store15.jpeg" class="slide" alt="사당점">
+            <img src="store16.jpeg" class="slide" alt="신림점">
+            <img src="store17.jpeg" class="slide" alt="영등포구청점">
+            <img src="store18.jpeg" class="slide" alt="일번가점">
+            <img src="store19.jpeg" class="slide" alt="증미점">
+            <img src="store20.jpeg" class="slide" alt="칠보점">
+            <img src="store21.jpeg" class="slide" alt="학원가점">
+            <img src="store22.jpeg" class="slide" alt="호계점">
+        </div>
+
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const slides = document.querySelectorAll('.slide');
+            let currentSlide = 0;
+
+            if (slides.length > 1) {
+                setInterval(() => {
+                    slides[currentSlide].classList.remove('active');
+                    currentSlide = (currentSlide + 1) % slides.length;
+                    slides[currentSlide].classList.add('active');
+                }, 3000); 
+            }
+        });
+    </script>
+</body>
+</html>
