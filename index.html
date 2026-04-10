@@ -61,7 +61,7 @@
         .floating-text-box .float-title { font-size: 14px; font-weight: 800; color: #333; }
         .floating-text-box .float-desc { font-size: 13px; font-weight: 600; color: #777; letter-spacing: -0.5px; }
 
-        /* 4. 상품 특가 섹션 (공통 및 PC) */
+        /* 4. 상품 특가 섹션 (공통 및 PC) - 배경색 통일 */
         .product-section { padding: 80px 20px; background-color: #ffffff; border-top: 1px solid #eee; overflow: hidden; }
         .section-title { text-align: center; font-size: 36px; font-weight: 800; margin-bottom: 50px; letter-spacing: -1px; }
         
@@ -86,8 +86,8 @@
         .final-price { text-align: right; font-size: 32px; font-weight: 900; color: #0052cc; margin-top: 5px; }
         .final-price span { font-size: 18px; font-weight: 700; }
 
-        /* ★ 5. 인터넷 & IPTV 가입 안내 섹션 (새로 추가된 부분) ★ */
-        .internet-section { padding: 80px 20px; background-color: #f4f8ff; text-align: center; }
+        /* ★ 5. 인터넷 & IPTV 가입 안내 섹션 (배경색 통일 및 포인트 텍스트) ★ */
+        .internet-section { padding: 80px 20px; background-color: #ffffff; text-align: center; border-top: 1px solid #eee; }
         .q-badge { 
             display: inline-block; background-color: #ffebf5; color: #E6007E; 
             padding: 8px 20px; border-radius: 20px; font-size: 15px; font-weight: 800; margin-bottom: 20px; 
@@ -95,18 +95,16 @@
         .internet-title { font-size: 36px; font-weight: 900; color: #111; margin-bottom: 40px; letter-spacing: -1px; }
         .internet-title strong { color: #E6007E; }
         
-        /* 백만원 현금지원 하이라이트 박스 */
+        /* 혜택 강조 박스 및 텍스트 포인트 */
         .highlight-box { 
             background: #ffffff; border-radius: 20px; padding: 40px 20px; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05); max-width: 750px; margin: 0 auto 30px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.06); border: 1px solid #eee; 
+            max-width: 750px; margin: 0 auto 30px; 
         }
-        .gradient-text { 
-            font-weight: 900; 
-            background: linear-gradient(90deg, #3b82f6 0%, #8b5cf6 100%); 
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent; 
-        }
-        .gradient-text.small { font-size: 26px; display: block; margin-bottom: 10px; }
-        .gradient-text.big { font-size: 36px; display: block; }
+        .promo-text-small { font-size: 26px; font-weight: 800; color: #444; margin-bottom: 10px; letter-spacing: -0.5px; }
+        .promo-text-small .blue-point { color: #3b82f6; font-weight: 900; }
+        .promo-text-big { font-size: 36px; font-weight: 900; color: #111; letter-spacing: -1px; }
+        .promo-text-big .pink-point { color: #E6007E; font-size: 42px; }
         
         .internet-desc { font-size: 16px; color: #555; line-height: 1.6; margin-bottom: 60px; font-weight: 600; word-break: keep-all; }
         
@@ -116,7 +114,7 @@
         .step-item { position: relative; z-index: 2; flex: 1; }
         .step-dot { 
             width: 24px; height: 24px; border-radius: 50%; background: #fff; 
-            border: 4px solid #bfdbfe; margin: 0 auto 20px; box-shadow: 0 0 0 4px #f4f8ff; 
+            border: 4px solid #bfdbfe; margin: 0 auto 20px; box-shadow: 0 0 0 4px #ffffff; 
         }
         .step-card { 
             background: #fff; border: 1px solid #dbeafe; border-radius: 16px; 
@@ -149,8 +147,8 @@
         .trust-text-main .highlight { color: #E6007E; }
         .trust-text-sub { font-size: 18px; font-weight: 600; color: #555; line-height: 1.6; letter-spacing: -0.5px; padding: 0 20px; margin-bottom: 50px; }
 
-        /* 7. 후기 슬라이더 영역 */
-        .review-slider-wrap { width: 100%; overflow: hidden; position: relative; padding: 20px 0; background-color: #fafbfc; }
+        /* 7. 후기 슬라이더 영역 - 배경색 통일 */
+        .review-slider-wrap { width: 100%; overflow: hidden; position: relative; padding: 20px 0; background-color: #ffffff; }
         .review-track-container { display: flex; flex-wrap: nowrap; width: max-content; }
         .review-track-container:hover .review-slide-set { animation-play-state: paused; }
         
@@ -180,7 +178,7 @@
             .floating-text-box .float-title { font-size: 13px; }
             .floating-text-box .float-desc { font-size: 11px; }
 
-            /* [모바일] 상품 특가 섹션 (가로형 사진/텍스트 배치 + 세로 리스트) */
+            /* [모바일] 상품 특가 섹션 */
             .product-section { padding: 40px 15px; }
             .section-title { font-size: 24px; margin-bottom: 25px; }
             .product-grid { display: flex; flex-direction: column; gap: 12px; } 
@@ -198,48 +196,31 @@
             .price-condition { font-size: 10px; margin-top: 6px; text-align: right; color: #aaa; }
             .final-price { display: none; }
 
-            /* ★ [모바일] 인터넷/IPTV 섹션 최적화 ★ */
+            /* [모바일] 인터넷/IPTV 섹션 */
             .internet-section { padding: 50px 15px; }
             .q-badge { font-size: 13px; padding: 6px 14px; margin-bottom: 15px; }
             .internet-title { font-size: 24px; margin-bottom: 30px; }
             .highlight-box { padding: 30px 15px; border-radius: 16px; margin-bottom: 25px; }
-            .gradient-text.small { font-size: 18px; margin-bottom: 5px; }
-            .gradient-text.big { font-size: 24px; }
+            
+            /* 모바일 텍스트 포인트 조절 */
+            .promo-text-small { font-size: 18px; margin-bottom: 8px; }
+            .promo-text-big { font-size: 24px; }
+            .promo-text-big .pink-point { font-size: 28px; }
+            
             .internet-desc { font-size: 14px; margin-bottom: 40px; }
             .benefit-steps { flex-direction: column; gap: 15px; }
-            .step-line { display: none; } /* 모바일에서는 가로선 숨김 */
-            .step-dot { display: none; } /* 모바일에서는 도트 숨김 */
+            .step-line { display: none; } 
+            .step-dot { display: none; } 
             .step-card { padding: 20px; font-size: 16px; width: 100%; border-bottom-width: 3px; }
 
-            /* [모바일] 신뢰 문구 섹션 (완벽한 무결점 6초 무한루프) */
+            /* [모바일] 신뢰 문구 무결점 자동 슬라이드 */
             .trust-section { padding: 50px 0 80px; }
-            
-            .trust-track-container { 
-                display: flex; 
-                flex-wrap: nowrap; 
-                width: max-content; 
-                padding: 10px 0 30px 0; 
-                margin-bottom: 20px;
-            }
-            .trust-track-container:hover .trust-slide-set, 
-            .trust-track-container:active .trust-slide-set { animation-play-state: paused; }
-            
-            .trust-slide-set {
-                display: flex; 
-                flex-shrink: 0;
-                animation: fast-trust-scroll 6s linear infinite; /* 6초 속도 지정! */
-            }
+            .trust-track-container { display: flex; flex-wrap: nowrap; width: max-content; padding: 10px 0 30px 0; margin-bottom: 20px; }
+            .trust-track-container:hover .trust-slide-set, .trust-track-container:active .trust-slide-set { animation-play-state: paused; }
+            .trust-slide-set { display: flex; flex-shrink: 0; animation: fast-trust-scroll 6s linear infinite; }
             .mobile-clone { display: flex !important; } 
 
-            .trust-card { 
-                width: 270px; 
-                margin-right: 15px; 
-                flex-shrink: 0; 
-                flex-direction: column; align-items: center; justify-content: space-between; 
-                padding: 30px 20px 20px; text-align: center; 
-                height: auto; align-self: stretch; 
-            }
-            
+            .trust-card { width: 270px; margin-right: 15px; flex-shrink: 0; flex-direction: column; align-items: center; justify-content: space-between; padding: 30px 20px 20px; text-align: center; height: auto; align-self: stretch; }
             @keyframes fast-trust-scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
             
             .trust-card-text { font-size: 18px; margin-bottom: 20px; word-break: keep-all; line-height: 1.4; color: #222; }
@@ -327,7 +308,6 @@
 
     <section class="product-section">
         <h2 class="section-title">더끌림컴퍼니의 😎 <span class="text-lgu-pink">휴대폰 특가</span></h2>
-        
         <div class="product-grid">
             <div class="product-card">
                 <div class="product-img-wrap"><img src="s26.png" alt="s26" class="product-img"></div>
@@ -472,8 +452,8 @@
             <h2 class="internet-title">인터넷과 IPTV도 U+ <strong>더끌림컴퍼니</strong>에서!</h2>
             
             <div class="highlight-box">
-                <span class="gradient-text small">1G 인터넷 + IPTV 가입 시,</span>
-                <span class="gradient-text big">최대 100만원 현금 지원!</span>
+                <div class="promo-text-small"><span class="blue-point">인터넷 + IPTV</span> 가입 시,</div>
+                <div class="promo-text-big">최대 <span class="pink-point">70만원</span> 현금 지원!</div>
             </div>
             
             <p class="internet-desc">
@@ -483,17 +463,14 @@
             
             <div class="benefit-steps">
                 <div class="step-line"></div>
-                
                 <div class="step-item">
                     <div class="step-dot"></div>
                     <div class="step-card">설치비 부담 없이<br>빠른 설치 제공</div>
                 </div>
-                
                 <div class="step-item">
                     <div class="step-dot"></div>
                     <div class="step-card">결합 요금제 적용 시<br>추가 할인 혜택</div>
                 </div>
-                
                 <div class="step-item">
                     <div class="step-dot"></div>
                     <div class="step-card">U+ 더끌림컴퍼니만의<br>신뢰할 수 있는 가입 조건!</div>
@@ -505,7 +482,6 @@
     <section class="trust-section">
         <div class="trust-slider-wrap">
             <div class="trust-track-container">
-                
                 <div class="trust-slide-set">
                     <div class="trust-card card-light">
                         <div class="trust-card-text">요금제부터 단말기 가격까지,<br>정확하게 안내드립니다.</div>
@@ -520,7 +496,6 @@
                         <img src="info3.png" alt="믿을 수 있는 상담" class="trust-icon">
                     </div>
                 </div>
-                
                 <div class="trust-slide-set mobile-clone">
                     <div class="trust-card card-light">
                         <div class="trust-card-text">요금제부터 단말기 가격까지,<br>정확하게 안내드립니다.</div>
@@ -535,7 +510,6 @@
                         <img src="info3.png" alt="믿을 수 있는 상담" class="trust-icon">
                     </div>
                 </div>
-
             </div>
         </div>
 
@@ -552,7 +526,6 @@
 
         <div class="review-slider-wrap">
             <div class="review-track-container">
-                
                 <div class="review-slide-set">
                     <div class="review-card"><img src="review1.png" alt="고객 후기 1"></div>
                     <div class="review-card"><img src="review2.png" alt="고객 후기 2"></div>
@@ -560,7 +533,6 @@
                     <div class="review-card"><img src="review4.png" alt="고객 후기 4"></div>
                     <div class="review-card"><img src="review5.png" alt="고객 후기 5"></div>
                 </div>
-
                 <div class="review-slide-set">
                     <div class="review-card"><img src="review1.png" alt="고객 후기 1"></div>
                     <div class="review-card"><img src="review2.png" alt="고객 후기 2"></div>
@@ -568,7 +540,6 @@
                     <div class="review-card"><img src="review4.png" alt="고객 후기 4"></div>
                     <div class="review-card"><img src="review5.png" alt="고객 후기 5"></div>
                 </div>
-
             </div>
         </div>
     </section>
