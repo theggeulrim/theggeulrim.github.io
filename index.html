@@ -61,7 +61,7 @@
         .floating-text-box .float-title { font-size: 14px; font-weight: 800; color: #333; }
         .floating-text-box .float-desc { font-size: 13px; font-weight: 600; color: #777; letter-spacing: -0.5px; }
 
-        /* 4. 상품 특가 섹션 (9개로 확장) */
+        /* 4. 상품 특가 섹션 */
         .product-section { padding: 80px 20px; background-color: #fafbfc; border-top: 1px solid #eee; }
         .section-title { text-align: center; font-size: 36px; font-weight: 800; margin-bottom: 50px; letter-spacing: -1px; }
         
@@ -84,7 +84,47 @@
         .final-price { text-align: right; font-size: 32px; font-weight: 900; color: #0052cc; margin-top: 5px; }
         .final-price span { font-size: 18px; font-weight: 700; }
 
-        /* 5. 반응형 디자인 (모바일 / PC) */
+        /* ★ 5. 우측 하단 플로팅 버튼 (전화/카톡) ★ */
+        .fab-container {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            z-index: 9999; /* 항상 최상단에 노출 */
+        }
+        .fab-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 28px;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: transform 0.2s ease;
+        }
+        .fab-btn:hover { transform: scale(1.1); }
+        
+        /* 전화 버튼 디자인 */
+        .fab-phone { background-color: #E6007E; color: white; }
+        
+        /* 카톡 버튼 디자인 및 파동 애니메이션 */
+        .fab-kakao { 
+            background-color: #FEE500; color: #000; 
+            animation: pulse-glow 2s infinite; /* 2초마다 무한 반복 */
+        }
+        
+        /* 반짝임(파동) 효과 키프레임 */
+        @keyframes pulse-glow {
+            0% { box-shadow: 0 0 0 0 rgba(254, 229, 0, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(254, 229, 0, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(254, 229, 0, 0); }
+        }
+
+        /* 6. 반응형 디자인 (모바일 / PC) */
         @media (max-width: 768px) {
             .hero-section { flex-direction: column; padding: 40px 0; text-align: center; gap: 30px; }
             .hero-title { font-size: 28px; }
@@ -96,12 +136,15 @@
             .floating-text-box .float-title { font-size: 13px; }
             .floating-text-box .float-desc { font-size: 11px; }
 
-            /* 상품 섹션 모바일 조절 */
             .product-section { padding: 50px 20px; }
             .section-title { font-size: 26px; margin-bottom: 30px; }
-            .product-grid { grid-template-columns: 1fr; gap: 20px; } /* 1줄로 나열 */
+            .product-grid { grid-template-columns: 1fr; gap: 20px; } 
             .product-card { padding: 30px 20px; }
             .product-name { font-size: 20px; }
+
+            /* 모바일 화면 플로팅 버튼 크기/위치 최적화 */
+            .fab-container { bottom: 20px; right: 20px; gap: 10px; }
+            .fab-btn { width: 50px; height: 50px; font-size: 24px; }
         }
         @media (min-width: 769px) {
             body { padding-top: 75px; } 
@@ -298,6 +341,11 @@
 
         </div>
     </section>
+
+    <div class="fab-container">
+        <a href="tel:010-7774-0184" class="fab-btn fab-phone">📞</a>
+        <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="fab-btn fab-kakao">💬</a>
+    </div>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
