@@ -150,7 +150,7 @@
         .final-banner-btn { display: inline-block; background-color: #E6007E; color: #fff; font-size: 18px; font-weight: bold; padding: 18px 36px; border-radius: 30px; text-decoration: none; transition: background-color 0.2s; box-shadow: 0 4px 15px rgba(230,0,126,0.3); }
         .final-banner-btn:hover { background-color: #c9006e; }
 
-        /* ★ 9. 최하단 정보(푸터) 및 매장 리스트 영역 추가 ★ */
+        /* 9. 최하단 정보(푸터) 및 매장 리스트 영역 */
         .footer-section { background-color: #222222; color: #aaaaaa; padding: 60px 20px 40px; font-size: 13px; line-height: 1.6; }
         .footer-container { max-width: 1200px; margin: 0 auto; }
         
@@ -159,17 +159,14 @@
         .footer-company-info h2 span { color: #E6007E; font-weight: 900; }
         .footer-info-grid { display: grid; grid-template-columns: auto auto; gap: 8px 40px; }
         
-        /* 깃허브에 올리실 공식 인증 로고 (logo.png) */
-        .logo-img { width: 90px; height: auto; object-fit: contain; }
+        /* ★ 푸터 인증 마크 이미지를 깃허브에 있는 logo.png 로 매칭 완료 ★ */
+        .footer-logo-img { width: 90px; height: auto; object-fit: contain; }
 
-        /* 매장 리스트 가로 스크롤 영역 */
         .store-list-wrap { margin-bottom: 30px; overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 15px; }
-        /* 스크롤바 커스텀 (PC에서 예쁘게) */
         .store-list-wrap::-webkit-scrollbar { height: 6px; }
         .store-list-wrap::-webkit-scrollbar-thumb { background: #555555; border-radius: 10px; }
         .store-list-wrap::-webkit-scrollbar-track { background: #222222; }
 
-        /* PC 기본 매장 리스트: 2열 구조 */
         .store-list { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 40px; white-space: nowrap; }
         .store-item { color: #cccccc; font-size: 13px; }
         .store-item strong { color: #ffffff; font-weight: bold; margin-right: 5px; }
@@ -250,18 +247,17 @@
             .final-banner-desc { font-size: 15px; margin-bottom: 30px; }
             .final-banner-btn { font-size: 16px; padding: 14px 28px; }
 
-            /* ★ [모바일] 푸터 영역 레이아웃 최적화 (가로 스크롤 리스트) ★ */
-            .footer-section { padding: 40px 15px 100px; } /* 하단 플로팅 버튼 가림 방지 여백 */
+            .footer-section { padding: 40px 15px 100px; } 
             .footer-top { flex-direction: column; gap: 25px; padding-bottom: 25px; }
             .footer-info-grid { grid-template-columns: 1fr; gap: 6px; font-size: 12px; color: #999; }
             
-            /* 공식 인증 로고 모바일 위치 최적화 */
+            /* 로고 모바일 최적화 배치 */
             .footer-logo-img { position: absolute; right: 0; top: 0; width: 60px; }
 
-            /* 매장 리스트 모바일 가로 스크롤 (세로 늘어남 방지 핵심 코드) */
+            /* 매장 리스트 모바일 가로 스크롤 영역 */
             .store-list { 
                 grid-template-columns: none; 
-                grid-template-rows: repeat(6, auto); /* 딱 6줄까지만 쌓이고 오른쪽으로 넘어가게 만듦 */
+                grid-template-rows: repeat(6, auto); 
                 grid-auto-flow: column; 
                 gap: 12px 30px; 
             }
@@ -612,7 +608,7 @@
                         <div>주소 : 서울특별시 관악구 난곡로 194, 1층(신림동)</div>
                     </div>
                 </div>
-                <img src="footer_logo.png" alt="LGU+ 공식인증대리점" class="footer-logo-img">
+                <img src="logo.png" alt="LGU+ 공식인증대리점" class="footer-logo-img">
             </div>
 
             <div class="store-list-wrap">
