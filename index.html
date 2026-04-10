@@ -88,30 +88,16 @@
 
         /* 5. 인터넷 & IPTV 가입 안내 섹션 */
         .internet-section { padding: 80px 20px; background-color: #ffffff; text-align: center; border-top: 1px solid #eee; }
-        .q-badge { 
-            display: inline-flex; align-items: center; justify-content: center; background-color: #ffebf5; color: #E6007E; 
-            padding: 8px 20px; border-radius: 20px; font-size: 15px; font-weight: 800; margin-bottom: 20px; 
-        }
-        .q-icon {
-            display: inline-flex; align-items: center; justify-content: center;
-            width: 20px; height: 20px; background-color: #E6007E; color: white; 
-            border-radius: 50%; font-size: 12px; margin-right: 6px;
-        }
-
+        .q-badge { display: inline-flex; align-items: center; justify-content: center; background-color: #ffebf5; color: #E6007E; padding: 8px 20px; border-radius: 20px; font-size: 15px; font-weight: 800; margin-bottom: 20px; }
+        .q-icon { display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; background-color: #E6007E; color: white; border-radius: 50%; font-size: 12px; margin-right: 6px; }
         .internet-title { font-size: 36px; font-weight: 900; color: #111; margin-bottom: 40px; letter-spacing: -1px; word-break: keep-all; }
         .internet-title strong { color: #E6007E; }
         .nowrap { white-space: nowrap; }
-        
-        .highlight-box { 
-            background: #ffffff; border-radius: 20px; padding: 40px 20px; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.06); border: 1px solid #eee; 
-            max-width: 750px; margin: 0 auto 30px; 
-        }
+        .highlight-box { background: #ffffff; border-radius: 20px; padding: 40px 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.06); border: 1px solid #eee; max-width: 750px; margin: 0 auto 30px; }
         .promo-text-small { font-size: 26px; font-weight: 800; color: #444; margin-bottom: 10px; letter-spacing: -0.5px; }
         .promo-text-small .blue-point { color: #3b82f6; font-weight: 900; }
         .promo-text-big { font-size: 36px; font-weight: 900; color: #111; letter-spacing: -1px; }
         .promo-text-big .pink-point { color: #E6007E; font-size: 42px; }
-        
         .internet-desc { font-size: 16px; color: #555; line-height: 1.6; margin-bottom: 60px; font-weight: 600; word-break: keep-all; }
         
         .benefit-steps { display: flex; justify-content: space-between; position: relative; max-width: 1000px; margin: 0 auto; gap: 20px; }
@@ -123,7 +109,6 @@
         /* 6. 신뢰(Trust) 문구 섹션 */
         .trust-section { padding: 80px 0 60px; background-color: #ffffff; text-align: center; border-top: 1px solid #eee; overflow: hidden; }
         .trust-slider-wrap { width: 100%; overflow: hidden; position: relative; } 
-        
         .trust-track-container { display: block; width: 100%; padding: 0; margin: 0; }
         .trust-slide-set { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; max-width: 1100px; margin: 0 auto 50px; animation: none; padding: 0 20px; }
         .mobile-clone { display: none !important; }
@@ -143,50 +128,56 @@
         .review-slider-wrap { width: 100%; overflow: hidden; position: relative; padding: 20px 0; background-color: #ffffff; }
         .review-track-container { display: flex; flex-wrap: nowrap; width: max-content; }
         .review-track-container:hover .review-slide-set { animation-play-state: paused; }
-        
         .review-slide-set { display: flex; flex-shrink: 0; animation: scroll-loop-review 20s linear infinite; } 
         .review-card { width: 280px; margin-right: 20px; flex-shrink: 0; border-radius: 16px; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.06); border: 1px solid #eaeaea; background-color: #fff; }
         .review-card img { width: 100%; display: block; height: auto; }
-        
         @keyframes scroll-loop-review { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
 
-        /* ★ 8. 마지막 상담 유도 배너 섹션 (새로 추가) ★ */
+        /* 8. 마지막 상담 유도 배너 섹션 */
         .final-banner {
-            position: relative;
-            background-color: #f9f9f9;
-            /* 깃허브에 올리실 이미지 이름 (예: final_banner.png)을 아래에 적어주세요 */
-            background-image: url('final_banner.png'); 
-            background-size: cover;
-            background-position: center right;
-            padding: 100px 0;
-            overflow: hidden;
-            border-top: 1px solid #eee;
+            position: relative; background-color: #f9f9f9;
+            background-image: url('final_banner.jpg'); 
+            background-size: cover; background-position: center right;
+            padding: 100px 0; overflow: hidden; border-top: 1px solid #eee;
         }
-        /* 텍스트 가독성을 위한 그라데이션 오버레이 */
         .final-banner::before {
-            content: '';
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             background: linear-gradient(to right, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.7) 40%, rgba(255,255,255,0) 100%);
         }
-        .final-content {
-            position: relative; z-index: 1;
-            max-width: 1200px; margin: 0 auto; padding: 0 20px;
-        }
-        .final-banner-title {
-            font-size: 34px; font-weight: 800; color: #111; line-height: 1.4;
-            margin-bottom: 20px; letter-spacing: -1px; word-break: keep-all;
-        }
-        .final-banner-desc {
-            font-size: 18px; color: #333; font-weight: 700; margin-bottom: 40px; letter-spacing: -0.5px;
-        }
-        .final-banner-btn {
-            display: inline-block; background-color: #E6007E; color: #fff;
-            font-size: 18px; font-weight: bold; padding: 18px 36px; border-radius: 30px;
-            text-decoration: none; transition: background-color 0.2s; box-shadow: 0 4px 15px rgba(230,0,126,0.3);
-        }
+        .final-content { position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .final-banner-title { font-size: 34px; font-weight: 800; color: #111; line-height: 1.4; margin-bottom: 20px; letter-spacing: -1px; word-break: keep-all; }
+        .final-banner-desc { font-size: 18px; color: #333; font-weight: 700; margin-bottom: 40px; letter-spacing: -0.5px; }
+        .final-banner-btn { display: inline-block; background-color: #E6007E; color: #fff; font-size: 18px; font-weight: bold; padding: 18px 36px; border-radius: 30px; text-decoration: none; transition: background-color 0.2s; box-shadow: 0 4px 15px rgba(230,0,126,0.3); }
         .final-banner-btn:hover { background-color: #c9006e; }
 
-        /* 9. 우측 하단 플로팅 버튼 */
+        /* ★ 9. 최하단 정보(푸터) 및 매장 리스트 영역 추가 ★ */
+        .footer-section { background-color: #222222; color: #aaaaaa; padding: 60px 20px 40px; font-size: 13px; line-height: 1.6; }
+        .footer-container { max-width: 1200px; margin: 0 auto; }
+        
+        .footer-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 40px; border-bottom: 1px solid #333333; padding-bottom: 30px; position: relative; }
+        .footer-company-info h2 { color: #ffffff; font-size: 22px; margin-bottom: 15px; display: flex; align-items: center; gap: 6px; letter-spacing: -0.5px; }
+        .footer-company-info h2 span { color: #E6007E; font-weight: 900; }
+        .footer-info-grid { display: grid; grid-template-columns: auto auto; gap: 8px 40px; }
+        
+        /* 깃허브에 올리실 공식 인증 로고 (logo.png) */
+        .logo-img { width: 90px; height: auto; object-fit: contain; }
+
+        /* 매장 리스트 가로 스크롤 영역 */
+        .store-list-wrap { margin-bottom: 30px; overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 15px; }
+        /* 스크롤바 커스텀 (PC에서 예쁘게) */
+        .store-list-wrap::-webkit-scrollbar { height: 6px; }
+        .store-list-wrap::-webkit-scrollbar-thumb { background: #555555; border-radius: 10px; }
+        .store-list-wrap::-webkit-scrollbar-track { background: #222222; }
+
+        /* PC 기본 매장 리스트: 2열 구조 */
+        .store-list { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 40px; white-space: nowrap; }
+        .store-item { color: #cccccc; font-size: 13px; }
+        .store-item strong { color: #ffffff; font-weight: bold; margin-right: 5px; }
+
+        .footer-bottom { border-top: 1px solid #333333; padding-top: 20px; font-size: 12px; color: #777777; text-align: center; }
+        .footer-warning { margin-bottom: 5px; }
+
+        /* 우측 하단 플로팅 버튼 */
         .fab-container { position: fixed; bottom: 30px; right: 30px; display: flex; flex-direction: column; gap: 15px; z-index: 9999; }
         .fab-btn { width: 60px; height: 60px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 28px; text-decoration: none; box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: transform 0.2s ease; }
         .fab-btn:hover { transform: scale(1.1); }
@@ -253,12 +244,30 @@
             .review-slide-set { animation: scroll-loop-review 12s linear infinite; }
             .review-card { width: 220px; margin-right: 15px; } 
 
-            /* [모바일] 마지막 상담 유도 배너 조절 */
             .final-banner { background-position: 80% center; padding: 60px 0; }
             .final-banner::before { background: linear-gradient(to right, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.9) 55%, rgba(255,255,255,0.3) 100%); }
             .final-banner-title { font-size: 24px; margin-bottom: 15px; }
             .final-banner-desc { font-size: 15px; margin-bottom: 30px; }
             .final-banner-btn { font-size: 16px; padding: 14px 28px; }
+
+            /* ★ [모바일] 푸터 영역 레이아웃 최적화 (가로 스크롤 리스트) ★ */
+            .footer-section { padding: 40px 15px 100px; } /* 하단 플로팅 버튼 가림 방지 여백 */
+            .footer-top { flex-direction: column; gap: 25px; padding-bottom: 25px; }
+            .footer-info-grid { grid-template-columns: 1fr; gap: 6px; font-size: 12px; color: #999; }
+            
+            /* 공식 인증 로고 모바일 위치 최적화 */
+            .footer-logo-img { position: absolute; right: 0; top: 0; width: 60px; }
+
+            /* 매장 리스트 모바일 가로 스크롤 (세로 늘어남 방지 핵심 코드) */
+            .store-list { 
+                grid-template-columns: none; 
+                grid-template-rows: repeat(6, auto); /* 딱 6줄까지만 쌓이고 오른쪽으로 넘어가게 만듦 */
+                grid-auto-flow: column; 
+                gap: 12px 30px; 
+            }
+            .store-item { width: max-content; font-size: 12px; }
+
+            .footer-bottom { text-align: left; font-size: 11px; line-height: 1.5; }
 
             .fab-container { bottom: 20px; right: 20px; gap: 10px; }
             .fab-btn { width: 50px; height: 50px; font-size: 24px; }
@@ -590,6 +599,56 @@
             <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="final-banner-btn">실시간 무료 상담하기</a>
         </div>
     </section>
+
+    <footer class="footer-section">
+        <div class="footer-container">
+            <div class="footer-top">
+                <div class="footer-company-info">
+                    <h2><span>U+</span> 더끌림컴퍼니</h2>
+                    <div class="footer-info-grid">
+                        <div>대표 : 이민진</div>
+                        <div>대표 번호 : 050-8201-0178</div>
+                        <div>사업자번호 : 192-88-01136</div>
+                        <div>주소 : 서울특별시 관악구 난곡로 194, 1층(신림동)</div>
+                    </div>
+                </div>
+                <img src="footer_logo.png" alt="LGU+ 공식인증대리점" class="footer-logo-img">
+            </div>
+
+            <div class="store-list-wrap">
+                <div class="store-list">
+                    <div class="store-item"><strong>▶ 남문시장점 :</strong> 서울특별시 금천구 독산로87길 2</div>
+                    <div class="store-item"><strong>▶ 남현점 :</strong> 서울특별시 관악구 남현길 8</div>
+                    <div class="store-item"><strong>▶ 문래힐스테이트점 :</strong> 서울특별시 영등포구 선유로 59</div>
+                    <div class="store-item"><strong>▶ 낙성대점 :</strong> 서울특별시 관악구 남부순환로 1952</div>
+                    <div class="store-item"><strong>▶ 가산점 :</strong> 서울특별시 금천구 디지털로 212</div>
+                    <div class="store-item"><strong>▶ 강서구청점 :</strong> 서울특별시 강서구 화곡로 322</div>
+                    <div class="store-item"><strong>▶ 난곡점 :</strong> 서울특별시 관악구 난곡로 194</div>
+                    <div class="store-item"><strong>▶ 증미산점 :</strong> 서울특별시 강서구 양천로 583</div>
+                    <div class="store-item"><strong>▶ 대림9번출구점 :</strong> 서울특별시 영등포구 도림로 135</div>
+                    <div class="store-item"><strong>▶ 대림삼거리점 :</strong> 서울특별시 영등포구 디지털로54길 3 1층</div>
+                    <div class="store-item"><strong>▶ 평촌학원가점 :</strong> 경기도 안양시 동안구 평촌대로 137-7</div>
+                    
+                    <div class="store-item"><strong>▶ 대림11번출구점 :</strong> 서울특별시 영등포구 도림로 144</div>
+                    <div class="store-item"><strong>▶ 안양일번가점 :</strong> 경기도 안양시 만안구 안양로292번길 8</div>
+                    <div class="store-item"><strong>▶ 신림점 :</strong> 서울특별시 관악구 남부순환로 1601</div>
+                    <div class="store-item"><strong>▶ 범계점 :</strong> 경기도 안양시 동안구 평촌대로223번길 49</div>
+                    <div class="store-item"><strong>▶ 영등포구청점 :</strong> 서울특별시 영등포구 당산로 136-1</div>
+                    <div class="store-item"><strong>▶ 비산이마트점 :</strong> 경기도 안양시 동안구 관악대로 99</div>
+                    <div class="store-item"><strong>▶ 봉천사거리점 :</strong> 서울특별시 관악구 관악로 194</div>
+                    <div class="store-item"><strong>▶ 관양시장점 :</strong> 경기도 안양시 동안구 관악대로 341</div>
+                    <div class="store-item"><strong>▶ 사당점 :</strong> 서울특별시 동작구 동작대로 45</div>
+                    <div class="store-item"><strong>▶ 호계점 :</strong> 서울특별시 동안구 경수대로 541</div>
+                    <div class="store-item"><strong>▶ 칠보마을점 :</strong> 경기도 수원시 권선구 금곡로102번길 30 1층</div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p class="footer-warning">※ 본 번호로의 광고·영업 전화는 업무방해 및 정보통신망법 위반으로 네이버/카카오 본사 및 관계기관에 즉시 신고합니다.</p>
+                <p>©2026 주식회사 더끌림컴퍼니. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
 
     <div class="fab-container">
         <a href="tel:010-7774-0184" class="fab-btn fab-phone">📞</a>
