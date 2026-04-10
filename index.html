@@ -16,11 +16,7 @@
             padding: 0 10px; box-sizing: border-box; box-shadow: 0 2px 10px rgba(0,0,0,0.1); z-index: 1000; 
         }
         .header-logo { display: flex; align-items: center; gap: 6px; overflow: hidden; flex: 1; margin-right: 8px; }
-        
-        /* 상단 로고 이미지 기본 사이즈 (모바일용) */
         .logo-img { height: 28px; width: auto; } 
-
-        /* 상단 서브 텍스트 */
         .logo-sub { color: #444; font-size: 13px; font-weight: 800; letter-spacing: -0.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         
         .header-btns { display: flex; gap: 4px; flex-shrink: 0; }
@@ -28,17 +24,30 @@
         .btn-top-kakao { background-color: #FEE500; color: #000; }
         .btn-top-reg { background-color: #E6007E; color: #fff; }
 
-        /* 2. 메인 1페이지 (Hero Section) */
+        /* ★ 2. 풀와이드 상단 배너 슬라이드 (새로 추가됨) ★ */
+        .top-banner-slider {
+            width: 100%;
+            height: 250px; /* 모바일 배너 높이 */
+            position: relative;
+            overflow: hidden;
+            background-color: #f0f0f0;
+        }
+        .slide {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            object-fit: cover; /* 이미지가 화면 너비에 꽉 차도록 비율에 맞춰 자름 */
+            object-position: center; /* 사진 중앙을 기준으로 배치 */
+            opacity: 0; transition: opacity 1s ease-in-out; 
+        }
+        .slide.active { opacity: 1; }
+
+        /* 3. 메인 콘텐츠 영역 (텍스트 + 공식 인증 마크) */
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-        .hero-section { padding: 80px 0; display: flex; align-items: center; justify-content: space-between; gap: 50px; }
+        .hero-section { padding: 60px 0; display: flex; align-items: center; justify-content: space-between; gap: 50px; }
         .hero-text-box { flex: 1; }
         
         .hero-title { font-size: 40px; font-weight: 800; line-height: 1.3; letter-spacing: -1px; margin-bottom: 24px; word-break: keep-all; }
         .text-black { color: #000000; }
-        
-        /* ★ 메인 타이틀 로고 이미지 스타일 (기본) ★ */
         .main-title-logo { height: 60px; width: auto; margin-top: 10px; display: inline-block; }
-
         .hero-desc { font-size: 16px; line-height: 1.6; color: #555; margin-bottom: 40px; word-break: keep-all; }
 
         .button-group { display: flex; gap: 12px; }
@@ -47,44 +56,39 @@
         .btn-kakao { background-color: #FEE500; color: #000000; }
         .btn-phone { background-color: #E6007E; color: #ffffff; }
 
-        /* 3. 슬라이드쇼 이미지 영역 */
-        .hero-img-box { 
-            flex: 1; max-width: 550px; width: 100%; position: relative; 
-            aspect-ratio: 4 / 3; border-radius: 24px; overflow: hidden; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08); background-color: #f8f9fa; 
+        /* ★ 우측 대리점 공식 인증 마크 영역 ★ */
+        .cert-mark-box { 
+            flex: 1; 
+            max-width: 450px; /* 인증 마크 최대 크기 제한 */
+            display: flex; justify-content: center; align-items: center;
         }
-        .slide {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            object-fit: cover; opacity: 0; transition: opacity 1s ease-in-out; 
+        .cert-mark-box img {
+            width: 100%; height: auto; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05); /* 부드러운 그림자 효과 */
+            border-radius: 16px;
         }
-        .slide.active { opacity: 1; }
 
         /* 4. 반응형 디자인 (모바일 / PC) */
         @media (max-width: 768px) {
-            .hero-section { flex-direction: column; padding: 40px 0; text-align: center; gap: 30px; }
+            .hero-section { flex-direction: column; padding: 40px 0; text-align: center; gap: 40px; }
             .hero-title { font-size: 28px; }
-            
-            /* ★ 모바일에서 메인 로고 크기 대폭 확대 ★ */
             .main-title-logo { height: 55px; margin-top: 10px; } 
-            
             .hero-desc { font-size: 15px; padding: 0 10px; }
             .button-group { flex-direction: column; width: 100%; padding: 0 15px; }
             .btn { width: 100%; } 
+            .cert-mark-box { max-width: 300px; } /* 모바일에서 인증 마크 크기 조절 */
         }
         @media (min-width: 769px) {
             body { padding-top: 75px; } 
             .sticky-header { padding: 0 40px; height: 75px; }
-            .header-logo { gap: 10px; margin-right: 0; overflow: visible; }
-            
-            /* 상단 로고 및 텍스트 확장 사이즈 (PC용) */
             .logo-img { height: 40px; } 
             .logo-sub { font-size: 18px; font-weight: 800; overflow: visible; } 
-            
-            /* ★ PC에서 메인 로고 크기 대폭 확대 ★ */
-            .main-title-logo { height: 150px; margin-top: 15px; } 
-
             .header-btns { gap: 10px; }
             .btn-top-kakao, .btn-top-reg { font-size: 14px; padding: 10px 18px; }
+            
+            /* PC에서 상단 배너 높이 확대 */
+            .top-banner-slider { height: 450px; } 
+            .main-title-logo { height: 90px; margin-top: 15px; } 
         }
     </style>
 </head>
@@ -101,11 +105,36 @@
         </div>
     </header>
 
+    <section class="top-banner-slider" id="slider">
+        <img src="store13.jpeg" class="slide active" alt="봉천사거리점">
+        <img src="store2.jpeg" class="slide" alt="강서구청점">
+        <img src="store3.jpeg" class="slide" alt="관양점">
+        <img src="store4.jpeg" class="slide" alt="낙성대점">
+        <img src="store5.jpeg" class="slide" alt="난곡점">
+        <img src="store6.jpeg" class="slide" alt="남문점">
+        <img src="store7.jpeg" class="slide" alt="남현점">
+        <img src="store8.jpeg" class="slide" alt="대림9번출구점">
+        <img src="store9.jpeg" class="slide" alt="대림11번출구점">
+        <img src="store10.jpeg" class="slide" alt="대림공원점">
+        <img src="store11.jpeg" class="slide" alt="문래점">
+        <img src="store12.jpeg" class="slide" alt="범계점">
+        <img src="store1.jpeg" class="slide" alt="디지털단지오거리점">
+        <img src="store14.jpeg" class="slide" alt="비산점">
+        <img src="store15.jpeg" class="slide" alt="사당점">
+        <img src="store16.jpeg" class="slide" alt="신림점">
+        <img src="store17.jpeg" class="slide" alt="영등포구청점">
+        <img src="store18.jpeg" class="slide" alt="일번가점">
+        <img src="store19.jpeg" class="slide" alt="증미점">
+        <img src="store20.jpeg" class="slide" alt="칠보점">
+        <img src="store21.jpeg" class="slide" alt="학원가점">
+        <img src="store22.jpeg" class="slide" alt="호계점">
+    </section>
+
     <section class="hero-section container">
         
         <div class="hero-text-box">
             <h1 class="hero-title">
-                <span class="text-black">U+ 공식인증 온라인 스토어</span><br>
+                <span class="text-black">LGU+ 공식인증 온라인 스토어</span><br>
                 <img src="hotdeal_logo.png" alt="U+ 핫딜센터" class="main-title-logo">
             </h1>
             <p class="hero-desc">
@@ -118,34 +147,14 @@
             </div>
         </div>
 
-        <div class="hero-img-box" id="slider">
-            <img src="store13.jpeg" class="slide active" alt="봉천사거리점">
-            <img src="store2.jpeg" class="slide" alt="강서구청점">
-            <img src="store3.jpeg" class="slide" alt="관양점">
-            <img src="store4.jpeg" class="slide" alt="낙성대점">
-            <img src="store5.jpeg" class="slide" alt="난곡점">
-            <img src="store6.jpeg" class="slide" alt="남문점">
-            <img src="store7.jpeg" class="slide" alt="남현점">
-            <img src="store8.jpeg" class="slide" alt="대림9번출구점">
-            <img src="store9.jpeg" class="slide" alt="대림11번출구점">
-            <img src="store10.jpeg" class="slide" alt="대림공원점">
-            <img src="store11.jpeg" class="slide" alt="문래점">
-            <img src="store12.jpeg" class="slide" alt="범계점">
-            <img src="store1.jpeg" class="slide" alt="디지털단지오거리점">
-            <img src="store14.jpeg" class="slide" alt="비산점">
-            <img src="store15.jpeg" class="slide" alt="사당점">
-            <img src="store16.jpeg" class="slide" alt="신림점">
-            <img src="store17.jpeg" class="slide" alt="영등포구청점">
-            <img src="store18.jpeg" class="slide" alt="일번가점">
-            <img src="store19.jpeg" class="slide" alt="증미점">
-            <img src="store20.jpeg" class="slide" alt="칠보점">
-            <img src="store21.jpeg" class="slide" alt="학원가점">
-            <img src="store22.jpeg" class="slide" alt="호계점">
+        <div class="cert-mark-box">
+            <img src="cert_mark.png" alt="대리점 공식 인증 마크">
         </div>
 
     </section>
 
     <script>
+        // 슬라이드 자동 재생 스크립트
         document.addEventListener('DOMContentLoaded', () => {
             const slides = document.querySelectorAll('.slide');
             let currentSlide = 0;
