@@ -84,11 +84,10 @@
         .final-price { text-align: right; font-size: 32px; font-weight: 900; color: #0052cc; margin-top: 5px; }
         .final-price span { font-size: 18px; font-weight: 700; }
 
-        /* ★ 5. 신뢰(Trust) 카드 섹션 (디자인 적용 완료) ★ */
-        .trust-section { padding: 80px 20px 100px; background-color: #ffffff; text-align: center; border-top: 1px solid #eee; }
-        .trust-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; max-width: 1100px; margin: 0 auto 50px; }
+        /* 5. 신뢰(Trust) 카드 섹션 */
+        .trust-section { padding: 80px 0 100px; background-color: #ffffff; text-align: center; border-top: 1px solid #eee; overflow: hidden; }
+        .trust-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; max-width: 1100px; margin: 0 auto 50px; padding: 0 20px; }
         
-        /* 안내 카드 기본 박스 스타일 */
         .trust-card { 
             border-radius: 24px; padding: 40px 20px 20px; 
             display: flex; flex-direction: column; justify-content: space-between; align-items: center;
@@ -97,37 +96,47 @@
         }
         .trust-card:hover { transform: translateY(-5px); }
         
-        /* 1, 3번째 연분홍 박스 스타일 */
+        /* 3개의 카드 모두 동일한 연분홍 배경으로 통일 */
         .card-light { background-color: #fffafc; border: 1px solid #faeef3; }
-        .card-light .trust-card-text { color: #222; }
-        
-        /* 2번째 찐분홍 박스 스타일 */
-        .card-pink { background-color: #E6007E; }
-        .card-pink .trust-card-text { color: #ffffff; }
-
-        /* 카드 내 텍스트 스타일 */
-        .trust-card-text { font-size: 22px; font-weight: 800; line-height: 1.5; margin-bottom: 30px; letter-spacing: -0.5px; word-break: keep-all; }
-        
-        /* 텍스트 핑크색 강조 배경 스타일 (안내드립니다) */
-        .highlight-bg { background-color: #E6007E; color: white; padding: 2px 6px; border-radius: 4px; }
-
-        /* 카드 내 투명 아이콘 사이즈 */
+        .trust-card-text { font-size: 22px; font-weight: 800; line-height: 1.5; margin-bottom: 30px; letter-spacing: -0.5px; word-break: keep-all; color: #222; }
         .trust-icon { width: 180px; height: auto; object-fit: contain; }
 
         .trust-arrow { margin: 0 auto 30px; display: block; width: 44px; height: 44px; animation: bounce 2s infinite; }
         @keyframes bounce { 0%, 20%, 50%, 80%, 100% { transform: translateY(0); } 40% { transform: translateY(-10px); } 60% { transform: translateY(-5px); } }
 
-        .trust-text-main { font-size: 28px; font-weight: 800; color: #111; margin-bottom: 20px; letter-spacing: -1px; }
+        .trust-text-main { font-size: 28px; font-weight: 800; color: #111; margin-bottom: 20px; letter-spacing: -1px; padding: 0 20px; }
         .trust-text-main .highlight { color: #E6007E; }
-        .trust-text-sub { font-size: 18px; font-weight: 600; color: #555; line-height: 1.6; letter-spacing: -0.5px; }
+        .trust-text-sub { font-size: 18px; font-weight: 600; color: #555; line-height: 1.6; letter-spacing: -0.5px; padding: 0 20px; margin-bottom: 50px; }
 
-        /* 6. 우측 하단 플로팅 버튼 */
+        /* ★ 6. 후기 사진 가로 자동 슬라이드 영역 (새로 추가) ★ */
+        .review-slider-wrap { width: 100%; overflow: hidden; position: relative; padding: 20px 0; background-color: #fafbfc; }
+        .review-track { 
+            display: flex; width: max-content; 
+            animation: scroll-loop 30s linear infinite; /* 30초 동안 무한 반복 (속도 조절 가능) */
+        }
+        .review-track:hover { animation-play-state: paused; /* 마우스 올리면 일시정지 */ }
+        
+        .review-card { 
+            width: 280px; /* 사진 1장 너비 */
+            margin-right: 20px; /* 사진 간격 */
+            flex-shrink: 0; 
+            border-radius: 16px; overflow: hidden; 
+            box-shadow: 0 5px 20px rgba(0,0,0,0.06); border: 1px solid #eaeaea; 
+            background-color: #fff;
+        }
+        .review-card img { width: 100%; display: block; height: auto; }
+
+        @keyframes scroll-loop {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); } /* 절반(복제된 시작점)까지 이동 후 리셋 */
+        }
+
+        /* 7. 우측 하단 플로팅 버튼 */
         .fab-container { position: fixed; bottom: 30px; right: 30px; display: flex; flex-direction: column; gap: 15px; z-index: 9999; }
         .fab-btn { width: 60px; height: 60px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 28px; text-decoration: none; box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: transform 0.2s ease; }
         .fab-btn:hover { transform: scale(1.1); }
         .fab-phone { background-color: #E6007E; color: white; }
         .fab-kakao { background-color: #FEE500; color: #000; animation: pulse-glow 2s infinite; }
-        
         @keyframes pulse-glow { 0% { box-shadow: 0 0 0 0 rgba(254, 229, 0, 0.7); } 70% { box-shadow: 0 0 0 15px rgba(254, 229, 0, 0); } 100% { box-shadow: 0 0 0 0 rgba(254, 229, 0, 0); } }
 
         /* 반응형 디자인 (모바일 / PC) */
@@ -148,13 +157,15 @@
             .product-card { padding: 30px 20px; }
             .product-name { font-size: 20px; }
 
-            /* 모바일 신뢰 섹션 조절 (카드가 세로로 떨어지게) */
-            .trust-section { padding: 50px 20px 80px; }
+            /* 모바일 신뢰 섹션 및 후기 슬라이더 크기 조절 */
+            .trust-section { padding: 50px 0 80px; }
             .trust-grid { grid-template-columns: 1fr; gap: 20px; margin-bottom: 30px; }
             .trust-card-text { font-size: 20px; margin-bottom: 20px; }
             .trust-icon { width: 140px; }
             .trust-text-main { font-size: 22px; }
-            .trust-text-sub { font-size: 15px; }
+            .trust-text-sub { font-size: 15px; margin-bottom: 30px; }
+            
+            .review-card { width: 220px; margin-right: 15px; } /* 모바일에서 후기 사진 조금 작게 */
 
             .fab-container { bottom: 20px; right: 20px; gap: 10px; }
             .fab-btn { width: 50px; height: 50px; font-size: 24px; }
@@ -232,7 +243,6 @@
 
     <section class="product-section">
         <h2 class="section-title">더끌림컴퍼니의 😎 <span class="text-lgu-pink">휴대폰 특가</span></h2>
-        
         <div class="product-grid">
             <div class="product-card">
                 <img src="s26.png" alt="s26" class="product-img">
@@ -246,7 +256,6 @@
                 <p class="price-condition">(LGU+ 통신사 이동 / 85요금제 6개월 유지 조건)</p>
                 <div class="final-price">154,000<span>원</span></div>
             </div>
-
             <div class="product-card">
                 <img src="s26p.png" alt="s26p" class="product-img">
                 <h3 class="product-name">갤럭시 S26+ (256GB)</h3>
@@ -259,7 +268,6 @@
                 <p class="price-condition">(LGU+ 통신사 이동 / 85요금제 6개월 유지 조건)</p>
                 <div class="final-price">352,000<span>원</span></div>
             </div>
-
             <div class="product-card">
                 <img src="s26u.png" alt="s26u" class="product-img">
                 <h3 class="product-name">갤럭시 S26 Ultra (256GB)</h3>
@@ -272,7 +280,6 @@
                 <p class="price-condition">(LGU+ 통신사 이동 / 85요금제 6개월 유지 조건)</p>
                 <div class="final-price">697,400<span>원</span></div>
             </div>
-
             <div class="product-card">
                 <img src="ip17.png" alt="ip17" class="product-img">
                 <h3 class="product-name">iPhone 17 (128GB)</h3>
@@ -285,7 +292,6 @@
                 <p class="price-condition">(LGU+ 통신사이동 / 85요금제 6개월 유지 조건)</p>
                 <div class="final-price">247,000<span>원</span></div>
             </div>
-
             <div class="product-card">
                 <img src="17pr.png" alt="17pr" class="product-img">
                 <h3 class="product-name">iPhone 17 Pro (256GB)</h3>
@@ -298,7 +304,6 @@
                 <p class="price-condition">(LGU+ 통신사이동 / 85요금제 6개월 유지 조건)</p>
                 <div class="final-price">762,000<span>원</span></div>
             </div>
-
             <div class="product-card">
                 <img src="17pm.png" alt="17pm" class="product-img">
                 <h3 class="product-name">iPhone 17 Pro Max (256GB)</h3>
@@ -311,7 +316,6 @@
                 <p class="price-condition">(LGU+ 통신사이동 / 85요금제 6개월 유지 조건)</p>
                 <div class="final-price">1,359,000<span>원</span></div>
             </div>
-
             <div class="product-card">
                 <img src="flip7.png" alt="flip7" class="product-img">
                 <h3 class="product-name">갤럭시 Z 플립7 (256GB)</h3>
@@ -324,7 +328,6 @@
                 <p class="price-condition">(LGU+ 통신사 이동 / 85요금제 6개월 유지 조건)</p>
                 <div class="final-price">255,000<span>원</span></div>
             </div>
-
             <div class="product-card">
                 <img src="fold7.png" alt="fold7" class="product-img">
                 <h3 class="product-name">갤럭시 Z 폴드7 (256GB)</h3>
@@ -337,7 +340,6 @@
                 <p class="price-condition">(LGU+ 통신사 이동 / 85요금제 6개월 유지 조건)</p>
                 <div class="final-price">1,249,300<span>원</span></div>
             </div>
-
             <div class="product-card">
                 <img src="ip16.png" alt="ip16" class="product-img">
                 <h3 class="product-name">iPhone 16 (128GB)</h3>
@@ -354,43 +356,49 @@
     </section>
 
     <section class="trust-section">
+        
         <div class="trust-grid">
-            
             <div class="trust-card card-light">
-                <div class="trust-card-text">
-                    요금제부터 단말기 가격까지,<br>정확하게 <span class="highlight-bg">안내드립니다.</span>
-                </div>
+                <div class="trust-card-text">요금제부터 단말기 가격까지,<br>정확하게 안내드립니다.</div>
                 <img src="info1.png" alt="정확한 안내" class="trust-icon">
             </div>
-
-            <div class="trust-card card-pink">
-                <div class="trust-card-text">
-                    숨겨진 조건 없이 최저가<br>혜택을 정직하게 제공합니다.
-                </div>
+            
+            <div class="trust-card card-light">
+                <div class="trust-card-text">숨겨진 조건 없이 최저가<br>혜택을 <span class="text-lgu-pink">정직하게</span> 제공합니다.</div>
                 <img src="info2.png" alt="정직한 제공" class="trust-icon">
             </div>
 
             <div class="trust-card card-light">
-                <div class="trust-card-text">
-                    본사와 동일한 서비스 품질,<br>믿을 수 있는 상담 시스템.
-                </div>
+                <div class="trust-card-text">본사와 동일한 서비스 품질,<br>믿을 수 있는 상담 시스템.</div>
                 <img src="info3.png" alt="믿을 수 있는 상담" class="trust-icon">
             </div>
-
         </div>
 
         <svg class="trust-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#E6007E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <polyline points="7 13 12 18 17 13"></polyline>
             <polyline points="7 6 12 11 17 6"></polyline>
         </svg>
-
-        <div class="trust-text-main">
-            더 이상 <span class="highlight">비교</span>에 지치지 마세요.
-        </div>
+        <div class="trust-text-main">더 이상 <span class="highlight">비교</span>에 지치지 마세요.</div>
         <div class="trust-text-sub">
             통신의 모든 궁금함, 더끌림컴퍼니에서 확실하게 해결해드립니다.<br>
             실제 고객님들의 믿을 수 있는 후기가 증명 합니다.
         </div>
+
+        <div class="review-slider-wrap">
+            <div class="review-track">
+                <div class="review-card"><img src="review1.png" alt="고객 후기 1"></div>
+                <div class="review-card"><img src="review2.png" alt="고객 후기 2"></div>
+                <div class="review-card"><img src="review3.png" alt="고객 후기 3"></div>
+                <div class="review-card"><img src="review4.png" alt="고객 후기 4"></div>
+                <div class="review-card"><img src="review5.png" alt="고객 후기 5"></div>
+                <div class="review-card"><img src="review1.png" alt="고객 후기 1"></div>
+                <div class="review-card"><img src="review2.png" alt="고객 후기 2"></div>
+                <div class="review-card"><img src="review3.png" alt="고객 후기 3"></div>
+                <div class="review-card"><img src="review4.png" alt="고객 후기 4"></div>
+                <div class="review-card"><img src="review5.png" alt="고객 후기 5"></div>
+            </div>
+        </div>
+
     </section>
 
     <div class="fab-container">
