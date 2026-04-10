@@ -61,7 +61,7 @@
         .floating-text-box .float-title { font-size: 14px; font-weight: 800; color: #333; }
         .floating-text-box .float-desc { font-size: 13px; font-weight: 600; color: #777; letter-spacing: -0.5px; }
 
-        /* 4. 상품 특가 섹션 (공통 및 PC) */
+        /* 4. 상품 특가 섹션 */
         .product-section { padding: 80px 20px; background-color: #fafbfc; border-top: 1px solid #eee; overflow: hidden; }
         .section-title { text-align: center; font-size: 36px; font-weight: 800; margin-bottom: 50px; letter-spacing: -1px; }
         
@@ -128,36 +128,22 @@
             .floating-text-box .float-title { font-size: 13px; }
             .floating-text-box .float-desc { font-size: 11px; }
 
-            /* ★ [모바일] 상품 특가 섹션 (가로 스크롤 슬라이더 형태) ★ */
-            .product-section { 
-                padding: 40px 0; /* 좌우 패딩을 없애 꽉 차게 스크롤되도록 설정 */
-            }
+            /* [모바일] 상품 특가 섹션 (가로 스크롤 슬라이더) */
+            .product-section { padding: 40px 0; }
             .section-title { font-size: 24px; margin-bottom: 20px; }
-            
             .product-grid { 
-                display: flex; /* 그리드 대신 플렉스로 변경하여 가로 나열 */
-                overflow-x: auto; /* 가로 스크롤 허용 */
-                scroll-snap-type: x mandatory; /* 스냅 스크롤 적용 */
-                gap: 15px; 
-                padding: 0 15px; /* 좌우 여백 */
-                /* 스크롤바 숨기기 (웹킷 기반) */
-                -webkit-overflow-scrolling: touch;
+                display: flex; overflow-x: auto; scroll-snap-type: x mandatory; 
+                gap: 15px; padding: 0 15px 20px; -webkit-overflow-scrolling: touch;
             }
             .product-grid::-webkit-scrollbar { display: none; }
-            
             .product-card { 
-                width: 280px; /* 카드의 고정 너비 설정 */
-                flex-shrink: 0; /* 카드가 찌그러지지 않도록 고정 */
-                scroll-snap-align: start; /* 스크롤 시 카드에 딱 맞게 멈춤 */
-                padding: 25px 20px; 
-                display: block; /* 세로형 카드로 복귀 */
-                text-align: center;
-                height: 100%;
+                width: 280px; flex-shrink: 0; scroll-snap-align: start; 
+                padding: 25px 20px; display: block; text-align: center; height: auto;
+                align-self: stretch; /* 박스 높이 동일하게 자동 맞춤 */
             }
             .product-img-wrap { width: 100%; margin-bottom: 20px; }
             .product-img { max-width: 70%; margin: 0 auto; display: block; }
             .product-info-box { display: block; }
-            
             .product-name { font-size: 18px; margin-bottom: 20px; text-align: center; }
             .price-details { border-top: 1px solid #f5f5f5; padding-top: 20px; }
             .price-row { font-size: 13px; margin-bottom: 8px; color: #777; }
@@ -165,17 +151,37 @@
             .price-row.total { margin-top: 10px; padding-top: 10px; align-items: center; border-top: 1px dashed #eee; }
             .price-row.total span:first-child { font-size: 14px; font-weight: bold; color: #333; }
             .price-row.total .value { font-size: 16px; font-weight: 800; color: #000; letter-spacing: 0; }
-            
             .price-condition { font-size: 11px; margin-top: 15px; text-align: center; color: #999; }
             .final-price { display: block; font-size: 26px; margin-top: 10px; text-align: center; }
             .final-price span { font-size: 15px; }
 
-            /* 신뢰 섹션 모바일 (기존 세로형태 유지) */
-            .trust-section { padding: 50px 15px 80px; }
-            .trust-grid { grid-template-columns: 1fr; gap: 20px; margin-bottom: 30px; padding: 0; }
-            .trust-card { flex-direction: row; align-items: center; justify-content: space-between; padding: 25px 20px; text-align: left; height: auto; }
-            .trust-card-text { font-size: 16px; margin-bottom: 0; flex: 1; word-break: keep-all; line-height: 1.4; }
-            .trust-icon { width: 90px; height: auto; margin-left: 15px; flex-shrink: 0; }
+            /* ★ [모바일] 신뢰/안내 카드 섹션 (가로 한 줄 슬라이더 구조로 전면 수정) ★ */
+            .trust-section { padding: 50px 0 80px; }
+            .trust-grid { 
+                display: flex; /* 가로 나열을 위해 flex 적용 */
+                overflow-x: auto; /* 가로 스크롤 허용 */
+                scroll-snap-type: x mandatory; 
+                gap: 15px; 
+                padding: 10px 15px 30px; /* 그림자가 잘리지 않게 하단 여백 추가 */
+                margin-bottom: 20px;
+                -webkit-overflow-scrolling: touch;
+            }
+            .trust-grid::-webkit-scrollbar { display: none; }
+            .trust-card { 
+                width: 270px; /* 카드 고정 너비 지정 */
+                flex-shrink: 0; 
+                scroll-snap-align: start; 
+                flex-direction: column; /* 텍스트 위, 아이콘 아래 (PC와 동일한 예쁜 비율) */
+                align-items: center; 
+                justify-content: space-between; 
+                padding: 30px 20px 20px; 
+                text-align: center; 
+                height: auto; 
+                align-self: stretch; /* 플렉스박스 안에서 3개 박스 높이 무조건 통일 */
+            }
+            .trust-card-text { font-size: 18px; margin-bottom: 20px; word-break: keep-all; line-height: 1.4; color: #222; }
+            .trust-icon { width: 130px; height: auto; margin: 0 auto; flex-shrink: 0; }
+            
             .trust-text-main { font-size: 22px; padding: 0; }
             .trust-text-sub { font-size: 15px; margin-bottom: 30px; padding: 0; }
             
@@ -257,7 +263,6 @@
 
     <section class="product-section">
         <h2 class="section-title">더끌림컴퍼니의 😎 <span class="text-lgu-pink">휴대폰 특가</span></h2>
-        
         <div class="product-grid">
             
             <div class="product-card">
