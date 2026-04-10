@@ -61,7 +61,7 @@
         .floating-text-box .float-title { font-size: 14px; font-weight: 800; color: #333; }
         .floating-text-box .float-desc { font-size: 13px; font-weight: 600; color: #777; letter-spacing: -0.5px; }
 
-        /* 4. 상품 특가 섹션 */
+        /* 4. 상품 특가 섹션 (공통 및 PC) */
         .product-section { padding: 80px 20px; background-color: #fafbfc; border-top: 1px solid #eee; overflow: hidden; }
         .section-title { text-align: center; font-size: 36px; font-weight: 800; margin-bottom: 50px; letter-spacing: -1px; }
         
@@ -88,12 +88,21 @@
 
         /* 5. 신뢰(Trust) 카드 섹션 */
         .trust-section { padding: 80px 0 100px; background-color: #ffffff; text-align: center; border-top: 1px solid #eee; overflow: hidden; }
+        .trust-slider-wrap { width: 100%; } /* 모바일에서 사용할 래퍼 */
         .trust-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; max-width: 1100px; margin: 0 auto 50px; padding: 0 20px; }
-        .trust-card { border-radius: 24px; padding: 40px 20px 20px; display: flex; flex-direction: column; justify-content: space-between; align-items: center; box-shadow: 0 10px 25px rgba(0,0,0,0.04); height: 100%; transition: transform 0.2s; }
+        .trust-card { 
+            border-radius: 24px; padding: 40px 20px 20px; 
+            display: flex; flex-direction: column; justify-content: space-between; align-items: center; 
+            box-shadow: 0 10px 25px rgba(0,0,0,0.04); height: 100%; transition: transform 0.2s; 
+            margin-right: 0;
+        }
         .trust-card:hover { transform: translateY(-5px); }
         .card-light { background-color: #fffafc; border: 1px solid #faeef3; }
         .trust-card-text { font-size: 22px; font-weight: 800; line-height: 1.5; margin-bottom: 30px; letter-spacing: -0.5px; word-break: keep-all; color: #222; }
         .trust-icon { width: 180px; height: auto; object-fit: contain; }
+        
+        .mobile-clone { display: none; } /* PC에서는 무한루프용 복제본 숨김 */
+
         .trust-arrow { margin: 0 auto 30px; display: block; width: 44px; height: 44px; animation: bounce 2s infinite; }
         @keyframes bounce { 0%, 20%, 50%, 80%, 100% { transform: translateY(0); } 40% { transform: translateY(-10px); } 60% { transform: translateY(-5px); } }
         .trust-text-main { font-size: 28px; font-weight: 800; color: #111; margin-bottom: 20px; letter-spacing: -1px; padding: 0 20px; }
@@ -128,7 +137,7 @@
             .floating-text-box .float-title { font-size: 13px; }
             .floating-text-box .float-desc { font-size: 11px; }
 
-            /* [모바일] 상품 특가 섹션 (가로 스크롤 슬라이더) */
+            /* [모바일] 상품 특가 섹션 (고객이 직접 터치 스와이프 하는 영역) */
             .product-section { padding: 40px 0; }
             .section-title { font-size: 24px; margin-bottom: 20px; }
             .product-grid { 
@@ -139,7 +148,7 @@
             .product-card { 
                 width: 280px; flex-shrink: 0; scroll-snap-align: start; 
                 padding: 25px 20px; display: block; text-align: center; height: auto;
-                align-self: stretch; /* 박스 높이 동일하게 자동 맞춤 */
+                align-self: stretch; 
             }
             .product-img-wrap { width: 100%; margin-bottom: 20px; }
             .product-img { max-width: 70%; margin: 0 auto; display: block; }
@@ -155,30 +164,39 @@
             .final-price { display: block; font-size: 26px; margin-top: 10px; text-align: center; }
             .final-price span { font-size: 15px; }
 
-            /* ★ [모바일] 신뢰/안내 카드 섹션 (가로 한 줄 슬라이더 구조로 전면 수정) ★ */
+            /* ★ [모바일] 신뢰/안내 카드 섹션 (자동 무한루프 슬라이드) ★ */
             .trust-section { padding: 50px 0 80px; }
+            .trust-slider-wrap { width: 100%; overflow: hidden; } /* 가로 스크롤바 숨김 완벽처리 */
             .trust-grid { 
-                display: flex; /* 가로 나열을 위해 flex 적용 */
-                overflow-x: auto; /* 가로 스크롤 허용 */
-                scroll-snap-type: x mandatory; 
-                gap: 15px; 
-                padding: 10px 15px 30px; /* 그림자가 잘리지 않게 하단 여백 추가 */
+                display: flex; 
+                width: max-content; 
+                padding: 10px 0 30px 15px; /* 애니메이션 시작점 정렬 */
                 margin-bottom: 20px;
-                -webkit-overflow-scrolling: touch;
+                gap: 0; /* 마진으로 대체하여 애니메이션 오차 방지 */
+                animation: fast-trust-loop 12s linear infinite; /* 12초 동안 슉슉 이동 */
             }
-            .trust-grid::-webkit-scrollbar { display: none; }
+            .trust-grid:hover, .trust-grid:active { animation-play-state: paused; } /* 터치시 멈춤 */
+            
             .trust-card { 
-                width: 270px; /* 카드 고정 너비 지정 */
+                width: 270px; 
+                margin-right: 15px; /* 카드간 간격 */
                 flex-shrink: 0; 
-                scroll-snap-align: start; 
-                flex-direction: column; /* 텍스트 위, 아이콘 아래 (PC와 동일한 예쁜 비율) */
+                flex-direction: column; 
                 align-items: center; 
                 justify-content: space-between; 
                 padding: 30px 20px 20px; 
                 text-align: center; 
                 height: auto; 
-                align-self: stretch; /* 플렉스박스 안에서 3개 박스 높이 무조건 통일 */
+                align-self: stretch; /* 모든 카드 높이 완벽 통일 */
             }
+            .mobile-clone { display: flex; } /* 모바일 루프용 복제본 활성화 */
+            
+            /* 무한루프 키프레임 */
+            @keyframes fast-trust-loop { 
+                0% { transform: translateX(0); } 
+                100% { transform: translateX(-50%); } 
+            }
+
             .trust-card-text { font-size: 18px; margin-bottom: 20px; word-break: keep-all; line-height: 1.4; color: #222; }
             .trust-icon { width: 130px; height: auto; margin: 0 auto; flex-shrink: 0; }
             
@@ -264,7 +282,6 @@
     <section class="product-section">
         <h2 class="section-title">더끌림컴퍼니의 😎 <span class="text-lgu-pink">휴대폰 특가</span></h2>
         <div class="product-grid">
-            
             <div class="product-card">
                 <div class="product-img-wrap"><img src="s26.png" alt="s26" class="product-img"></div>
                 <div class="product-info-box">
@@ -404,18 +421,35 @@
     </section>
 
     <section class="trust-section">
-        <div class="trust-grid">
-            <div class="trust-card card-light">
-                <div class="trust-card-text">요금제부터 단말기 가격까지,<br>정확하게 안내드립니다.</div>
-                <img src="info1.png" alt="정확한 안내" class="trust-icon">
-            </div>
-            <div class="trust-card card-light">
-                <div class="trust-card-text">숨겨진 조건 없이 최저가<br>혜택을 <span class="text-lgu-pink">정직하게</span> 제공합니다.</div>
-                <img src="info2.png" alt="정직한 제공" class="trust-icon">
-            </div>
-            <div class="trust-card card-light">
-                <div class="trust-card-text">본사와 동일한 서비스 품질,<br>믿을 수 있는 상담 시스템.</div>
-                <img src="info3.png" alt="믿을 수 있는 상담" class="trust-icon">
+        <div class="trust-slider-wrap">
+            <div class="trust-grid">
+                
+                <div class="trust-card card-light">
+                    <div class="trust-card-text">요금제부터 단말기 가격까지,<br>정확하게 안내드립니다.</div>
+                    <img src="info1.png" alt="정확한 안내" class="trust-icon">
+                </div>
+                <div class="trust-card card-light">
+                    <div class="trust-card-text">숨겨진 조건 없이 최저가<br>혜택을 <span class="text-lgu-pink">정직하게</span> 제공합니다.</div>
+                    <img src="info2.png" alt="정직한 제공" class="trust-icon">
+                </div>
+                <div class="trust-card card-light">
+                    <div class="trust-card-text">본사와 동일한 서비스 품질,<br>믿을 수 있는 상담 시스템.</div>
+                    <img src="info3.png" alt="믿을 수 있는 상담" class="trust-icon">
+                </div>
+                
+                <div class="trust-card card-light mobile-clone">
+                    <div class="trust-card-text">요금제부터 단말기 가격까지,<br>정확하게 안내드립니다.</div>
+                    <img src="info1.png" alt="정확한 안내" class="trust-icon">
+                </div>
+                <div class="trust-card card-light mobile-clone">
+                    <div class="trust-card-text">숨겨진 조건 없이 최저가<br>혜택을 <span class="text-lgu-pink">정직하게</span> 제공합니다.</div>
+                    <img src="info2.png" alt="정직한 제공" class="trust-icon">
+                </div>
+                <div class="trust-card card-light mobile-clone">
+                    <div class="trust-card-text">본사와 동일한 서비스 품질,<br>믿을 수 있는 상담 시스템.</div>
+                    <img src="info3.png" alt="믿을 수 있는 상담" class="trust-icon">
+                </div>
+
             </div>
         </div>
 
