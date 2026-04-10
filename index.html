@@ -86,13 +86,12 @@
         .final-price { text-align: right; font-size: 32px; font-weight: 900; color: #0052cc; margin-top: 5px; }
         .final-price span { font-size: 18px; font-weight: 700; }
 
-        /* ★ 5. 인터넷 & IPTV 가입 안내 섹션 ★ */
+        /* 5. 인터넷 & IPTV 가입 안내 섹션 */
         .internet-section { padding: 80px 20px; background-color: #ffffff; text-align: center; border-top: 1px solid #eee; }
         .q-badge { 
             display: inline-flex; align-items: center; justify-content: center; background-color: #ffebf5; color: #E6007E; 
             padding: 8px 20px; border-radius: 20px; font-size: 15px; font-weight: 800; margin-bottom: 20px; 
         }
-        /* 서부센터 느낌의 Q 원형 아이콘 추가 */
         .q-icon {
             display: inline-flex; align-items: center; justify-content: center;
             width: 20px; height: 20px; background-color: #E6007E; color: white; 
@@ -101,7 +100,6 @@
 
         .internet-title { font-size: 36px; font-weight: 900; color: #111; margin-bottom: 40px; letter-spacing: -1px; word-break: keep-all; }
         .internet-title strong { color: #E6007E; }
-        /* 단어 끊김 방지용 클래스 */
         .nowrap { white-space: nowrap; }
         
         .highlight-box { 
@@ -119,31 +117,18 @@
         .benefit-steps { display: flex; justify-content: space-between; position: relative; max-width: 1000px; margin: 0 auto; gap: 20px; }
         .step-line { position: absolute; top: 11px; left: 15%; right: 15%; height: 2px; background-color: #dbeafe; z-index: 1; }
         .step-item { position: relative; z-index: 2; flex: 1; }
-        .step-dot { 
-            width: 24px; height: 24px; border-radius: 50%; background: #fff; 
-            border: 4px solid #bfdbfe; margin: 0 auto 20px; box-shadow: 0 0 0 4px #ffffff; 
-        }
-        .step-card { 
-            background: #fff; border: 1px solid #dbeafe; border-radius: 16px; 
-            padding: 30px 20px; font-size: 18px; font-weight: 700; color: #333; 
-            line-height: 1.5; box-shadow: 0 4px 15px rgba(0,0,0,0.02); 
-            word-break: keep-all; border-bottom: 4px solid #bfdbfe; 
-        }
+        .step-dot { width: 24px; height: 24px; border-radius: 50%; background: #fff; border: 4px solid #bfdbfe; margin: 0 auto 20px; box-shadow: 0 0 0 4px #ffffff; }
+        .step-card { background: #fff; border: 1px solid #dbeafe; border-radius: 16px; padding: 30px 20px; font-size: 18px; font-weight: 700; color: #333; line-height: 1.5; box-shadow: 0 4px 15px rgba(0,0,0,0.02); word-break: keep-all; border-bottom: 4px solid #bfdbfe; }
 
         /* 6. 신뢰(Trust) 문구 섹션 */
-        .trust-section { padding: 80px 0 100px; background-color: #ffffff; text-align: center; border-top: 1px solid #eee; overflow: hidden; }
+        .trust-section { padding: 80px 0 60px; background-color: #ffffff; text-align: center; border-top: 1px solid #eee; overflow: hidden; }
         .trust-slider-wrap { width: 100%; overflow: hidden; position: relative; } 
         
         .trust-track-container { display: block; width: 100%; padding: 0; margin: 0; }
         .trust-slide-set { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; max-width: 1100px; margin: 0 auto 50px; animation: none; padding: 0 20px; }
         .mobile-clone { display: none !important; }
         
-        .trust-card { 
-            width: 100%; border-radius: 24px; padding: 40px 20px 20px; 
-            display: flex; flex-direction: column; justify-content: space-between; align-items: center; 
-            box-shadow: 0 10px 25px rgba(0,0,0,0.04); height: 100%; transition: transform 0.2s; 
-            margin-right: 0; background-color: #fffafc; border: 1px solid #faeef3;
-        }
+        .trust-card { width: 100%; border-radius: 24px; padding: 40px 20px 20px; display: flex; flex-direction: column; justify-content: space-between; align-items: center; box-shadow: 0 10px 25px rgba(0,0,0,0.04); height: 100%; transition: transform 0.2s; background-color: #fffafc; border: 1px solid #faeef3; }
         .trust-card:hover { transform: translateY(-5px); }
         .trust-card-text { font-size: 22px; font-weight: 800; line-height: 1.5; margin-bottom: 30px; letter-spacing: -0.5px; word-break: keep-all; color: #222; }
         .trust-icon { width: 180px; height: auto; object-fit: contain; }
@@ -165,7 +150,43 @@
         
         @keyframes scroll-loop-review { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
 
-        /* 우측 하단 플로팅 버튼 */
+        /* ★ 8. 마지막 상담 유도 배너 섹션 (새로 추가) ★ */
+        .final-banner {
+            position: relative;
+            background-color: #f9f9f9;
+            /* 깃허브에 올리실 이미지 이름 (예: final_banner.jpg)을 아래에 적어주세요 */
+            background-image: url('final_banner.jpg'); 
+            background-size: cover;
+            background-position: center right;
+            padding: 100px 0;
+            overflow: hidden;
+            border-top: 1px solid #eee;
+        }
+        /* 텍스트 가독성을 위한 그라데이션 오버레이 */
+        .final-banner::before {
+            content: '';
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to right, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.7) 40%, rgba(255,255,255,0) 100%);
+        }
+        .final-content {
+            position: relative; z-index: 1;
+            max-width: 1200px; margin: 0 auto; padding: 0 20px;
+        }
+        .final-banner-title {
+            font-size: 34px; font-weight: 800; color: #111; line-height: 1.4;
+            margin-bottom: 20px; letter-spacing: -1px; word-break: keep-all;
+        }
+        .final-banner-desc {
+            font-size: 18px; color: #333; font-weight: 700; margin-bottom: 40px; letter-spacing: -0.5px;
+        }
+        .final-banner-btn {
+            display: inline-block; background-color: #E6007E; color: #fff;
+            font-size: 18px; font-weight: bold; padding: 18px 36px; border-radius: 30px;
+            text-decoration: none; transition: background-color 0.2s; box-shadow: 0 4px 15px rgba(230,0,126,0.3);
+        }
+        .final-banner-btn:hover { background-color: #c9006e; }
+
+        /* 9. 우측 하단 플로팅 버튼 */
         .fab-container { position: fixed; bottom: 30px; right: 30px; display: flex; flex-direction: column; gap: 15px; z-index: 9999; }
         .fab-btn { width: 60px; height: 60px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 28px; text-decoration: none; box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: transform 0.2s ease; }
         .fab-btn:hover { transform: scale(1.1); }
@@ -185,7 +206,6 @@
             .floating-text-box .float-title { font-size: 13px; }
             .floating-text-box .float-desc { font-size: 11px; }
 
-            /* [모바일] 상품 특가 섹션 (가로형 리스트) */
             .product-section { padding: 40px 15px; }
             .section-title { font-size: 24px; margin-bottom: 25px; }
             .product-grid { display: flex; flex-direction: column; gap: 12px; } 
@@ -203,51 +223,42 @@
             .price-condition { font-size: 10px; margin-top: 6px; text-align: right; color: #aaa; }
             .final-price { display: none; }
 
-            /* ★ [모바일] 인터넷/IPTV 섹션 완벽 최적화 ★ */
             .internet-section { padding: 50px 10px; }
             .q-badge { font-size: 12px; padding: 6px 14px; margin-bottom: 15px; }
             .q-icon { width: 16px; height: 16px; font-size: 10px; margin-right: 5px; }
-            
-            /* 어색하게 끊기는 타이틀 폰트 사이즈 및 형태 조정 */
             .internet-title { font-size: 22px; margin-bottom: 25px; line-height: 1.4; word-break: keep-all; }
-            
             .highlight-box { padding: 25px 10px; border-radius: 16px; margin-bottom: 20px; }
             .promo-text-small { font-size: 16px; margin-bottom: 5px; }
             .promo-text-big { font-size: 22px; }
             .promo-text-big .pink-point { font-size: 26px; }
-            
             .internet-desc { font-size: 13px; margin-bottom: 30px; padding: 0 10px; }
-            
-            /* 3단계 가이드 카드 모바일 가로 정렬 (핵심 수정) */
             .benefit-steps { flex-direction: row; gap: 8px; align-items: stretch; justify-content: center; }
             .step-item { flex: 1; display: flex; flex-direction: column; }
             .step-line { display: block; top: 7px; left: 16%; right: 16%; height: 1px; }
             .step-dot { display: block; width: 14px; height: 14px; border-width: 2px; margin: 0 auto 10px; box-shadow: 0 0 0 2px #fff; }
-            
-            .step-card { 
-                padding: 12px 4px; font-size: 11px; width: 100%; border-bottom-width: 2px; 
-                border-radius: 8px; letter-spacing: -0.5px; height: 100%; display: flex; 
-                align-items: center; justify-content: center;
-            }
+            .step-card { padding: 12px 4px; font-size: 11px; width: 100%; border-bottom-width: 2px; border-radius: 8px; letter-spacing: -0.5px; height: 100%; display: flex; align-items: center; justify-content: center; }
 
-            /* [모바일] 신뢰 문구 섹션 */
-            .trust-section { padding: 50px 0 80px; }
+            .trust-section { padding: 50px 0 60px; }
             .trust-track-container { display: flex; flex-wrap: nowrap; width: max-content; padding: 10px 0 30px 0; margin-bottom: 20px; }
             .trust-track-container:hover .trust-slide-set, .trust-track-container:active .trust-slide-set { animation-play-state: paused; }
             .trust-slide-set { display: flex; flex-shrink: 0; animation: fast-trust-scroll 6s linear infinite; }
             .mobile-clone { display: flex !important; } 
-
             .trust-card { width: 270px; margin-right: 15px; flex-shrink: 0; flex-direction: column; align-items: center; justify-content: space-between; padding: 30px 20px 20px; text-align: center; height: auto; align-self: stretch; }
             @keyframes fast-trust-scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
-            
             .trust-card-text { font-size: 18px; margin-bottom: 20px; word-break: keep-all; line-height: 1.4; color: #222; }
             .trust-icon { width: 130px; height: auto; margin: 0 auto; flex-shrink: 0; }
             .trust-text-main { font-size: 22px; padding: 0; }
             .trust-text-sub { font-size: 15px; margin-bottom: 30px; padding: 0; }
             
-            /* 후기 슬라이더 모바일 */
             .review-slide-set { animation: scroll-loop-review 12s linear infinite; }
             .review-card { width: 220px; margin-right: 15px; } 
+
+            /* [모바일] 마지막 상담 유도 배너 조절 */
+            .final-banner { background-position: 80% center; padding: 60px 0; }
+            .final-banner::before { background: linear-gradient(to right, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.9) 55%, rgba(255,255,255,0.3) 100%); }
+            .final-banner-title { font-size: 24px; margin-bottom: 15px; }
+            .final-banner-desc { font-size: 15px; margin-bottom: 30px; }
+            .final-banner-btn { font-size: 16px; padding: 14px 28px; }
 
             .fab-container { bottom: 20px; right: 20px; gap: 10px; }
             .fab-btn { width: 50px; height: 50px; font-size: 24px; }
@@ -466,7 +477,6 @@
 
     <section class="internet-section">
         <div class="container">
-            
             <div class="q-badge">
                 <span class="q-icon">Q</span>혹시 인터넷이나 IPTV도 안내받을 수 있나요?
             </div>
@@ -501,7 +511,6 @@
                     <div class="step-card">U+ 더끌림컴퍼니만의<br>신뢰할 수 있는 조건!</div>
                 </div>
             </div>
-            
         </div>
     </section>
 
@@ -567,6 +576,18 @@
                     <div class="review-card"><img src="review5.png" alt="고객 후기 5"></div>
                 </div>
             </div>
+        </div>
+    </section>
+
+    <section class="final-banner">
+        <div class="final-content">
+            <h2 class="final-banner-title">
+                최저가 보장이라 해서 갔더니<br>
+                고가 요금제, 부가서비스, 카드 결합 등<br>
+                겪어보신 적 있으시죠?
+            </h2>
+            <p class="final-banner-desc">이제 그런 일 없게, 더끌림컴퍼니가 도와드리겠습니다.</p>
+            <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="final-banner-btn">실시간 무료 상담하기</a>
         </div>
     </section>
 
