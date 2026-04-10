@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no, date=no, email=no, address=no">
     <title>주식회사 더끌림컴퍼니</title>
     <style>
         /* 기본 스타일 초기화 */
@@ -61,7 +62,7 @@
         .floating-text-box .float-title { font-size: 14px; font-weight: 800; color: #333; }
         .floating-text-box .float-desc { font-size: 13px; font-weight: 600; color: #777; letter-spacing: -0.5px; }
 
-        /* 4. 상품 특가 섹션 (공통 및 PC) */
+        /* 4. 상품 특가 섹션 */
         .product-section { padding: 80px 20px; background-color: #ffffff; border-top: 1px solid #eee; overflow: hidden; }
         .section-title { text-align: center; font-size: 36px; font-weight: 800; margin-bottom: 50px; letter-spacing: -1px; }
         
@@ -157,16 +158,14 @@
         .footer-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 40px; border-bottom: 1px solid #333333; padding-bottom: 30px; position: relative; }
         .footer-company-info h2 { color: #ffffff; font-size: 22px; margin-bottom: 15px; display: flex; align-items: center; gap: 6px; letter-spacing: -0.5px; }
         .footer-company-info h2 span { color: #E6007E; font-weight: 900; }
-        .footer-info-grid { display: grid; grid-template-columns: auto auto; gap: 8px 40px; }
         
-        /* ★ 공식 인증 마크 이미지명 변경 완료 (cert_mark.png) ★ */
+        /* 텍스트 링크 강제 파란색 변환 방지 (안전장치) */
+        .footer-info-grid { display: grid; grid-template-columns: auto auto; gap: 8px 40px; }
+        .footer-info-grid a, .footer-info-grid span { color: inherit !important; text-decoration: none !important; }
+        
         .footer-logo-img { width: 90px; height: auto; object-fit: contain; }
 
-        .store-list-wrap { margin-bottom: 30px; overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 15px; }
-        .store-list-wrap::-webkit-scrollbar { height: 6px; }
-        .store-list-wrap::-webkit-scrollbar-thumb { background: #555555; border-radius: 10px; }
-        .store-list-wrap::-webkit-scrollbar-track { background: #222222; }
-
+        .store-list-wrap { margin-bottom: 30px; overflow-x: auto; padding-bottom: 15px; }
         .store-list { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 40px; white-space: nowrap; }
         .store-item { color: #cccccc; font-size: 13px; }
         .store-item strong { color: #ffffff; font-weight: bold; margin-right: 5px; }
@@ -247,21 +246,30 @@
             .final-banner-desc { font-size: 15px; margin-bottom: 30px; }
             .final-banner-btn { font-size: 16px; padding: 14px 28px; }
 
+            /* ★ [모바일] 푸터 영역 (가로 스와이프 제거 + 한눈에 2열 배치) ★ */
             .footer-section { padding: 40px 15px 100px; } 
-            .footer-top { flex-direction: column; gap: 25px; padding-bottom: 25px; }
+            .footer-top { flex-direction: column; gap: 25px; padding-bottom: 25px; margin-bottom: 25px; }
             .footer-info-grid { grid-template-columns: 1fr; gap: 6px; font-size: 12px; color: #999; }
             
             .footer-logo-img { position: absolute; right: 0; top: 0; width: 60px; }
 
+            /* 스와이프 없애고 세로로 쌓이는 2열 그리드로 완벽 수정 */
+            .store-list-wrap { overflow-x: visible; padding-bottom: 0; }
             .store-list { 
-                grid-template-columns: none; 
-                grid-template-rows: repeat(6, auto); 
-                grid-auto-flow: column; 
-                gap: 12px 30px; 
+                display: grid; 
+                grid-template-columns: 1fr 1fr; /* 모바일에서도 2칸으로 쪼개기 */
+                grid-auto-flow: row; 
+                gap: 12px 10px; 
+                white-space: normal; /* 글씨가 길면 알아서 아랫줄로 넘어가게 */
             }
-            .store-item { width: max-content; font-size: 12px; }
+            .store-item { 
+                width: auto; 
+                font-size: 11px; 
+                line-height: 1.4; 
+                word-break: keep-all; 
+            }
 
-            .footer-bottom { text-align: left; font-size: 11px; line-height: 1.5; }
+            .footer-bottom { text-align: left; font-size: 11px; line-height: 1.5; margin-top: 10px; }
 
             .fab-container { bottom: 20px; right: 20px; gap: 10px; }
             .fab-btn { width: 50px; height: 50px; font-size: 24px; }
@@ -601,8 +609,8 @@
                     <h2><span>U+</span> 더끌림컴퍼니</h2>
                     <div class="footer-info-grid">
                         <div>대표 : 이민진</div>
-                        <div>대표 번호 : 050-8201-0178</div>
-                        <div>사업자번호 : 192-88-01136</div>
+                        <div>대표 번호 : <span>070-4007-7776</span></div>
+                        <div>사업자번호 : <span>192-88-01136</span></div>
                         <div>주소 : 서울특별시 관악구 난곡로 194, 1층(신림동)</div>
                     </div>
                 </div>
