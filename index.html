@@ -86,15 +86,15 @@
         .final-price { text-align: right; font-size: 32px; font-weight: 900; color: #0052cc; margin-top: 5px; }
         .final-price span { font-size: 18px; font-weight: 700; }
 
-        /* 5. 신뢰(Trust) 카드 섹션 */
+        /* 5. 신뢰(Trust) 문구 섹션 */
         .trust-section { padding: 80px 0 100px; background-color: #ffffff; text-align: center; border-top: 1px solid #eee; overflow: hidden; }
-        .trust-slider-wrap { width: 100%; } /* 모바일에서 사용할 래퍼 */
-        .trust-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; max-width: 1100px; margin: 0 auto 50px; padding: 0 20px; }
+        .trust-slider-wrap { width: 100%; overflow: hidden; position: relative; } 
+        
+        /* PC에서는 Grid 형태, 모바일에서 Flex 슬라이더로 변경됨 */
+        .trust-track { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; max-width: 1100px; margin: 0 auto 50px; padding: 0 20px; }
         .trust-card { 
-            border-radius: 24px; padding: 40px 20px 20px; 
-            display: flex; flex-direction: column; justify-content: space-between; align-items: center; 
+            border-radius: 24px; padding: 40px 20px 20px; display: flex; flex-direction: column; justify-content: space-between; align-items: center; 
             box-shadow: 0 10px 25px rgba(0,0,0,0.04); height: 100%; transition: transform 0.2s; 
-            margin-right: 0;
         }
         .trust-card:hover { transform: translateY(-5px); }
         .card-light { background-color: #fffafc; border: 1px solid #faeef3; }
@@ -111,11 +111,16 @@
 
         /* 6. 후기 슬라이더 영역 */
         .review-slider-wrap { width: 100%; overflow: hidden; position: relative; padding: 20px 0; background-color: #fafbfc; }
-        .review-track { display: flex; width: max-content; animation: scroll-loop 30s linear infinite; }
+        .review-track { display: flex; width: max-content; animation: scroll-loop 20s linear infinite; } /* 후기 속도도 약간 상향(20s) */
         .review-track:hover { animation-play-state: paused; }
         .review-card { width: 280px; margin-right: 20px; flex-shrink: 0; border-radius: 16px; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.06); border: 1px solid #eaeaea; background-color: #fff; }
         .review-card img { width: 100%; display: block; height: auto; }
-        @keyframes scroll-loop { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        
+        /* 공통 무한루프 키프레임 */
+        @keyframes scroll-loop { 
+            0% { transform: translateX(0); } 
+            100% { transform: translateX(-50%); } 
+        }
 
         /* 우측 하단 플로팅 버튼 */
         .fab-container { position: fixed; bottom: 30px; right: 30px; display: flex; flex-direction: column; gap: 15px; z-index: 9999; }
@@ -137,72 +142,65 @@
             .floating-text-box .float-title { font-size: 13px; }
             .floating-text-box .float-desc { font-size: 11px; }
 
-            /* [모바일] 상품 특가 섹션 (고객이 직접 터치 스와이프 하는 영역) */
-            .product-section { padding: 40px 0; }
-            .section-title { font-size: 24px; margin-bottom: 20px; }
+            /* ★ 1. [모바일] 상품 특가 섹션 (고객 편의를 위한 "가로 컴팩트 / 세로 나열" 구조 원복) ★ */
+            .product-section { padding: 40px 15px; }
+            .section-title { font-size: 24px; margin-bottom: 25px; }
             .product-grid { 
-                display: flex; overflow-x: auto; scroll-snap-type: x mandatory; 
-                gap: 15px; padding: 0 15px 20px; -webkit-overflow-scrolling: touch;
-            }
-            .product-grid::-webkit-scrollbar { display: none; }
+                display: flex; /* 그리드로 해도 되지만 플렉스 세로방향으로 설정 */
+                flex-direction: column;
+                gap: 12px; 
+            } 
             .product-card { 
-                width: 280px; flex-shrink: 0; scroll-snap-align: start; 
-                padding: 25px 20px; display: block; text-align: center; height: auto;
-                align-self: stretch; 
+                display: flex; /* 이미지 왼쪽, 정보 오른쪽 가로형태 유지 */
+                align-items: center; 
+                padding: 15px 15px; 
+                gap: 15px;
+                text-align: left;
             }
-            .product-img-wrap { width: 100%; margin-bottom: 20px; }
-            .product-img { max-width: 70%; margin: 0 auto; display: block; }
-            .product-info-box { display: block; }
-            .product-name { font-size: 18px; margin-bottom: 20px; text-align: center; }
-            .price-details { border-top: 1px solid #f5f5f5; padding-top: 20px; }
-            .price-row { font-size: 13px; margin-bottom: 8px; color: #777; }
-            .price-row .value { font-size: 13px; color: #444; }
-            .price-row.total { margin-top: 10px; padding-top: 10px; align-items: center; border-top: 1px dashed #eee; }
-            .price-row.total span:first-child { font-size: 14px; font-weight: bold; color: #333; }
-            .price-row.total .value { font-size: 16px; font-weight: 800; color: #000; letter-spacing: 0; }
-            .price-condition { font-size: 11px; margin-top: 15px; text-align: center; color: #999; }
-            .final-price { display: block; font-size: 26px; margin-top: 10px; text-align: center; }
-            .final-price span { font-size: 15px; }
+            .product-img-wrap { width: 90px; flex-shrink: 0; margin-bottom: 0; }
+            .product-img { max-width: 100%; margin-bottom: 0; }
+            .product-info-box { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+            .product-name { font-size: 16px; margin-bottom: 10px; text-align: right; }
+            .price-details { border-top: none; padding-top: 0; }
+            .price-row { font-size: 11px; margin-bottom: 4px; color: #999; }
+            .price-row .value { font-size: 11px; color: #555; }
+            .price-row.total { border-top: none; margin-top: 5px; padding-top: 0; align-items: flex-end; }
+            .price-row.total span:first-child { font-size: 13px; color: #E6007E; font-weight: 800; }
+            .price-row.total .value { font-size: 20px; color: #E6007E; font-weight: 900; letter-spacing: -0.5px; }
+            .price-condition { font-size: 10px; margin-top: 6px; text-align: right; color: #aaa; }
+            .final-price { display: none; } /* 큰 파란글씨는 모바일에서 불필요하므로 숨김 */
 
-            /* ★ [모바일] 신뢰/안내 카드 섹션 (자동 무한루프 슬라이드) ★ */
+            /* ★ 2. [모바일] 신뢰/안내 문구 섹션 (끊김 없는 Seamless 무한루프 자동 슬라이드) ★ */
             .trust-section { padding: 50px 0 80px; }
-            .trust-slider-wrap { width: 100%; overflow: hidden; } /* 가로 스크롤바 숨김 완벽처리 */
-            .trust-grid { 
+            .trust-slider-wrap { width: 100%; overflow: hidden; } 
+            
+            .trust-track { 
                 display: flex; 
-                width: max-content; 
-                padding: 10px 0 30px 15px; /* 애니메이션 시작점 정렬 */
-                margin-bottom: 20px;
-                gap: 0; /* 마진으로 대체하여 애니메이션 오차 방지 */
-                animation: fast-trust-loop 12s linear infinite; /* 12초 동안 슉슉 이동 */
+                width: max-content; /* 내부 내용물 너비만큼 쫙 펴짐 */
+                gap: 0; margin: 0; padding: 10px 0 30px 0; /* 완벽한 50% 계산을 위해 좌우 여백/갭 제거 */
+                /* 8초로 속도 상향, linear로 등속 이동, infinite 무한반복 */
+                animation: scroll-loop 8s linear infinite; 
             }
-            .trust-grid:hover, .trust-grid:active { animation-play-state: paused; } /* 터치시 멈춤 */
+            .trust-track:hover, .trust-track:active { animation-play-state: paused; } /* 터치시 멈춤 */
             
             .trust-card { 
-                width: 270px; 
-                margin-right: 15px; /* 카드간 간격 */
+                width: 270px; /* 카드 넓이 고정 */
+                margin-right: 15px; /* 카드 사이 간격을 gap대신 margin으로 완벽 제어 */
                 flex-shrink: 0; 
                 flex-direction: column; 
-                align-items: center; 
-                justify-content: space-between; 
-                padding: 30px 20px 20px; 
-                text-align: center; 
-                height: auto; 
-                align-self: stretch; /* 모든 카드 높이 완벽 통일 */
+                align-items: center; justify-content: space-between; 
+                padding: 30px 20px 20px; text-align: center; 
+                height: auto; align-self: stretch; /* 카드 높이 통일 */
             }
-            .mobile-clone { display: flex; } /* 모바일 루프용 복제본 활성화 */
+            .mobile-clone { display: flex; } /* 모바일용 무한루프 복제본 노출! */
             
-            /* 무한루프 키프레임 */
-            @keyframes fast-trust-loop { 
-                0% { transform: translateX(0); } 
-                100% { transform: translateX(-50%); } 
-            }
-
             .trust-card-text { font-size: 18px; margin-bottom: 20px; word-break: keep-all; line-height: 1.4; color: #222; }
             .trust-icon { width: 130px; height: auto; margin: 0 auto; flex-shrink: 0; }
             
             .trust-text-main { font-size: 22px; padding: 0; }
             .trust-text-sub { font-size: 15px; margin-bottom: 30px; padding: 0; }
             
+            /* 후기 슬라이더 모바일 */
             .review-card { width: 220px; margin-right: 15px; } 
 
             .fab-container { bottom: 20px; right: 20px; gap: 10px; }
@@ -281,6 +279,7 @@
 
     <section class="product-section">
         <h2 class="section-title">더끌림컴퍼니의 😎 <span class="text-lgu-pink">휴대폰 특가</span></h2>
+        
         <div class="product-grid">
             <div class="product-card">
                 <div class="product-img-wrap"><img src="s26.png" alt="s26" class="product-img"></div>
@@ -416,13 +415,12 @@
                     <div class="final-price">70,000<span>원</span></div>
                 </div>
             </div>
-            
         </div>
     </section>
 
     <section class="trust-section">
         <div class="trust-slider-wrap">
-            <div class="trust-grid">
+            <div class="trust-track">
                 
                 <div class="trust-card card-light">
                     <div class="trust-card-text">요금제부터 단말기 가격까지,<br>정확하게 안내드립니다.</div>
@@ -486,6 +484,7 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // 상단 매장 슬라이더 자동 넘김
             const slides = document.querySelectorAll('.slide');
             let currentSlide = 0;
 
