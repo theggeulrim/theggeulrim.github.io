@@ -10,10 +10,8 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { 
             font-family: 'Pretendard', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; 
-            color: #333; 
-            background-color: #ffffff; 
-            padding-top: 60px; 
-            -webkit-font-smoothing: antialiased;
+            color: #333; background-color: #ffffff; padding-top: 60px; 
+            -webkit-font-smoothing: antialiased; 
         }
         
         /* 1. 상단 고정바 */
@@ -87,7 +85,7 @@
         .section-title { text-align: center; font-size: 36px; font-weight: 800; margin-bottom: 50px; letter-spacing: -1px; color: #111; }
         .text-lgu-pink { color: #E6007E; }
 
-        /* ★ 상품 특가 섹션 (1순위 배치) ★ */
+        /* ★ 상품 특가 섹션 (1순위) ★ */
         .product-section { padding: 100px 20px; background-color: #ffffff; border-top: 1px solid #f0f0f0; overflow: hidden; }
         .product-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; max-width: 1200px; margin: 0 auto; }
         
@@ -123,7 +121,7 @@
         }
         .btn-product-voucher:hover { box-shadow: 0 6px 20px rgba(230,0,126,0.4); transform: translateY(-2px); }
 
-        /* ★ 전국 택배 배너 (다크 톤 포인트 유지) ★ */
+        /* ★ 전국 택배 배너 (다크 톤 포인트) ★ */
         .delivery-section-wrap { padding: 40px 20px; background-color: #fbfbfd; }
         .delivery-section { 
             background: linear-gradient(135deg, #1d1d1f 0%, #000000 100%); color: #ffffff; 
@@ -210,7 +208,9 @@
         .trust-card { width: 100%; border-radius: 24px; padding: 40px 20px 20px; display: flex; flex-direction: column; justify-content: space-between; align-items: center; box-shadow: 0 10px 30px rgba(0,0,0,0.04); height: 100%; transition: transform 0.2s; background-color: #ffffff; border: 1px solid rgba(0,0,0,0.02); }
         .trust-card:hover { transform: translateY(-5px); }
         .trust-card-text { font-size: 20px; font-weight: 700; line-height: 1.5; margin-bottom: 30px; letter-spacing: -0.5px; word-break: keep-all; color: #111; }
-        .trust-icon { width: 160px; height: auto; object-fit: contain; }
+        
+        /* ★ [수정] 돈다발, 헤드셋 등 신뢰 아이콘 크기 완벽 통일 ★ */
+        .trust-icon { width: 120px; height: 120px; object-fit: contain; margin: 0 auto; display: block; }
 
         .trust-arrow { margin: 0 auto 30px; display: block; width: 44px; height: 44px; animation: bounce 2s infinite; }
         @keyframes bounce { 0%, 20%, 50%, 80%, 100% { transform: translateY(0); } 40% { transform: translateY(-10px); } 60% { transform: translateY(-5px); } }
@@ -245,7 +245,7 @@
         .final-banner-btn:hover { background-color: #c9006e; transform: translateY(-2px); }
 
         /* 푸터 및 매장 리스트 영역 */
-        .footer-section { background-color: #222222; color: #aaaaaa; padding: 60px 20px 40px; font-size: 13px; line-height: 1.6; }
+        .footer-section { background-color: #222222; color: #aaaaaa; padding: 60px 20px 40px; font-size: 13px; line-height: 1.6; font-family: 'Apple SD Gothic Neo', sans-serif; }
         .footer-container { max-width: 1200px; margin: 0 auto; }
         
         .footer-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 40px; border-bottom: 1px solid #333333; padding-bottom: 30px; position: relative; }
@@ -255,14 +255,14 @@
         .footer-info-grid { display: grid; grid-template-columns: auto auto; gap: 8px 40px; }
         .footer-info-grid a, .footer-info-grid span { color: inherit !important; text-decoration: none !important; }
         
-        .footer-logo-img { width: 90px; height: auto; object-fit: contain; }
+        .footer-logo-img { width: 80px; height: auto; object-fit: contain; opacity: 0.8; }
 
         .store-list-wrap { margin-bottom: 30px; overflow-x: auto; padding-bottom: 15px; }
         .store-list { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 40px; white-space: nowrap; }
-        .store-item { color: #cccccc; font-size: 12px; }
-        .store-item strong { color: #ffffff; font-weight: 600; margin-right: 5px; }
+        .store-item { color: #86868b; font-size: 12px; }
+        .store-item strong { color: #f5f5f7; font-weight: 600; margin-right: 5px; }
 
-        .footer-bottom { border-top: 1px solid #333333; padding-top: 20px; font-size: 11px; color: #777777; text-align: center; }
+        .footer-bottom { border-top: 1px solid #333333; padding-top: 20px; font-size: 11px; color: #86868b; text-align: center; }
         .footer-warning { margin-bottom: 5px; }
 
         /* 우측 하단 플로팅 버튼 */
@@ -271,7 +271,7 @@
         .fab-btn:hover { transform: scale(1.1); }
         .fab-phone { background-color: #E6007E; color: #ffffff; }
         .fab-kakao { background-color: #FEE500; color: #000; animation: pulse-glow 2s infinite; border: none; }
-        @keyframes pulse-glow { 0% { box-shadow: 0 0 0 0 rgba(254, 229, 0, 0.4); } 70% { box-shadow: 0 0 0 15px rgba(254, 229, 0, 0); } 100% { box-shadow: 0 0 0 0 rgba(254, 229, 0, 0); } }
+        @keyframes pulse-glow { 0% { box-shadow: 0 0 0 0 rgba(254, 229, 0, 0.5); } 70% { box-shadow: 0 0 0 15px rgba(254, 229, 0, 0); } 100% { box-shadow: 0 0 0 0 rgba(254, 229, 0, 0); } }
 
         /* 태블릿 반응형 */
         @media (max-width: 1024px) {
@@ -363,6 +363,7 @@
             .step-dot { display: block; width: 14px; height: 14px; border-width: 2px; margin: 0 auto 10px; box-shadow: 0 0 0 2px #fff; }
             .step-card { padding: 12px 4px; font-size: 11px; width: 100%; border-bottom-width: 2px; border-radius: 8px; letter-spacing: -0.5px; height: 100%; display: flex; align-items: center; justify-content: center; }
 
+            /* 신뢰 아이콘 영역 모바일 최적화 */
             .trust-section { padding: 50px 0 60px; }
             .trust-track-container { display: flex; flex-wrap: nowrap; width: max-content; padding: 10px 0 30px 0; margin-bottom: 20px; }
             .trust-track-container:hover .trust-slide-set, .trust-track-container:active .trust-slide-set { animation-play-state: paused; }
@@ -371,19 +372,27 @@
             .trust-card { width: 270px; margin-right: 15px; flex-shrink: 0; flex-direction: column; align-items: center; justify-content: space-between; padding: 30px 20px 20px; text-align: center; height: auto; align-self: stretch; }
             @keyframes fast-trust-scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
             .trust-card-text { font-size: 16px; margin-bottom: 20px; word-break: keep-all; line-height: 1.4; color: #111; }
-            .trust-icon { width: 130px; height: auto; margin: 0 auto; flex-shrink: 0; }
             .trust-text-main { font-size: 20px; padding: 0; }
             .trust-text-sub { font-size: 14px; margin-bottom: 30px; padding: 0; }
             
             .review-slide-set { animation: scroll-loop-review 12s linear infinite; }
             .review-card { width: 220px; margin-right: 15px; } 
 
-            .final-banner { background-position: right center; padding: 50px 0; }
-            .final-banner::before { background: linear-gradient(to right, rgba(255,255,255,0.98) 0%, rgba(255,255,255,0.85) 55%, rgba(255,255,255,0) 100%); }
-            .final-content { max-width: 65%; padding-left: 15px; }
-            .final-banner-title { font-size: 16px; margin-bottom: 12px; line-height: 1.4; }
-            .final-banner-desc { font-size: 12px; margin-bottom: 25px; word-break: keep-all; }
-            .final-banner-btn { font-size: 13px; padding: 12px 24px; }
+            /* ★ [수정] 모바일 파이널 배너: 텍스트가 얼굴을 가리지 않게 상단 배치, 하단 여백 확대 ★ */
+            .final-banner { 
+                background-position: center bottom; 
+                background-size: cover;
+                padding: 40px 15px 220px 15px; /* 이미지(얼굴)가 보일 하단 여백 확보 */
+                text-align: center;
+            }
+            .final-banner::before { 
+                /* 위쪽은 온전히 흰색, 아래로 갈수록 투명해져서 글씨와 얼굴이 분리됨 */
+                background: linear-gradient(to bottom, rgba(255,255,255,1) 0%, rgba(255,255,255,0.85) 45%, rgba(255,255,255,0) 100%); 
+            }
+            .final-content { max-width: 100%; padding-left: 0; }
+            .final-banner-title { font-size: 20px; margin-bottom: 12px; line-height: 1.4; text-align: center; }
+            .final-banner-desc { font-size: 13px; margin-bottom: 25px; word-break: keep-all; text-align: center; }
+            .final-banner-btn { font-size: 14px; padding: 12px 24px; margin: 0 auto; display: inline-block; }
 
             .footer-section { padding: 40px 15px 100px; } 
             .footer-top { flex-direction: column; gap: 25px; padding-bottom: 25px; margin-bottom: 25px; }
