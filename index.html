@@ -15,10 +15,14 @@
             -webkit-font-smoothing: antialiased; 
         }
         
+        /* 퀵메뉴 클릭 시 헤더에 가려지지 않도록 여백 설정 */
+        section { scroll-margin-top: 80px; }
+        
         /* 1. 상단 고정바 */
         .sticky-header { 
             position: fixed; top: 0; left: 0; width: 100%; height: 60px; 
             background-color: rgba(255, 255, 255, 0.98); 
+            backdrop-filter: blur(10px);
             display: flex; justify-content: space-between; align-items: center; 
             padding: 0 15px; box-sizing: border-box; border-bottom: 1px solid #eaeaea; z-index: 1000; 
         }
@@ -27,7 +31,7 @@
         .logo-sub { color: #555; font-size: 13px; font-weight: 700; letter-spacing: -0.5px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         
         .header-btns { display: flex; gap: 6px; flex-shrink: 0; }
-        .btn-top-kakao, .btn-top-reg { font-size: 12px; text-decoration: none; font-weight: 800; padding: 8px 12px; border-radius: 6px; white-space: nowrap; }
+        .btn-top-kakao, .btn-top-reg { font-size: 11px; text-decoration: none; font-weight: 800; padding: 8px 12px; border-radius: 6px; white-space: nowrap; }
         .btn-top-kakao { background-color: #FEE500; color: #000; }
         .btn-top-reg { background-color: #E6007E; color: #fff; }
 
@@ -41,13 +45,7 @@
         .hero-banner-wrap .slide.active { opacity: 1; }
         .floating-badge { position: absolute; bottom: 15px; right: 15px; background-color: rgba(0, 0, 0, 0.6); backdrop-filter: blur(4px); padding: 6px 12px; border-radius: 20px; color: #fff; font-size: 11px; font-weight: 600; z-index: 10; }
 
-        .quick-menu-wrap { background-color: #ffffff; padding: 20px 15px; border-bottom: 1px solid #eaeaea; margin-bottom: 10px; }
-        .quick-menu-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; max-width: 800px; margin: 0 auto; }
-        .quick-menu-item { display: flex; flex-direction: column; align-items: center; text-decoration: none; color: #333; gap: 8px; }
-        .quick-menu-icon { width: 55px; height: 55px; background-color: #f5f5f7; border-radius: 16px; display: flex; justify-content: center; align-items: center; font-size: 24px; box-shadow: 0 4px 10px rgba(0,0,0,0.02); transition: all 0.2s; }
-        .quick-menu-text { font-size: 12px; font-weight: 700; letter-spacing: -0.5px; }
-
-        .hero-text-section { background-color: #ffffff; padding: 30px 15px 40px; text-align: center; }
+        .hero-text-section { background-color: #ffffff; padding: 30px 15px 40px; text-align: center; border-bottom: 1px solid #eaeaea; }
         .hero-text-section .hero-badges { display: flex; justify-content: center; flex-wrap: wrap; margin-bottom: 15px; gap: 5px; }
         .hero-text-section .badge-primary { background-color: #E6007E; color: #ffffff; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 800; }
         .hero-text-section .badge-secondary { background-color: #f8f9fa; color: #555; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 700; border: 1px solid #eaeaea; }
@@ -70,7 +68,7 @@
         /* ==============================================================
            ★ PC 전용 Hero 섹션 (모바일에서는 숨김 처리) ★ 
            ============================================================== */
-        .desktop-hero-wrapper { display: none; background: linear-gradient(180deg, #ffffff 0%, #fbfbfd 100%); }
+        .desktop-hero-wrapper { display: none; background: linear-gradient(180deg, #ffffff 0%, #fbfbfd 100%); border-bottom: 1px solid #eaeaea; }
         .hero-section-desktop { display: flex; align-items: center; justify-content: space-between; gap: 60px; padding: 100px 20px 80px; max-width: 1200px; margin: 0 auto; }
         
         .hero-text-box-pc { flex: 1; max-width: 550px; }
@@ -112,44 +110,66 @@
         .hero-img-box-pc .float-title { font-size: 14px; font-weight: 800; color: #111; }
         .hero-img-box-pc .float-desc { font-size: 13px; font-weight: 600; color: #666; letter-spacing: -0.5px; }
 
+        /* ==============================================================
+           ★ 퀵 메뉴 (PC & Mobile 공통) ★ 
+           ============================================================== */
+        .quick-menu-wrap { background-color: #ffffff; padding: 40px 20px; border-bottom: 1px solid #eaeaea; }
+        .quick-menu-grid { display: flex; justify-content: center; gap: 70px; max-width: 1200px; margin: 0 auto; }
+        .quick-menu-item { display: flex; flex-direction: column; align-items: center; text-decoration: none; color: #333; gap: 12px; transition: transform 0.2s; }
+        .quick-menu-item:hover { transform: translateY(-5px); }
+        .quick-menu-icon { 
+            width: 80px; height: 80px; background-color: #f5f5f7; border-radius: 24px; 
+            display: flex; justify-content: center; align-items: center; font-size: 32px; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03); transition: background-color 0.2s; 
+        }
+        .quick-menu-item:hover .quick-menu-icon { background-color: #fff0f6; }
+        .quick-menu-text { font-size: 16px; font-weight: 800; letter-spacing: -0.5px; }
+
 
         /* ==============================================================
            ★ 공통 섹션 스타일 (상품, 택배, 매장, 신뢰 등) ★ 
            ============================================================== */
-        .section-title { text-align: center; font-size: 32px; font-weight: 800; margin-bottom: 40px; letter-spacing: -1px; color: #111; }
+        .section-title { text-align: center; font-size: 36px; font-weight: 800; margin-bottom: 50px; letter-spacing: -1px; color: #111; }
         .text-lgu-pink { color: #E6007E; }
 
         /* 상품 특가 섹션 (1순위 배치) */
-        .product-section { padding: 80px 20px; background-color: #ffffff; border-top: 1px solid #eaeaea; overflow: hidden; }
-        .product-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; max-width: 1200px; margin: 0 auto; }
+        .product-section { padding: 100px 20px; background-color: #fbfbfd; overflow: hidden; }
+        .product-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; max-width: 1200px; margin: 0 auto; }
         
         .product-card { 
-            background: #ffffff; border-radius: 24px; padding: 30px 20px; text-align: center; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid #f0f0f0; display: flex; flex-direction: column;
+            background: #ffffff; border-radius: 24px; 
+            padding: 40px 30px; text-align: center; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.04); border: 1px solid rgba(0,0,0,0.03);
+            transition: transform 0.3s ease, box-shadow 0.3s ease; display: flex; flex-direction: column;
         }
+        .product-card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.08); }
         .product-img-wrap { text-align: center; margin-bottom: 20px; }
-        .product-img { max-width: 70%; height: auto; transition: transform 0.3s; }
+        .product-img { max-width: 75%; height: auto; transition: transform 0.3s; }
         .product-card:hover .product-img { transform: scale(1.05); }
+        
         .product-info-box { display: flex; flex-direction: column; flex-grow: 1; }
-        .product-name { font-size: 20px; font-weight: 800; margin-bottom: 20px; color: #111; letter-spacing: -0.5px; }
+        .product-name { font-size: 20px; font-weight: 800; margin-bottom: 25px; color: #111; letter-spacing: -0.5px; }
         
         .price-details { text-align: left; border-top: 1px solid #f5f5f5; padding-top: 20px; }
-        .price-row { display: flex; justify-content: space-between; font-size: 14px; color: #777; margin-bottom: 8px; font-weight: 600; }
+        .price-row { display: flex; justify-content: space-between; font-size: 14px; color: #777; margin-bottom: 10px; font-weight: 600; }
         .price-row .value { font-weight: 600; color: #444; }
-        .price-row.total { margin-top: 10px; border-top: 1px dashed #e0e0e0; padding-top: 15px; font-weight: 800; color: #E6007E; font-size: 15px; }
-        .price-row.total .value { color: #E6007E; font-size: 22px; letter-spacing: -0.5px; }
+        .price-row.total { margin-top: 15px; border-top: 1px dashed #e0e0e0; padding-top: 15px; font-weight: 800; color: #E6007E; font-size: 16px; }
+        .price-row.total .value { color: #E6007E; font-size: 20px; letter-spacing: -0.5px; }
         
-        .price-condition { font-size: 11px; color: #888; text-align: center; margin-top: 15px; letter-spacing: -0.5px; line-height: 1.3;}
+        .price-condition { font-size: 11px; color: #888; text-align: right; margin-top: 15px; letter-spacing: -0.5px; }
         .final-price { display: none; }
 
         .btn-product-voucher { 
-            display: block; width: 100%; padding: 15px 0; margin-top: 20px;
-            background-color: #E6007E; color: #ffffff; border-radius: 12px; font-size: 15px; font-weight: 800; 
-            text-align: center; text-decoration: none; box-shadow: 0 4px 15px rgba(230,0,126,0.2); letter-spacing: -0.5px;
+            display: block; width: 100%; padding: 16px 0; margin-top: 25px;
+            background: linear-gradient(135deg, #E6007E 0%, #c9006e 100%);
+            color: #ffffff; border-radius: 14px; font-size: 15px; font-weight: 700; 
+            text-align: center; text-decoration: none;
+            box-shadow: 0 4px 15px rgba(230,0,126,0.25); transition: all 0.2s ease; letter-spacing: -0.5px;
         }
+        .btn-product-voucher:hover { box-shadow: 0 6px 20px rgba(230,0,126,0.4); transform: translateY(-2px); }
 
-        /* 전국 택배 배너 */
-        .delivery-section-wrap { padding: 40px 20px; background-color: #fbfbfd; }
+        /* 전국 택배 배너 (다크 톤 포인트) */
+        .delivery-section-wrap { padding: 40px 20px; background-color: #ffffff; }
         .delivery-section { 
             background: linear-gradient(135deg, #1d1d1f 0%, #000000 100%); color: #ffffff; 
             padding: 60px 40px; text-align: center; margin: 0 auto; max-width: 1200px; 
@@ -159,69 +179,92 @@
         .delivery-title { font-size: 32px; font-weight: 800; margin-bottom: 16px; letter-spacing: -1px; word-break: keep-all; z-index: 2; }
         .delivery-title span { color: #E6007E; }
         .delivery-desc { font-size: 16px; color: #d2d2d7; line-height: 1.6; margin-bottom: 35px; word-break: keep-all; z-index: 2; }
+        
         .delivery-features { display: flex; justify-content: center; gap: 15px; margin-bottom: 35px; flex-wrap: wrap; z-index: 2; }
-        .delivery-feature { display: inline-flex; align-items: center; font-size: 14px; font-weight: 600; color: #ffffff; background: rgba(255,255,255,0.1); padding: 12px 24px; border-radius: 12px; letter-spacing: -0.5px; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.05); }
-        .btn-delivery { display: inline-block; background-color: #E6007E; color: #fff; z-index: 2; font-size: 16px; font-weight: 800; padding: 18px 40px; border-radius: 30px; text-decoration: none; box-shadow: 0 4px 15px rgba(230,0,126,0.3); }
+        .delivery-feature { 
+            display: inline-flex; align-items: center; font-size: 14px; font-weight: 600; color: #ffffff; 
+            background: rgba(255,255,255,0.1); padding: 12px 24px; border-radius: 12px; letter-spacing: -0.5px; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.05);
+        }
+        .btn-delivery { 
+            display: inline-block; background-color: #E6007E; color: #fff; z-index: 2;
+            font-size: 16px; font-weight: 800; padding: 18px 40px; border-radius: 30px; 
+            text-decoration: none; transition: all 0.2s; box-shadow: 0 4px 15px rgba(230,0,126,0.3); 
+        }
+        .btn-delivery:hover { background-color: #c9006e; transform: translateY(-2px); }
 
         /* 매장 리스트 섹션 */
-        .store-grid-section { padding: 80px 20px; background-color: #fbfbfd; text-align: center; }
-        .store-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; max-width: 1200px; margin: 0 auto; text-align: left; }
+        .store-grid-section { padding: 100px 20px; background-color: #ffffff; text-align: center; }
+        .store-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; max-width: 1200px; margin: 0 auto; text-align: left; }
         .store-card-wrap.hidden { display: none; }
 
         .store-card-wrap { 
             background: #ffffff; border-radius: 20px; overflow: hidden; 
-            box-shadow: 0 10px 25px rgba(0,0,0,0.04); border: 1px solid #f0f0f0; display: flex; flex-direction: column;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.04); transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid rgba(0,0,0,0.03); display: flex; flex-direction: column;
         }
+        .store-card-wrap:hover { transform: translateY(-6px); box-shadow: 0 15px 35px rgba(0,0,0,0.08); }
         .store-card-img { width: 100%; aspect-ratio: 4/3; object-fit: cover; background-color: #f5f5f7; }
-        .store-card-content { padding: 20px; display: flex; flex-direction: column; flex-grow: 1; justify-content: space-between; }
+        .store-card-content { padding: 24px 20px; display: flex; flex-direction: column; flex-grow: 1; justify-content: space-between; }
+        
         .store-card-title { font-size: 18px; font-weight: 800; color: #111; margin-bottom: 6px; letter-spacing: -0.5px; text-align: center; }
-        .store-card-address { font-size: 12px; color: #777; margin-bottom: 20px; text-align: center; word-break: keep-all; line-height: 1.4; font-weight: 500; }
+        .store-card-address { font-size: 13px; color: #666; margin-bottom: 20px; text-align: center; word-break: keep-all; line-height: 1.4; font-weight: 500; }
         
         .store-card-btns { display: flex; flex-direction: column; gap: 10px; }
         .btn-reserve { 
-            display: inline-flex; justify-content: center; align-items: center; width: 100%; padding: 12px 0; border-radius: 10px; font-size: 14px; font-weight: 800; text-decoration: none; background-color: #222222; color: #ffffff; letter-spacing: -0.5px;
+            display: inline-flex; justify-content: center; align-items: center;
+            width: 100%; padding: 14px 0; border-radius: 12px; font-size: 14px; font-weight: 700; 
+            text-decoration: none; transition: all 0.2s ease; letter-spacing: -0.5px;
+            background-color: #222222; color: #ffffff; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
+        .btn-reserve:hover { background-color: #000000; }
 
-        .btn-load-more { display: inline-block; margin-top: 40px; padding: 16px 40px; background-color: #ffffff; color: #333; font-size: 15px; font-weight: 800; border: 1px solid #ddd; border-radius: 30px; cursor: pointer; }
+        .btn-load-more {
+            display: inline-block; margin-top: 50px; padding: 16px 40px;
+            background-color: #ffffff; color: #333; font-size: 15px; font-weight: 700;
+            border: 1px solid #ddd; border-radius: 30px; cursor: pointer;
+            transition: all 0.2s; box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+        .btn-load-more:hover { border-color: #E6007E; color: #E6007E; }
 
-        /* 인터넷 & IPTV 안내 섹션 */
-        .internet-section { padding: 80px 20px; background-color: #ffffff; text-align: center; border-top: 1px solid #eaeaea; }
+        /* 인터넷 & IPTV 가입 안내 섹션 */
+        .internet-section { padding: 100px 20px; background-color: #fbfbfd; text-align: center; border-top: 1px solid #eaeaea; }
         .q-badge { display: inline-flex; align-items: center; justify-content: center; background-color: #fff0f6; color: #E6007E; padding: 8px 20px; border-radius: 20px; font-size: 14px; font-weight: 800; margin-bottom: 24px; letter-spacing: -0.5px; }
-        .internet-title { font-size: 32px; font-weight: 900; color: #111; margin-bottom: 30px; letter-spacing: -1px; word-break: keep-all; line-height: 1.4; }
+        .internet-title { font-size: 36px; font-weight: 900; color: #111; margin-bottom: 40px; letter-spacing: -1px; word-break: keep-all; line-height: 1.4; }
         .internet-title strong { color: #E6007E; }
         .nowrap { white-space: nowrap; }
-        .highlight-box { background: #ffffff; border-radius: 24px; padding: 35px 20px; box-shadow: 0 15px 35px rgba(0,0,0,0.06); border: 1px solid #f0f0f0; max-width: 750px; margin: 0 auto 40px; }
-        .promo-text-small { font-size: 20px; font-weight: 800; color: #555; margin-bottom: 10px; letter-spacing: -0.5px; }
+        .highlight-box { background: #ffffff; border-radius: 24px; padding: 40px 20px; box-shadow: 0 15px 40px rgba(0,0,0,0.05); border: 1px solid rgba(0,0,0,0.02); max-width: 750px; margin: 0 auto 40px; }
+        .promo-text-small { font-size: 22px; font-weight: 700; color: #555; margin-bottom: 10px; letter-spacing: -0.5px; }
         .promo-text-small .blue-point { color: #0066cc; font-weight: 900; }
-        .promo-text-big { font-size: 32px; font-weight: 900; color: #111; letter-spacing: -1px; }
-        .promo-text-big .pink-point { color: #E6007E; font-size: 38px; }
-        .internet-desc { font-size: 16px; color: #666; line-height: 1.6; margin-bottom: 50px; font-weight: 600; word-break: keep-all; }
+        .promo-text-big { font-size: 36px; font-weight: 900; color: #111; letter-spacing: -1px; }
+        .promo-text-big .pink-point { color: #E6007E; font-size: 42px; }
+        .internet-desc { font-size: 16px; color: #666; line-height: 1.6; margin-bottom: 60px; font-weight: 500; word-break: keep-all; }
         
         .benefit-steps { display: flex; justify-content: space-between; position: relative; max-width: 1000px; margin: 0 auto; gap: 20px; }
         .step-line { position: absolute; top: 11px; left: 15%; right: 15%; height: 2px; background-color: #e5e5ea; z-index: 1; }
         .step-item { position: relative; z-index: 2; flex: 1; }
-        .step-dot { width: 24px; height: 24px; border-radius: 50%; background: #fff; border: 4px solid #0066cc; margin: 0 auto 15px; box-shadow: 0 0 0 4px #ffffff; }
-        .step-card { background: #ffffff; border: 1px solid #f0f0f0; border-radius: 16px; padding: 25px 15px; font-size: 15px; font-weight: 800; color: #333; line-height: 1.5; box-shadow: 0 10px 20px rgba(0,0,0,0.03); word-break: keep-all; }
+        .step-dot { width: 24px; height: 24px; border-radius: 50%; background: #fff; border: 4px solid #0066cc; margin: 0 auto 20px; box-shadow: 0 0 0 4px #ffffff; }
+        .step-card { background: #ffffff; border: 1px solid #f0f0f0; border-radius: 16px; padding: 30px 20px; font-size: 16px; font-weight: 700; color: #333; line-height: 1.5; box-shadow: 0 10px 20px rgba(0,0,0,0.03); word-break: keep-all; }
 
         /* 신뢰(Trust) 문구 섹션 */
-        .trust-section { padding: 80px 0 60px; background-color: #fbfbfd; text-align: center; border-top: 1px solid #eaeaea; overflow: hidden; }
+        .trust-section { padding: 100px 0 80px; background-color: #ffffff; text-align: center; border-top: 1px solid #eaeaea; overflow: hidden; }
         .trust-slider-wrap { width: 100%; overflow: hidden; position: relative; } 
         .trust-track-container { display: block; width: 100%; padding: 0; margin: 0; }
         .trust-slide-set { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; max-width: 1100px; margin: 0 auto 50px; animation: none; padding: 0 20px; }
         .mobile-clone { display: none !important; }
         
-        .trust-card { width: 100%; border-radius: 24px; padding: 40px 20px 20px; display: flex; flex-direction: column; justify-content: space-between; align-items: center; box-shadow: 0 10px 30px rgba(0,0,0,0.04); height: 100%; background-color: #ffffff; border: 1px solid #f0f0f0; }
+        .trust-card { width: 100%; border-radius: 24px; padding: 40px 20px 20px; display: flex; flex-direction: column; justify-content: space-between; align-items: center; box-shadow: 0 10px 30px rgba(0,0,0,0.04); height: 100%; transition: transform 0.2s; background-color: #ffffff; border: 1px solid #f0f0f0; }
+        .trust-card:hover { transform: translateY(-5px); }
         .trust-card-text { font-size: 20px; font-weight: 800; line-height: 1.5; margin-bottom: 30px; letter-spacing: -0.5px; word-break: keep-all; color: #111; }
-        .trust-icon { width: 120px; height: 120px; object-fit: contain; margin: 0 auto; display: block; } /* 크기 완벽 통일 */
+        .trust-icon { width: 120px; height: 120px; object-fit: contain; margin: 0 auto; display: block; } 
 
         .trust-arrow { margin: 0 auto 30px; display: block; width: 44px; height: 44px; animation: bounce 2s infinite; }
         @keyframes bounce { 0%, 20%, 50%, 80%, 100% { transform: translateY(0); } 40% { transform: translateY(-10px); } 60% { transform: translateY(-5px); } }
-        .trust-text-main { font-size: 28px; font-weight: 900; color: #111; margin-bottom: 15px; letter-spacing: -1px; padding: 0 20px; }
+        .trust-text-main { font-size: 28px; font-weight: 900; color: #111; margin-bottom: 20px; letter-spacing: -1px; padding: 0 20px; }
         .trust-text-main .highlight { color: #E6007E; }
         .trust-text-sub { font-size: 16px; font-weight: 600; color: #666; line-height: 1.6; letter-spacing: -0.5px; padding: 0 20px; margin-bottom: 50px; }
 
         /* 후기 슬라이더 영역 */
-        .review-slider-wrap { width: 100%; overflow: hidden; position: relative; padding: 20px 0; background-color: #fbfbfd; }
+        .review-slider-wrap { width: 100%; overflow: hidden; position: relative; padding: 20px 0; background-color: #ffffff; }
         .review-track-container { display: flex; flex-wrap: nowrap; width: max-content; }
         .review-track-container:hover .review-slide-set { animation-play-state: paused; }
         .review-slide-set { display: flex; flex-shrink: 0; animation: scroll-loop-review 20s linear infinite; } 
@@ -255,6 +298,7 @@
         
         .footer-info-grid { display: grid; grid-template-columns: auto auto; gap: 8px 40px; }
         .footer-info-grid a, .footer-info-grid span { color: inherit !important; text-decoration: none !important; }
+        
         .footer-logo-img { width: 90px; height: auto; object-fit: contain; }
 
         .store-list-wrap { margin-bottom: 30px; overflow-x: auto; padding-bottom: 15px; }
@@ -277,7 +321,7 @@
            ★ 반응형 분기 처리 (PC & Tablet) ★ 
            ============================================================== */
         @media (min-width: 769px) {
-            /* PC 화면에서는 모바일 전용 Hero 요소들 완벽하게 숨김 */
+            /* PC 화면에서는 모바일 전용 Hero 요소들 숨김 */
             .mobile-hero-wrapper { display: none !important; }
             .desktop-hero-wrapper { display: block !important; }
             
@@ -287,6 +331,19 @@
             .logo-sub { font-size: 15px; overflow: visible; } 
             .header-btns { gap: 10px; }
             .btn-top-kakao, .btn-top-reg { font-size: 13px; padding: 10px 16px; }
+
+            /* ★ PC 전용 퀵 메뉴 (가로 정렬, 넓은 여백) ★ */
+            .quick-menu-wrap { padding: 40px 20px; border-bottom: 1px solid #eaeaea; background-color: #ffffff; }
+            .quick-menu-grid { display: flex; justify-content: center; gap: 70px; max-width: 1200px; margin: 0 auto; }
+            .quick-menu-item { display: flex; flex-direction: column; align-items: center; text-decoration: none; color: #333; gap: 12px; transition: transform 0.2s; }
+            .quick-menu-item:hover { transform: translateY(-5px); }
+            .quick-menu-icon { 
+                width: 80px; height: 80px; background-color: #f5f5f7; border-radius: 24px; 
+                display: flex; justify-content: center; align-items: center; font-size: 32px; 
+                box-shadow: 0 4px 15px rgba(0,0,0,0.03); transition: background-color 0.2s; 
+            }
+            .quick-menu-item:hover .quick-menu-icon { background-color: #fff0f6; }
+            .quick-menu-text { font-size: 16px; font-weight: 800; letter-spacing: -0.5px; }
         }
 
         @media (max-width: 1024px) {
@@ -306,7 +363,14 @@
            ★ 반응형 분기 처리 (Mobile) ★ 
            ============================================================== */
         @media (max-width: 768px) {
-            /* 모바일 상품 특가 2열 그리드 */
+            /* 1. 모바일 퀵메뉴 스타일 */
+            .quick-menu-wrap { padding: 20px 15px; margin-bottom: 0; }
+            .quick-menu-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; width: 100%; }
+            .quick-menu-item { gap: 8px; }
+            .quick-menu-icon { width: 55px; height: 55px; font-size: 24px; border-radius: 16px; }
+            .quick-menu-text { font-size: 12px; }
+
+            /* 2. 모바일 상품 특가 2열 그리드 */
             .product-section { padding: 50px 10px; }
             .section-title { font-size: 24px; margin-bottom: 25px; }
             .product-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; } 
@@ -323,9 +387,9 @@
             .price-row.total span:first-child { font-size: 11px; font-weight: 800; }
             .price-row.total .value { font-size: 16px; font-weight: 900; }
             .price-condition { font-size: 9px; margin-top: 6px; }
-            .btn-product-voucher { padding: 10px 0; font-size: 12px; border-radius: 8px; margin-top: 12px; }
+            .btn-product-voucher { padding: 10px 0; font-size: 12px; border-radius: 8px; margin-top: 12px; width: 100%; font-weight: 700;}
 
-            /* 택배 배너 모바일 최적화 */
+            /* 3. 택배 배너 모바일 최적화 */
             .delivery-section-wrap { padding: 0 15px; background-color: #ffffff; }
             .delivery-section { padding: 40px 20px; border-radius: 20px; margin: 0 auto 20px; }
             .delivery-title { font-size: 20px; margin-bottom: 12px; }
@@ -334,17 +398,18 @@
             .delivery-feature { justify-content: center; font-size: 12px; padding: 10px 16px; border: none; }
             .btn-delivery { width: 100%; padding: 14px 0; font-size: 14px; }
 
-            /* 모바일 매장 그리드 */
+            /* 4. 모바일 매장 그리드 */
             .store-grid-section { padding: 50px 15px; }
             .store-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
             .store-card-wrap { border-radius: 16px; }
             .store-card-img { aspect-ratio: 16/9; } 
             .store-card-content { padding: 12px 10px; }
             .store-card-title { font-size: 13px; margin-bottom: 4px; }
-            .store-card-address { font-size: 10px; margin-bottom: 12px; line-height: 1.3; }
+            .store-card-address { font-size: 10px; margin-bottom: 12px; line-height: 1.3; font-weight: 500;}
             .btn-reserve { padding: 8px 0; font-size: 12px; border-radius: 8px; letter-spacing: -0.5px; }
             .btn-load-more { width: 90%; font-size: 13px; padding: 12px 0; margin-top: 25px; }
 
+            /* 5. 인터넷 & 기타 섹션 */
             .internet-section { padding: 50px 10px; }
             .q-badge { font-size: 12px; padding: 6px 14px; margin-bottom: 15px; }
             .q-icon { width: 16px; height: 16px; font-size: 10px; margin-right: 5px; }
@@ -370,17 +435,8 @@
             .review-slide-set { animation: scroll-loop-review 12s linear infinite; }
             .review-card { width: 220px; margin-right: 15px; } 
 
-            /* ★ [해결방안 2 적용] 모바일 파이널 배너: 텍스트가 얼굴을 가리지 않게 상단 배치 ★ */
-            .final-banner { 
-                background-position: center bottom; 
-                background-size: cover;
-                padding: 40px 15px 220px 15px; /* 이미지(얼굴)가 보일 하단 여백 대폭 확보 */
-                text-align: center;
-            }
-            .final-banner::before { 
-                /* 텍스트 영역(위)은 흰색, 이미지 영역(아래)은 투명하게 처리하여 글씨와 얼굴 분리 */
-                background: linear-gradient(to bottom, rgba(255,255,255,1) 0%, rgba(255,255,255,0.85) 45%, rgba(255,255,255,0) 100%); 
-            }
+            .final-banner { background-position: center bottom; padding: 40px 15px 220px 15px; text-align: center; }
+            .final-banner::before { background: linear-gradient(to bottom, rgba(255,255,255,1) 0%, rgba(255,255,255,0.85) 45%, rgba(255,255,255,0) 100%); }
             .final-content { max-width: 100%; padding-left: 0; }
             .final-banner-title { font-size: 18px; margin-bottom: 12px; line-height: 1.4; text-align: center; }
             .final-banner-desc { font-size: 13px; margin-bottom: 25px; text-align: center; }
@@ -425,27 +481,6 @@
             <div class="floating-badge">매장 방문 개통 가능</div>
         </div>
 
-        <div class="quick-menu-wrap">
-            <div class="quick-menu-grid">
-                <a href="#phones" class="quick-menu-item">
-                    <div class="quick-menu-icon">📱</div>
-                    <span class="quick-menu-text">특가 단말기</span>
-                </a>
-                <a href="#internet" class="quick-menu-item">
-                    <div class="quick-menu-icon">📺</div>
-                    <span class="quick-menu-text">인터넷/TV</span>
-                </a>
-                <a href="#delivery" class="quick-menu-item">
-                    <div class="quick-menu-icon">📦</div>
-                    <span class="quick-menu-text">전국 택배</span>
-                </a>
-                <a href="#stores" class="quick-menu-item">
-                    <div class="quick-menu-icon">🏬</div>
-                    <span class="quick-menu-text">매장 찾기</span>
-                </a>
-            </div>
-        </div>
-
         <section class="hero-text-section">
             <div class="hero-text-container">
                 <div class="hero-badges">
@@ -485,7 +520,7 @@
     </div>
 
     <div class="desktop-hero-wrapper">
-        <section class="hero-section-desktop">
+        <section class="hero-section-desktop container">
             <div class="hero-text-box-pc">
                 <div class="hero-badges">
                     <span class="badge-primary">✓ LGU+ 공식인증</span>
@@ -533,6 +568,27 @@
                 </div>
             </div>
         </section>
+    </div>
+
+    <div class="quick-menu-wrap">
+        <div class="quick-menu-grid">
+            <a href="#phones" class="quick-menu-item">
+                <div class="quick-menu-icon">📱</div>
+                <span class="quick-menu-text">특가 단말기</span>
+            </a>
+            <a href="#internet" class="quick-menu-item">
+                <div class="quick-menu-icon">📺</div>
+                <span class="quick-menu-text">인터넷/TV</span>
+            </a>
+            <a href="#delivery" class="quick-menu-item">
+                <div class="quick-menu-icon">📦</div>
+                <span class="quick-menu-text">전국 택배</span>
+            </a>
+            <a href="#stores" class="quick-menu-item">
+                <div class="quick-menu-icon">🏬</div>
+                <span class="quick-menu-text">매장 찾기</span>
+            </a>
+        </div>
     </div>
 
     <section id="phones" class="product-section">
