@@ -62,7 +62,7 @@
         .floating-text-box .float-title { font-size: 14px; font-weight: 800; color: #333; }
         .floating-text-box .float-desc { font-size: 13px; font-weight: 600; color: #777; letter-spacing: -0.5px; }
 
-        /* 4. 매장 리스트 섹션 (그리드 + 방문예약 버튼 단일화) */
+        /* 4. 매장 리스트 섹션 (주소 추가됨) */
         .store-grid-section { padding: 80px 20px; background-color: #f8f9fa; text-align: center; }
         .store-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; max-width: 1200px; margin: 0 auto; text-align: left; }
         .store-card-wrap.hidden { display: none; }
@@ -75,7 +75,10 @@
         .store-card-wrap:hover { transform: translateY(-8px); box-shadow: 0 12px 30px rgba(0,0,0,0.1); }
         .store-card-img { width: 100%; aspect-ratio: 4/3; object-fit: cover; background-color: #eee; }
         .store-card-content { padding: 24px 20px; display: flex; flex-direction: column; flex-grow: 1; justify-content: space-between; }
-        .store-card-title { font-size: 18px; font-weight: 800; color: #111; margin-bottom: 20px; letter-spacing: -0.5px; text-align: center; }
+        
+        /* 매장 타이틀 및 주소 스타일 */
+        .store-card-title { font-size: 18px; font-weight: 800; color: #111; margin-bottom: 6px; letter-spacing: -0.5px; text-align: center; }
+        .store-card-address { font-size: 13px; color: #666; margin-bottom: 20px; text-align: center; word-break: keep-all; line-height: 1.4; }
         
         .store-card-btns { display: flex; flex-direction: column; gap: 10px; }
         .btn-reserve { 
@@ -94,7 +97,7 @@
         }
         .btn-load-more:hover { border-color: #E6007E; color: #E6007E; }
 
-        /* 5. 상품 특가 섹션 (PC 버전) */
+        /* 5. 상품 특가 섹션 */
         .product-section { padding: 80px 20px; background-color: #ffffff; border-top: 1px solid #eee; overflow: hidden; }
         .section-title { text-align: center; font-size: 36px; font-weight: 800; margin-bottom: 50px; letter-spacing: -1px; }
         
@@ -117,7 +120,7 @@
         .price-row.total .value { color: #E6007E; }
         
         .price-condition { font-size: 12px; color: #888; text-align: right; margin-top: 20px; letter-spacing: -0.5px; }
-        .final-price { display: none; /* 디자인 변경으로 숨김 처리 */ }
+        .final-price { display: none; }
 
         .btn-product-voucher { 
             display: block; width: 100%; padding: 14px 0; margin-top: 25px;
@@ -226,7 +229,7 @@
             .product-grid { grid-template-columns: repeat(2, 1fr); }
         }
 
-        /* ★ 모바일 반응형 최적화 (2열 그리드 및 스크롤 축소) ★ */
+        /* ★ 모바일 반응형 최적화 ★ */
         @media (max-width: 768px) {
             .hero-section { flex-direction: column; padding: 40px 0; text-align: center; gap: 30px; }
             .hero-title { font-size: 28px; }
@@ -244,33 +247,28 @@
             .store-card-wrap { border-radius: 12px; }
             .store-card-img { aspect-ratio: 16/9; } 
             .store-card-content { padding: 10px 8px; }
-            .store-card-title { font-size: 13px; margin-bottom: 8px; }
+            
+            /* 모바일 매장 타이틀 및 주소 */
+            .store-card-title { font-size: 13px; margin-bottom: 4px; }
+            .store-card-address { font-size: 10px; margin-bottom: 12px; line-height: 1.3; }
+
             .btn-reserve { padding: 8px 0; font-size: 12px; border-radius: 6px; letter-spacing: -0.5px; }
             .btn-load-more { width: 90%; font-size: 14px; padding: 12px 0; margin-top: 25px; }
 
-            /* ★ 모바일 상품 특가 그리드 (2열 최적화) ★ */
+            /* 상품 특가 2열 그리드 */
             .product-section { padding: 40px 10px; }
             .section-title { font-size: 24px; margin-bottom: 25px; }
-            .product-grid { 
-                display: grid; 
-                grid-template-columns: repeat(2, 1fr); /* 2열 배치로 세로 길이 절반 축소 */
-                gap: 10px; 
-            } 
-            .product-card { 
-                display: flex; flex-direction: column; align-items: center; justify-content: space-between;
-                padding: 15px 10px; text-align: center; gap: 0; border-radius: 12px;
-            }
+            .product-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; } 
+            .product-card { display: flex; flex-direction: column; align-items: center; justify-content: space-between; padding: 15px 10px; text-align: center; gap: 0; border-radius: 12px; }
             .product-img-wrap { width: 100%; max-width: 100px; margin: 0 auto 10px; }
             .product-img { max-width: 100%; height: auto; margin-bottom: 0; }
             .product-info-box { width: 100%; display: flex; flex-direction: column; flex-grow: 1; }
-            
             .product-name { font-size: 13px; font-weight: 800; margin-bottom: 10px; text-align: center; word-break: keep-all; line-height: 1.3; }
             
             .price-details { border-top: 1px solid #f5f5f5; padding-top: 10px; width: 100%; margin-top: auto; }
             .price-row { font-size: 10px; margin-bottom: 4px; display: flex; justify-content: space-between; align-items: center; color: #888; }
             .price-row .value { font-size: 10px; color: #555; }
             
-            /* 할부원금 핑크색 강조 */
             .price-row.total { margin-top: 8px; padding-top: 8px; border-top: 1px dashed #ddd; }
             .price-row.total span:first-child { font-size: 12px; font-weight: 800; color: #E6007E; }
             .price-row.total .value { font-size: 16px; font-weight: 900; color: #E6007E; letter-spacing: -0.5px; }
@@ -406,9 +404,36 @@
         <h2 class="section-title">가까운 <span class="text-lgu-pink">더끌림컴퍼니</span>를 방문해보세요</h2>
         <div class="store-grid">
             <div class="store-card-wrap">
-                <img src="store1.jpeg" alt="가산점 (디지털단지오거리점)" class="store-card-img">
+                <img src="store20.jpeg" alt="칠보마을점" class="store-card-img">
                 <div class="store-card-content">
-                    <h3 class="store-card-title">가산점</h3>
+                    <div>
+                        <h3 class="store-card-title">칠보마을점</h3>
+                        <p class="store-card-address">경기도 수원시 권선구 금곡로102번길 30 1층</p>
+                    </div>
+                    <div class="store-card-btns">
+                        <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="btn-reserve">방문 예약</a>
+                    </div>
+                </div>
+            </div>
+            <div class="store-card-wrap">
+                <img src="store18.jpeg" alt="안양일번가점" class="store-card-img">
+                <div class="store-card-content">
+                    <div>
+                        <h3 class="store-card-title">안양일번가점</h3>
+                        <p class="store-card-address">경기도 안양시 만안구 안양로292번길 8</p>
+                    </div>
+                    <div class="store-card-btns">
+                        <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="btn-reserve">방문 예약</a>
+                    </div>
+                </div>
+            </div>
+            <div class="store-card-wrap">
+                <img src="store12.jpeg" alt="범계점" class="store-card-img">
+                <div class="store-card-content">
+                    <div>
+                        <h3 class="store-card-title">범계점</h3>
+                        <p class="store-card-address">경기도 안양시 동안구 평촌대로223번길 49</p>
+                    </div>
                     <div class="store-card-btns">
                         <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="btn-reserve">방문 예약</a>
                     </div>
@@ -417,61 +442,58 @@
             <div class="store-card-wrap">
                 <img src="store2.jpeg" alt="강서구청점" class="store-card-img">
                 <div class="store-card-content">
-                    <h3 class="store-card-title">강서구청점</h3>
+                    <div>
+                        <h3 class="store-card-title">강서구청점</h3>
+                        <p class="store-card-address">서울특별시 강서구 화곡로 322</p>
+                    </div>
                     <div class="store-card-btns">
                         <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="btn-reserve">방문 예약</a>
                     </div>
                 </div>
             </div>
             <div class="store-card-wrap">
-                <img src="store3.jpeg" alt="관양시장점" class="store-card-img">
+                <img src="store11.jpeg" alt="문래점" class="store-card-img">
                 <div class="store-card-content">
-                    <h3 class="store-card-title">관양시장점</h3>
+                    <div>
+                        <h3 class="store-card-title">문래점</h3>
+                        <p class="store-card-address">서울특별시 영등포구 선유로 59</p>
+                    </div>
                     <div class="store-card-btns">
                         <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="btn-reserve">방문 예약</a>
                     </div>
                 </div>
             </div>
             <div class="store-card-wrap">
-                <img src="store4.jpeg" alt="낙성대점" class="store-card-img">
+                <img src="store16.jpeg" alt="신림점" class="store-card-img">
                 <div class="store-card-content">
-                    <h3 class="store-card-title">낙성대점</h3>
+                    <div>
+                        <h3 class="store-card-title">신림점</h3>
+                        <p class="store-card-address">서울특별시 관악구 남부순환로 1601</p>
+                    </div>
                     <div class="store-card-btns">
                         <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="btn-reserve">방문 예약</a>
                     </div>
                 </div>
             </div>
             <div class="store-card-wrap">
-                <img src="store5.jpeg" alt="난곡점" class="store-card-img">
+                <img src="store15.jpeg" alt="사당점" class="store-card-img">
                 <div class="store-card-content">
-                    <h3 class="store-card-title">난곡점</h3>
+                    <div>
+                        <h3 class="store-card-title">사당점</h3>
+                        <p class="store-card-address">서울특별시 동작구 동작대로 45</p>
+                    </div>
                     <div class="store-card-btns">
                         <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="btn-reserve">방문 예약</a>
                     </div>
                 </div>
             </div>
             <div class="store-card-wrap">
-                <img src="store6.jpeg" alt="남문시장점" class="store-card-img">
+                <img src="store1.jpeg" alt="가산점" class="store-card-img">
                 <div class="store-card-content">
-                    <h3 class="store-card-title">남문시장점</h3>
-                    <div class="store-card-btns">
-                        <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="btn-reserve">방문 예약</a>
+                    <div>
+                        <h3 class="store-card-title">가산점</h3>
+                        <p class="store-card-address">서울특별시 금천구 디지털로 212</p>
                     </div>
-                </div>
-            </div>
-            <div class="store-card-wrap">
-                <img src="store7.jpeg" alt="남현점" class="store-card-img">
-                <div class="store-card-content">
-                    <h3 class="store-card-title">남현점</h3>
-                    <div class="store-card-btns">
-                        <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="btn-reserve">방문 예약</a>
-                    </div>
-                </div>
-            </div>
-            <div class="store-card-wrap">
-                <img src="store8.jpeg" alt="대림9번출구점" class="store-card-img">
-                <div class="store-card-content">
-                    <h3 class="store-card-title">대림9번출구점</h3>
                     <div class="store-card-btns">
                         <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="btn-reserve">방문 예약</a>
                     </div>
@@ -479,9 +501,84 @@
             </div>
 
             <div class="store-card-wrap hidden">
+                <img src="store3.jpeg" alt="관양시장점" class="store-card-img">
+                <div class="store-card-content">
+                    <div>
+                        <h3 class="store-card-title">관양시장점</h3>
+                        <p class="store-card-address">경기도 안양시 동안구 관악대로 341</p>
+                    </div>
+                    <div class="store-card-btns">
+                        <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="btn-reserve">방문 예약</a>
+                    </div>
+                </div>
+            </div>
+            <div class="store-card-wrap hidden">
+                <img src="store4.jpeg" alt="낙성대점" class="store-card-img">
+                <div class="store-card-content">
+                    <div>
+                        <h3 class="store-card-title">낙성대점</h3>
+                        <p class="store-card-address">서울특별시 관악구 남부순환로 1952</p>
+                    </div>
+                    <div class="store-card-btns">
+                        <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="btn-reserve">방문 예약</a>
+                    </div>
+                </div>
+            </div>
+            <div class="store-card-wrap hidden">
+                <img src="store5.jpeg" alt="난곡점" class="store-card-img">
+                <div class="store-card-content">
+                    <div>
+                        <h3 class="store-card-title">난곡점</h3>
+                        <p class="store-card-address">서울특별시 관악구 난곡로 194</p>
+                    </div>
+                    <div class="store-card-btns">
+                        <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="btn-reserve">방문 예약</a>
+                    </div>
+                </div>
+            </div>
+            <div class="store-card-wrap hidden">
+                <img src="store6.jpeg" alt="남문시장점" class="store-card-img">
+                <div class="store-card-content">
+                    <div>
+                        <h3 class="store-card-title">남문시장점</h3>
+                        <p class="store-card-address">서울특별시 금천구 독산로87길 2</p>
+                    </div>
+                    <div class="store-card-btns">
+                        <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="btn-reserve">방문 예약</a>
+                    </div>
+                </div>
+            </div>
+            <div class="store-card-wrap hidden">
+                <img src="store7.jpeg" alt="남현점" class="store-card-img">
+                <div class="store-card-content">
+                    <div>
+                        <h3 class="store-card-title">남현점</h3>
+                        <p class="store-card-address">서울특별시 관악구 남현길 8</p>
+                    </div>
+                    <div class="store-card-btns">
+                        <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="btn-reserve">방문 예약</a>
+                    </div>
+                </div>
+            </div>
+            <div class="store-card-wrap hidden">
+                <img src="store8.jpeg" alt="대림9번출구점" class="store-card-img">
+                <div class="store-card-content">
+                    <div>
+                        <h3 class="store-card-title">대림9번출구점</h3>
+                        <p class="store-card-address">서울특별시 영등포구 도림로 135</p>
+                    </div>
+                    <div class="store-card-btns">
+                        <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="btn-reserve">방문 예약</a>
+                    </div>
+                </div>
+            </div>
+            <div class="store-card-wrap hidden">
                 <img src="store9.jpeg" alt="대림11번출구점" class="store-card-img">
                 <div class="store-card-content">
-                    <h3 class="store-card-title">대림11번출구점</h3>
+                    <div>
+                        <h3 class="store-card-title">대림11번출구점</h3>
+                        <p class="store-card-address">서울특별시 영등포구 도림로 144</p>
+                    </div>
                     <div class="store-card-btns">
                         <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="btn-reserve">방문 예약</a>
                     </div>
@@ -490,25 +587,10 @@
             <div class="store-card-wrap hidden">
                 <img src="store10.jpeg" alt="대림삼거리점" class="store-card-img">
                 <div class="store-card-content">
-                    <h3 class="store-card-title">대림삼거리점</h3>
-                    <div class="store-card-btns">
-                        <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="btn-reserve">방문 예약</a>
+                    <div>
+                        <h3 class="store-card-title">대림삼거리점</h3>
+                        <p class="store-card-address">서울특별시 영등포구 디지털로54길 3 1층</p>
                     </div>
-                </div>
-            </div>
-            <div class="store-card-wrap hidden">
-                <img src="store11.jpeg" alt="문래힐스테이트점" class="store-card-img">
-                <div class="store-card-content">
-                    <h3 class="store-card-title">문래힐스테이트점</h3>
-                    <div class="store-card-btns">
-                        <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="btn-reserve">방문 예약</a>
-                    </div>
-                </div>
-            </div>
-            <div class="store-card-wrap hidden">
-                <img src="store12.jpeg" alt="범계점" class="store-card-img">
-                <div class="store-card-content">
-                    <h3 class="store-card-title">범계점</h3>
                     <div class="store-card-btns">
                         <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="btn-reserve">방문 예약</a>
                     </div>
@@ -517,7 +599,10 @@
             <div class="store-card-wrap hidden">
                 <img src="store13.jpeg" alt="봉천사거리점" class="store-card-img">
                 <div class="store-card-content">
-                    <h3 class="store-card-title">봉천사거리점</h3>
+                    <div>
+                        <h3 class="store-card-title">봉천사거리점</h3>
+                        <p class="store-card-address">서울특별시 관악구 관악로 194</p>
+                    </div>
                     <div class="store-card-btns">
                         <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="btn-reserve">방문 예약</a>
                     </div>
@@ -526,25 +611,10 @@
             <div class="store-card-wrap hidden">
                 <img src="store14.jpeg" alt="비산이마트점" class="store-card-img">
                 <div class="store-card-content">
-                    <h3 class="store-card-title">비산이마트점</h3>
-                    <div class="store-card-btns">
-                        <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="btn-reserve">방문 예약</a>
+                    <div>
+                        <h3 class="store-card-title">비산이마트점</h3>
+                        <p class="store-card-address">경기도 안양시 동안구 관악대로 99</p>
                     </div>
-                </div>
-            </div>
-            <div class="store-card-wrap hidden">
-                <img src="store15.jpeg" alt="사당점" class="store-card-img">
-                <div class="store-card-content">
-                    <h3 class="store-card-title">사당점</h3>
-                    <div class="store-card-btns">
-                        <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="btn-reserve">방문 예약</a>
-                    </div>
-                </div>
-            </div>
-            <div class="store-card-wrap hidden">
-                <img src="store16.jpeg" alt="신림점" class="store-card-img">
-                <div class="store-card-content">
-                    <h3 class="store-card-title">신림점</h3>
                     <div class="store-card-btns">
                         <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="btn-reserve">방문 예약</a>
                     </div>
@@ -553,16 +623,10 @@
             <div class="store-card-wrap hidden">
                 <img src="store17.jpeg" alt="영등포구청점" class="store-card-img">
                 <div class="store-card-content">
-                    <h3 class="store-card-title">영등포구청점</h3>
-                    <div class="store-card-btns">
-                        <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="btn-reserve">방문 예약</a>
+                    <div>
+                        <h3 class="store-card-title">영등포구청점</h3>
+                        <p class="store-card-address">서울특별시 영등포구 당산로 136-1</p>
                     </div>
-                </div>
-            </div>
-            <div class="store-card-wrap hidden">
-                <img src="store18.jpeg" alt="안양일번가점" class="store-card-img">
-                <div class="store-card-content">
-                    <h3 class="store-card-title">안양일번가점</h3>
                     <div class="store-card-btns">
                         <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="btn-reserve">방문 예약</a>
                     </div>
@@ -571,16 +635,10 @@
             <div class="store-card-wrap hidden">
                 <img src="store19.jpeg" alt="증미산점" class="store-card-img">
                 <div class="store-card-content">
-                    <h3 class="store-card-title">증미산점</h3>
-                    <div class="store-card-btns">
-                        <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="btn-reserve">방문 예약</a>
+                    <div>
+                        <h3 class="store-card-title">증미산점</h3>
+                        <p class="store-card-address">서울특별시 강서구 양천로 583</p>
                     </div>
-                </div>
-            </div>
-            <div class="store-card-wrap hidden">
-                <img src="store20.jpeg" alt="칠보마을점" class="store-card-img">
-                <div class="store-card-content">
-                    <h3 class="store-card-title">칠보마을점</h3>
                     <div class="store-card-btns">
                         <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="btn-reserve">방문 예약</a>
                     </div>
@@ -589,7 +647,10 @@
             <div class="store-card-wrap hidden">
                 <img src="store21.jpeg" alt="평촌학원가점" class="store-card-img">
                 <div class="store-card-content">
-                    <h3 class="store-card-title">평촌학원가점</h3>
+                    <div>
+                        <h3 class="store-card-title">평촌학원가점</h3>
+                        <p class="store-card-address">경기도 안양시 동안구 평촌대로 137-7</p>
+                    </div>
                     <div class="store-card-btns">
                         <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="btn-reserve">방문 예약</a>
                     </div>
@@ -598,7 +659,10 @@
             <div class="store-card-wrap hidden">
                 <img src="store22.jpeg" alt="호계점" class="store-card-img">
                 <div class="store-card-content">
-                    <h3 class="store-card-title">호계점</h3>
+                    <div>
+                        <h3 class="store-card-title">호계점</h3>
+                        <p class="store-card-address">서울특별시 동안구 경수대로 541</p>
+                    </div>
                     <div class="store-card-btns">
                         <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="btn-reserve">방문 예약</a>
                     </div>
