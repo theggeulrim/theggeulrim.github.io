@@ -62,38 +62,28 @@
         .floating-text-box .float-title { font-size: 14px; font-weight: 800; color: #333; }
         .floating-text-box .float-desc { font-size: 13px; font-weight: 600; color: #777; letter-spacing: -0.5px; }
 
-        /* ★ 매장 리스트 & 바우처 섹션 (PC: 2줄 가로 스크롤 적용) ★ */
-        .store-grid-section { padding: 80px 20px; background-color: #f8f9fa; }
+        /* ★ 개선된 매장 리스트 섹션 (그리드 + 더보기 버튼) ★ */
+        .store-grid-section { padding: 80px 20px; background-color: #f8f9fa; text-align: center; }
         .store-grid { 
             display: grid; 
-            grid-template-rows: repeat(2, 1fr); /* 2줄 고정 */
-            grid-auto-flow: column; /* 가로 방향으로 배치 */
-            grid-auto-columns: calc(25% - 18px); /* 한 화면에 4개씩 노출 */
+            grid-template-columns: repeat(4, 1fr); /* PC 4열 고정 */
             gap: 24px; 
             max-width: 1200px; 
             margin: 0 auto; 
-            overflow-x: auto; /* 가로 스크롤 */
-            overflow-y: hidden;
-            padding-bottom: 20px; 
-            scroll-snap-type: x mandatory; 
+            text-align: left;
         }
-
-        /* PC 스크롤바 디자인 */
-        .store-grid::-webkit-scrollbar { height: 8px; }
-        .store-grid::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 10px; }
-        .store-grid::-webkit-scrollbar-thumb { background: #ccc; border-radius: 10px; }
-        .store-grid::-webkit-scrollbar-thumb:hover { background: #E6007E; }
+        /* 초기에는 안보이게 처리할 클래스 */
+        .store-card-wrap.hidden { display: none; }
 
         .store-card-wrap { 
             background: #ffffff; border-radius: 20px; overflow: hidden; 
             box-shadow: 0 4px 20px rgba(0,0,0,0.04); transition: transform 0.3s ease, box-shadow 0.3s ease;
             border: 1px solid #f0f0f0; display: flex; flex-direction: column;
-            scroll-snap-align: start;
         }
         .store-card-wrap:hover { transform: translateY(-8px); box-shadow: 0 12px 30px rgba(0,0,0,0.1); }
         .store-card-img { width: 100%; aspect-ratio: 4/3; object-fit: cover; background-color: #eee; }
-        .store-card-content { padding: 24px 20px; text-align: center; display: flex; flex-direction: column; flex-grow: 1; justify-content: space-between; }
-        .store-card-title { font-size: 18px; font-weight: 800; color: #111; margin-bottom: 20px; letter-spacing: -0.5px; }
+        .store-card-content { padding: 24px 20px; display: flex; flex-direction: column; flex-grow: 1; justify-content: space-between; }
+        .store-card-title { font-size: 18px; font-weight: 800; color: #111; margin-bottom: 20px; letter-spacing: -0.5px; text-align: center; }
         
         .store-card-btns { display: flex; flex-direction: column; gap: 10px; }
         .btn-reserve, .btn-voucher { 
@@ -102,9 +92,18 @@
             text-decoration: none; transition: all 0.2s ease; letter-spacing: -0.5px;
         }
         .btn-reserve { background-color: #222222; color: #ffffff; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-        .btn-reserve:hover { background-color: #000000; box-shadow: 0 6px 15px rgba(0,0,0,0.15); }
+        .btn-reserve:hover { background-color: #000000; }
         .btn-voucher { background-color: #E6007E; color: #ffffff; box-shadow: 0 4px 10px rgba(230,0,126,0.2); }
-        .btn-voucher:hover { background-color: #c9006e; box-shadow: 0 6px 15px rgba(230,0,126,0.3); }
+        .btn-voucher:hover { background-color: #c9006e; }
+
+        /* 더보기 버튼 스타일 */
+        .btn-load-more {
+            display: inline-block; margin-top: 40px; padding: 16px 40px;
+            background-color: #ffffff; color: #333; font-size: 16px; font-weight: 800;
+            border: 2px solid #ddd; border-radius: 30px; cursor: pointer;
+            transition: all 0.2s; box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+        .btn-load-more:hover { border-color: #E6007E; color: #E6007E; }
 
         /* 4. 상품 특가 섹션 */
         .product-section { padding: 80px 20px; background-color: #ffffff; border-top: 1px solid #eee; overflow: hidden; }
@@ -224,12 +223,12 @@
         .fab-kakao { background-color: #FEE500; color: #000; animation: pulse-glow 2s infinite; }
         @keyframes pulse-glow { 0% { box-shadow: 0 0 0 0 rgba(254, 229, 0, 0.7); } 70% { box-shadow: 0 0 0 15px rgba(254, 229, 0, 0); } 100% { box-shadow: 0 0 0 0 rgba(254, 229, 0, 0); } }
 
-        /* 태블릿 반응형 (가로 스크롤 카드 3개 노출) */
+        /* 태블릿 반응형 */
         @media (max-width: 1024px) {
-            .store-grid { grid-auto-columns: calc(33.333% - 16px); }
+            .store-grid { grid-template-columns: repeat(3, 1fr); }
         }
 
-        /* ★ 모바일 반응형 (스크롤 최소화 컴팩트 버전) ★ */
+        /* ★ 모바일 반응형 (스크롤 최소화 컴팩트 & 2열 고정) ★ */
         @media (max-width: 768px) {
             .hero-section { flex-direction: column; padding: 40px 0; text-align: center; gap: 30px; }
             .hero-title { font-size: 28px; }
@@ -244,20 +243,17 @@
             /* 컴팩트 매장 그리드 */
             .store-grid-section { padding: 40px 15px; }
             .store-grid { 
-                grid-template-rows: auto; 
-                grid-auto-flow: row;
-                grid-template-columns: repeat(2, 1fr); /* 모바일은 2칸 고정 */
-                gap: 8px; /* 간격 대폭 축소 */
-                overflow-x: visible; /* 모바일은 세로 스크롤만 사용 */
-                padding-bottom: 0;
-                scroll-snap-type: none;
+                grid-template-columns: repeat(2, 1fr); /* 모바일은 무조건 2칸 고정 */
+                gap: 8px; /* 간격 최소화 */
             }
-            .store-card-wrap { border-radius: 12px; scroll-snap-align: none; }
-            .store-card-img { aspect-ratio: 16/9; } /* 이미지 높이 확 줄임 */
+            .store-card-wrap { border-radius: 12px; }
+            .store-card-img { aspect-ratio: 16/9; } /* 사진 상하 길이를 대폭 축소 */
             .store-card-content { padding: 10px 8px; }
             .store-card-title { font-size: 13px; margin-bottom: 8px; }
             .store-card-btns { gap: 4px; }
-            .btn-reserve, .btn-voucher { padding: 7px 0; font-size: 11px; border-radius: 6px; letter-spacing: -0.5px; }
+            .btn-reserve, .btn-voucher { padding: 6px 0; font-size: 11px; border-radius: 6px; letter-spacing: -0.5px; }
+            
+            .btn-load-more { width: 90%; font-size: 14px; padding: 12px 0; margin-top: 25px; }
 
             .product-section { padding: 40px 15px; }
             .section-title { font-size: 24px; margin-bottom: 25px; }
@@ -481,7 +477,8 @@
                     </div>
                 </div>
             </div>
-            <div class="store-card-wrap">
+
+            <div class="store-card-wrap hidden">
                 <img src="store9.jpeg" alt="대림11번출구점" class="store-card-img">
                 <div class="store-card-content">
                     <h3 class="store-card-title">대림11번출구점</h3>
@@ -491,7 +488,7 @@
                     </div>
                 </div>
             </div>
-            <div class="store-card-wrap">
+            <div class="store-card-wrap hidden">
                 <img src="store10.jpeg" alt="대림삼거리점" class="store-card-img">
                 <div class="store-card-content">
                     <h3 class="store-card-title">대림삼거리점</h3>
@@ -501,7 +498,7 @@
                     </div>
                 </div>
             </div>
-            <div class="store-card-wrap">
+            <div class="store-card-wrap hidden">
                 <img src="store11.jpeg" alt="문래힐스테이트점" class="store-card-img">
                 <div class="store-card-content">
                     <h3 class="store-card-title">문래힐스테이트점</h3>
@@ -511,7 +508,7 @@
                     </div>
                 </div>
             </div>
-            <div class="store-card-wrap">
+            <div class="store-card-wrap hidden">
                 <img src="store12.jpeg" alt="범계점" class="store-card-img">
                 <div class="store-card-content">
                     <h3 class="store-card-title">범계점</h3>
@@ -521,7 +518,7 @@
                     </div>
                 </div>
             </div>
-            <div class="store-card-wrap">
+            <div class="store-card-wrap hidden">
                 <img src="store13.jpeg" alt="봉천사거리점" class="store-card-img">
                 <div class="store-card-content">
                     <h3 class="store-card-title">봉천사거리점</h3>
@@ -531,7 +528,7 @@
                     </div>
                 </div>
             </div>
-            <div class="store-card-wrap">
+            <div class="store-card-wrap hidden">
                 <img src="store14.jpeg" alt="비산이마트점" class="store-card-img">
                 <div class="store-card-content">
                     <h3 class="store-card-title">비산이마트점</h3>
@@ -541,7 +538,7 @@
                     </div>
                 </div>
             </div>
-            <div class="store-card-wrap">
+            <div class="store-card-wrap hidden">
                 <img src="store15.jpeg" alt="사당점" class="store-card-img">
                 <div class="store-card-content">
                     <h3 class="store-card-title">사당점</h3>
@@ -551,7 +548,7 @@
                     </div>
                 </div>
             </div>
-            <div class="store-card-wrap">
+            <div class="store-card-wrap hidden">
                 <img src="store16.jpeg" alt="신림점" class="store-card-img">
                 <div class="store-card-content">
                     <h3 class="store-card-title">신림점</h3>
@@ -561,7 +558,7 @@
                     </div>
                 </div>
             </div>
-            <div class="store-card-wrap">
+            <div class="store-card-wrap hidden">
                 <img src="store17.jpeg" alt="영등포구청점" class="store-card-img">
                 <div class="store-card-content">
                     <h3 class="store-card-title">영등포구청점</h3>
@@ -571,7 +568,7 @@
                     </div>
                 </div>
             </div>
-            <div class="store-card-wrap">
+            <div class="store-card-wrap hidden">
                 <img src="store18.jpeg" alt="안양일번가점" class="store-card-img">
                 <div class="store-card-content">
                     <h3 class="store-card-title">안양일번가점</h3>
@@ -581,7 +578,7 @@
                     </div>
                 </div>
             </div>
-            <div class="store-card-wrap">
+            <div class="store-card-wrap hidden">
                 <img src="store19.jpeg" alt="증미산점" class="store-card-img">
                 <div class="store-card-content">
                     <h3 class="store-card-title">증미산점</h3>
@@ -591,7 +588,7 @@
                     </div>
                 </div>
             </div>
-            <div class="store-card-wrap">
+            <div class="store-card-wrap hidden">
                 <img src="store20.jpeg" alt="칠보마을점" class="store-card-img">
                 <div class="store-card-content">
                     <h3 class="store-card-title">칠보마을점</h3>
@@ -601,7 +598,7 @@
                     </div>
                 </div>
             </div>
-            <div class="store-card-wrap">
+            <div class="store-card-wrap hidden">
                 <img src="store21.jpeg" alt="평촌학원가점" class="store-card-img">
                 <div class="store-card-content">
                     <h3 class="store-card-title">평촌학원가점</h3>
@@ -611,7 +608,7 @@
                     </div>
                 </div>
             </div>
-            <div class="store-card-wrap">
+            <div class="store-card-wrap hidden">
                 <img src="store22.jpeg" alt="호계점" class="store-card-img">
                 <div class="store-card-content">
                     <h3 class="store-card-title">호계점</h3>
@@ -622,6 +619,8 @@
                 </div>
             </div>
         </div>
+        
+        <button id="loadMoreBtn" class="btn-load-more" onclick="loadMoreStores()">전체 22개 매장 보기 ∨</button>
     </section>
 
     <section class="product-section">
@@ -937,6 +936,7 @@
     </div>
 
     <script>
+        // 최상단 슬라이드쇼 기능
         document.addEventListener('DOMContentLoaded', () => {
             const slides = document.querySelectorAll('.slide');
             let currentSlide = 0;
@@ -949,6 +949,19 @@
                 }, 3000); 
             }
         });
+
+        // ★ 더보기 버튼 기능 (숨겨진 매장 노출) ★
+        function loadMoreStores() {
+            const hiddenStores = document.querySelectorAll('.store-card-wrap.hidden');
+            hiddenStores.forEach(store => {
+                store.style.display = 'flex'; // hidden 해제
+                // 부드러운 나타남 효과를 원한다면 아래 opacity 추가 가능
+                // store.style.opacity = 0;
+                // setTimeout(() => store.style.opacity = 1, 50);
+            });
+            // 버튼 숨기기
+            document.getElementById('loadMoreBtn').style.display = 'none';
+        }
     </script>
 </body>
 </html>
