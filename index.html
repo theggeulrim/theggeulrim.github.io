@@ -62,20 +62,39 @@
         .floating-text-box .float-title { font-size: 14px; font-weight: 800; color: #333; }
         .floating-text-box .float-desc { font-size: 13px; font-weight: 600; color: #777; letter-spacing: -0.5px; }
 
-        /* ★ 신규 추가: 22개 매장 및 바우처 영역 (Apple Keynote Style) ★ */
+        /* ★ 매장 리스트 & 바우처 섹션 (PC: 2줄 가로 스크롤 적용) ★ */
         .store-grid-section { padding: 80px 20px; background-color: #f8f9fa; }
-        .store-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; max-width: 1200px; margin: 0 auto; }
+        .store-grid { 
+            display: grid; 
+            grid-template-rows: repeat(2, 1fr); /* 2줄 고정 */
+            grid-auto-flow: column; /* 가로 방향으로 배치 */
+            grid-auto-columns: calc(25% - 18px); /* 한 화면에 4개씩 노출 */
+            gap: 24px; 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            overflow-x: auto; /* 가로 스크롤 */
+            overflow-y: hidden;
+            padding-bottom: 20px; 
+            scroll-snap-type: x mandatory; 
+        }
+
+        /* PC 스크롤바 디자인 */
+        .store-grid::-webkit-scrollbar { height: 8px; }
+        .store-grid::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 10px; }
+        .store-grid::-webkit-scrollbar-thumb { background: #ccc; border-radius: 10px; }
+        .store-grid::-webkit-scrollbar-thumb:hover { background: #E6007E; }
+
         .store-card-wrap { 
             background: #ffffff; border-radius: 20px; overflow: hidden; 
             box-shadow: 0 4px 20px rgba(0,0,0,0.04); transition: transform 0.3s ease, box-shadow 0.3s ease;
             border: 1px solid #f0f0f0; display: flex; flex-direction: column;
+            scroll-snap-align: start;
         }
         .store-card-wrap:hover { transform: translateY(-8px); box-shadow: 0 12px 30px rgba(0,0,0,0.1); }
         .store-card-img { width: 100%; aspect-ratio: 4/3; object-fit: cover; background-color: #eee; }
         .store-card-content { padding: 24px 20px; text-align: center; display: flex; flex-direction: column; flex-grow: 1; justify-content: space-between; }
         .store-card-title { font-size: 18px; font-weight: 800; color: #111; margin-bottom: 20px; letter-spacing: -0.5px; }
         
-        /* 매장 액션 버튼 (무광택 모던 스타일) */
         .store-card-btns { display: flex; flex-direction: column; gap: 10px; }
         .btn-reserve, .btn-voucher { 
             display: inline-flex; justify-content: center; align-items: center;
@@ -159,7 +178,7 @@
         .review-card img { width: 100%; display: block; height: auto; }
         @keyframes scroll-loop-review { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
 
-        /* 8. 마지막 상담 유도 배너 섹션 (PC) */
+        /* 8. 마지막 상담 유도 배너 섹션 */
         .final-banner {
             position: relative; background-color: #f9f9f9;
             background-image: url('final_banner.png'); 
@@ -176,7 +195,7 @@
         .final-banner-btn { display: inline-block; background-color: #E6007E; color: #fff; font-size: 18px; font-weight: bold; padding: 18px 36px; border-radius: 30px; text-decoration: none; transition: background-color 0.2s; box-shadow: 0 4px 15px rgba(230,0,126,0.3); }
         .final-banner-btn:hover { background-color: #c9006e; }
 
-        /* 9. 최하단 정보(푸터) 및 매장 리스트 영역 */
+        /* 9. 푸터 및 매장 리스트 영역 */
         .footer-section { background-color: #222222; color: #aaaaaa; padding: 60px 20px 40px; font-size: 13px; line-height: 1.6; }
         .footer-container { max-width: 1200px; margin: 0 auto; }
         
@@ -205,11 +224,12 @@
         .fab-kakao { background-color: #FEE500; color: #000; animation: pulse-glow 2s infinite; }
         @keyframes pulse-glow { 0% { box-shadow: 0 0 0 0 rgba(254, 229, 0, 0.7); } 70% { box-shadow: 0 0 0 15px rgba(254, 229, 0, 0); } 100% { box-shadow: 0 0 0 0 rgba(254, 229, 0, 0); } }
 
-        /* ★ 반응형 디자인 (모바일 전용 최적화) ★ */
+        /* 태블릿 반응형 (가로 스크롤 카드 3개 노출) */
         @media (max-width: 1024px) {
-            .store-grid { grid-template-columns: repeat(3, 1fr); }
+            .store-grid { grid-auto-columns: calc(33.333% - 16px); }
         }
 
+        /* ★ 모바일 반응형 (스크롤 최소화 컴팩트 버전) ★ */
         @media (max-width: 768px) {
             .hero-section { flex-direction: column; padding: 40px 0; text-align: center; gap: 30px; }
             .hero-title { font-size: 28px; }
@@ -221,12 +241,23 @@
             .floating-text-box .float-title { font-size: 13px; }
             .floating-text-box .float-desc { font-size: 11px; }
 
-            /* 모바일 매장 그리드 */
+            /* 컴팩트 매장 그리드 */
             .store-grid-section { padding: 40px 15px; }
-            .store-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
-            .store-card-content { padding: 15px 12px; }
-            .store-card-title { font-size: 15px; margin-bottom: 12px; }
-            .btn-reserve, .btn-voucher { padding: 10px 0; font-size: 12px; border-radius: 8px; }
+            .store-grid { 
+                grid-template-rows: auto; 
+                grid-auto-flow: row;
+                grid-template-columns: repeat(2, 1fr); /* 모바일은 2칸 고정 */
+                gap: 8px; /* 간격 대폭 축소 */
+                overflow-x: visible; /* 모바일은 세로 스크롤만 사용 */
+                padding-bottom: 0;
+                scroll-snap-type: none;
+            }
+            .store-card-wrap { border-radius: 12px; scroll-snap-align: none; }
+            .store-card-img { aspect-ratio: 16/9; } /* 이미지 높이 확 줄임 */
+            .store-card-content { padding: 10px 8px; }
+            .store-card-title { font-size: 13px; margin-bottom: 8px; }
+            .store-card-btns { gap: 4px; }
+            .btn-reserve, .btn-voucher { padding: 7px 0; font-size: 11px; border-radius: 6px; letter-spacing: -0.5px; }
 
             .product-section { padding: 40px 15px; }
             .section-title { font-size: 24px; margin-bottom: 25px; }
@@ -275,12 +306,8 @@
             .review-slide-set { animation: scroll-loop-review 12s linear infinite; }
             .review-card { width: 220px; margin-right: 15px; } 
 
-            .final-banner { 
-                background-position: right center; padding: 50px 0; 
-            }
-            .final-banner::before { 
-                background: linear-gradient(to right, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.85) 55%, rgba(255,255,255,0) 100%); 
-            }
+            .final-banner { background-position: right center; padding: 50px 0; }
+            .final-banner::before { background: linear-gradient(to right, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.85) 55%, rgba(255,255,255,0) 100%); }
             .final-content { max-width: 65%; padding-left: 15px; }
             .final-banner-title { font-size: 18px; margin-bottom: 12px; line-height: 1.4; }
             .final-banner-desc { font-size: 13px; margin-bottom: 25px; word-break: keep-all; }
@@ -289,7 +316,6 @@
             .footer-section { padding: 40px 15px 100px; } 
             .footer-top { flex-direction: column; gap: 25px; padding-bottom: 25px; margin-bottom: 25px; }
             .footer-info-grid { grid-template-columns: 1fr; gap: 6px; font-size: 12px; color: #999; }
-            
             .footer-logo-img { position: absolute; right: 0; top: 0; width: 60px; }
 
             .store-list-wrap { overflow-x: visible; padding-bottom: 0; }
@@ -380,8 +406,8 @@
                 <div class="store-card-content">
                     <h3 class="store-card-title">가산점</h3>
                     <div class="store-card-btns">
-                        <a href="#reservation" class="btn-reserve">방문 예약</a>
-                        <a href="#voucher" class="btn-voucher">휴대폰 특가 바우처 발급</a>
+                        <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="btn-reserve">방문 예약</a>
+                        <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="btn-voucher">휴대폰 특가 바우처 발급</a>
                     </div>
                 </div>
             </div>
@@ -390,8 +416,8 @@
                 <div class="store-card-content">
                     <h3 class="store-card-title">강서구청점</h3>
                     <div class="store-card-btns">
-                        <a href="#reservation" class="btn-reserve">방문 예약</a>
-                        <a href="#voucher" class="btn-voucher">휴대폰 특가 바우처 발급</a>
+                        <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="btn-reserve">방문 예약</a>
+                        <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="btn-voucher">휴대폰 특가 바우처 발급</a>
                     </div>
                 </div>
             </div>
@@ -400,8 +426,8 @@
                 <div class="store-card-content">
                     <h3 class="store-card-title">관양시장점</h3>
                     <div class="store-card-btns">
-                        <a href="#reservation" class="btn-reserve">방문 예약</a>
-                        <a href="#voucher" class="btn-voucher">휴대폰 특가 바우처 발급</a>
+                        <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="btn-reserve">방문 예약</a>
+                        <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="btn-voucher">휴대폰 특가 바우처 발급</a>
                     </div>
                 </div>
             </div>
@@ -410,8 +436,8 @@
                 <div class="store-card-content">
                     <h3 class="store-card-title">낙성대점</h3>
                     <div class="store-card-btns">
-                        <a href="#reservation" class="btn-reserve">방문 예약</a>
-                        <a href="#voucher" class="btn-voucher">휴대폰 특가 바우처 발급</a>
+                        <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="btn-reserve">방문 예약</a>
+                        <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="btn-voucher">휴대폰 특가 바우처 발급</a>
                     </div>
                 </div>
             </div>
@@ -420,8 +446,8 @@
                 <div class="store-card-content">
                     <h3 class="store-card-title">난곡점</h3>
                     <div class="store-card-btns">
-                        <a href="#reservation" class="btn-reserve">방문 예약</a>
-                        <a href="#voucher" class="btn-voucher">휴대폰 특가 바우처 발급</a>
+                        <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="btn-reserve">방문 예약</a>
+                        <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="btn-voucher">휴대폰 특가 바우처 발급</a>
                     </div>
                 </div>
             </div>
@@ -430,8 +456,8 @@
                 <div class="store-card-content">
                     <h3 class="store-card-title">남문시장점</h3>
                     <div class="store-card-btns">
-                        <a href="#reservation" class="btn-reserve">방문 예약</a>
-                        <a href="#voucher" class="btn-voucher">휴대폰 특가 바우처 발급</a>
+                        <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="btn-reserve">방문 예약</a>
+                        <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="btn-voucher">휴대폰 특가 바우처 발급</a>
                     </div>
                 </div>
             </div>
@@ -440,8 +466,8 @@
                 <div class="store-card-content">
                     <h3 class="store-card-title">남현점</h3>
                     <div class="store-card-btns">
-                        <a href="#reservation" class="btn-reserve">방문 예약</a>
-                        <a href="#voucher" class="btn-voucher">휴대폰 특가 바우처 발급</a>
+                        <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="btn-reserve">방문 예약</a>
+                        <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="btn-voucher">휴대폰 특가 바우처 발급</a>
                     </div>
                 </div>
             </div>
@@ -450,8 +476,8 @@
                 <div class="store-card-content">
                     <h3 class="store-card-title">대림9번출구점</h3>
                     <div class="store-card-btns">
-                        <a href="#reservation" class="btn-reserve">방문 예약</a>
-                        <a href="#voucher" class="btn-voucher">휴대폰 특가 바우처 발급</a>
+                        <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="btn-reserve">방문 예약</a>
+                        <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="btn-voucher">휴대폰 특가 바우처 발급</a>
                     </div>
                 </div>
             </div>
@@ -460,8 +486,8 @@
                 <div class="store-card-content">
                     <h3 class="store-card-title">대림11번출구점</h3>
                     <div class="store-card-btns">
-                        <a href="#reservation" class="btn-reserve">방문 예약</a>
-                        <a href="#voucher" class="btn-voucher">휴대폰 특가 바우처 발급</a>
+                        <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="btn-reserve">방문 예약</a>
+                        <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="btn-voucher">휴대폰 특가 바우처 발급</a>
                     </div>
                 </div>
             </div>
@@ -470,8 +496,8 @@
                 <div class="store-card-content">
                     <h3 class="store-card-title">대림삼거리점</h3>
                     <div class="store-card-btns">
-                        <a href="#reservation" class="btn-reserve">방문 예약</a>
-                        <a href="#voucher" class="btn-voucher">휴대폰 특가 바우처 발급</a>
+                        <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="btn-reserve">방문 예약</a>
+                        <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="btn-voucher">휴대폰 특가 바우처 발급</a>
                     </div>
                 </div>
             </div>
@@ -480,8 +506,8 @@
                 <div class="store-card-content">
                     <h3 class="store-card-title">문래힐스테이트점</h3>
                     <div class="store-card-btns">
-                        <a href="#reservation" class="btn-reserve">방문 예약</a>
-                        <a href="#voucher" class="btn-voucher">휴대폰 특가 바우처 발급</a>
+                        <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="btn-reserve">방문 예약</a>
+                        <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="btn-voucher">휴대폰 특가 바우처 발급</a>
                     </div>
                 </div>
             </div>
@@ -490,8 +516,8 @@
                 <div class="store-card-content">
                     <h3 class="store-card-title">범계점</h3>
                     <div class="store-card-btns">
-                        <a href="#reservation" class="btn-reserve">방문 예약</a>
-                        <a href="#voucher" class="btn-voucher">휴대폰 특가 바우처 발급</a>
+                        <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="btn-reserve">방문 예약</a>
+                        <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="btn-voucher">휴대폰 특가 바우처 발급</a>
                     </div>
                 </div>
             </div>
@@ -500,8 +526,8 @@
                 <div class="store-card-content">
                     <h3 class="store-card-title">봉천사거리점</h3>
                     <div class="store-card-btns">
-                        <a href="#reservation" class="btn-reserve">방문 예약</a>
-                        <a href="#voucher" class="btn-voucher">휴대폰 특가 바우처 발급</a>
+                        <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="btn-reserve">방문 예약</a>
+                        <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="btn-voucher">휴대폰 특가 바우처 발급</a>
                     </div>
                 </div>
             </div>
@@ -510,8 +536,8 @@
                 <div class="store-card-content">
                     <h3 class="store-card-title">비산이마트점</h3>
                     <div class="store-card-btns">
-                        <a href="#reservation" class="btn-reserve">방문 예약</a>
-                        <a href="#voucher" class="btn-voucher">휴대폰 특가 바우처 발급</a>
+                        <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="btn-reserve">방문 예약</a>
+                        <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="btn-voucher">휴대폰 특가 바우처 발급</a>
                     </div>
                 </div>
             </div>
@@ -520,8 +546,8 @@
                 <div class="store-card-content">
                     <h3 class="store-card-title">사당점</h3>
                     <div class="store-card-btns">
-                        <a href="#reservation" class="btn-reserve">방문 예약</a>
-                        <a href="#voucher" class="btn-voucher">휴대폰 특가 바우처 발급</a>
+                        <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="btn-reserve">방문 예약</a>
+                        <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="btn-voucher">휴대폰 특가 바우처 발급</a>
                     </div>
                 </div>
             </div>
@@ -530,8 +556,8 @@
                 <div class="store-card-content">
                     <h3 class="store-card-title">신림점</h3>
                     <div class="store-card-btns">
-                        <a href="#reservation" class="btn-reserve">방문 예약</a>
-                        <a href="#voucher" class="btn-voucher">휴대폰 특가 바우처 발급</a>
+                        <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="btn-reserve">방문 예약</a>
+                        <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="btn-voucher">휴대폰 특가 바우처 발급</a>
                     </div>
                 </div>
             </div>
@@ -540,8 +566,8 @@
                 <div class="store-card-content">
                     <h3 class="store-card-title">영등포구청점</h3>
                     <div class="store-card-btns">
-                        <a href="#reservation" class="btn-reserve">방문 예약</a>
-                        <a href="#voucher" class="btn-voucher">휴대폰 특가 바우처 발급</a>
+                        <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="btn-reserve">방문 예약</a>
+                        <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="btn-voucher">휴대폰 특가 바우처 발급</a>
                     </div>
                 </div>
             </div>
@@ -550,8 +576,8 @@
                 <div class="store-card-content">
                     <h3 class="store-card-title">안양일번가점</h3>
                     <div class="store-card-btns">
-                        <a href="#reservation" class="btn-reserve">방문 예약</a>
-                        <a href="#voucher" class="btn-voucher">휴대폰 특가 바우처 발급</a>
+                        <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="btn-reserve">방문 예약</a>
+                        <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="btn-voucher">휴대폰 특가 바우처 발급</a>
                     </div>
                 </div>
             </div>
@@ -560,8 +586,8 @@
                 <div class="store-card-content">
                     <h3 class="store-card-title">증미산점</h3>
                     <div class="store-card-btns">
-                        <a href="#reservation" class="btn-reserve">방문 예약</a>
-                        <a href="#voucher" class="btn-voucher">휴대폰 특가 바우처 발급</a>
+                        <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="btn-reserve">방문 예약</a>
+                        <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="btn-voucher">휴대폰 특가 바우처 발급</a>
                     </div>
                 </div>
             </div>
@@ -570,8 +596,8 @@
                 <div class="store-card-content">
                     <h3 class="store-card-title">칠보마을점</h3>
                     <div class="store-card-btns">
-                        <a href="#reservation" class="btn-reserve">방문 예약</a>
-                        <a href="#voucher" class="btn-voucher">휴대폰 특가 바우처 발급</a>
+                        <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="btn-reserve">방문 예약</a>
+                        <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="btn-voucher">휴대폰 특가 바우처 발급</a>
                     </div>
                 </div>
             </div>
@@ -580,8 +606,8 @@
                 <div class="store-card-content">
                     <h3 class="store-card-title">평촌학원가점</h3>
                     <div class="store-card-btns">
-                        <a href="#reservation" class="btn-reserve">방문 예약</a>
-                        <a href="#voucher" class="btn-voucher">휴대폰 특가 바우처 발급</a>
+                        <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="btn-reserve">방문 예약</a>
+                        <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="btn-voucher">휴대폰 특가 바우처 발급</a>
                     </div>
                 </div>
             </div>
@@ -590,8 +616,8 @@
                 <div class="store-card-content">
                     <h3 class="store-card-title">호계점</h3>
                     <div class="store-card-btns">
-                        <a href="#reservation" class="btn-reserve">방문 예약</a>
-                        <a href="#voucher" class="btn-voucher">휴대폰 특가 바우처 발급</a>
+                        <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="btn-reserve">방문 예약</a>
+                        <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="btn-voucher">휴대폰 특가 바우처 발급</a>
                     </div>
                 </div>
             </div>
