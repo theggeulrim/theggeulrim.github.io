@@ -62,16 +62,9 @@
         .floating-text-box .float-title { font-size: 14px; font-weight: 800; color: #333; }
         .floating-text-box .float-desc { font-size: 13px; font-weight: 600; color: #777; letter-spacing: -0.5px; }
 
-        /* ★ 개선된 매장 리스트 섹션 (그리드 + 방문예약 버튼 단일화) ★ */
+        /* 4. 매장 리스트 섹션 (그리드 + 방문예약 버튼 단일화) */
         .store-grid-section { padding: 80px 20px; background-color: #f8f9fa; text-align: center; }
-        .store-grid { 
-            display: grid; 
-            grid-template-columns: repeat(4, 1fr); 
-            gap: 24px; 
-            max-width: 1200px; 
-            margin: 0 auto; 
-            text-align: left;
-        }
+        .store-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; max-width: 1200px; margin: 0 auto; text-align: left; }
         .store-card-wrap.hidden { display: none; }
 
         .store-card-wrap { 
@@ -93,7 +86,6 @@
         }
         .btn-reserve:hover { background-color: #000000; }
 
-        /* 더보기 버튼 스타일 */
         .btn-load-more {
             display: inline-block; margin-top: 40px; padding: 16px 40px;
             background-color: #ffffff; color: #333; font-size: 16px; font-weight: 800;
@@ -102,7 +94,7 @@
         }
         .btn-load-more:hover { border-color: #E6007E; color: #E6007E; }
 
-        /* 4. 상품 특가 섹션 (여기에 바우처 버튼 추가됨) */
+        /* 5. 상품 특가 섹션 (PC 버전) */
         .product-section { padding: 80px 20px; background-color: #ffffff; border-top: 1px solid #eee; overflow: hidden; }
         .section-title { text-align: center; font-size: 36px; font-weight: 800; margin-bottom: 50px; letter-spacing: -1px; }
         
@@ -121,13 +113,12 @@
         .price-details { text-align: left; border-top: 2px solid #f5f5f5; padding-top: 25px; }
         .price-row { display: flex; justify-content: space-between; font-size: 15px; color: #555; margin-bottom: 12px; }
         .price-row .value { font-weight: 600; color: #333; }
-        .price-row.total { margin-top: 15px; border-top: 1px dashed #ddd; padding-top: 15px; font-weight: 700; color: #000; }
+        .price-row.total { margin-top: 15px; border-top: 1px dashed #ddd; padding-top: 15px; font-weight: 700; color: #E6007E; }
+        .price-row.total .value { color: #E6007E; }
         
         .price-condition { font-size: 12px; color: #888; text-align: right; margin-top: 20px; letter-spacing: -0.5px; }
-        .final-price { text-align: right; font-size: 32px; font-weight: 900; color: #0052cc; margin-top: 5px; }
-        .final-price span { font-size: 18px; font-weight: 700; }
+        .final-price { display: none; /* 디자인 변경으로 숨김 처리 */ }
 
-        /* ★ 상품 카드 내 특가 바우처 버튼 ★ */
         .btn-product-voucher { 
             display: block; width: 100%; padding: 14px 0; margin-top: 25px;
             background-color: #E6007E; color: #ffffff; border-radius: 12px;
@@ -136,7 +127,7 @@
         }
         .btn-product-voucher:hover { background-color: #c9006e; box-shadow: 0 6px 15px rgba(230,0,126,0.3); }
 
-        /* 5. 인터넷 & IPTV 가입 안내 섹션 */
+        /* 6. 인터넷 & IPTV 가입 안내 섹션 */
         .internet-section { padding: 80px 20px; background-color: #ffffff; text-align: center; border-top: 1px solid #eee; }
         .q-badge { display: inline-flex; align-items: center; justify-content: center; background-color: #ffebf5; color: #E6007E; padding: 8px 20px; border-radius: 20px; font-size: 15px; font-weight: 800; margin-bottom: 20px; }
         .q-icon { display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; background-color: #E6007E; color: white; border-radius: 50%; font-size: 12px; margin-right: 6px; }
@@ -156,7 +147,7 @@
         .step-dot { width: 24px; height: 24px; border-radius: 50%; background: #fff; border: 4px solid #bfdbfe; margin: 0 auto 20px; box-shadow: 0 0 0 4px #ffffff; }
         .step-card { background: #fff; border: 1px solid #dbeafe; border-radius: 16px; padding: 30px 20px; font-size: 18px; font-weight: 700; color: #333; line-height: 1.5; box-shadow: 0 4px 15px rgba(0,0,0,0.02); word-break: keep-all; border-bottom: 4px solid #bfdbfe; }
 
-        /* 6. 신뢰(Trust) 문구 섹션 */
+        /* 7. 신뢰(Trust) 문구 섹션 */
         .trust-section { padding: 80px 0 60px; background-color: #ffffff; text-align: center; border-top: 1px solid #eee; overflow: hidden; }
         .trust-slider-wrap { width: 100%; overflow: hidden; position: relative; } 
         .trust-track-container { display: block; width: 100%; padding: 0; margin: 0; }
@@ -174,7 +165,7 @@
         .trust-text-main .highlight { color: #E6007E; }
         .trust-text-sub { font-size: 18px; font-weight: 600; color: #555; line-height: 1.6; letter-spacing: -0.5px; padding: 0 20px; margin-bottom: 50px; }
 
-        /* 7. 후기 슬라이더 영역 */
+        /* 8. 후기 슬라이더 영역 */
         .review-slider-wrap { width: 100%; overflow: hidden; position: relative; padding: 20px 0; background-color: #ffffff; }
         .review-track-container { display: flex; flex-wrap: nowrap; width: max-content; }
         .review-track-container:hover .review-slide-set { animation-play-state: paused; }
@@ -183,7 +174,7 @@
         .review-card img { width: 100%; display: block; height: auto; }
         @keyframes scroll-loop-review { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
 
-        /* 8. 마지막 상담 유도 배너 섹션 */
+        /* 9. 마지막 상담 유도 배너 섹션 */
         .final-banner {
             position: relative; background-color: #f9f9f9;
             background-image: url('final_banner.png'); 
@@ -200,7 +191,7 @@
         .final-banner-btn { display: inline-block; background-color: #E6007E; color: #fff; font-size: 18px; font-weight: bold; padding: 18px 36px; border-radius: 30px; text-decoration: none; transition: background-color 0.2s; box-shadow: 0 4px 15px rgba(230,0,126,0.3); }
         .final-banner-btn:hover { background-color: #c9006e; }
 
-        /* 9. 푸터 및 매장 리스트 영역 */
+        /* 10. 푸터 및 매장 리스트 영역 */
         .footer-section { background-color: #222222; color: #aaaaaa; padding: 60px 20px 40px; font-size: 13px; line-height: 1.6; }
         .footer-container { max-width: 1200px; margin: 0 auto; }
         
@@ -232,9 +223,10 @@
         /* 태블릿 반응형 */
         @media (max-width: 1024px) {
             .store-grid { grid-template-columns: repeat(3, 1fr); }
+            .product-grid { grid-template-columns: repeat(2, 1fr); }
         }
 
-        /* ★ 모바일 반응형 ★ */
+        /* ★ 모바일 반응형 최적화 (2열 그리드 및 스크롤 축소) ★ */
         @media (max-width: 768px) {
             .hero-section { flex-direction: column; padding: 40px 0; text-align: center; gap: 30px; }
             .hero-title { font-size: 28px; }
@@ -256,25 +248,37 @@
             .btn-reserve { padding: 8px 0; font-size: 12px; border-radius: 6px; letter-spacing: -0.5px; }
             .btn-load-more { width: 90%; font-size: 14px; padding: 12px 0; margin-top: 25px; }
 
-            .product-section { padding: 40px 15px; }
+            /* ★ 모바일 상품 특가 그리드 (2열 최적화) ★ */
+            .product-section { padding: 40px 10px; }
             .section-title { font-size: 24px; margin-bottom: 25px; }
-            .product-grid { display: flex; flex-direction: column; gap: 12px; } 
-            .product-card { display: flex; align-items: center; padding: 15px 15px; gap: 15px; text-align: left; }
-            .product-img-wrap { width: 90px; flex-shrink: 0; margin-bottom: 0; }
-            .product-img { max-width: 100%; margin-bottom: 0; }
-            .product-info-box { flex: 1; display: flex; flex-direction: column; justify-content: center; }
-            .product-name { font-size: 16px; margin-bottom: 10px; text-align: right; }
-            .price-details { border-top: none; padding-top: 0; }
-            .price-row { font-size: 11px; margin-bottom: 4px; color: #999; }
-            .price-row .value { font-size: 11px; color: #555; }
-            .price-row.total { border-top: none; margin-top: 5px; padding-top: 0; align-items: flex-end; }
-            .price-row.total span:first-child { font-size: 13px; color: #E6007E; font-weight: 800; }
-            .price-row.total .value { font-size: 20px; color: #E6007E; font-weight: 900; letter-spacing: -0.5px; }
-            .price-condition { font-size: 10px; margin-top: 6px; text-align: right; color: #aaa; }
+            .product-grid { 
+                display: grid; 
+                grid-template-columns: repeat(2, 1fr); /* 2열 배치로 세로 길이 절반 축소 */
+                gap: 10px; 
+            } 
+            .product-card { 
+                display: flex; flex-direction: column; align-items: center; justify-content: space-between;
+                padding: 15px 10px; text-align: center; gap: 0; border-radius: 12px;
+            }
+            .product-img-wrap { width: 100%; max-width: 100px; margin: 0 auto 10px; }
+            .product-img { max-width: 100%; height: auto; margin-bottom: 0; }
+            .product-info-box { width: 100%; display: flex; flex-direction: column; flex-grow: 1; }
+            
+            .product-name { font-size: 13px; font-weight: 800; margin-bottom: 10px; text-align: center; word-break: keep-all; line-height: 1.3; }
+            
+            .price-details { border-top: 1px solid #f5f5f5; padding-top: 10px; width: 100%; margin-top: auto; }
+            .price-row { font-size: 10px; margin-bottom: 4px; display: flex; justify-content: space-between; align-items: center; color: #888; }
+            .price-row .value { font-size: 10px; color: #555; }
+            
+            /* 할부원금 핑크색 강조 */
+            .price-row.total { margin-top: 8px; padding-top: 8px; border-top: 1px dashed #ddd; }
+            .price-row.total span:first-child { font-size: 12px; font-weight: 800; color: #E6007E; }
+            .price-row.total .value { font-size: 16px; font-weight: 900; color: #E6007E; letter-spacing: -0.5px; }
+            
+            .price-condition { font-size: 9px; margin-top: 6px; text-align: center; line-height: 1.2; word-break: keep-all; color: #aaa; }
             .final-price { display: none; }
             
-            /* 모바일 상품 카드 바우처 버튼 사이즈 조절 */
-            .btn-product-voucher { padding: 8px 0; font-size: 12px; border-radius: 8px; margin-top: 15px; }
+            .btn-product-voucher { padding: 10px 0; font-size: 11px; border-radius: 8px; margin-top: 12px; width: 100%; }
 
             .internet-section { padding: 50px 10px; }
             .q-badge { font-size: 12px; padding: 6px 14px; margin-bottom: 15px; }
@@ -745,7 +749,7 @@
                         <div class="price-row"><span>출고가</span><span class="value">1,243,000 원</span></div>
                         <div class="price-row"><span>이통사 지원금</span><span class="value">- 450,000 원</span></div>
                         <div class="price-row"><span>대리점 지원금</span><span class="value">- 723,000 원</span></div>
-                        <div class="price-row total"><span>할부원금</span><span class="value">70,000원</span></div>
+                        <div class="price-row total"><span>할부원금</span><span class="value">70,000 원</span></div>
                     </div>
                     <p class="price-condition">(LGU+ 통신사이동 / 85요금제 6개월 유지 조건)</p>
                     <div class="final-price">70,000<span>원</span></div>
