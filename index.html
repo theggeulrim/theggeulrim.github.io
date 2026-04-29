@@ -25,12 +25,11 @@
         .btn-top-kakao { background-color: #FEE500; color: #000; }
         .btn-top-reg { background-color: #E6007E; color: #fff; }
 
-        /* 2. 메인 1페이지 (Hero Section) - ★ 신뢰도 강화 스타일 추가 ★ */
+        /* 2. 메인 1페이지 (Hero Section) */
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
         .hero-section { padding: 90px 0 80px; display: flex; align-items: center; justify-content: space-between; gap: 60px; }
-        .hero-text-box { flex: 1; max-width: 550px; } /* 넓이 제한으로 휑한 느낌 방지 */
+        .hero-text-box { flex: 1; max-width: 550px; } 
         
-        /* 신규: 신뢰도 뱃지 */
         .hero-badges { display: flex; gap: 8px; margin-bottom: 20px; align-items: center; }
         .badge-primary { background-color: #E6007E; color: #ffffff; padding: 6px 12px; border-radius: 8px; font-size: 13px; font-weight: 800; letter-spacing: -0.5px; }
         .badge-secondary { background-color: #f1f1f1; color: #555; padding: 6px 12px; border-radius: 8px; font-size: 13px; font-weight: 700; border: 1px solid #e0e0e0; letter-spacing: -0.5px; }
@@ -40,7 +39,6 @@
 
         .hero-desc { font-size: 16px; line-height: 1.6; color: #555; word-break: keep-all; }
         
-        /* 신규: 신뢰 데이터 박스 (Apple Keynote 스타일 메트 박스) */
         .hero-stats-box { 
             display: flex; justify-content: space-between; align-items: center;
             background-color: #f8f9fa; border: 1px solid #eaeaea; border-radius: 16px; 
@@ -58,7 +56,6 @@
         .btn-kakao { background-color: #FEE500; color: #000000; box-shadow: 0 4px 10px rgba(254, 229, 0, 0.3); }
         .btn-phone { background-color: #E6007E; color: #ffffff; box-shadow: 0 4px 10px rgba(230, 0, 126, 0.3); }
 
-        /* 슬라이드쇼 이미지 영역 */
         .hero-img-box { 
             flex: 1; max-width: 550px; width: 100%; position: relative; 
             aspect-ratio: 4 / 3; border-radius: 24px; overflow: hidden; 
@@ -112,6 +109,31 @@
             transition: all 0.2s; box-shadow: 0 4px 10px rgba(0,0,0,0.05);
         }
         .btn-load-more:hover { border-color: #E6007E; color: #E6007E; }
+
+        /* ★ 신규 추가: 전국 택배/온라인 개통 배너 (다크 모드 스타일) ★ */
+        .delivery-section-wrap { padding: 0 20px; background-color: #f8f9fa; }
+        .delivery-section { 
+            background-color: #1a1a1a; color: #ffffff; 
+            padding: 60px 40px; text-align: center; margin: 0 auto; max-width: 1200px; 
+            border-radius: 24px; box-shadow: 0 20px 40px rgba(0,0,0,0.15); 
+            display: flex; flex-direction: column; align-items: center;
+            border: 1px solid #333;
+        }
+        .delivery-title { font-size: 32px; font-weight: 900; margin-bottom: 16px; letter-spacing: -1px; word-break: keep-all; }
+        .delivery-title span { color: #E6007E; }
+        .delivery-desc { font-size: 16px; color: #cccccc; line-height: 1.6; margin-bottom: 35px; word-break: keep-all; }
+        
+        .delivery-features { display: flex; justify-content: center; gap: 15px; margin-bottom: 35px; flex-wrap: wrap; }
+        .delivery-feature { 
+            display: inline-flex; align-items: center; font-size: 15px; font-weight: 700; color: #fff; 
+            background: rgba(255,255,255,0.1); padding: 12px 24px; border-radius: 12px; letter-spacing: -0.5px;
+        }
+        .btn-delivery { 
+            display: inline-block; background-color: #E6007E; color: #fff; 
+            font-size: 18px; font-weight: bold; padding: 18px 40px; border-radius: 30px; 
+            text-decoration: none; transition: background-color 0.2s; box-shadow: 0 4px 15px rgba(230,0,126,0.3); 
+        }
+        .btn-delivery:hover { background-color: #c9006e; }
 
         /* 5. 상품 특가 섹션 */
         .product-section { padding: 80px 20px; background-color: #ffffff; border-top: 1px solid #eee; overflow: hidden; }
@@ -249,17 +271,16 @@
             .button-group { justify-content: center; }
         }
 
-        /* ★ 모바일 반응형 (신뢰도 디자인 모바일 대응) ★ */
+        /* ★ 모바일 반응형 ★ */
         @media (max-width: 768px) {
             .hero-section { padding: 40px 15px; gap: 0; }
-            .hero-badges { margin-bottom: 15px; gap: 6px; justify-content: center; }
+            .hero-badges { margin-bottom: 15px; gap: 6px; justify-content: center; flex-wrap: wrap; }
             .badge-primary, .badge-secondary { font-size: 11px; padding: 5px 10px; }
             
             .hero-title { font-size: 32px; margin-bottom: 15px; letter-spacing: -1px; }
             .hero-title .text-lgu-pink { font-size: 22px; margin-bottom: 6px; }
             .hero-desc { font-size: 14px; padding: 0 10px; }
             
-            /* 모바일 신뢰 데이터 박스 꽉 차게 변경 */
             .hero-stats-box { margin: 25px 0; padding: 18px 10px; border-radius: 12px; gap: 5px; }
             .stat-num { font-size: 18px; }
             .stat-label { font-size: 11px; }
@@ -271,7 +292,6 @@
             .floating-text-box .float-title { font-size: 13px; }
             .floating-text-box .float-desc { font-size: 11px; }
 
-            /* 컴팩트 매장 그리드 */
             .store-grid-section { padding: 40px 15px; }
             .store-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
             .store-card-wrap { border-radius: 12px; }
@@ -282,7 +302,15 @@
             .btn-reserve { padding: 8px 0; font-size: 12px; border-radius: 6px; letter-spacing: -0.5px; }
             .btn-load-more { width: 90%; font-size: 14px; padding: 12px 0; margin-top: 25px; }
 
-            /* 상품 특가 2열 그리드 */
+            /* 택배 배너 모바일 최적화 */
+            .delivery-section-wrap { padding: 0 15px; }
+            .delivery-section { padding: 40px 20px; border-radius: 16px; margin: 0 auto 20px; }
+            .delivery-title { font-size: 22px; margin-bottom: 12px; }
+            .delivery-desc { font-size: 13px; margin-bottom: 25px; }
+            .delivery-features { flex-direction: column; gap: 10px; margin-bottom: 25px; }
+            .delivery-feature { justify-content: center; font-size: 13px; padding: 10px 16px; }
+            .btn-delivery { width: 100%; padding: 14px 0; font-size: 15px; }
+
             .product-section { padding: 40px 10px; }
             .section-title { font-size: 24px; margin-bottom: 25px; }
             .product-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; } 
@@ -459,7 +487,7 @@
                 <div class="store-card-content">
                     <div>
                         <h3 class="store-card-title">칠보마을점</h3>
-                        <p class="store-card-address">경기도 수원시 권선구 금곡로102번길 30</p>
+                        <p class="store-card-address">경기도 수원시 권선구 금곡로102번길 30 1층</p>
                     </div>
                     <div class="store-card-btns">
                         <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve">방문 예약</a>
@@ -723,6 +751,21 @@
         
         <button id="loadMoreBtn" class="btn-load-more" onclick="loadMoreStores()">전체 22개 매장 보기 ∨</button>
     </section>
+
+    <div class="delivery-section-wrap">
+        <section class="delivery-section">
+            <h2 class="delivery-title">매장 방문이 어려우신가요?<br><span>전국 어디서나 택배 개통!</span></h2>
+            <p class="delivery-desc">더끌림컴퍼니의 혜택 그대로, 안전하게 당일 발송해 드립니다.</p>
+            
+            <div class="delivery-features">
+                <div class="delivery-feature">✓ 100% 비대면 온라인 신청</div>
+                <div class="delivery-feature">✓ 빠르고 안전한 우체국 우상향 택배</div>
+                <div class="delivery-feature">✓ 개통부터 데이터 이동 가이드까지 완벽 지원</div>
+            </div>
+            
+            <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="btn-delivery">📦 전국 택배 개통 상담하기</a>
+        </section>
+    </div>
 
     <section class="product-section">
         <h2 class="section-title">더끌림컴퍼니의 😎 <span class="text-lgu-pink">휴대폰 특가</span></h2>
