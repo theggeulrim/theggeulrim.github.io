@@ -112,7 +112,7 @@
 
 
         /* ==============================================================
-           ★ 퀵 메뉴 (PC & Mobile 공통, 5개 아이콘으로 수정) ★ 
+           ★ 퀵 메뉴 (PC & Mobile 공통, 오해 소지 텍스트 수정) ★ 
            ============================================================== */
         .quick-menu-wrap { background-color: #ffffff; padding: 40px 20px; border-bottom: 1px solid #eaeaea; }
         .quick-menu-grid { display: flex; justify-content: center; gap: 50px; max-width: 1000px; margin: 0 auto; }
@@ -169,19 +169,32 @@
         }
         .btn-product-voucher:hover { box-shadow: 0 6px 20px rgba(230,0,126,0.4); transform: translateY(-2px); }
 
-        /* ★ VIP 임직원몰 슬림 배너 (단말기 섹션 바로 아래) ★ */
+        /* ★ [수정 완료] VIP 악세사리 배너 디자인 고도화 ★ */
         .vip-banner-wrap { max-width: 1200px; margin: 0 auto 80px; padding: 0 20px; }
         .vip-banner { 
             display: flex; justify-content: space-between; align-items: center; 
-            background: linear-gradient(135deg, #1d1d1f 0%, #333336 100%); 
-            padding: 24px 35px; border-radius: 20px; text-decoration: none; 
-            box-shadow: 0 15px 30px rgba(0,0,0,0.1); transition: transform 0.2s, box-shadow 0.2s;
+            background: linear-gradient(135deg, #1d1d1f 0%, #43434d 100%); 
+            padding: 30px 40px; border-radius: 24px; text-decoration: none; 
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15); transition: transform 0.3s, box-shadow 0.3s;
+            position: relative; overflow: hidden; border: 1px solid rgba(255,255,255,0.1);
         }
-        .vip-banner:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0,0,0,0.15); }
-        .vip-badge { background-color: #E6007E; color: #fff; font-size: 12px; font-weight: 800; padding: 4px 10px; border-radius: 6px; margin-bottom: 10px; display: inline-block; letter-spacing: -0.5px; }
-        .vip-title { color: #ffffff; font-size: 22px; font-weight: 800; margin: 0; letter-spacing: -0.5px; line-height: 1.4; }
+        .vip-banner::before {
+            content: '🎁'; position: absolute; right: 12%; top: -20px; font-size: 110px; opacity: 0.1; transform: rotate(15deg); pointer-events: none;
+        }
+        .vip-banner:hover { transform: translateY(-5px); box-shadow: 0 20px 45px rgba(0,0,0,0.2); }
+        
+        .vip-badge { background-color: #E6007E; color: #fff; font-size: 12px; font-weight: 800; padding: 5px 12px; border-radius: 8px; margin-bottom: 12px; display: inline-block; letter-spacing: -0.5px; box-shadow: 0 4px 10px rgba(230,0,126,0.3); position: relative; z-index: 2;}
+        .vip-title { color: #ffffff; font-size: 24px; font-weight: 800; margin: 0; letter-spacing: -0.5px; line-height: 1.4; position: relative; z-index: 2; }
         .vip-title span { color: #E6007E; }
-        .vip-arrow { color: #fff; font-size: 24px; font-weight: bold; }
+        
+        /* 화이트톤의 세련된 원형 버튼 느낌 */
+        .vip-arrow { 
+            background-color: rgba(255,255,255,0.1); color: #fff; width: 48px; height: 48px; 
+            display: flex; justify-content: center; align-items: center; border-radius: 50%; 
+            font-size: 18px; font-weight: bold; backdrop-filter: blur(5px); z-index: 2; 
+            transition: background-color 0.3s, color 0.3s; 
+        }
+        .vip-banner:hover .vip-arrow { background-color: #E6007E; color: #ffffff; }
 
         /* 전국 택배 배너 (다크 톤 포인트) */
         .delivery-section-wrap { padding: 40px 20px; background-color: #ffffff; }
@@ -335,7 +348,6 @@
            ★ 반응형 분기 처리 (PC & Tablet) ★ 
            ============================================================== */
         @media (min-width: 769px) {
-            /* PC 화면에서는 모바일 전용 Hero 요소들 완벽하게 숨김 */
             .mobile-hero-wrapper { display: none !important; }
             .desktop-hero-wrapper { display: block !important; }
             
@@ -364,14 +376,12 @@
            ★ 반응형 분기 처리 (Mobile) ★ 
            ============================================================== */
         @media (max-width: 768px) {
-            /* 모바일 퀵메뉴 스타일 (5개 아이콘 배열 최적화) */
             .quick-menu-wrap { padding: 20px 10px; margin-bottom: 0; }
             .quick-menu-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 5px; width: 100%; }
             .quick-menu-item { gap: 6px; }
             .quick-menu-icon { width: 48px; height: 48px; font-size: 22px; border-radius: 14px; }
             .quick-menu-text { font-size: 11px; letter-spacing: -0.5px; }
 
-            /* 모바일 상품 특가 2열 그리드 */
             .product-section { padding: 50px 10px; }
             .section-title { font-size: 24px; margin-bottom: 25px; }
             .product-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; } 
@@ -390,14 +400,14 @@
             .price-condition { font-size: 9px; margin-top: 6px; }
             .btn-product-voucher { padding: 10px 0; font-size: 12px; border-radius: 8px; margin-top: 12px; width: 100%; font-weight: 700;}
 
-            /* 모바일 VIP 배너 최적화 */
+            /* ★ 모바일 VIP 배너 사이즈 및 폰트 조절 ★ */
             .vip-banner-wrap { padding: 0 15px; margin-top: 10px; margin-bottom: 50px; }
-            .vip-banner { padding: 20px; border-radius: 16px; }
-            .vip-badge { font-size: 10px; padding: 4px 8px; margin-bottom: 8px; }
-            .vip-title { font-size: 15px; }
-            .vip-arrow { font-size: 20px; }
+            .vip-banner { padding: 25px 20px; border-radius: 20px; }
+            .vip-banner::before { font-size: 80px; right: 5%; top: -10px; }
+            .vip-badge { font-size: 11px; padding: 4px 10px; margin-bottom: 10px; }
+            .vip-title { font-size: 16px; }
+            .vip-arrow { width: 36px; height: 36px; font-size: 14px; }
 
-            /* 택배 배너 모바일 최적화 */
             .delivery-section-wrap { padding: 0 15px; background-color: #ffffff; }
             .delivery-section { padding: 40px 20px; border-radius: 20px; margin: 0 auto 20px; }
             .delivery-title { font-size: 20px; margin-bottom: 12px; }
@@ -406,14 +416,13 @@
             .delivery-feature { justify-content: center; font-size: 12px; padding: 10px 16px; border: none; }
             .btn-delivery { width: 100%; padding: 14px 0; font-size: 14px; }
 
-            /* 모바일 매장 그리드 */
             .store-grid-section { padding: 50px 15px; }
             .store-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
             .store-card-wrap { border-radius: 16px; }
             .store-card-img { aspect-ratio: 16/9; } 
             .store-card-content { padding: 12px 10px; }
             .store-card-title { font-size: 13px; margin-bottom: 4px; }
-            .store-card-address { font-size: 10px; margin-bottom: 12px; line-height: 1.3; }
+            .store-card-address { font-size: 10px; margin-bottom: 12px; line-height: 1.3; font-weight: 500;}
             .btn-reserve { padding: 8px 0; font-size: 12px; border-radius: 8px; letter-spacing: -0.5px; }
             .btn-load-more { width: 90%; font-size: 13px; padding: 12px 0; margin-top: 25px; }
 
@@ -579,7 +588,7 @@
         </section>
     </div>
 
-    <!-- ★ 공식 앱 느낌의 아이콘 퀵 메뉴 (PC / Mobile 공통 노출, 5개 아이콘) ★ -->
+    <!-- ★ 공식 앱 느낌의 아이콘 퀵 메뉴 (텍스트 변경 완료) ★ -->
     <div class="quick-menu-wrap">
         <div class="quick-menu-grid">
             <a href="#phones" class="quick-menu-item">
@@ -598,10 +607,9 @@
                 <div class="quick-menu-icon">🏬</div>
                 <span class="quick-menu-text">매장 찾기</span>
             </a>
-            <!-- 추가된 임직원몰 아이콘 -->
             <a href="https://hotdealcenter.co.kr/" target="_blank" class="quick-menu-item">
                 <div class="quick-menu-icon">🎧</div>
-                <span class="quick-menu-text">임직원몰</span>
+                <span class="quick-menu-text">악세사리 특가</span>
             </a>
         </div>
     </div>
@@ -773,14 +781,14 @@
         </div>
     </section>
 
-    <!-- ★ 신규 추가: 임직원몰 슬림 배너 (단말기 섹션 바로 아래) ★ -->
+    <!-- ★ [디자인 업그레이드] 악세사리 초특가 슬림 배너 ★ -->
     <div class="vip-banner-wrap">
         <a href="https://hotdealcenter.co.kr/" target="_blank" class="vip-banner">
             <div>
-                <span class="vip-badge">VIP SECRET</span>
-                <h3 class="vip-title">스마트폰 악세사리, <span>임직원가</span>로 구매하기</h3>
+                <span class="vip-badge">고객 전용 시크릿 혜택</span>
+                <h3 class="vip-title">스마트폰 악세사리, <span>초특가</span>로 구매하기</h3>
             </div>
-            <div class="vip-arrow">〉</div>
+            <div class="vip-arrow">➔</div>
         </a>
     </div>
 
