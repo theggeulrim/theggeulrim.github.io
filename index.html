@@ -110,11 +110,12 @@
         .hero-img-box-pc .float-title { font-size: 14px; font-weight: 800; color: #111; }
         .hero-img-box-pc .float-desc { font-size: 13px; font-weight: 600; color: #666; letter-spacing: -0.5px; }
 
+
         /* ==============================================================
-           ★ 퀵 메뉴 (PC & Mobile 공통) ★ 
+           ★ 퀵 메뉴 (PC & Mobile 공통, 5개 아이콘으로 수정) ★ 
            ============================================================== */
         .quick-menu-wrap { background-color: #ffffff; padding: 40px 20px; border-bottom: 1px solid #eaeaea; }
-        .quick-menu-grid { display: flex; justify-content: center; gap: 70px; max-width: 1200px; margin: 0 auto; }
+        .quick-menu-grid { display: flex; justify-content: center; gap: 50px; max-width: 1000px; margin: 0 auto; }
         .quick-menu-item { display: flex; flex-direction: column; align-items: center; text-decoration: none; color: #333; gap: 12px; transition: transform 0.2s; }
         .quick-menu-item:hover { transform: translateY(-5px); }
         .quick-menu-icon { 
@@ -133,7 +134,7 @@
         .text-lgu-pink { color: #E6007E; }
 
         /* 상품 특가 섹션 (1순위 배치) */
-        .product-section { padding: 100px 20px; background-color: #fbfbfd; overflow: hidden; }
+        .product-section { padding: 100px 20px 80px; background-color: #fbfbfd; overflow: hidden; }
         .product-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; max-width: 1200px; margin: 0 auto; }
         
         .product-card { 
@@ -167,6 +168,20 @@
             box-shadow: 0 4px 15px rgba(230,0,126,0.25); transition: all 0.2s ease; letter-spacing: -0.5px;
         }
         .btn-product-voucher:hover { box-shadow: 0 6px 20px rgba(230,0,126,0.4); transform: translateY(-2px); }
+
+        /* ★ VIP 임직원몰 슬림 배너 (단말기 섹션 바로 아래) ★ */
+        .vip-banner-wrap { max-width: 1200px; margin: 0 auto 80px; padding: 0 20px; }
+        .vip-banner { 
+            display: flex; justify-content: space-between; align-items: center; 
+            background: linear-gradient(135deg, #1d1d1f 0%, #333336 100%); 
+            padding: 24px 35px; border-radius: 20px; text-decoration: none; 
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1); transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .vip-banner:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0,0,0,0.15); }
+        .vip-badge { background-color: #E6007E; color: #fff; font-size: 12px; font-weight: 800; padding: 4px 10px; border-radius: 6px; margin-bottom: 10px; display: inline-block; letter-spacing: -0.5px; }
+        .vip-title { color: #ffffff; font-size: 22px; font-weight: 800; margin: 0; letter-spacing: -0.5px; line-height: 1.4; }
+        .vip-title span { color: #E6007E; }
+        .vip-arrow { color: #fff; font-size: 24px; font-weight: bold; }
 
         /* 전국 택배 배너 (다크 톤 포인트) */
         .delivery-section-wrap { padding: 40px 20px; background-color: #ffffff; }
@@ -243,7 +258,7 @@
         .step-line { position: absolute; top: 11px; left: 15%; right: 15%; height: 2px; background-color: #e5e5ea; z-index: 1; }
         .step-item { position: relative; z-index: 2; flex: 1; }
         .step-dot { width: 24px; height: 24px; border-radius: 50%; background: #fff; border: 4px solid #0066cc; margin: 0 auto 20px; box-shadow: 0 0 0 4px #ffffff; }
-        .step-card { background: #ffffff; border: 1px solid #f0f0f0; border-radius: 16px; padding: 30px 20px; font-size: 16px; font-weight: 700; color: #333; line-height: 1.5; box-shadow: 0 10px 20px rgba(0,0,0,0.03); word-break: keep-all; }
+        .step-card { background: #ffffff; border: 1px solid #f0f0f0; border-radius: 20px; padding: 30px 20px; font-size: 16px; font-weight: 700; color: #333; line-height: 1.5; box-shadow: 0 10px 20px rgba(0,0,0,0.03); word-break: keep-all; }
 
         /* 신뢰(Trust) 문구 섹션 */
         .trust-section { padding: 100px 0 80px; background-color: #ffffff; text-align: center; border-top: 1px solid #eaeaea; overflow: hidden; }
@@ -252,8 +267,7 @@
         .trust-slide-set { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; max-width: 1100px; margin: 0 auto 50px; animation: none; padding: 0 20px; }
         .mobile-clone { display: none !important; }
         
-        .trust-card { width: 100%; border-radius: 24px; padding: 40px 20px 20px; display: flex; flex-direction: column; justify-content: space-between; align-items: center; box-shadow: 0 10px 30px rgba(0,0,0,0.04); height: 100%; transition: transform 0.2s; background-color: #ffffff; border: 1px solid #f0f0f0; }
-        .trust-card:hover { transform: translateY(-5px); }
+        .trust-card { width: 100%; border-radius: 24px; padding: 40px 20px 20px; display: flex; flex-direction: column; justify-content: space-between; align-items: center; box-shadow: 0 10px 30px rgba(0,0,0,0.04); height: 100%; background-color: #ffffff; border: 1px solid #f0f0f0; }
         .trust-card-text { font-size: 20px; font-weight: 800; line-height: 1.5; margin-bottom: 30px; letter-spacing: -0.5px; word-break: keep-all; color: #111; }
         .trust-icon { width: 120px; height: 120px; object-fit: contain; margin: 0 auto; display: block; } 
 
@@ -264,7 +278,7 @@
         .trust-text-sub { font-size: 16px; font-weight: 600; color: #666; line-height: 1.6; letter-spacing: -0.5px; padding: 0 20px; margin-bottom: 50px; }
 
         /* 후기 슬라이더 영역 */
-        .review-slider-wrap { width: 100%; overflow: hidden; position: relative; padding: 20px 0; background-color: #ffffff; }
+        .review-slider-wrap { width: 100%; overflow: hidden; position: relative; padding: 20px 0; background-color: #fbfbfd; }
         .review-track-container { display: flex; flex-wrap: nowrap; width: max-content; }
         .review-track-container:hover .review-slide-set { animation-play-state: paused; }
         .review-slide-set { display: flex; flex-shrink: 0; animation: scroll-loop-review 20s linear infinite; } 
@@ -321,7 +335,7 @@
            ★ 반응형 분기 처리 (PC & Tablet) ★ 
            ============================================================== */
         @media (min-width: 769px) {
-            /* PC 화면에서는 모바일 전용 Hero 요소들 숨김 */
+            /* PC 화면에서는 모바일 전용 Hero 요소들 완벽하게 숨김 */
             .mobile-hero-wrapper { display: none !important; }
             .desktop-hero-wrapper { display: block !important; }
             
@@ -331,19 +345,6 @@
             .logo-sub { font-size: 15px; overflow: visible; } 
             .header-btns { gap: 10px; }
             .btn-top-kakao, .btn-top-reg { font-size: 13px; padding: 10px 16px; }
-
-            /* ★ PC 전용 퀵 메뉴 (가로 정렬, 넓은 여백) ★ */
-            .quick-menu-wrap { padding: 40px 20px; border-bottom: 1px solid #eaeaea; background-color: #ffffff; }
-            .quick-menu-grid { display: flex; justify-content: center; gap: 70px; max-width: 1200px; margin: 0 auto; }
-            .quick-menu-item { display: flex; flex-direction: column; align-items: center; text-decoration: none; color: #333; gap: 12px; transition: transform 0.2s; }
-            .quick-menu-item:hover { transform: translateY(-5px); }
-            .quick-menu-icon { 
-                width: 80px; height: 80px; background-color: #f5f5f7; border-radius: 24px; 
-                display: flex; justify-content: center; align-items: center; font-size: 32px; 
-                box-shadow: 0 4px 15px rgba(0,0,0,0.03); transition: background-color 0.2s; 
-            }
-            .quick-menu-item:hover .quick-menu-icon { background-color: #fff0f6; }
-            .quick-menu-text { font-size: 16px; font-weight: 800; letter-spacing: -0.5px; }
         }
 
         @media (max-width: 1024px) {
@@ -363,14 +364,14 @@
            ★ 반응형 분기 처리 (Mobile) ★ 
            ============================================================== */
         @media (max-width: 768px) {
-            /* 1. 모바일 퀵메뉴 스타일 */
-            .quick-menu-wrap { padding: 20px 15px; margin-bottom: 0; }
-            .quick-menu-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; width: 100%; }
-            .quick-menu-item { gap: 8px; }
-            .quick-menu-icon { width: 55px; height: 55px; font-size: 24px; border-radius: 16px; }
-            .quick-menu-text { font-size: 12px; }
+            /* 모바일 퀵메뉴 스타일 (5개 아이콘 배열 최적화) */
+            .quick-menu-wrap { padding: 20px 10px; margin-bottom: 0; }
+            .quick-menu-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 5px; width: 100%; }
+            .quick-menu-item { gap: 6px; }
+            .quick-menu-icon { width: 48px; height: 48px; font-size: 22px; border-radius: 14px; }
+            .quick-menu-text { font-size: 11px; letter-spacing: -0.5px; }
 
-            /* 2. 모바일 상품 특가 2열 그리드 */
+            /* 모바일 상품 특가 2열 그리드 */
             .product-section { padding: 50px 10px; }
             .section-title { font-size: 24px; margin-bottom: 25px; }
             .product-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; } 
@@ -389,7 +390,14 @@
             .price-condition { font-size: 9px; margin-top: 6px; }
             .btn-product-voucher { padding: 10px 0; font-size: 12px; border-radius: 8px; margin-top: 12px; width: 100%; font-weight: 700;}
 
-            /* 3. 택배 배너 모바일 최적화 */
+            /* 모바일 VIP 배너 최적화 */
+            .vip-banner-wrap { padding: 0 15px; margin-top: 10px; margin-bottom: 50px; }
+            .vip-banner { padding: 20px; border-radius: 16px; }
+            .vip-badge { font-size: 10px; padding: 4px 8px; margin-bottom: 8px; }
+            .vip-title { font-size: 15px; }
+            .vip-arrow { font-size: 20px; }
+
+            /* 택배 배너 모바일 최적화 */
             .delivery-section-wrap { padding: 0 15px; background-color: #ffffff; }
             .delivery-section { padding: 40px 20px; border-radius: 20px; margin: 0 auto 20px; }
             .delivery-title { font-size: 20px; margin-bottom: 12px; }
@@ -398,18 +406,17 @@
             .delivery-feature { justify-content: center; font-size: 12px; padding: 10px 16px; border: none; }
             .btn-delivery { width: 100%; padding: 14px 0; font-size: 14px; }
 
-            /* 4. 모바일 매장 그리드 */
+            /* 모바일 매장 그리드 */
             .store-grid-section { padding: 50px 15px; }
             .store-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
             .store-card-wrap { border-radius: 16px; }
             .store-card-img { aspect-ratio: 16/9; } 
             .store-card-content { padding: 12px 10px; }
             .store-card-title { font-size: 13px; margin-bottom: 4px; }
-            .store-card-address { font-size: 10px; margin-bottom: 12px; line-height: 1.3; font-weight: 500;}
+            .store-card-address { font-size: 10px; margin-bottom: 12px; line-height: 1.3; }
             .btn-reserve { padding: 8px 0; font-size: 12px; border-radius: 8px; letter-spacing: -0.5px; }
             .btn-load-more { width: 90%; font-size: 13px; padding: 12px 0; margin-top: 25px; }
 
-            /* 5. 인터넷 & 기타 섹션 */
             .internet-section { padding: 50px 10px; }
             .q-badge { font-size: 12px; padding: 6px 14px; margin-bottom: 15px; }
             .q-icon { width: 16px; height: 16px; font-size: 10px; margin-right: 5px; }
@@ -471,6 +478,7 @@
         </div>
     </header>
 
+    <!-- ★ [모바일 전용] 꽉 찬 풀블리드 배너 이미지 및 모바일 히어로 ★ -->
     <div class="mobile-hero-wrapper">
         <div class="hero-banner-wrap">
             <div id="slider">
@@ -519,6 +527,7 @@
         </section>
     </div>
 
+    <!-- ★ [PC 전용] 깔끔한 분할 레이아웃 히어로 ★ -->
     <div class="desktop-hero-wrapper">
         <section class="hero-section-desktop container">
             <div class="hero-text-box-pc">
@@ -570,6 +579,7 @@
         </section>
     </div>
 
+    <!-- ★ 공식 앱 느낌의 아이콘 퀵 메뉴 (PC / Mobile 공통 노출, 5개 아이콘) ★ -->
     <div class="quick-menu-wrap">
         <div class="quick-menu-grid">
             <a href="#phones" class="quick-menu-item">
@@ -588,13 +598,20 @@
                 <div class="quick-menu-icon">🏬</div>
                 <span class="quick-menu-text">매장 찾기</span>
             </a>
+            <!-- 추가된 임직원몰 아이콘 -->
+            <a href="https://hotdealcenter.co.kr/" target="_blank" class="quick-menu-item">
+                <div class="quick-menu-icon">🎧</div>
+                <span class="quick-menu-text">임직원몰</span>
+            </a>
         </div>
     </div>
 
+    <!-- 상품 특가 섹션 (삼성 -> 애플 순 정렬) -->
     <section id="phones" class="product-section">
         <h2 class="section-title">더끌림컴퍼니의 😎 <span class="text-lgu-pink">휴대폰 특가</span></h2>
         
         <div class="product-grid">
+            <!-- 1. 삼성: 갤럭시 S26 -->
             <div class="product-card">
                 <div class="product-img-wrap"><img src="s26.png" alt="s26" class="product-img"></div>
                 <div class="product-info-box">
@@ -610,6 +627,7 @@
                 </div>
             </div>
 
+            <!-- 2. 삼성: 갤럭시 S26+ -->
             <div class="product-card">
                 <div class="product-img-wrap"><img src="s26p.png" alt="s26p" class="product-img"></div>
                 <div class="product-info-box">
@@ -625,6 +643,7 @@
                 </div>
             </div>
 
+            <!-- 3. 삼성: 갤럭시 S26 Ultra -->
             <div class="product-card">
                 <div class="product-img-wrap"><img src="s26u.png" alt="s26u" class="product-img"></div>
                 <div class="product-info-box">
@@ -640,6 +659,7 @@
                 </div>
             </div>
 
+            <!-- 4. 삼성: 갤럭시 S25 Edge -->
             <div class="product-card">
                 <div class="product-img-wrap"><img src="s25e.png" alt="s25e" class="product-img"></div>
                 <div class="product-info-box">
@@ -655,6 +675,7 @@
                 </div>
             </div>
 
+            <!-- 5. 삼성: 갤럭시 Z 플립7 -->
             <div class="product-card">
                 <div class="product-img-wrap"><img src="flip7.png" alt="flip7" class="product-img"></div>
                 <div class="product-info-box">
@@ -670,6 +691,7 @@
                 </div>
             </div>
 
+            <!-- 6. 삼성: 갤럭시 Z 폴드7 -->
             <div class="product-card">
                 <div class="product-img-wrap"><img src="fold7.png" alt="fold7" class="product-img"></div>
                 <div class="product-info-box">
@@ -685,6 +707,7 @@
                 </div>
             </div>
 
+            <!-- 7. 애플: iPhone 17 -->
             <div class="product-card">
                 <div class="product-img-wrap"><img src="ip17.png" alt="ip17" class="product-img"></div>
                 <div class="product-info-box">
@@ -700,6 +723,7 @@
                 </div>
             </div>
 
+            <!-- 8. 애플: iPhone 17 Pro -->
             <div class="product-card">
                 <div class="product-img-wrap"><img src="17pr.png" alt="17pr" class="product-img"></div>
                 <div class="product-info-box">
@@ -715,6 +739,7 @@
                 </div>
             </div>
 
+            <!-- 9. 애플: iPhone 17 Pro Max -->
             <div class="product-card">
                 <div class="product-img-wrap"><img src="17pm.png" alt="17pm" class="product-img"></div>
                 <div class="product-info-box">
@@ -730,6 +755,7 @@
                 </div>
             </div>
 
+            <!-- 10. 애플: iPhone 16 -->
             <div class="product-card">
                 <div class="product-img-wrap"><img src="ip16.png" alt="ip16" class="product-img"></div>
                 <div class="product-info-box">
@@ -747,6 +773,18 @@
         </div>
     </section>
 
+    <!-- ★ 신규 추가: 임직원몰 슬림 배너 (단말기 섹션 바로 아래) ★ -->
+    <div class="vip-banner-wrap">
+        <a href="https://hotdealcenter.co.kr/" target="_blank" class="vip-banner">
+            <div>
+                <span class="vip-badge">VIP SECRET</span>
+                <h3 class="vip-title">스마트폰 악세사리, <span>임직원가</span>로 구매하기</h3>
+            </div>
+            <div class="vip-arrow">〉</div>
+        </a>
+    </div>
+
+    <!-- 전국 택배 배너 -->
     <div id="delivery" class="delivery-section-wrap">
         <section class="delivery-section">
             <h2 class="delivery-title">매장 방문이 어려우신가요?<br><span>전국 어디서나 택배 개통!</span></h2>
@@ -762,6 +800,7 @@
         </section>
     </div>
 
+    <!-- 오프라인 매장 리스트 -->
     <section id="stores" class="store-grid-section">
         <h2 class="section-title">가까운 <span class="text-lgu-pink">더끌림컴퍼니</span>를 방문해보세요</h2>
         <div class="store-grid">
@@ -862,6 +901,7 @@
                 </div>
             </div>
 
+            <!-- 숨겨진 나머지 매장들 -->
             <div class="store-card-wrap hidden">
                 <img src="store3.jpeg" alt="관양시장점" class="store-card-img">
                 <div class="store-card-content">
@@ -1035,6 +1075,7 @@
         <button id="loadMoreBtn" class="btn-load-more" onclick="loadMoreStores()">전체 22개 매장 보기 ∨</button>
     </section>
 
+    <!-- 인터넷 & IPTV 섹션 -->
     <section id="internet" class="internet-section">
         <div class="container">
             <div class="q-badge">
@@ -1074,6 +1115,7 @@
         </div>
     </section>
 
+    <!-- 신뢰(Trust) 섹션 -->
     <section class="trust-section">
         <div class="trust-slider-wrap">
             <div class="trust-track-container">
@@ -1139,6 +1181,7 @@
         </div>
     </section>
 
+    <!-- 마지막 배너 -->
     <section class="final-banner">
         <div class="final-content">
             <h2 class="final-banner-title">
@@ -1151,6 +1194,7 @@
         </div>
     </section>
 
+    <!-- 푸터 -->
     <footer class="footer-section">
         <div class="footer-container">
             <div class="footer-top">
