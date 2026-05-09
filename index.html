@@ -1414,47 +1414,68 @@
             document.getElementById('loadMoreBtn').style.display = 'none';
         }
 
-        // 실시간 예약 토스트 로직
+        // ==========================================
+        // ★ 실시간 예약 100명 자동 생성 및 셔플 로직 ★
+        // ==========================================
         function startRealtimeToast() {
-            const bookingData = [
-                "김*현 고객님 <span class='highlight'>아이폰 17</span> 예약 완료!",
-                "이*민 고객님 <span class='highlight'>갤럭시 S26</span> 예약 완료!",
-                "박*수 고객님 <span class='highlight'>인터넷+TV</span> 가입 완료!",
-                "최*영 고객님 <span class='highlight'>Z플립7</span> 택배 발송 준비중!",
-                "정*훈 고객님 <span class='highlight'>S26 Ultra</span> 안양일번가점 방문 예약!",
-                "강*진 고객님 <span class='highlight'>아이폰 17 Pro</span> 상담 완료!",
-                "오*석 고객님 <span class='highlight'>인터넷 단독</span> 개통 완료!",
-                "이*진 고객님 <span class='highlight'>인터넷 단독</span> 개통 완료!",
-                "한*성 고객님 <span class='highlight'>갤럭시 S26</span> 예약 완료!",
-                "방*정 고객님 <span class='highlight'>아이폰 17</span> 예약 완료!"
-            ];
+            // 1. 이름, 기종, 액션 데이터를 분리해서 준비
+            const lastNames = ["김", "이", "박", "최", "정", "강", "조", "윤", "장", "임", "한", "오", "서", "신", "권", "황", "안", "송", "전", "홍", "유", "고", "문", "양", "손", "배", "백", "허", "남", "심"];
+            const firstNames = ["*현", "*민", "*수", "*영", "*훈", "*진", "*석", "*성", "*정", "*기", "*지", "*은", "*아", "*우", "*준", "*호", "*희", "*연", "*윤", "*서", "*하", "*경", "*빈"];
+            const products = ["아이폰 17", "아이폰 17 Pro", "아이폰 17 Pro Max", "갤럭시 S26", "갤럭시 S26+", "갤럭시 S26 Ultra", "갤럭시 S25 Edge", "Z플립7", "Z폴드7", "인터넷+TV", "인터넷 단독"];
+            const actions = ["예약 완료!", "개통 완료!", "택배 발송 준비중!", "방문 예약 완료!", "상담 완료!", "당일 개통 대기중!"];
+
+            // 2. 100개의 랜덤 고객 명단(배열) 자동 생성
+            let bookingData = [];
+            for (let i = 0; i < 100; i++) {
+                let name = lastNames[Math.floor(Math.random() * lastNames.length)] + firstNames[Math.floor(Math.random() * firstNames.length)];
+                let product = products[Math.floor(Math.random() * products.length)];
+                let action = actions[Math.floor(Math.random() * actions.length)];
+                bookingData.push(name + " 고객님 <span class='highlight'>" + product + "</span> " + action);
+            }
+
+            // 3. 배열을 무작위로 섞는 함수 (피셔-예이츠 알고리즘)
+            function shuffleArray(array) {
+                for (let i = array.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [array[i], array[j]] = [array[j], array[i]];
+                }
+            }
+            
+            // 데이터 100개를 완벽하게 섞어줌
+            shuffleArray(bookingData);
 
             const toast = document.getElementById('realtimeToast');
             const toastMsg = document.getElementById('toastMsg');
+            let currentIndex = 0; // 몇 번째 명단을 보여줄지 추적하는 변수
 
             function showToast() {
-                const randomMsg = bookingData[Math.floor(Math.random() * bookingData.length)];
-                toastMsg.innerHTML = randomMsg;
+                // 4. 섞인 명단에서 순서대로 하나씩 출력
+                toastMsg.innerHTML = bookingData[currentIndex];
                 toast.classList.add('show');
 
+                // 팝업이 떠 있는 시간: 2.5초 (2500ms)
                 setTimeout(() => {
                     toast.classList.remove('show');
-                }, 3500); // 3.5초 유지 후 사라짐
+                }, 2500); 
+
+                currentIndex++;
+                if (currentIndex >= bookingData.length) {
+                    shuffleArray(bookingData);
+                    currentIndex = 0;
+                }
             }
 
-            // 1. 페이지 로드 후 1초 뒤에 첫 알림을 무조건 띄웁니다 (테스트용 즉시 노출)
-            setTimeout(() => {
-                showToast();
-            }, 1000);
+            // 5. 타이머 설정: 페이지 로드 즉시 무조건 1번 실행 (대기 시간 0초)
+            showToast();
 
-            // 2. 그 이후부터 3초~7초 사이 랜덤한 간격으로 계속 알림을 띄웁니다
+            // 그 이후부터는 팝업이 꺼지고 난 뒤 1~3초 사이 랜덤한 간격으로 알림 띄움 (최대 3초 안 넘김)
             (function loop() {
-                const randTime = Math.random() * (12000 - 5000) + 5000;
-                // 3500ms(알림 떠있는 시간) 이후에 다음 타이머를 시작하도록 설정
+                // 대기 시간: 팝업 유지 시간(2500ms) + 팝업이 꺼져있는 시간(1000~3000ms)
+                const waitTime = Math.random() * (3000 - 1000) + 1000; 
                 setTimeout(() => {
                     showToast();
                     loop();
-                }, randTime + 3500); 
+                }, 2500 + waitTime);
             })();
         }
     </script>
