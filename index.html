@@ -334,7 +334,7 @@
         .footer-warning { margin-bottom: 5px; }
 
         /* ==============================================================
-           ★ PC 전용 우측 하단 플로팅 버튼 ★ 
+           ★ PC 전용 우측 하단 플로팅 버튼 (모바일에서는 숨김) ★ 
            ============================================================== */
         .fab-container { position: fixed; bottom: 30px; right: 30px; display: flex; flex-direction: column; gap: 15px; z-index: 9999; }
         .fab-btn { width: 56px; height: 56px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 24px; text-decoration: none; box-shadow: 0 10px 25px rgba(0,0,0,0.15); transition: transform 0.2s ease; border: 1px solid rgba(0,0,0,0.05); }
@@ -1401,7 +1401,7 @@
                 }, 3000); 
             }
 
-            // 실시간 예약 토스트 팝업 실행
+            // ★ 실시간 예약 토스트 팝업 실행 ★
             startRealtimeToast();
         });
 
@@ -1442,13 +1442,19 @@
                 }, 3500); // 3.5초 유지 후 사라짐
             }
 
+            // 1. 페이지 로드 후 1초 뒤에 첫 알림을 무조건 띄웁니다 (테스트용 즉시 노출)
+            setTimeout(() => {
+                showToast();
+            }, 1000);
+
+            // 2. 그 이후부터 3초~7초 사이 랜덤한 간격으로 계속 알림을 띄웁니다
             (function loop() {
-                // 5초 ~ 15초 사이 랜덤 딜레이
-                const randTime = Math.random() * (15000 - 5000) + 5000;
+                const randTime = Math.random() * (12000 - 5000) + 5000;
+                // 3500ms(알림 떠있는 시간) 이후에 다음 타이머를 시작하도록 설정
                 setTimeout(() => {
                     showToast();
                     loop();
-                }, randTime);
+                }, randTime + 3500); 
             })();
         }
     </script>
