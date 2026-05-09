@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- 네이버 서치어드바이저 소유확인 메타 태그 (추가됨) -->
     <meta name="naver-site-verification" content="247faa0154b5362ae4686250385f5d298f03f235" />
     <meta name="format-detection" content="telephone=no, date=no, email=no, address=no">
     <title>주식회사 더끌림컴퍼니 | LGU+ 공식인증 온라인 스토어</title>
@@ -114,7 +113,7 @@
 
 
         /* ==============================================================
-           ★ 퀵 메뉴 (PC & Mobile 공통, 오해 소지 텍스트 수정) ★ 
+           ★ 퀵 메뉴 ★ 
            ============================================================== */
         .quick-menu-wrap { background-color: #ffffff; padding: 40px 20px; border-bottom: 1px solid #eaeaea; }
         .quick-menu-grid { display: flex; justify-content: center; gap: 50px; max-width: 1000px; margin: 0 auto; }
@@ -130,12 +129,12 @@
 
 
         /* ==============================================================
-           ★ 공통 섹션 스타일 (상품, 택배, 매장, 신뢰 등) ★ 
+           ★ 공통 섹션 스타일 ★ 
            ============================================================== */
         .section-title { text-align: center; font-size: 36px; font-weight: 800; margin-bottom: 50px; letter-spacing: -1px; color: #111; }
         .text-lgu-pink { color: #E6007E; }
 
-        /* 상품 특가 섹션 (1순위 배치) */
+        /* 상품 특가 섹션 */
         .product-section { padding: 100px 20px 80px; background-color: #fbfbfd; overflow: hidden; }
         .product-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; max-width: 1200px; margin: 0 auto; }
         
@@ -160,7 +159,6 @@
         .price-row.total .value { color: #E6007E; font-size: 20px; letter-spacing: -0.5px; }
         
         .price-condition { font-size: 11px; color: #888; text-align: right; margin-top: 15px; letter-spacing: -0.5px; }
-        .final-price { display: none; }
 
         .btn-product-voucher { 
             display: block; width: 100%; padding: 16px 0; margin-top: 25px;
@@ -171,7 +169,7 @@
         }
         .btn-product-voucher:hover { box-shadow: 0 6px 20px rgba(230,0,126,0.4); transform: translateY(-2px); }
 
-        /* ★ VIP 악세사리 배너 디자인 고도화 ★ */
+        /* VIP 악세사리 배너 */
         .vip-banner-wrap { max-width: 1200px; margin: 0 auto 80px; padding: 0 20px; }
         .vip-banner { 
             display: flex; justify-content: space-between; align-items: center; 
@@ -180,9 +178,7 @@
             box-shadow: 0 15px 35px rgba(0,0,0,0.15); transition: transform 0.3s, box-shadow 0.3s;
             position: relative; overflow: hidden; border: 1px solid rgba(255,255,255,0.1);
         }
-        .vip-banner::before {
-            content: '🎁'; position: absolute; right: 12%; top: -20px; font-size: 110px; opacity: 0.1; transform: rotate(15deg); pointer-events: none;
-        }
+        .vip-banner::before { content: '🎁'; position: absolute; right: 12%; top: -20px; font-size: 110px; opacity: 0.1; transform: rotate(15deg); pointer-events: none; }
         .vip-banner:hover { transform: translateY(-5px); box-shadow: 0 20px 45px rgba(0,0,0,0.2); }
         
         .vip-badge { background-color: #E6007E; color: #fff; font-size: 12px; font-weight: 800; padding: 5px 12px; border-radius: 8px; margin-bottom: 12px; display: inline-block; letter-spacing: -0.5px; box-shadow: 0 4px 10px rgba(230,0,126,0.3); position: relative; z-index: 2;}
@@ -197,7 +193,7 @@
         }
         .vip-banner:hover .vip-arrow { background-color: #E6007E; color: #ffffff; }
 
-        /* 전국 택배 배너 (다크 톤 포인트) */
+        /* 전국 택배 배너 */
         .delivery-section-wrap { padding: 40px 20px; background-color: #ffffff; }
         .delivery-section { 
             background: linear-gradient(135deg, #1d1d1f 0%, #000000 100%); color: #ffffff; 
@@ -337,13 +333,47 @@
         .footer-bottom { border-top: 1px solid #333333; padding-top: 20px; font-size: 11px; color: #777777; text-align: center; }
         .footer-warning { margin-bottom: 5px; }
 
-        /* 우측 하단 플로팅 버튼 */
+        /* ==============================================================
+           ★ PC 전용 우측 하단 플로팅 버튼 ★ 
+           ============================================================== */
         .fab-container { position: fixed; bottom: 30px; right: 30px; display: flex; flex-direction: column; gap: 15px; z-index: 9999; }
         .fab-btn { width: 56px; height: 56px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 24px; text-decoration: none; box-shadow: 0 10px 25px rgba(0,0,0,0.15); transition: transform 0.2s ease; border: 1px solid rgba(0,0,0,0.05); }
         .fab-btn:hover { transform: scale(1.1); }
         .fab-phone { background-color: #ffffff; color: #111; }
         .fab-kakao { background-color: #FEE500; color: #000; animation: pulse-glow 2s infinite; border: none; }
         @keyframes pulse-glow { 0% { box-shadow: 0 0 0 0 rgba(254, 229, 0, 0.5); } 70% { box-shadow: 0 0 0 15px rgba(254, 229, 0, 0); } 100% { box-shadow: 0 0 0 0 rgba(254, 229, 0, 0); } }
+
+        /* ==============================================================
+           ★ 모바일 전용 하단 고정 바 (Bottom CTA Bar) ★
+           ============================================================== */
+        .bottom-cta-bar { display: none; }
+
+        /* ==============================================================
+           ★ 실시간 예약 토스트 팝업 (공통/PC 위치 설정) ★
+           ============================================================== */
+        .realtime-toast {
+            position: fixed;
+            bottom: 30px; /* PC에서는 우측 하단 FAB와 동일 선상 좌측에 배치 */
+            left: 30px;
+            background-color: rgba(34, 34, 34, 0.9);
+            backdrop-filter: blur(5px);
+            color: #fff;
+            padding: 10px 16px;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            z-index: 9998;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+            pointer-events: none; /* 클릭 방해 방지 */
+        }
+        .realtime-toast.show { opacity: 1; transform: translateY(0); }
+        .realtime-toast .highlight { color: #E6007E; font-weight: 800; }
 
         /* ==============================================================
            ★ 반응형 분기 처리 (PC & Tablet) ★ 
@@ -377,6 +407,44 @@
            ★ 반응형 분기 처리 (Mobile) ★ 
            ============================================================== */
         @media (max-width: 768px) {
+            body { padding-bottom: 75px; } /* 하단 고정 바가 가리지 않도록 여백 확보 */
+            
+            /* 모바일에서 우측 하단 플로팅 버튼 숨기기 */
+            .fab-container { display: none; }
+
+            /* 모바일 하단 고정 바 노출 */
+            .bottom-cta-bar {
+                display: flex;
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                z-index: 9999;
+                box-shadow: 0 -5px 20px rgba(0,0,0,0.1);
+            }
+            .bottom-cta-btn {
+                flex: 1;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 16px 0;
+                font-size: 15px;
+                font-weight: 800;
+                text-decoration: none;
+                letter-spacing: -0.5px;
+                gap: 8px;
+            }
+            .btn-bar-kakao { background-color: #FEE500; color: #000; }
+            .btn-bar-phone { background-color: #E6007E; color: #fff; }
+
+            /* 모바일 토스트 팝업 위치 및 사이즈 조정 */
+            .realtime-toast {
+                bottom: 80px; /* 하단 고정 바 위로 띄움 */
+                left: 15px;
+                font-size: 11px;
+                padding: 8px 14px;
+            }
+
             .quick-menu-wrap { padding: 20px 10px; margin-bottom: 0; }
             .quick-menu-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 5px; width: 100%; }
             .quick-menu-item { gap: 6px; }
@@ -401,7 +469,6 @@
             .price-condition { font-size: 9px; margin-top: 6px; }
             .btn-product-voucher { padding: 10px 0; font-size: 12px; border-radius: 8px; margin-top: 12px; width: 100%; font-weight: 700;}
 
-            /* 모바일 VIP 배너 사이즈 및 폰트 조절 */
             .vip-banner-wrap { padding: 0 15px; margin-top: 10px; margin-bottom: 50px; }
             .vip-banner { padding: 25px 20px; border-radius: 20px; }
             .vip-banner::before { font-size: 80px; right: 5%; top: -10px; }
@@ -469,9 +536,6 @@
             .store-item { width: auto; font-size: 11px; }
 
             .footer-bottom { text-align: left; font-size: 11px; line-height: 1.5; margin-top: 10px; }
-
-            .fab-container { bottom: 20px; right: 20px; gap: 10px; }
-            .fab-btn { width: 48px; height: 48px; font-size: 20px; }
         }
     </style>
 </head>
@@ -627,7 +691,7 @@
         </section>
     </div>
 
-    <!-- ★ 공식 앱 느낌의 아이콘 퀵 메뉴 (텍스트 변경 완료) ★ -->
+    <!-- ★ 공식 앱 느낌의 아이콘 퀵 메뉴 ★ -->
     <div class="quick-menu-wrap">
         <div class="quick-menu-grid">
             <a href="#phones" class="quick-menu-item">
@@ -653,7 +717,7 @@
         </div>
     </div>
 
-    <!-- 상품 특가 섹션 (삼성 -> 애플 순 정렬) -->
+    <!-- 상품 특가 섹션 -->
     <section id="phones" class="product-section">
         <h2 class="section-title">더끌림컴퍼니의 😎 <span class="text-lgu-pink">휴대폰 특가</span></h2>
         
@@ -820,7 +884,7 @@
         </div>
     </section>
 
-    <!-- ★ [디자인 업그레이드] 악세사리 초특가 슬림 배너 ★ -->
+    <!-- ★ 악세사리 초특가 슬림 배너 ★ -->
     <div class="vip-banner-wrap">
         <a href="https://hotdealcenter.co.kr/" target="_blank" class="vip-banner">
             <div>
@@ -1135,7 +1199,7 @@
             </h2>
             
             <div class="highlight-box">
-                <div class="promo-text-small"><span class="blue-point">인터넷 + IPTV</span> 가입 시,</div>
+                <div class="promo-text-small"><span class="blue-point">인터넷 + IPTV</span> 가 가입 시,</div>
                 <div class="promo-text-big">최대 <span class="pink-point">70만원</span> 현금 지원!</div>
             </div>
             
@@ -1292,9 +1356,26 @@
         </div>
     </footer>
 
+    <!-- ★ PC 전용 우측 하단 플로팅 버튼 (모바일에서는 숨김) ★ -->
     <div class="fab-container">
         <a href="tel:070-4007-7776" class="fab-btn fab-phone">📞</a>
         <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="fab-btn fab-kakao">💬</a>
+    </div>
+
+    <!-- ★ 모바일 전용 하단 고정 바 (PC에서는 숨김) ★ -->
+    <div class="bottom-cta-bar">
+        <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="bottom-cta-btn btn-bar-kakao">
+            <span style="font-size: 20px;">💬</span> 카카오톡 상담
+        </a>
+        <a href="tel:070-4007-7776" class="bottom-cta-btn btn-bar-phone">
+            <span style="font-size: 20px;">📞</span> 빠른 전화 문의
+        </a>
+    </div>
+
+    <!-- ★ 실시간 예약 토스트 팝업 ★ -->
+    <div id="realtimeToast" class="realtime-toast">
+        <span class="icon">🔔</span>
+        <span id="toastMsg"></span>
     </div>
 
     <script>
@@ -1319,6 +1400,9 @@
                     slidesMobile[currentSlideMobile].classList.add('active');
                 }, 3000); 
             }
+
+            // 실시간 예약 토스트 팝업 실행
+            startRealtimeToast();
         });
 
         // 더보기 버튼 (매장 노출)
@@ -1328,6 +1412,44 @@
                 store.style.display = 'flex'; 
             });
             document.getElementById('loadMoreBtn').style.display = 'none';
+        }
+
+        // 실시간 예약 토스트 로직
+        function startRealtimeToast() {
+            const bookingData = [
+                "김*현 고객님 <span class='highlight'>아이폰 17</span> 예약 완료!",
+                "이*민 고객님 <span class='highlight'>갤럭시 S26</span> 예약 완료!",
+                "박*수 고객님 <span class='highlight'>인터넷+TV</span> 가입 완료!",
+                "최*영 고객님 <span class='highlight'>Z플립7</span> 택배 발송 준비중!",
+                "정*훈 고객님 <span class='highlight'>S26 Ultra</span> 안양일번가점 방문 예약!",
+                "강*진 고객님 <span class='highlight'>아이폰 17 Pro</span> 상담 완료!",
+                "오*석 고객님 <span class='highlight'>인터넷 단독</span> 개통 완료!"
+                "이*진 고객님 <span class='highlight'>인터넷 단독</span> 개통 완료!"
+            "한*성 고객님 <span class='highlight'>갤럭시 S26</span> 예약 완료!",
+                "방*정 고객님 <span class='highlight'>아이폰 17</span> 예약 완료!",
+            ];
+
+            const toast = document.getElementById('realtimeToast');
+            const toastMsg = document.getElementById('toastMsg');
+
+            function showToast() {
+                const randomMsg = bookingData[Math.floor(Math.random() * bookingData.length)];
+                toastMsg.innerHTML = randomMsg;
+                toast.classList.add('show');
+
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                }, 3500); // 3.5초 유지 후 사라짐
+            }
+
+            (function loop() {
+                // 5초 ~ 15초 사이 랜덤 딜레이
+                const randTime = Math.random() * (15000 - 5000) + 5000;
+                setTimeout(() => {
+                    showToast();
+                    loop();
+                }, randTime);
+            })();
         }
     </script>
 </body>
