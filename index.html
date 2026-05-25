@@ -538,7 +538,23 @@
             .footer-bottom { text-align: left; font-size: 11px; line-height: 1.5; margin-top: 10px; }
         }
     </style>
-</head>
+
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1703870407072402'); // 🚨 '핫딜센터' 픽셀 ID로 변경해주세요!
+    fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=1703870407072402&ev=PageView&noscript=1"
+    /></noscript>
+    </head>
 <body>
 
     <header class="sticky-header">
@@ -552,7 +568,6 @@
         </div>
     </header>
 
-    <!-- ★ [모바일 전용] 꽉 찬 풀블리드 배너 이미지 및 모바일 히어로 ★ -->
     <div class="mobile-hero-wrapper">
         <div class="hero-banner-wrap">
             <div id="slider">
@@ -620,7 +635,6 @@
         </section>
     </div>
 
-    <!-- ★ [PC 전용] 깔끔한 분할 레이아웃 히어로 ★ -->
     <div class="desktop-hero-wrapper">
         <section class="hero-section-desktop container">
             <div class="hero-text-box-pc">
@@ -691,7 +705,6 @@
         </section>
     </div>
 
-    <!-- ★ 공식 앱 느낌의 아이콘 퀵 메뉴 ★ -->
     <div class="quick-menu-wrap">
         <div class="quick-menu-grid">
             <a href="#phones" class="quick-menu-item">
@@ -717,12 +730,10 @@
         </div>
     </div>
 
-    <!-- 상품 특가 섹션 -->
     <section id="phones" class="product-section">
         <h2 class="section-title">더끌림컴퍼니의 😎 <span class="text-lgu-pink">휴대폰 특가</span></h2>
         
         <div class="product-grid">
-            <!-- 1. 삼성: 갤럭시 S26 -->
             <div class="product-card">
                 <div class="product-img-wrap"><img src="s26.png" alt="s26" class="product-img"></div>
                 <div class="product-info-box">
@@ -738,7 +749,6 @@
                 </div>
             </div>
 
-            <!-- 2. 삼성: 갤럭시 S26+ -->
             <div class="product-card">
                 <div class="product-img-wrap"><img src="s26p.png" alt="s26p" class="product-img"></div>
                 <div class="product-info-box">
@@ -754,7 +764,6 @@
                 </div>
             </div>
 
-            <!-- 3. 삼성: 갤럭시 S26 Ultra -->
             <div class="product-card">
                 <div class="product-img-wrap"><img src="s26u.png" alt="s26u" class="product-img"></div>
                 <div class="product-info-box">
@@ -770,7 +779,6 @@
                 </div>
             </div>
 
-            <!-- 4. 삼성: 갤럭시 S25 Edge -->
             <div class="product-card">
                 <div class="product-img-wrap"><img src="s25e.png" alt="s25e" class="product-img"></div>
                 <div class="product-info-box">
@@ -786,7 +794,6 @@
                 </div>
             </div>
 
-            <!-- 5. 삼성: 갤럭시 Z 플립7 -->
             <div class="product-card">
                 <div class="product-img-wrap"><img src="flip7.png" alt="flip7" class="product-img"></div>
                 <div class="product-info-box">
@@ -802,7 +809,6 @@
                 </div>
             </div>
 
-            <!-- 6. 삼성: 갤럭시 Z 폴드7 -->
             <div class="product-card">
                 <div class="product-img-wrap"><img src="fold7.png" alt="fold7" class="product-img"></div>
                 <div class="product-info-box">
@@ -818,7 +824,6 @@
                 </div>
             </div>
 
-            <!-- 7. 애플: iPhone 17 -->
             <div class="product-card">
                 <div class="product-img-wrap"><img src="ip17.png" alt="ip17" class="product-img"></div>
                 <div class="product-info-box">
@@ -834,7 +839,6 @@
                 </div>
             </div>
 
-            <!-- 8. 애플: iPhone 17 Pro -->
             <div class="product-card">
                 <div class="product-img-wrap"><img src="17pr.png" alt="17pr" class="product-img"></div>
                 <div class="product-info-box">
@@ -850,7 +854,6 @@
                 </div>
             </div>
 
-            <!-- 9. 애플: iPhone 17 Pro Max -->
             <div class="product-card">
                 <div class="product-img-wrap"><img src="17pm.png" alt="17pm" class="product-img"></div>
                 <div class="product-info-box">
@@ -866,7 +869,6 @@
                 </div>
             </div>
 
-            <!-- 10. 애플: iPhone 16 -->
             <div class="product-card">
                 <div class="product-img-wrap"><img src="ip16.png" alt="ip16" class="product-img"></div>
                 <div class="product-info-box">
@@ -884,7 +886,6 @@
         </div>
     </section>
 
-    <!-- ★ 악세사리 초특가 슬림 배너 ★ -->
     <div class="vip-banner-wrap">
         <a href="https://hotdealcenter.co.kr/" target="_blank" class="vip-banner">
             <div>
@@ -895,7 +896,6 @@
         </a>
     </div>
 
-    <!-- 전국 택배 배너 -->
     <div id="delivery" class="delivery-section-wrap">
         <section class="delivery-section">
             <h2 class="delivery-title">매장 방문이 어려우신가요?<br><span>전국 어디서나 택배 개통!</span></h2>
@@ -911,7 +911,6 @@
         </section>
     </div>
 
-    <!-- 오프라인 매장 리스트 -->
     <section id="stores" class="store-grid-section">
         <h2 class="section-title">가까운 <span class="text-lgu-pink">더끌림컴퍼니</span>를 방문해보세요</h2>
         <div class="store-grid">
@@ -1012,7 +1011,6 @@
                 </div>
             </div>
 
-            <!-- 숨겨진 나머지 매장들 -->
             <div class="store-card-wrap hidden">
                 <img src="store3.jpeg" alt="관양시장점" class="store-card-img">
                 <div class="store-card-content">
@@ -1186,7 +1184,6 @@
         <button id="loadMoreBtn" class="btn-load-more" onclick="loadMoreStores()">전체 22개 매장 보기 ∨</button>
     </section>
 
-    <!-- 인터넷 & IPTV 섹션 -->
     <section id="internet" class="internet-section">
         <div class="container">
             <div class="q-badge">
@@ -1226,7 +1223,6 @@
         </div>
     </section>
 
-    <!-- 신뢰(Trust) 섹션 -->
     <section class="trust-section">
         <div class="trust-slider-wrap">
             <div class="trust-track-container">
@@ -1292,7 +1288,6 @@
         </div>
     </section>
 
-    <!-- 마지막 배너 -->
     <section class="final-banner">
         <div class="final-content">
             <h2 class="final-banner-title">
@@ -1305,7 +1300,6 @@
         </div>
     </section>
 
-    <!-- 푸터 -->
     <footer class="footer-section">
         <div class="footer-container">
             <div class="footer-top">
@@ -1356,13 +1350,11 @@
         </div>
     </footer>
 
-    <!-- ★ PC 전용 우측 하단 플로팅 버튼 (모바일에서는 숨김) ★ -->
     <div class="fab-container">
         <a href="tel:070-4007-7776" class="fab-btn fab-phone">📞</a>
         <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="fab-btn fab-kakao">💬</a>
     </div>
 
-    <!-- ★ 모바일 전용 하단 고정 바 (PC에서는 숨김) ★ -->
     <div class="bottom-cta-bar">
         <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="bottom-cta-btn btn-bar-kakao">
             <span style="font-size: 20px;">💬</span> 카카오톡 상담
@@ -1372,7 +1364,6 @@
         </a>
     </div>
 
-    <!-- ★ 실시간 예약 토스트 팝업 ★ -->
     <div id="realtimeToast" class="realtime-toast">
         <span class="icon">🔔</span>
         <span id="toastMsg"></span>
