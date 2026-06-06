@@ -36,13 +36,13 @@
         .btn-top-reg { background-color: #E6007E; color: #fff; }
 
         /* ==============================================================
-           ★ 공식 메인 배너: 스케일업 & 여백 최적화 ★ 
+           ★ 공식 메인 배너 ★ 
            ============================================================== */
         .official-promo-banner {
             background-color: #000000;
             color: #ffffff;
             width: 100%;
-            overflow: hidden; /* 이미지가 화면 밖으로 나가도 스크롤 생기지 않도록 방지 */
+            overflow: hidden; 
             display: flex;
             justify-content: center;
             padding: 80px 20px 0;
@@ -58,7 +58,7 @@
         }
         .official-promo-text {
             flex: 0 0 45%;
-            max-width: 500px;
+            max-width: 550px;
             padding-bottom: 80px;
             z-index: 2;
         }
@@ -66,7 +66,7 @@
             font-size: 48px;
             font-weight: 800;
             line-height: 1.25;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             letter-spacing: -1px;
             word-break: keep-all;
         }
@@ -77,6 +77,18 @@
             margin-bottom: 10px;
             color: #aaaaaa;
         }
+        .event-date {
+            display: inline-block;
+            font-size: 18px;
+            font-weight: 700;
+            color: #FFE000;
+            background: rgba(255, 224, 0, 0.15);
+            padding: 6px 16px;
+            border-radius: 30px;
+            margin-top: 15px;
+            letter-spacing: -0.5px;
+            border: 1px solid rgba(255, 224, 0, 0.3);
+        }
         .official-promo-text p {
             font-size: 18px;
             color: #dddddd;
@@ -84,9 +96,14 @@
             margin-bottom: 40px;
             word-break: keep-all;
         }
-        .official-promo-text p strong {
+        .highlight-20 {
+            font-size: 32px;
             color: #FFE000;
-            font-weight: 800;
+            font-weight: 900;
+            vertical-align: middle;
+            margin: 0 4px;
+            display: inline-block;
+            line-height: 1;
         }
         .btn-official-pink {
             display: inline-flex;
@@ -109,18 +126,17 @@
         .official-promo-img-wrap {
             flex: 0 0 55%;
             display: flex;
-            justify-content: flex-end; /* 이미지를 우측으로 밀착 */
+            justify-content: flex-end; 
             align-items: center;
             z-index: 1;
             position: relative;
         }
-        /* PC 단말기 이미지 과감하게 키우기 */
         .official-promo-img-wrap img {
-            width: 140%; /* 컨테이너보다 크게 강제 확대 */
-            max-width: none; /* 제한 해제 */
+            width: 140%; 
+            max-width: none; 
             height: auto;
             display: block;
-            transform: scale(1.1) translateX(15%); /* 크기를 더 키우고 우측으로 빼기 */
+            transform: scale(1.1) translateX(15%); 
             transform-origin: center right;
         }
 
@@ -158,6 +174,7 @@
         .product-info-box { display: flex; flex-direction: column; flex-grow: 1; }
         .product-name { font-size: 20px; font-weight: 800; margin-bottom: 20px; color: #111; letter-spacing: -0.5px; }
         
+        /* 🚨 글자 떨림 방지 애니메이션 최적화 적용 🚨 */
         .payback-badge {
             background: rgba(10, 68, 250, 0.08);
             color: #0A44FA;
@@ -173,14 +190,17 @@
             gap: 6px;
             animation: payback-pulse 2s infinite;
             letter-spacing: -0.5px;
+            /* 렌더링 최적화 코드로 글자 떨림 차단 */
+            transform: translateZ(0); 
+            backface-visibility: hidden;
+            will-change: box-shadow;
         }
         .payback-badge strong { font-size: 16px; font-weight: 900; }
         
         @keyframes payback-pulse {
-            0% { box-shadow: 0 0 0 0 rgba(10, 68, 250, 0.4); transform: scale(1); }
-            50% { transform: scale(1.02); }
+            0% { box-shadow: 0 0 0 0 rgba(10, 68, 250, 0.3); }
             70% { box-shadow: 0 0 0 10px rgba(10, 68, 250, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(10, 68, 250, 0); transform: scale(1); }
+            100% { box-shadow: 0 0 0 0 rgba(10, 68, 250, 0); }
         }
 
         .price-details { text-align: left; border-top: 1px solid #f5f5f5; padding-top: 20px; }
@@ -425,9 +445,8 @@
 
             .realtime-toast { bottom: 80px; left: 15px; font-size: 11px; padding: 8px 14px; }
             
-            /* 🚨 모바일 메인 프로모션 배너 최적화: 이미지 블리딩 처리 🚨 */
             .official-promo-banner { 
-                padding: 50px 0 0; /* 좌우 여백을 없애서 꽉 차게 만듦 */
+                padding: 50px 0 0; 
             }
             .official-promo-container { 
                 flex-direction: column; 
@@ -436,24 +455,35 @@
             }
             .official-promo-text { 
                 max-width: 100%; 
-                padding: 0 20px; /* 텍스트 쪽에만 여백 줌 */
+                padding: 0 20px; 
                 display: flex;
                 flex-direction: column;
                 align-items: center;
                 justify-content: center;
             }
             .official-promo-text h2 { 
-                font-size: 30px; 
+                font-size: 32px; 
                 line-height: 1.3;
-                margin-bottom: 15px;
+                margin-bottom: 10px;
             }
             .official-promo-text h2 span { 
                 font-size: 14px; 
                 margin-bottom: 8px;
             }
+            .event-date {
+                font-size: 14px;
+                padding: 4px 14px;
+                margin-top: 10px;
+            }
             .official-promo-text p { 
                 font-size: 14px; 
+                margin-top: 15px;
                 margin-bottom: 25px; 
+                line-height: 1.5;
+            }
+            .highlight-20 {
+                font-size: 24px;
+                margin: 0 2px;
             }
             .btn-official-pink { 
                 font-size: 15px; 
@@ -464,14 +494,13 @@
                 margin-top: 40px;
                 display: flex;
                 justify-content: center;
-                overflow: visible; /* 화면 밖으로 나가도 잘리지 않게 */
+                overflow: visible; 
             }
-            /* 모바일 단말기 이미지 엄청나게 확대하여 바닥으로 당기기 */
             .official-promo-img-wrap img { 
-                width: 160%; /* 화면 폭을 넘어서게 극대화 */
+                width: 160%; 
                 max-width: none; 
-                transform: translateX(10%); /* 우측으로 살짝 밀어서 각도 조절 */
-                margin-bottom: -15%; /* 하단 여백을 마이너스로 주어 다음 섹션에 물리거나 바닥에 꽂히게 연출 */
+                transform: translateX(10%); 
+                margin-bottom: -15%; 
             }
 
             .quick-menu-wrap { padding: 20px 10px; margin-bottom: 0; }
@@ -606,23 +635,22 @@
         </div>
     </header>
 
-    <!-- ★ LGU+ 공식 홈페이지 스타일 메인 배너 ★ -->
     <section class="official-promo-banner">
         <div class="official-promo-container">
             <div class="official-promo-text">
                 <h2>
                     <span>SAMSUNG</span>
                     국민과 함께, 삼성전자<br>감사 페스티벌
+                    <div class="event-date">2026. 06. 08 ~ 07. 05</div>
                 </h2>
                 <p>
                     단말기 개통하고 삼성닷컴 인증하면?<br>
-                    디지털 온누리상품권 <strong>최대 429,000원</strong> 페이백!
+                    디지털 온누리상품권 <strong class="highlight-20">출고가의 20%</strong> 지급!
                 </p>
                 <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="btn-official-pink" onclick="fbq('track', 'Lead');">이벤트 자세히보기</a>
             </div>
             
             <div class="official-promo-img-wrap">
-                <!-- 🚨 여기에 배경이 꽉 잘려나간(여백 없는) S26 근접샷 PNG를 넣으면 더욱 좋습니다 -->
                 <img src="s26_ultra_transparent.png" alt="Galaxy S26 Ultra">
             </div>
         </div>
@@ -661,7 +689,7 @@
                 <div class="product-img-wrap"><img src="s26.png" alt="s26" class="product-img"></div>
                 <div class="product-info-box">
                     <h3 class="product-name">갤럭시 S26 (256GB)</h3>
-                    <div class="payback-badge">🎁 온누리상품권 <strong>235,000원</strong> 페이백</div>
+                    <div class="payback-badge">🎁 온누리상품권 <strong>235,000원</strong> 지급</div>
                     <div class="price-details">
                         <div class="price-row"><span>출고가</span><span class="value">1,254,000 원</span></div>
                         <div class="price-row"><span>이통사 지원금</span><span class="value">- 500,000 원</span></div>
@@ -677,7 +705,7 @@
                 <div class="product-img-wrap"><img src="s26p.png" alt="s26p" class="product-img"></div>
                 <div class="product-info-box">
                     <h3 class="product-name">갤럭시 S26+ (256GB)</h3>
-                    <div class="payback-badge">🎁 온누리상품권 <strong>263,000원</strong> 페이백</div>
+                    <div class="payback-badge">🎁 온누리상품권 <strong>263,000원</strong> 지급</div>
                     <div class="price-details">
                         <div class="price-row"><span>출고가</span><span class="value">1,452,000 원</span></div>
                         <div class="price-row"><span>이통사 지원금</span><span class="value">- 500,000 원</span></div>
@@ -693,7 +721,7 @@
                 <div class="product-img-wrap"><img src="s26u.png" alt="s26u" class="product-img"></div>
                 <div class="product-info-box">
                     <h3 class="product-name">갤럭시 S26 Ultra (256GB)</h3>
-                    <div class="payback-badge">🎁 온누리상품권 <strong>337,000원</strong> 페이백</div>
+                    <div class="payback-badge">🎁 온누리상품권 <strong>337,000원</strong> 지급</div>
                     <div class="price-details">
                         <div class="price-row"><span>출고가</span><span class="value">1,797,400 원</span></div>
                         <div class="price-row"><span>이통사 지원금</span><span class="value">- 500,000 원</span></div>
@@ -709,7 +737,7 @@
                 <div class="product-img-wrap"><img src="s25e.png" alt="s25e" class="product-img"></div>
                 <div class="product-info-box">
                     <h3 class="product-name">갤럭시 S25 Edge (256GB)</h3>
-                    <div class="payback-badge">🎁 온누리상품권 <strong>263,000원</strong> 페이백</div>
+                    <div class="payback-badge">🎁 온누리상품권 <strong>263,000원</strong> 지급</div>
                     <div class="price-details">
                         <div class="price-row"><span>출고가</span><span class="value">1,496,000 원</span></div>
                         <div class="price-row"><span>이통사 지원금</span><span class="value">- 700,000 원</span></div>
@@ -725,7 +753,7 @@
                 <div class="product-img-wrap"><img src="flip7.png" alt="flip7" class="product-img"></div>
                 <div class="product-info-box">
                     <h3 class="product-name">갤럭시 Z 플립7 (256GB)</h3>
-                    <div class="payback-badge">🎁 온누리상품권 <strong>263,000원</strong> 페이백</div>
+                    <div class="payback-badge">🎁 온누리상품권 <strong>263,000원</strong> 지급</div>
                     <div class="price-details">
                         <div class="price-row"><span>출고가</span><span class="value">1,485,000 원</span></div>
                         <div class="price-row"><span>이통사 지원금</span><span class="value">- 500,000 원</span></div>
@@ -741,7 +769,7 @@
                 <div class="product-img-wrap"><img src="fold7.png" alt="fold7" class="product-img"></div>
                 <div class="product-info-box">
                     <h3 class="product-name">갤럭시 Z 폴드7 (256GB)</h3>
-                    <div class="payback-badge">🎁 온누리상품권 <strong>429,000원</strong> 페이백</div>
+                    <div class="payback-badge">🎁 온누리상품권 <strong>429,000원</strong> 지급</div>
                     <div class="price-details">
                         <div class="price-row"><span>출고가</span><span class="value">2,379,300 원</span></div>
                         <div class="price-row"><span>이통사 지원금</span><span class="value">- 500,000 원</span></div>
