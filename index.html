@@ -36,29 +36,29 @@
         .btn-top-reg { background-color: #E6007E; color: #fff; }
 
         /* ==============================================================
-           ★ 공식 홈페이지 스타일 메인 프로모션 배너 (레이아웃 최적화) ★ 
+           ★ 공식 메인 배너: 스케일업 & 여백 최적화 ★ 
            ============================================================== */
         .official-promo-banner {
             background-color: #000000;
             color: #ffffff;
             width: 100%;
-            overflow: hidden;
+            overflow: hidden; /* 이미지가 화면 밖으로 나가도 스크롤 생기지 않도록 방지 */
             display: flex;
             justify-content: center;
-            padding: 80px 20px 0; /* 하단 패딩 0으로 이미지 밀착 */
+            padding: 80px 20px 0;
+            position: relative;
         }
         .official-promo-container {
             display: flex;
             align-items: center;
-            justify-content: center;
-            max-width: 1060px; /* 넓이를 줄여 텍스트와 이미지 간격 축소 */
+            justify-content: space-between;
+            max-width: 1200px;
             width: 100%;
             margin: 0 auto;
-            gap: 20px;
         }
         .official-promo-text {
             flex: 0 0 45%;
-            max-width: 450px;
+            max-width: 500px;
             padding-bottom: 80px;
             z-index: 2;
         }
@@ -96,7 +96,7 @@
             color: #ffffff;
             font-size: 16px;
             font-weight: 800;
-            padding: 16px 40px;
+            padding: 18px 40px;
             border-radius: 30px;
             text-decoration: none;
             transition: background-color 0.2s, transform 0.2s;
@@ -109,16 +109,19 @@
         .official-promo-img-wrap {
             flex: 0 0 55%;
             display: flex;
-            justify-content: center;
-            align-items: flex-end;
+            justify-content: flex-end; /* 이미지를 우측으로 밀착 */
+            align-items: center;
             z-index: 1;
+            position: relative;
         }
+        /* PC 단말기 이미지 과감하게 키우기 */
         .official-promo-img-wrap img {
-            width: 100%;
-            max-width: 650px;
+            width: 140%; /* 컨테이너보다 크게 강제 확대 */
+            max-width: none; /* 제한 해제 */
             height: auto;
             display: block;
-            transform: translateX(5%);
+            transform: scale(1.1) translateX(15%); /* 크기를 더 키우고 우측으로 빼기 */
+            transform-origin: center right;
         }
 
         /* 퀵 메뉴 */
@@ -422,8 +425,10 @@
 
             .realtime-toast { bottom: 80px; left: 15px; font-size: 11px; padding: 8px 14px; }
             
-            /* 🚨 모바일 메인 프로모션 배너 최적화 🚨 */
-            .official-promo-banner { padding: 50px 15px 0; }
+            /* 🚨 모바일 메인 프로모션 배너 최적화: 이미지 블리딩 처리 🚨 */
+            .official-promo-banner { 
+                padding: 50px 0 0; /* 좌우 여백을 없애서 꽉 차게 만듦 */
+            }
             .official-promo-container { 
                 flex-direction: column; 
                 text-align: center; 
@@ -431,7 +436,7 @@
             }
             .official-promo-text { 
                 max-width: 100%; 
-                padding-bottom: 0; 
+                padding: 0 20px; /* 텍스트 쪽에만 여백 줌 */
                 display: flex;
                 flex-direction: column;
                 align-items: center;
@@ -456,14 +461,17 @@
             }
             .official-promo-img-wrap { 
                 width: 100%; 
-                margin-top: 30px;
+                margin-top: 40px;
                 display: flex;
                 justify-content: center;
+                overflow: visible; /* 화면 밖으로 나가도 잘리지 않게 */
             }
+            /* 모바일 단말기 이미지 엄청나게 확대하여 바닥으로 당기기 */
             .official-promo-img-wrap img { 
-                max-width: 100%; 
-                width: 90%;
-                transform: none; /* 모바일에서는 쏠림 현상 제거 */
+                width: 160%; /* 화면 폭을 넘어서게 극대화 */
+                max-width: none; 
+                transform: translateX(10%); /* 우측으로 살짝 밀어서 각도 조절 */
+                margin-bottom: -15%; /* 하단 여백을 마이너스로 주어 다음 섹션에 물리거나 바닥에 꽂히게 연출 */
             }
 
             .quick-menu-wrap { padding: 20px 10px; margin-bottom: 0; }
@@ -481,12 +489,11 @@
             .product-info-box { width: 100%; display: flex; flex-direction: column; flex-grow: 1; }
             .product-name { font-size: 13px; font-weight: 800; margin-bottom: 10px; text-align: center; line-height: 1.3; letter-spacing: -0.5px;}
             
-            /* 🚨 페이백 뱃지 줄바꿈 최적화 🚨 */
             .payback-badge { 
                 font-size: 11px; 
                 padding: 8px 4px; 
                 margin-bottom: 12px; 
-                flex-direction: column; /* 세로로 쌓아서 줄바꿈 방지 */
+                flex-direction: column; 
                 gap: 4px;
             }
             .payback-badge strong { font-size: 14px; }
@@ -599,6 +606,7 @@
         </div>
     </header>
 
+    <!-- ★ LGU+ 공식 홈페이지 스타일 메인 배너 ★ -->
     <section class="official-promo-banner">
         <div class="official-promo-container">
             <div class="official-promo-text">
@@ -614,6 +622,7 @@
             </div>
             
             <div class="official-promo-img-wrap">
+                <!-- 🚨 여기에 배경이 꽉 잘려나간(여백 없는) S26 근접샷 PNG를 넣으면 더욱 좋습니다 -->
                 <img src="s26_ultra_transparent.png" alt="Galaxy S26 Ultra">
             </div>
         </div>
