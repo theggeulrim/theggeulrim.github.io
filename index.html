@@ -66,7 +66,7 @@
             font-size: 48px;
             font-weight: 800;
             line-height: 1.25;
-            margin-bottom: 25px;
+            margin-bottom: 15px; /* 날짜와의 간격 조절 */
             letter-spacing: -1px;
             word-break: keep-all;
         }
@@ -85,7 +85,7 @@
             background: rgba(255, 224, 0, 0.15);
             padding: 6px 16px;
             border-radius: 30px;
-            margin-top: 15px;
+            margin-bottom: 25px; /* 타이틀 밑으로 빠지면서 하단 여백 추가 */
             letter-spacing: -0.5px;
             border: 1px solid rgba(255, 224, 0, 0.3);
         }
@@ -473,11 +473,12 @@
             .event-date {
                 font-size: 14px;
                 padding: 4px 14px;
-                margin-top: 10px;
+                margin-top: 0px; /* 타이틀 밑에 오도록 간격 수정 */
+                margin-bottom: 20px;
             }
             .official-promo-text p { 
                 font-size: 14px; 
-                margin-top: 15px;
+                margin-top: 10px;
                 margin-bottom: 25px; 
                 line-height: 1.5;
             }
@@ -518,11 +519,18 @@
             .product-info-box { width: 100%; display: flex; flex-direction: column; flex-grow: 1; }
             .product-name { font-size: 13px; font-weight: 800; margin-bottom: 10px; text-align: center; line-height: 1.3; letter-spacing: -0.5px;}
             
+            /* 🚨 뱃지 줄바꿈 방지 및 "지급" 단어 정렬 최적화 🚨 */
             .payback-badge { 
                 font-size: 11px; 
                 padding: 8px 4px; 
                 margin-bottom: 12px; 
                 flex-direction: column; 
+                gap: 4px;
+            }
+            .payback-badge span {
+                display: flex;
+                align-items: center;
+                justify-content: center;
                 gap: 4px;
             }
             .payback-badge strong { font-size: 14px; }
@@ -635,14 +643,16 @@
         </div>
     </header>
 
+    <!-- ★ LGU+ 공식 홈페이지 스타일 메인 배너 ★ -->
     <section class="official-promo-banner">
         <div class="official-promo-container">
             <div class="official-promo-text">
                 <h2>
                     <span>SAMSUNG</span>
                     국민과 함께, 삼성전자<br>감사 페스티벌
-                    <div class="event-date">2026. 06. 08 ~ 07. 05</div>
                 </h2>
+                <!-- 날짜 한 칸 아래로 이동 및 간격 조정 -->
+                <div class="event-date">2026. 06. 08 ~ 07. 05</div>
                 <p>
                     단말기 개통하고 삼성닷컴 인증하면?<br>
                     디지털 온누리상품권 <strong class="highlight-20">출고가의 20%</strong> 지급!
@@ -689,7 +699,8 @@
                 <div class="product-img-wrap"><img src="s26.png" alt="s26" class="product-img"></div>
                 <div class="product-info-box">
                     <h3 class="product-name">갤럭시 S26 (256GB)</h3>
-                    <div class="payback-badge">🎁 온누리상품권 <strong>235,000원</strong> 지급</div>
+                    <!-- 🚨 금액과 지급 단어를 모바일에서도 한 줄로 묶기 위한 span 구조 적용 🚨 -->
+                    <div class="payback-badge"><span>🎁 온누리상품권</span> <span><strong>235,000원</strong> 지급</span></div>
                     <div class="price-details">
                         <div class="price-row"><span>출고가</span><span class="value">1,254,000 원</span></div>
                         <div class="price-row"><span>이통사 지원금</span><span class="value">- 500,000 원</span></div>
@@ -705,7 +716,7 @@
                 <div class="product-img-wrap"><img src="s26p.png" alt="s26p" class="product-img"></div>
                 <div class="product-info-box">
                     <h3 class="product-name">갤럭시 S26+ (256GB)</h3>
-                    <div class="payback-badge">🎁 온누리상품권 <strong>263,000원</strong> 지급</div>
+                    <div class="payback-badge"><span>🎁 온누리상품권</span> <span><strong>263,000원</strong> 지급</span></div>
                     <div class="price-details">
                         <div class="price-row"><span>출고가</span><span class="value">1,452,000 원</span></div>
                         <div class="price-row"><span>이통사 지원금</span><span class="value">- 500,000 원</span></div>
@@ -721,7 +732,7 @@
                 <div class="product-img-wrap"><img src="s26u.png" alt="s26u" class="product-img"></div>
                 <div class="product-info-box">
                     <h3 class="product-name">갤럭시 S26 Ultra (256GB)</h3>
-                    <div class="payback-badge">🎁 온누리상품권 <strong>337,000원</strong> 지급</div>
+                    <div class="payback-badge"><span>🎁 온누리상품권</span> <span><strong>337,000원</strong> 지급</span></div>
                     <div class="price-details">
                         <div class="price-row"><span>출고가</span><span class="value">1,797,400 원</span></div>
                         <div class="price-row"><span>이통사 지원금</span><span class="value">- 500,000 원</span></div>
@@ -737,7 +748,7 @@
                 <div class="product-img-wrap"><img src="s25e.png" alt="s25e" class="product-img"></div>
                 <div class="product-info-box">
                     <h3 class="product-name">갤럭시 S25 Edge (256GB)</h3>
-                    <div class="payback-badge">🎁 온누리상품권 <strong>263,000원</strong> 지급</div>
+                    <div class="payback-badge"><span>🎁 온누리상품권</span> <span><strong>263,000원</strong> 지급</span></div>
                     <div class="price-details">
                         <div class="price-row"><span>출고가</span><span class="value">1,496,000 원</span></div>
                         <div class="price-row"><span>이통사 지원금</span><span class="value">- 700,000 원</span></div>
@@ -753,7 +764,7 @@
                 <div class="product-img-wrap"><img src="flip7.png" alt="flip7" class="product-img"></div>
                 <div class="product-info-box">
                     <h3 class="product-name">갤럭시 Z 플립7 (256GB)</h3>
-                    <div class="payback-badge">🎁 온누리상품권 <strong>263,000원</strong> 지급</div>
+                    <div class="payback-badge"><span>🎁 온누리상품권</span> <span><strong>263,000원</strong> 지급</span></div>
                     <div class="price-details">
                         <div class="price-row"><span>출고가</span><span class="value">1,485,000 원</span></div>
                         <div class="price-row"><span>이통사 지원금</span><span class="value">- 500,000 원</span></div>
@@ -769,7 +780,7 @@
                 <div class="product-img-wrap"><img src="fold7.png" alt="fold7" class="product-img"></div>
                 <div class="product-info-box">
                     <h3 class="product-name">갤럭시 Z 폴드7 (256GB)</h3>
-                    <div class="payback-badge">🎁 온누리상품권 <strong>429,000원</strong> 지급</div>
+                    <div class="payback-badge"><span>🎁 온누리상품권</span> <span><strong>429,000원</strong> 지급</span></div>
                     <div class="price-details">
                         <div class="price-row"><span>출고가</span><span class="value">2,379,300 원</span></div>
                         <div class="price-row"><span>이통사 지원금</span><span class="value">- 500,000 원</span></div>
