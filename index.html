@@ -7,142 +7,18 @@
     <meta name="format-detection" content="telephone=no, date=no, email=no, address=no">
     <title>주식회사 더끌림컴퍼니 | LGU+ 공식인증 온라인 스토어</title>
     <style>
-        /* ==============================================================
-           ★ 공식 홈페이지 스타일 메인 프로모션 배너 (레이아웃 최적화) ★ 
-           ============================================================== */
-        .official-promo-banner {
-            background-color: #000000; /* 공식홈 블랙 배경 */
-            color: #ffffff;
-            width: 100%;
-            overflow: hidden;
-            display: flex;
-            justify-content: center;
-            padding: 80px 20px 0; /* 하단 여백을 없애 이미지가 바닥에 붙도록 유도 */
-        }
-        .official-promo-container {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            max-width: 1200px;
-            width: 100%;
-            margin: 0 auto;
-        }
-        .official-promo-text {
-            flex: 0 0 45%; /* 텍스트 영역이 전체의 45% 차지 */
-            max-width: 500px;
-            padding-bottom: 80px; /* 텍스트 쪽에만 하단 여백 부여 */
-            z-index: 2; /* 이미지보다 위로 오도록 설정 */
-        }
-        .official-promo-text h2 {
-            font-size: 48px;
-            font-weight: 800;
-            line-height: 1.25;
-            margin-bottom: 20px;
-            letter-spacing: -1px;
-            word-break: keep-all;
-        }
-        .official-promo-text h2 span {
-            display: block;
-            font-size: 24px;
-            font-weight: 600;
-            margin-bottom: 10px;
-            color: #aaaaaa;
-        }
-        .official-promo-text p {
-            font-size: 18px;
-            color: #dddddd;
-            line-height: 1.6;
-            margin-bottom: 40px;
-            word-break: keep-all;
-        }
-        .official-promo-text p strong {
-            color: #FFE000; /* 상품권 혜택 강조용 옐로우 */
-            font-weight: 800;
-        }
-        .btn-official-pink {
-            display: inline-flex;
-            justify-content: center;
-            align-items: center;
-            background-color: #E6007E; /* LGU+ 공식 마젠타 핑크 */
-            color: #ffffff;
-            font-size: 16px;
-            font-weight: 800;
-            padding: 18px 40px;
-            border-radius: 30px;
-            text-decoration: none;
-            transition: background-color 0.2s, transform 0.2s;
-        }
-        .btn-official-pink:hover {
-            background-color: #c9006e;
-            transform: translateY(-2px);
+        /* 기본 스타일 초기화 */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; } 
+        body { 
+            font-family: 'Pretendard', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; 
+            color: #333; background-color: #fbfbfd; padding-top: 60px; 
+            -webkit-font-smoothing: antialiased; 
         }
         
-        .official-promo-img-wrap {
-            flex: 0 0 60%; /* 이미지 영역을 넓게 확보 */
-            display: flex;
-            justify-content: center;
-            align-items: flex-end; /* 이미지를 바닥에 붙임 */
-            margin-left: -5%; /* 텍스트 쪽으로 이미지를 당겨서 일체감 부여 */
-            z-index: 1;
-        }
-        /* 우측 단말기 이미지 */
-        .official-promo-img-wrap img {
-            width: 100%;
-            max-width: 800px; /* 지나치게 커지는 것 방지 */
-            height: auto;
-            display: block;
-        }
-
-        /* 반응형 - 모바일 사이즈 */
-        @media (max-width: 768px) {
-            .official-promo-banner {
-                padding: 50px 15px 0; /* 모바일 좌우 패딩 축소 */
-            }
-            .official-promo-container {
-                flex-direction: column; /* 세로 배치 */
-                align-items: center;
-                text-align: center; /* 텍스트 중앙 정렬로 일체감 부여 */
-            }
-            .official-promo-text {
-                flex: none;
-                width: 100%;
-                max-width: 100%;
-                padding-bottom: 0; /* 모바일에서는 하단 여백 제거 */
-                display: flex;
-                flex-direction: column;
-                align-items: center; /* 버튼도 중앙 정렬 */
-            }
-            .official-promo-text h2 {
-                font-size: 32px;
-            }
-            .official-promo-text h2 span {
-                font-size: 16px;
-                margin-bottom: 8px;
-            }
-            .official-promo-text p {
-                font-size: 15px;
-                margin-bottom: 30px;
-            }
-            .btn-official-pink {
-                padding: 16px 36px;
-                font-size: 15px;
-            }
-            .official-promo-img-wrap {
-                flex: none;
-                width: 115%; /* 화면 밖으로 살짝 튀어나가게 하여 웅장함 연출 */
-                margin-left: 0;
-                margin-top: 20px; /* 버튼과 기기 사이 간격 조정 */
-            }
-            .official-promo-img-wrap img {
-                width: 100%;
-                max-width: 450px;
-            }
-        }
-        
-        /* 퀵메뉴 클릭 시 헤더에 가려지지 않도록 여백 설정 */
         section { scroll-margin-top: 80px; }
         
-        /* 1. 상단 고정바 */
+        /* 상단 고정바 */
         .sticky-header { 
             position: fixed; top: 0; left: 0; width: 100%; height: 60px; 
             background-color: rgba(255, 255, 255, 0.98); 
@@ -160,7 +36,7 @@
         .btn-top-reg { background-color: #E6007E; color: #fff; }
 
         /* ==============================================================
-           ★ 공식 홈페이지 스타일 메인 프로모션 배너 ★ 
+           ★ 공식 홈페이지 스타일 메인 프로모션 배너 (레이아웃 최적화) ★ 
            ============================================================== */
         .official-promo-banner {
             background-color: #000000;
@@ -169,30 +45,34 @@
             overflow: hidden;
             display: flex;
             justify-content: center;
-            padding: 80px 20px;
+            padding: 80px 20px 0; /* 하단 패딩 0으로 이미지 밀착 */
         }
         .official-promo-container {
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            max-width: 1200px;
+            justify-content: center;
+            max-width: 1060px; /* 넓이를 줄여 텍스트와 이미지 간격 축소 */
             width: 100%;
-            gap: 40px;
+            margin: 0 auto;
+            gap: 20px;
         }
         .official-promo-text {
-            flex: 1;
-            max-width: 500px;
+            flex: 0 0 45%;
+            max-width: 450px;
+            padding-bottom: 80px;
+            z-index: 2;
         }
         .official-promo-text h2 {
             font-size: 48px;
             font-weight: 800;
-            line-height: 1.2;
+            line-height: 1.25;
             margin-bottom: 20px;
             letter-spacing: -1px;
+            word-break: keep-all;
         }
         .official-promo-text h2 span {
             display: block;
-            font-size: 24px;
+            font-size: 20px;
             font-weight: 600;
             margin-bottom: 10px;
             color: #aaaaaa;
@@ -216,30 +96,32 @@
             color: #ffffff;
             font-size: 16px;
             font-weight: 800;
-            padding: 16px 36px;
+            padding: 16px 40px;
             border-radius: 30px;
             text-decoration: none;
-            transition: background-color 0.2s;
+            transition: background-color 0.2s, transform 0.2s;
         }
         .btn-official-pink:hover {
             background-color: #c9006e;
+            transform: translateY(-2px);
         }
         
         .official-promo-img-wrap {
-            flex: 1;
+            flex: 0 0 55%;
             display: flex;
-            justify-content: flex-end;
-            position: relative;
+            justify-content: center;
+            align-items: flex-end;
+            z-index: 1;
         }
         .official-promo-img-wrap img {
-            max-width: 140%;
+            width: 100%;
+            max-width: 650px;
             height: auto;
-            transform: translateX(15%);
+            display: block;
+            transform: translateX(5%);
         }
 
-        /* ==============================================================
-           ★ 퀵 메뉴 ★ 
-           ============================================================== */
+        /* 퀵 메뉴 */
         .quick-menu-wrap { background-color: #ffffff; padding: 40px 20px; border-bottom: 1px solid #eaeaea; }
         .quick-menu-grid { display: flex; justify-content: center; gap: 50px; max-width: 1000px; margin: 0 auto; }
         .quick-menu-item { display: flex; flex-direction: column; align-items: center; text-decoration: none; color: #333; gap: 12px; transition: transform 0.2s; }
@@ -252,9 +134,7 @@
         .quick-menu-item:hover .quick-menu-icon { background-color: #fff0f6; }
         .quick-menu-text { font-size: 16px; font-weight: 800; letter-spacing: -0.5px; }
 
-        /* ==============================================================
-           ★ 공통 섹션 스타일 & 상품 섹션 ★ 
-           ============================================================== */
+        /* 공통 섹션 스타일 & 상품 섹션 */
         .section-title { text-align: center; font-size: 36px; font-weight: 800; margin-bottom: 50px; letter-spacing: -1px; color: #111; }
         .text-lgu-pink { color: #E6007E; }
 
@@ -275,7 +155,6 @@
         .product-info-box { display: flex; flex-direction: column; flex-grow: 1; }
         .product-name { font-size: 20px; font-weight: 800; margin-bottom: 20px; color: #111; letter-spacing: -0.5px; }
         
-        /* 삼성 페스티벌 페이백 애니메이션 뱃지 */
         .payback-badge {
             background: rgba(10, 68, 250, 0.08);
             color: #0A44FA;
@@ -329,11 +208,9 @@
         }
         .vip-banner::before { content: '🎁'; position: absolute; right: 12%; top: -20px; font-size: 110px; opacity: 0.1; transform: rotate(15deg); pointer-events: none; }
         .vip-banner:hover { transform: translateY(-5px); box-shadow: 0 20px 45px rgba(0,0,0,0.2); }
-        
         .vip-badge { background-color: #E6007E; color: #fff; font-size: 12px; font-weight: 800; padding: 5px 12px; border-radius: 8px; margin-bottom: 12px; display: inline-block; letter-spacing: -0.5px; box-shadow: 0 4px 10px rgba(230,0,126,0.3); position: relative; z-index: 2;}
         .vip-title { color: #ffffff; font-size: 24px; font-weight: 800; margin: 0; letter-spacing: -0.5px; line-height: 1.4; position: relative; z-index: 2; }
         .vip-title span { color: #E6007E; }
-        
         .vip-arrow { 
             background-color: rgba(255,255,255,0.1); color: #fff; width: 48px; height: 48px; 
             display: flex; justify-content: center; align-items: center; border-radius: 50%; 
@@ -353,7 +230,6 @@
         .delivery-title { font-size: 32px; font-weight: 800; margin-bottom: 16px; letter-spacing: -1px; word-break: keep-all; z-index: 2; }
         .delivery-title span { color: #E6007E; }
         .delivery-desc { font-size: 16px; color: #d2d2d7; line-height: 1.6; margin-bottom: 35px; word-break: keep-all; z-index: 2; }
-        
         .delivery-features { display: flex; justify-content: center; gap: 15px; margin-bottom: 35px; flex-wrap: wrap; z-index: 2; }
         .delivery-feature { 
             display: inline-flex; align-items: center; font-size: 14px; font-weight: 600; color: #ffffff; 
@@ -379,7 +255,6 @@
         .store-card-wrap:hover { transform: translateY(-6px); box-shadow: 0 15px 35px rgba(0,0,0,0.08); }
         .store-card-img { width: 100%; aspect-ratio: 4/3; object-fit: cover; background-color: #f5f5f7; }
         .store-card-content { padding: 24px 20px; display: flex; flex-direction: column; flex-grow: 1; justify-content: space-between; }
-        
         .store-card-title { font-size: 18px; font-weight: 800; color: #111; margin-bottom: 6px; letter-spacing: -0.5px; text-align: center; }
         .store-card-address { font-size: 13px; color: #666; margin-bottom: 20px; text-align: center; word-break: keep-all; line-height: 1.4; font-weight: 500; }
         
@@ -391,7 +266,6 @@
             background-color: #222222; color: #ffffff; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
         .btn-reserve:hover { background-color: #000000; }
-
         .btn-load-more {
             display: inline-block; margin-top: 50px; padding: 16px 40px;
             background-color: #ffffff; color: #333; font-size: 15px; font-weight: 700;
@@ -425,7 +299,6 @@
         .trust-track-container { display: block; width: 100%; padding: 0; margin: 0; }
         .trust-slide-set { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; max-width: 1100px; margin: 0 auto 50px; animation: none; padding: 0 20px; }
         .mobile-clone { display: none !important; }
-        
         .trust-card { width: 100%; border-radius: 24px; padding: 40px 20px 20px; display: flex; flex-direction: column; justify-content: space-between; align-items: center; box-shadow: 0 10px 30px rgba(0,0,0,0.04); height: 100%; background-color: #ffffff; border: 1px solid #f0f0f0; }
         .trust-card-text { font-size: 20px; font-weight: 800; line-height: 1.5; margin-bottom: 30px; letter-spacing: -0.5px; word-break: keep-all; color: #111; }
         .trust-icon { width: 120px; height: 120px; object-fit: contain; margin: 0 auto; display: block; } 
@@ -445,7 +318,7 @@
         .review-card img { width: 100%; display: block; height: auto; }
         @keyframes scroll-loop-review { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
 
-        /* 마지막 상담 유도 배너 섹션 */
+        /* 마지막 상담 유도 배너 */
         .final-banner {
             position: relative; background-color: #f9f9f9;
             background-image: url('final_banner.png'); 
@@ -461,30 +334,23 @@
         .final-banner-desc { font-size: 16px; color: #555; font-weight: 700; margin-bottom: 40px; letter-spacing: -0.5px; }
         .final-banner-btn { display: inline-block; background-color: #E6007E; color: #fff; font-size: 16px; font-weight: 800; padding: 18px 36px; border-radius: 30px; text-decoration: none; box-shadow: 0 4px 15px rgba(230,0,126,0.3); }
 
-        /* 푸터 및 매장 리스트 영역 */
+        /* 푸터 */
         .footer-section { background-color: #222222; color: #aaaaaa; padding: 60px 20px 40px; font-size: 13px; line-height: 1.6; }
         .footer-container { max-width: 1200px; margin: 0 auto; }
-        
         .footer-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 40px; border-bottom: 1px solid #333333; padding-bottom: 30px; position: relative; }
         .footer-company-info h2 { color: #ffffff; font-size: 20px; margin-bottom: 15px; display: flex; align-items: center; gap: 6px; letter-spacing: -0.5px; font-weight: 800; }
         .footer-company-info h2 span { color: #E6007E; font-weight: 900; }
-        
         .footer-info-grid { display: grid; grid-template-columns: auto auto; gap: 8px 40px; }
         .footer-info-grid a, .footer-info-grid span { color: inherit !important; text-decoration: none !important; }
-        
         .footer-logo-img { width: 90px; height: auto; object-fit: contain; }
-
         .store-list-wrap { margin-bottom: 30px; overflow-x: auto; padding-bottom: 15px; }
         .store-list { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 40px; white-space: nowrap; }
         .store-item { color: #cccccc; font-size: 12px; }
         .store-item strong { color: #ffffff; font-weight: 700; margin-right: 5px; }
-
         .footer-bottom { border-top: 1px solid #333333; padding-top: 20px; font-size: 11px; color: #777777; text-align: center; }
         .footer-warning { margin-bottom: 5px; }
 
-        /* ==============================================================
-           ★ PC 전용 우측 하단 플로팅 버튼 (모바일에서는 숨김) ★ 
-           ============================================================== */
+        /* 플로팅 버튼 (PC) */
         .fab-container { position: fixed; bottom: 30px; right: 30px; display: flex; flex-direction: column; gap: 15px; z-index: 9999; }
         .fab-btn { width: 56px; height: 56px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 24px; text-decoration: none; box-shadow: 0 10px 25px rgba(0,0,0,0.15); transition: transform 0.2s ease; border: 1px solid rgba(0,0,0,0.05); }
         .fab-btn:hover { transform: scale(1.1); }
@@ -492,14 +358,10 @@
         .fab-kakao { background-color: #FEE500; color: #000; animation: pulse-glow 2s infinite; border: none; }
         @keyframes pulse-glow { 0% { box-shadow: 0 0 0 0 rgba(254, 229, 0, 0.5); } 70% { box-shadow: 0 0 0 15px rgba(254, 229, 0, 0); } 100% { box-shadow: 0 0 0 0 rgba(254, 229, 0, 0); } }
 
-        /* ==============================================================
-           ★ 모바일 전용 하단 고정 바 (Bottom CTA Bar) ★
-           ============================================================== */
+        /* 모바일 하단 고정 바 */
         .bottom-cta-bar { display: none; }
 
-        /* ==============================================================
-           ★ 실시간 예약 토스트 팝업 (공통/PC 위치 설정) ★
-           ============================================================== */
+        /* 실시간 예약 토스트 팝업 */
         .realtime-toast {
             position: fixed;
             bottom: 30px;
@@ -560,20 +422,54 @@
 
             .realtime-toast { bottom: 80px; left: 15px; font-size: 11px; padding: 8px 14px; }
             
-            /* 공식 메인 배너 모바일 최적화 */
-            .official-promo-banner { padding: 50px 20px 0; }
-            .official-promo-container { flex-direction: column; text-align: left; gap: 20px; }
-            .official-promo-text { max-width: 100%; }
-            .official-promo-text h2 { font-size: 32px; }
-            .official-promo-text h2 span { font-size: 18px; }
-            .official-promo-text p { font-size: 15px; margin-bottom: 30px; }
-            .official-promo-img-wrap { width: 100%; justify-content: center; overflow: hidden; }
-            .official-promo-img-wrap img { max-width: 110%; transform: translateX(5%); }
+            /* 🚨 모바일 메인 프로모션 배너 최적화 🚨 */
+            .official-promo-banner { padding: 50px 15px 0; }
+            .official-promo-container { 
+                flex-direction: column; 
+                text-align: center; 
+                gap: 0;
+            }
+            .official-promo-text { 
+                max-width: 100%; 
+                padding-bottom: 0; 
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+            }
+            .official-promo-text h2 { 
+                font-size: 30px; 
+                line-height: 1.3;
+                margin-bottom: 15px;
+            }
+            .official-promo-text h2 span { 
+                font-size: 14px; 
+                margin-bottom: 8px;
+            }
+            .official-promo-text p { 
+                font-size: 14px; 
+                margin-bottom: 25px; 
+            }
+            .btn-official-pink { 
+                font-size: 15px; 
+                padding: 14px 32px;
+            }
+            .official-promo-img-wrap { 
+                width: 100%; 
+                margin-top: 30px;
+                display: flex;
+                justify-content: center;
+            }
+            .official-promo-img-wrap img { 
+                max-width: 100%; 
+                width: 90%;
+                transform: none; /* 모바일에서는 쏠림 현상 제거 */
+            }
 
             .quick-menu-wrap { padding: 20px 10px; margin-bottom: 0; }
             .quick-menu-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 5px; width: 100%; }
             .quick-menu-item { gap: 6px; }
-            .quick-menu-icon { width: 48px; height: 48px; font-size: 22px; border-radius: 14px; }
+            .quick-menu-icon { width: 44px; height: 44px; font-size: 20px; border-radius: 12px; }
             .quick-menu-text { font-size: 11px; letter-spacing: -0.5px; }
 
             .product-section { padding: 50px 10px; }
@@ -585,8 +481,15 @@
             .product-info-box { width: 100%; display: flex; flex-direction: column; flex-grow: 1; }
             .product-name { font-size: 13px; font-weight: 800; margin-bottom: 10px; text-align: center; line-height: 1.3; letter-spacing: -0.5px;}
             
-            .payback-badge { font-size: 11px; padding: 6px 4px; margin-bottom: 10px; }
-            .payback-badge strong { font-size: 13px; }
+            /* 🚨 페이백 뱃지 줄바꿈 최적화 🚨 */
+            .payback-badge { 
+                font-size: 11px; 
+                padding: 8px 4px; 
+                margin-bottom: 12px; 
+                flex-direction: column; /* 세로로 쌓아서 줄바꿈 방지 */
+                gap: 4px;
+            }
+            .payback-badge strong { font-size: 14px; }
 
             .price-details { padding-top: 10px; }
             .price-row { font-size: 10px; margin-bottom: 4px; }
@@ -676,7 +579,7 @@
     t.src=v;s=b.getElementsByTagName(e)[0];
     s.parentNode.insertBefore(t,s)}(window, document,'script',
     'https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', '1703870407072402'); // 🚨 '핫딜센터' 픽셀 ID로 변경해주세요!
+    fbq('init', '1703870407072402'); // 🚨 '핫딜센터' 픽셀 ID
     fbq('track', 'PageView');
     </script>
     <noscript><img height="1" width="1" style="display:none"
@@ -691,12 +594,11 @@
             <span class="logo-sub">| U+ 공식인증 온라인 스토어</span>
         </div>
         <div class="header-btns">
-            <a href="http://pf.kakao.com/_xlyGxin/chat" class="btn-top-kakao" target="_blank" onclick="fbq('track', 'Lead'); console.log('Lead Event Triggered');">1:1 실시간 상담</a>
+            <a href="http://pf.kakao.com/_xlyGxin/chat" class="btn-top-kakao" target="_blank" onclick="fbq('track', 'Lead');">1:1 실시간 상담</a>
             <a href="tel:070-4007-7776" class="btn-top-reg">전화 상담</a>
         </div>
     </header>
 
-    <!-- ★ LGU+ 공식 홈페이지 스타일 메인 배너 ★ -->
     <section class="official-promo-banner">
         <div class="official-promo-container">
             <div class="official-promo-text">
@@ -712,7 +614,6 @@
             </div>
             
             <div class="official-promo-img-wrap">
-                <!-- 🚨 주의: 본사 영업 포털에서 배경이 투명한(PNG) 이미지를 다운받아 넣어주세요 -->
                 <img src="s26_ultra_transparent.png" alt="Galaxy S26 Ultra">
             </div>
         </div>
