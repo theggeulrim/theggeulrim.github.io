@@ -66,7 +66,7 @@
             font-size: 48px;
             font-weight: 800;
             line-height: 1.25;
-            margin-bottom: 15px; /* 날짜와의 간격 조절 */
+            margin-bottom: 15px; 
             letter-spacing: -1px;
             word-break: keep-all;
         }
@@ -85,7 +85,7 @@
             background: rgba(255, 224, 0, 0.15);
             padding: 6px 16px;
             border-radius: 30px;
-            margin-bottom: 25px; /* 타이틀 밑으로 빠지면서 하단 여백 추가 */
+            margin-bottom: 25px; 
             letter-spacing: -0.5px;
             border: 1px solid rgba(255, 224, 0, 0.3);
         }
@@ -165,6 +165,7 @@
             padding: 40px 30px; text-align: center; 
             box-shadow: 0 10px 30px rgba(0,0,0,0.04); border: 1px solid rgba(0,0,0,0.03);
             transition: transform 0.3s ease, box-shadow 0.3s ease; display: flex; flex-direction: column;
+            position: relative;
         }
         .product-card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.08); }
         .product-img-wrap { text-align: center; margin-bottom: 20px; }
@@ -174,7 +175,25 @@
         .product-info-box { display: flex; flex-direction: column; flex-grow: 1; }
         .product-name { font-size: 20px; font-weight: 800; margin-bottom: 20px; color: #111; letter-spacing: -0.5px; }
         
-        /* 🚨 글자 떨림 방지 애니메이션 최적화 적용 🚨 */
+        /* 품절 상태 카드 스타일 */
+        .product-card.sold-out {
+            opacity: 0.55;
+            pointer-events: none; /* 클릭 및 호버 방지 */
+        }
+        .product-card.sold-out:hover { transform: none; box-shadow: 0 10px 30px rgba(0,0,0,0.04); }
+        .sold-out-badge {
+            position: absolute; top: 20px; left: 20px;
+            background-color: #555555; color: #ffffff;
+            font-size: 12px; font-weight: 800; padding: 6px 14px;
+            border-radius: 6px; letter-spacing: -0.5px; z-index: 5;
+        }
+        .btn-product-voucher.disabled {
+            background: #888888 !important;
+            box-shadow: none !important;
+            cursor: not-allowed;
+        }
+
+        /* 글자 떨림 방지 애니메이션 최적화 적용 */
         .payback-badge {
             background: rgba(10, 68, 250, 0.08);
             color: #0A44FA;
@@ -190,7 +209,6 @@
             gap: 6px;
             animation: payback-pulse 2s infinite;
             letter-spacing: -0.5px;
-            /* 렌더링 최적화 코드로 글자 떨림 차단 */
             transform: translateZ(0); 
             backface-visibility: hidden;
             will-change: box-shadow;
@@ -473,7 +491,7 @@
             .event-date {
                 font-size: 14px;
                 padding: 4px 14px;
-                margin-top: 0px; /* 타이틀 밑에 오도록 간격 수정 */
+                margin-top: 0px; 
                 margin-bottom: 20px;
             }
             .official-promo-text p { 
@@ -519,7 +537,6 @@
             .product-info-box { width: 100%; display: flex; flex-direction: column; flex-grow: 1; }
             .product-name { font-size: 13px; font-weight: 800; margin-bottom: 10px; text-align: center; line-height: 1.3; letter-spacing: -0.5px;}
             
-            /* 🚨 뱃지 줄바꿈 방지 및 "지급" 단어 정렬 최적화 🚨 */
             .payback-badge { 
                 font-size: 11px; 
                 padding: 8px 4px; 
@@ -651,7 +668,6 @@
                     <span>SAMSUNG</span>
                     국민과 함께, 삼성전자<br>감사 페스티벌
                 </h2>
-                <!-- 날짜 한 칸 아래로 이동 및 간격 조정 -->
                 <div class="event-date">2026. 06. 08 ~ 07. 05</div>
                 <p>
                     단말기 개통하고 삼성닷컴 인증하면?<br>
@@ -695,11 +711,44 @@
         <h2 class="section-title">더끌림컴퍼니의 😎 <span class="text-lgu-pink">휴대폰 특가</span></h2>
         
         <div class="product-grid">
+            <!-- ★ 갤럭시 S24 Ultra 추가 ★ -->
+            <div class="product-card">
+                <div class="product-img-wrap"><img src="s24u.png" alt="s24u" class="product-img"></div>
+                <div class="product-info-box">
+                    <h3 class="product-name">갤럭시 S24 Ultra (256GB)</h3>
+                    <div class="payback-badge"><span>🎁 온누리상품권</span> <span><strong>288,000원</strong> 지급</span></div>
+                    <div class="price-details">
+                        <div class="price-row"><span>출고가</span><span class="value">1,698,400 원</span></div>
+                        <div class="price-row"><span>이통사 지원금</span><span class="value">- 700,000 원</span></div>
+                        <div class="price-row"><span>대리점 지원금</span><span class="value">- 998,400 원</span></div>
+                        <div class="price-row total"><span>할부원금</span><span class="value">0원</span></div>
+                    </div>
+                    <p class="price-condition">(LGU+ 통신사 이동 / 85요금제 6개월 유지 조건)</p>
+                    <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="btn-product-voucher" onclick="fbq('track', 'Lead');">이 특가로 상담 받기</a>
+                </div>
+            </div>
+
+            <!-- ★ 갤럭시 Z 플립6 추가 ★ -->
+            <div class="product-card">
+                <div class="product-img-wrap"><img src="flip6.png" alt="flip6" class="product-img"></div>
+                <div class="product-info-box">
+                    <h3 class="product-name">갤럭시 Z 플립6 (256GB)</h3>
+                    <div class="payback-badge"><span>🎁 온누리상품권</span> <span><strong>263,000원</strong> 지급</span></div>
+                    <div class="price-details">
+                        <div class="price-row"><span>출고가</span><span class="value">1,485,000 원</span></div>
+                        <div class="price-row"><span>이통사 지원금</span><span class="value">- 500,000 원</span></div>
+                        <div class="price-row"><span>대리점 지원금</span><span class="value">- 985,000 원</span></div>
+                        <div class="price-row total"><span>할부원금</span><span class="value">0원</span></div>
+                    </div>
+                    <p class="price-condition">(LGU+ 통신사 이동 / 85요금제 6개월 유지 조건)</p>
+                    <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="btn-product-voucher" onclick="fbq('track', 'Lead');">이 특가로 상담 받기</a>
+                </div>
+            </div>
+
             <div class="product-card">
                 <div class="product-img-wrap"><img src="s26.png" alt="s26" class="product-img"></div>
                 <div class="product-info-box">
                     <h3 class="product-name">갤럭시 S26 (256GB)</h3>
-                    <!-- 🚨 금액과 지급 단어를 모바일에서도 한 줄로 묶기 위한 span 구조 적용 🚨 -->
                     <div class="payback-badge"><span>🎁 온누리상품권</span> <span><strong>235,000원</strong> 지급</span></div>
                     <div class="price-details">
                         <div class="price-row"><span>출고가</span><span class="value">1,254,000 원</span></div>
@@ -760,7 +809,9 @@
                 </div>
             </div>
 
-            <div class="product-card">
+            <!-- 🚨 갤럭시 Z 플립7 품절 처리 완료 🚨 -->
+            <div class="product-card sold-out">
+                <div class="sold-out-badge">일시 품절</div>
                 <div class="product-img-wrap"><img src="flip7.png" alt="flip7" class="product-img"></div>
                 <div class="product-info-box">
                     <h3 class="product-name">갤럭시 Z 플립7 (256GB)</h3>
@@ -772,7 +823,7 @@
                         <div class="price-row total"><span>할부원금</span><span class="value">435,000 원</span></div>
                     </div>
                     <p class="price-condition">(LGU+ 통신사 이동 / 85요금제 6개월 유지 조건)</p>
-                    <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="btn-product-voucher" onclick="fbq('track', 'Lead');">이 특가로 상담 받기</a>
+                    <a href="#" class="btn-product-voucher disabled" onclick="return false;">품절 (재고 부족)</a>
                 </div>
             </div>
 
@@ -1353,7 +1404,7 @@
         }
 
         // ==========================================
-        // ★ 실시간 예약 100명 자동 생성 및 셔플 로직 ★
+        // ★ 실시간 예약 100명 자동 생성 및 셔フル 로직 ★
         // ==========================================
         function startRealtimeToast() {
             const lastNames = ["김", "이", "박", "최", "정", "강", "조", "윤", "장", "임", "한", "오", "서", "신", "권", "황", "안", "송", "전", "홍", "유", "고", "문", "양", "손", "배", "백", "허", "남", "심"];
