@@ -7,13 +7,136 @@
     <meta name="format-detection" content="telephone=no, date=no, email=no, address=no">
     <title>주식회사 더끌림컴퍼니 | LGU+ 공식인증 온라인 스토어</title>
     <style>
-        /* 기본 스타일 초기화 */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; } 
-        body { 
-            font-family: 'Pretendard', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; 
-            color: #333; background-color: #fbfbfd; padding-top: 60px; 
-            -webkit-font-smoothing: antialiased; 
+        /* ==============================================================
+           ★ 공식 홈페이지 스타일 메인 프로모션 배너 (레이아웃 최적화) ★ 
+           ============================================================== */
+        .official-promo-banner {
+            background-color: #000000; /* 공식홈 블랙 배경 */
+            color: #ffffff;
+            width: 100%;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            padding: 80px 20px 0; /* 하단 여백을 없애 이미지가 바닥에 붙도록 유도 */
+        }
+        .official-promo-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+        }
+        .official-promo-text {
+            flex: 0 0 45%; /* 텍스트 영역이 전체의 45% 차지 */
+            max-width: 500px;
+            padding-bottom: 80px; /* 텍스트 쪽에만 하단 여백 부여 */
+            z-index: 2; /* 이미지보다 위로 오도록 설정 */
+        }
+        .official-promo-text h2 {
+            font-size: 48px;
+            font-weight: 800;
+            line-height: 1.25;
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+            word-break: keep-all;
+        }
+        .official-promo-text h2 span {
+            display: block;
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #aaaaaa;
+        }
+        .official-promo-text p {
+            font-size: 18px;
+            color: #dddddd;
+            line-height: 1.6;
+            margin-bottom: 40px;
+            word-break: keep-all;
+        }
+        .official-promo-text p strong {
+            color: #FFE000; /* 상품권 혜택 강조용 옐로우 */
+            font-weight: 800;
+        }
+        .btn-official-pink {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #E6007E; /* LGU+ 공식 마젠타 핑크 */
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: 800;
+            padding: 18px 40px;
+            border-radius: 30px;
+            text-decoration: none;
+            transition: background-color 0.2s, transform 0.2s;
+        }
+        .btn-official-pink:hover {
+            background-color: #c9006e;
+            transform: translateY(-2px);
+        }
+        
+        .official-promo-img-wrap {
+            flex: 0 0 60%; /* 이미지 영역을 넓게 확보 */
+            display: flex;
+            justify-content: center;
+            align-items: flex-end; /* 이미지를 바닥에 붙임 */
+            margin-left: -5%; /* 텍스트 쪽으로 이미지를 당겨서 일체감 부여 */
+            z-index: 1;
+        }
+        /* 우측 단말기 이미지 */
+        .official-promo-img-wrap img {
+            width: 100%;
+            max-width: 800px; /* 지나치게 커지는 것 방지 */
+            height: auto;
+            display: block;
+        }
+
+        /* 반응형 - 모바일 사이즈 */
+        @media (max-width: 768px) {
+            .official-promo-banner {
+                padding: 50px 15px 0; /* 모바일 좌우 패딩 축소 */
+            }
+            .official-promo-container {
+                flex-direction: column; /* 세로 배치 */
+                align-items: center;
+                text-align: center; /* 텍스트 중앙 정렬로 일체감 부여 */
+            }
+            .official-promo-text {
+                flex: none;
+                width: 100%;
+                max-width: 100%;
+                padding-bottom: 0; /* 모바일에서는 하단 여백 제거 */
+                display: flex;
+                flex-direction: column;
+                align-items: center; /* 버튼도 중앙 정렬 */
+            }
+            .official-promo-text h2 {
+                font-size: 32px;
+            }
+            .official-promo-text h2 span {
+                font-size: 16px;
+                margin-bottom: 8px;
+            }
+            .official-promo-text p {
+                font-size: 15px;
+                margin-bottom: 30px;
+            }
+            .btn-official-pink {
+                padding: 16px 36px;
+                font-size: 15px;
+            }
+            .official-promo-img-wrap {
+                flex: none;
+                width: 115%; /* 화면 밖으로 살짝 튀어나가게 하여 웅장함 연출 */
+                margin-left: 0;
+                margin-top: 20px; /* 버튼과 기기 사이 간격 조정 */
+            }
+            .official-promo-img-wrap img {
+                width: 100%;
+                max-width: 450px;
+            }
         }
         
         /* 퀵메뉴 클릭 시 헤더에 가려지지 않도록 여백 설정 */
