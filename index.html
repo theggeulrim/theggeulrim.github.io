@@ -153,22 +153,11 @@
         .quick-menu-item:hover .quick-menu-icon { background-color: #fff0f6; }
         .quick-menu-text { font-size: 16px; font-weight: 800; letter-spacing: -0.5px; }
 
-        /* ==============================================================
-           ★ 상품 섹션 & 카테고리 분리 ★ 
-           ============================================================== */
+        /* 공통 섹션 스타일 & 상품 섹션 */
         .product-section { padding: 80px 20px; background-color: #fbfbfd; overflow: hidden; }
-        
         .category-wrap { margin-bottom: 80px; }
         .category-wrap:last-child { margin-bottom: 0; }
-        
-        .category-title { 
-            text-align: center; 
-            font-size: 30px; 
-            font-weight: 800; 
-            margin-bottom: 40px; 
-            color: #111; 
-            letter-spacing: -1px; 
-        }
+        .category-title { text-align: center; font-size: 30px; font-weight: 800; margin-bottom: 40px; color: #111; letter-spacing: -1px; }
         .text-lgu-pink { color: #E6007E; }
 
         .product-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; max-width: 1200px; margin: 0 auto; }
@@ -188,11 +177,7 @@
         .product-info-box { display: flex; flex-direction: column; flex-grow: 1; height: 100%; }
         .product-name { font-size: 20px; font-weight: 800; margin-bottom: 20px; color: #111; letter-spacing: -0.5px; }
         
-        /* 품절 상태 카드 스타일 */
-        .product-card.sold-out {
-            opacity: 0.55;
-            pointer-events: none;
-        }
+        .product-card.sold-out { opacity: 0.55; pointer-events: none; }
         .product-card.sold-out:hover { transform: none; box-shadow: 0 10px 30px rgba(0,0,0,0.04); }
         .sold-out-badge {
             position: absolute; top: 20px; left: 20px;
@@ -200,13 +185,8 @@
             font-size: 12px; font-weight: 800; padding: 6px 14px;
             border-radius: 6px; letter-spacing: -0.5px; z-index: 5;
         }
-        .btn-product-voucher.disabled {
-            background: #888888 !important;
-            box-shadow: none !important;
-            cursor: not-allowed;
-        }
+        .btn-product-voucher.disabled { background: #888888 !important; box-shadow: none !important; cursor: not-allowed; }
 
-        /* 글자 떨림 방지 애니메이션 최적화 적용 */
         .payback-badge {
             background: rgba(10, 68, 250, 0.08);
             color: #0A44FA;
@@ -242,7 +222,6 @@
         
         .price-condition { font-size: 11px; color: #888; text-align: right; margin-top: 15px; margin-bottom: 20px; letter-spacing: -0.5px; }
 
-        /* 버튼이 무조건 카드 하단에 정렬되도록 margin-top: auto 부여 */
         .btn-product-voucher { 
             margin-top: auto; 
             display: block; width: 100%; padding: 16px 0;
@@ -298,30 +277,38 @@
         }
         .btn-delivery:hover { background-color: #c9006e; transform: translateY(-2px); }
 
-        /* 매장 리스트 섹션 */
-        .store-grid-section { padding: 100px 20px; background-color: #ffffff; text-align: center; }
+        /* ==============================================================
+           ★ 매장 리스트 섹션 (디자인 개편) ★ 
+           ============================================================== */
+        .section-title { text-align: center; font-size: 36px; font-weight: 800; margin-bottom: 50px; letter-spacing: -1px; color: #111; }
+        .store-grid-section { padding: 100px 20px; background-color: #fbfbfd; text-align: center; }
         .store-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; max-width: 1200px; margin: 0 auto; text-align: left; }
         .store-card-wrap.hidden { display: none; }
 
         .store-card-wrap { 
             background: #ffffff; border-radius: 20px; overflow: hidden; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.04); transition: transform 0.3s ease, box-shadow 0.3s ease;
-            border: 1px solid rgba(0,0,0,0.03); display: flex; flex-direction: column;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05); transition: all 0.3s ease;
+            border: 1px solid #eaeaea; display: flex; flex-direction: column;
+            text-align: left;
         }
-        .store-card-wrap:hover { transform: translateY(-6px); box-shadow: 0 15px 35px rgba(0,0,0,0.08); }
-        .store-card-img { width: 100%; aspect-ratio: 4/3; object-fit: cover; background-color: #f5f5f7; }
-        .store-card-content { padding: 24px 20px; display: flex; flex-direction: column; flex-grow: 1; justify-content: space-between; }
-        .store-card-title { font-size: 18px; font-weight: 800; color: #111; margin-bottom: 6px; letter-spacing: -0.5px; text-align: center; }
-        .store-card-address { font-size: 13px; color: #666; margin-bottom: 20px; text-align: center; word-break: keep-all; line-height: 1.4; font-weight: 500; }
+        .store-card-wrap:hover { transform: translateY(-8px); box-shadow: 0 12px 30px rgba(0,0,0,0.1); border-color: #E6007E; }
+        .store-card-img { width: 100%; aspect-ratio: 16/9; object-fit: cover; background-color: #f5f5f7; border-bottom: 1px solid #f0f0f0; }
+        .store-card-content { padding: 24px 20px; display: flex; flex-direction: column; flex-grow: 1; justify-content: space-between; gap: 15px; }
         
-        .store-card-btns { display: flex; flex-direction: column; gap: 10px; }
+        .store-card-title { font-size: 19px; font-weight: 800; color: #111; letter-spacing: -0.5px; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+        .store-card-title::before { content: ''; display: inline-block; width: 4px; height: 16px; background-color: #E6007E; border-radius: 2px; }
+        .store-card-address { font-size: 14px; color: #555; line-height: 1.4; font-weight: 500; display: flex; align-items: flex-start; gap: 4px; word-break: keep-all; }
+        .store-card-address .pin { filter: grayscale(1); opacity: 0.6; font-size: 14px; }
+        
+        .store-card-btns { display: flex; flex-direction: column; margin-top: auto; }
         .btn-reserve { 
             display: inline-flex; justify-content: center; align-items: center;
             width: 100%; padding: 14px 0; border-radius: 12px; font-size: 14px; font-weight: 700; 
             text-decoration: none; transition: all 0.2s ease; letter-spacing: -0.5px;
-            background-color: #222222; color: #ffffff; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            background-color: #f5f5f7; color: #333; border: 1px solid #eaeaea;
         }
-        .btn-reserve:hover { background-color: #000000; }
+        .store-card-wrap:hover .btn-reserve { background-color: #E6007E; color: #ffffff; border-color: #E6007E; }
+        
         .btn-load-more {
             display: inline-block; margin-top: 50px; padding: 16px 40px;
             background-color: #ffffff; color: #333; font-size: 15px; font-weight: 700;
@@ -553,7 +540,6 @@
             .product-img { max-width: 100%; height: auto; margin-bottom: 0; }
             .product-name { font-size: 13px; font-weight: 800; margin-bottom: 10px; text-align: center; line-height: 1.3; letter-spacing: -0.5px;}
             
-            /* 🚨 뱃지 줄바꿈 방지 및 "지급" 단어 정렬 최적화 🚨 */
             .payback-badge { 
                 font-size: 11px; 
                 padding: 8px 4px; 
@@ -593,14 +579,16 @@
             .delivery-feature { justify-content: center; font-size: 12px; padding: 10px 16px; border: none; }
             .btn-delivery { width: 100%; padding: 14px 0; font-size: 14px; }
 
+            /* 모바일 매장 카드 스타일 리뉴얼 */
             .store-grid-section { padding: 50px 15px; }
-            .store-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+            .store-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
             .store-card-wrap { border-radius: 16px; }
-            .store-card-img { aspect-ratio: 16/9; } 
-            .store-card-content { padding: 12px 10px; }
-            .store-card-title { font-size: 13px; margin-bottom: 4px; }
-            .store-card-address { font-size: 10px; margin-bottom: 12px; line-height: 1.3; font-weight: 500;}
-            .btn-reserve { padding: 8px 0; font-size: 12px; border-radius: 8px; letter-spacing: -0.5px; }
+            .store-card-content { padding: 16px 12px; gap: 10px; }
+            .store-card-title { font-size: 15px; margin-bottom: 0; }
+            .store-card-title::before { height: 14px; }
+            .store-card-address { font-size: 11px; margin-bottom: 10px; line-height: 1.3; }
+            .store-card-address .pin { font-size: 11px; }
+            .btn-reserve { padding: 10px 0; font-size: 12px; border-radius: 8px; letter-spacing: -0.5px; }
             .btn-load-more { width: 90%; font-size: 13px; padding: 12px 0; margin-top: 25px; }
 
             .internet-section { padding: 50px 10px; }
@@ -691,7 +679,7 @@
                     단말기 개통하고 삼성닷컴 인증하면?<br>
                     디지털 온누리상품권 <strong class="highlight-20">출고가의 20%</strong> 지급!
                 </p>
-                <a href="https://www.notion.so/377da816d8b580a9afbdf9e279ccdf09?source=copy_link" target="_blank" class="btn-official-pink" onclick="fbq('track', 'Lead');">이벤트 자세히보기</a>
+                <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="btn-official-pink" onclick="fbq('track', 'Lead');">이벤트 자세히보기</a>
             </div>
             
             <div class="official-promo-img-wrap">
@@ -972,274 +960,310 @@
     <section id="stores" class="store-grid-section">
         <h2 class="section-title">가까운 <span class="text-lgu-pink">더끌림컴퍼니</span>를 방문해보세요</h2>
         <div class="store-grid">
+            <!-- 🚨 신규 매장(수원역점) 가장 상단에 배치 🚨 -->
+            <div class="store-card-wrap">
+                <img src="store23.jpeg" alt="수원역점" class="store-card-img">
+                <div class="store-card-content">
+                    <div>
+                        <h3 class="store-card-title">수원역점</h3>
+                        <p class="store-card-address"><span class="pin">📍</span> 경기 수원시 팔달구 고매로 26</p>
+                    </div>
+                    <div class="store-card-btns">
+                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick="fbq('track', 'Lead');">매장 방문 예약</a>
+                    </div>
+                </div>
+            </div>
+            
             <div class="store-card-wrap">
                 <img src="store20.jpeg" alt="칠보마을점" class="store-card-img">
                 <div class="store-card-content">
                     <div>
                         <h3 class="store-card-title">칠보마을점</h3>
-                        <p class="store-card-address">경기도 수원시 권선구 금곡로102번길 30 1층</p>
+                        <p class="store-card-address"><span class="pin">📍</span> 경기도 수원시 권선구 금곡로102번길 30 1층</p>
                     </div>
                     <div class="store-card-btns">
-                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick="fbq('track', 'Lead');">방문 예약</a>
+                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick="fbq('track', 'Lead');">매장 방문 예약</a>
                     </div>
                 </div>
             </div>
+            
             <div class="store-card-wrap">
                 <img src="store18.jpeg" alt="안양일번가점" class="store-card-img">
                 <div class="store-card-content">
                     <div>
                         <h3 class="store-card-title">안양일번가점</h3>
-                        <p class="store-card-address">경기도 안양시 만안구 안양로292번길 8</p>
+                        <p class="store-card-address"><span class="pin">📍</span> 경기도 안양시 만안구 안양로292번길 8</p>
                     </div>
                     <div class="store-card-btns">
-                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick="fbq('track', 'Lead');">방문 예약</a>
+                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick="fbq('track', 'Lead');">매장 방문 예약</a>
                     </div>
                 </div>
             </div>
+            
             <div class="store-card-wrap">
                 <img src="store12.jpeg" alt="범계점" class="store-card-img">
                 <div class="store-card-content">
                     <div>
                         <h3 class="store-card-title">범계점</h3>
-                        <p class="store-card-address">경기도 안양시 동안구 평촌대로223번길 49</p>
+                        <p class="store-card-address"><span class="pin">📍</span> 경기도 안양시 동안구 평촌대로223번길 49</p>
                     </div>
                     <div class="store-card-btns">
-                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick="fbq('track', 'Lead');">방문 예약</a>
+                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick="fbq('track', 'Lead');">매장 방문 예약</a>
                     </div>
                 </div>
             </div>
+            
             <div class="store-card-wrap">
                 <img src="store2.jpeg" alt="강서구청점" class="store-card-img">
                 <div class="store-card-content">
                     <div>
                         <h3 class="store-card-title">강서구청점</h3>
-                        <p class="store-card-address">서울특별시 강서구 화곡로 322</p>
+                        <p class="store-card-address"><span class="pin">📍</span> 서울특별시 강서구 화곡로 322</p>
                     </div>
                     <div class="store-card-btns">
-                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick="fbq('track', 'Lead');">방문 예약</a>
+                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick="fbq('track', 'Lead');">매장 방문 예약</a>
                     </div>
                 </div>
             </div>
+            
             <div class="store-card-wrap">
                 <img src="store11.jpeg" alt="문래점" class="store-card-img">
                 <div class="store-card-content">
                     <div>
                         <h3 class="store-card-title">문래점</h3>
-                        <p class="store-card-address">서울특별시 영등포구 선유로 59</p>
+                        <p class="store-card-address"><span class="pin">📍</span> 서울특별시 영등포구 선유로 59</p>
                     </div>
                     <div class="store-card-btns">
-                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick="fbq('track', 'Lead');">방문 예약</a>
+                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick="fbq('track', 'Lead');">매장 방문 예약</a>
                     </div>
                 </div>
             </div>
+            
             <div class="store-card-wrap">
                 <img src="store16.jpeg" alt="신림점" class="store-card-img">
                 <div class="store-card-content">
                     <div>
                         <h3 class="store-card-title">신림점</h3>
-                        <p class="store-card-address">서울특별시 관악구 남부순환로 1601</p>
+                        <p class="store-card-address"><span class="pin">📍</span> 서울특별시 관악구 남부순환로 1601</p>
                     </div>
                     <div class="store-card-btns">
-                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick="fbq('track', 'Lead');">방문 예약</a>
+                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick="fbq('track', 'Lead');">매장 방문 예약</a>
                     </div>
                 </div>
             </div>
+            
             <div class="store-card-wrap">
                 <img src="store15.jpeg" alt="사당점" class="store-card-img">
                 <div class="store-card-content">
                     <div>
                         <h3 class="store-card-title">사당점</h3>
-                        <p class="store-card-address">서울특별시 동작구 동작대로 45</p>
+                        <p class="store-card-address"><span class="pin">📍</span> 서울특별시 동작구 동작대로 45</p>
                     </div>
                     <div class="store-card-btns">
-                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick="fbq('track', 'Lead');">방문 예약</a>
-                    </div>
-                </div>
-            </div>
-            <div class="store-card-wrap">
-                <img src="store1.jpeg" alt="가산점" class="store-card-img">
-                <div class="store-card-content">
-                    <div>
-                        <h3 class="store-card-title">가산점</h3>
-                        <p class="store-card-address">서울특별시 금천구 디지털로 212</p>
-                    </div>
-                    <div class="store-card-btns">
-                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick="fbq('track', 'Lead');">방문 예약</a>
+                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick="fbq('track', 'Lead');">매장 방문 예약</a>
                     </div>
                 </div>
             </div>
 
+            <!-- 이하 매장은 더보기 버튼 클릭 시 나타납니다 -->
+            <div class="store-card-wrap hidden">
+                <img src="store1.jpeg" alt="가산점" class="store-card-img">
+                <div class="store-card-content">
+                    <div>
+                        <h3 class="store-card-title">가산점</h3>
+                        <p class="store-card-address"><span class="pin">📍</span> 서울특별시 금천구 디지털로 212</p>
+                    </div>
+                    <div class="store-card-btns">
+                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick="fbq('track', 'Lead');">매장 방문 예약</a>
+                    </div>
+                </div>
+            </div>
+            
             <div class="store-card-wrap hidden">
                 <img src="store3.jpeg" alt="관양시장점" class="store-card-img">
                 <div class="store-card-content">
                     <div>
                         <h3 class="store-card-title">관양시장점</h3>
-                        <p class="store-card-address">경기도 안양시 동안구 관악대로 341</p>
+                        <p class="store-card-address"><span class="pin">📍</span> 경기도 안양시 동안구 관악대로 341</p>
                     </div>
                     <div class="store-card-btns">
-                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick="fbq('track', 'Lead');">방문 예약</a>
+                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick="fbq('track', 'Lead');">매장 방문 예약</a>
                     </div>
                 </div>
             </div>
+            
             <div class="store-card-wrap hidden">
                 <img src="store4.jpeg" alt="낙성대점" class="store-card-img">
                 <div class="store-card-content">
                     <div>
                         <h3 class="store-card-title">낙성대점</h3>
-                        <p class="store-card-address">서울특별시 관악구 남부순환로 1952</p>
+                        <p class="store-card-address"><span class="pin">📍</span> 서울특별시 관악구 남부순환로 1952</p>
                     </div>
                     <div class="store-card-btns">
-                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick="fbq('track', 'Lead');">방문 예약</a>
+                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick="fbq('track', 'Lead');">매장 방문 예약</a>
                     </div>
                 </div>
             </div>
+            
             <div class="store-card-wrap hidden">
                 <img src="store5.jpeg" alt="난곡점" class="store-card-img">
                 <div class="store-card-content">
                     <div>
                         <h3 class="store-card-title">난곡점</h3>
-                        <p class="store-card-address">서울특별시 관악구 난곡로 194</p>
+                        <p class="store-card-address"><span class="pin">📍</span> 서울특별시 관악구 난곡로 194</p>
                     </div>
                     <div class="store-card-btns">
-                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick="fbq('track', 'Lead');">방문 예약</a>
+                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick="fbq('track', 'Lead');">매장 방문 예약</a>
                     </div>
                 </div>
             </div>
+            
             <div class="store-card-wrap hidden">
                 <img src="store6.jpeg" alt="남문시장점" class="store-card-img">
                 <div class="store-card-content">
                     <div>
                         <h3 class="store-card-title">남문시장점</h3>
-                        <p class="store-card-address">서울특별시 금천구 독산로87길 2</p>
+                        <p class="store-card-address"><span class="pin">📍</span> 서울특별시 금천구 독산로87길 2</p>
                     </div>
                     <div class="store-card-btns">
-                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick="fbq('track', 'Lead');">방문 예약</a>
+                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick="fbq('track', 'Lead');">매장 방문 예약</a>
                     </div>
                 </div>
             </div>
+            
             <div class="store-card-wrap hidden">
                 <img src="store7.jpeg" alt="남현점" class="store-card-img">
                 <div class="store-card-content">
                     <div>
                         <h3 class="store-card-title">남현점</h3>
-                        <p class="store-card-address">서울특별시 관악구 남현길 8</p>
+                        <p class="store-card-address"><span class="pin">📍</span> 서울특별시 관악구 남현길 8</p>
                     </div>
                     <div class="store-card-btns">
-                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick="fbq('track', 'Lead');">방문 예약</a>
+                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick="fbq('track', 'Lead');">매장 방문 예약</a>
                     </div>
                 </div>
             </div>
+            
             <div class="store-card-wrap hidden">
                 <img src="store8.jpeg" alt="대림9번출구점" class="store-card-img">
                 <div class="store-card-content">
                     <div>
                         <h3 class="store-card-title">대림9번출구점</h3>
-                        <p class="store-card-address">서울특별시 영등포구 도림로 135</p>
+                        <p class="store-card-address"><span class="pin">📍</span> 서울특별시 영등포구 도림로 135</p>
                     </div>
                     <div class="store-card-btns">
-                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick="fbq('track', 'Lead');">방문 예약</a>
+                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick="fbq('track', 'Lead');">매장 방문 예약</a>
                     </div>
                 </div>
             </div>
+            
             <div class="store-card-wrap hidden">
                 <img src="store9.jpeg" alt="대림11번출구점" class="store-card-img">
                 <div class="store-card-content">
                     <div>
                         <h3 class="store-card-title">대림11번출구점</h3>
-                        <p class="store-card-address">서울특별시 영등포구 도림로 144</p>
+                        <p class="store-card-address"><span class="pin">📍</span> 서울특별시 영등포구 도림로 144</p>
                     </div>
                     <div class="store-card-btns">
-                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick="fbq('track', 'Lead');">방문 예약</a>
+                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick="fbq('track', 'Lead');">매장 방문 예약</a>
                     </div>
                 </div>
             </div>
+            
             <div class="store-card-wrap hidden">
                 <img src="store10.jpeg" alt="대림삼거리점" class="store-card-img">
                 <div class="store-card-content">
                     <div>
                         <h3 class="store-card-title">대림삼거리점</h3>
-                        <p class="store-card-address">서울특별시 영등포구 디지털로54길 3 1층</p>
+                        <p class="store-card-address"><span class="pin">📍</span> 서울특별시 영등포구 디지털로54길 3 1층</p>
                     </div>
                     <div class="store-card-btns">
-                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick="fbq('track', 'Lead');">방문 예약</a>
+                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick="fbq('track', 'Lead');">매장 방문 예약</a>
                     </div>
                 </div>
             </div>
+            
             <div class="store-card-wrap hidden">
                 <img src="store13.jpeg" alt="봉천사거리점" class="store-card-img">
                 <div class="store-card-content">
                     <div>
                         <h3 class="store-card-title">봉천사거리점</h3>
-                        <p class="store-card-address">서울특별시 관악구 관악로 194</p>
+                        <p class="store-card-address"><span class="pin">📍</span> 서울특별시 관악구 관악로 194</p>
                     </div>
                     <div class="store-card-btns">
-                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick="fbq('track', 'Lead');">방문 예약</a>
+                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick="fbq('track', 'Lead');">매장 방문 예약</a>
                     </div>
                 </div>
             </div>
+            
             <div class="store-card-wrap hidden">
                 <img src="store14.jpeg" alt="비산이마트점" class="store-card-img">
                 <div class="store-card-content">
                     <div>
                         <h3 class="store-card-title">비산이마트점</h3>
-                        <p class="store-card-address">경기도 안양시 동안구 관악대로 99</p>
+                        <p class="store-card-address"><span class="pin">📍</span> 경기도 안양시 동안구 관악대로 99</p>
                     </div>
                     <div class="store-card-btns">
-                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick="fbq('track', 'Lead');">방문 예약</a>
+                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick="fbq('track', 'Lead');">매장 방문 예약</a>
                     </div>
                 </div>
             </div>
+            
             <div class="store-card-wrap hidden">
                 <img src="store17.jpeg" alt="영등포구청점" class="store-card-img">
                 <div class="store-card-content">
                     <div>
                         <h3 class="store-card-title">영등포구청점</h3>
-                        <p class="store-card-address">서울특별시 영등포구 당산로 136-1</p>
+                        <p class="store-card-address"><span class="pin">📍</span> 서울특별시 영등포구 당산로 136-1</p>
                     </div>
                     <div class="store-card-btns">
-                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick="fbq('track', 'Lead');">방문 예약</a>
+                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick="fbq('track', 'Lead');">매장 방문 예약</a>
                     </div>
                 </div>
             </div>
+            
             <div class="store-card-wrap hidden">
                 <img src="store19.jpeg" alt="증미산점" class="store-card-img">
                 <div class="store-card-content">
                     <div>
                         <h3 class="store-card-title">증미산점</h3>
-                        <p class="store-card-address">서울특별시 강서구 양천로 583</p>
+                        <p class="store-card-address"><span class="pin">📍</span> 서울특별시 강서구 양천로 583</p>
                     </div>
                     <div class="store-card-btns">
-                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick="fbq('track', 'Lead');">방문 예약</a>
+                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick="fbq('track', 'Lead');">매장 방문 예약</a>
                     </div>
                 </div>
             </div>
+            
             <div class="store-card-wrap hidden">
                 <img src="store21.jpeg" alt="평촌학원가점" class="store-card-img">
                 <div class="store-card-content">
                     <div>
                         <h3 class="store-card-title">평촌학원가점</h3>
-                        <p class="store-card-address">경기도 안양시 동안구 평촌대로 137-7</p>
+                        <p class="store-card-address"><span class="pin">📍</span> 경기도 안양시 동안구 평촌대로 137-7</p>
                     </div>
                     <div class="store-card-btns">
-                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick="fbq('track', 'Lead');">방문 예약</a>
+                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick="fbq('track', 'Lead');">매장 방문 예약</a>
                     </div>
                 </div>
             </div>
+            
             <div class="store-card-wrap hidden">
                 <img src="store22.jpeg" alt="호계점" class="store-card-img">
                 <div class="store-card-content">
                     <div>
                         <h3 class="store-card-title">호계점</h3>
-                        <p class="store-card-address">서울특별시 동안구 경수대로 541</p>
+                        <p class="store-card-address"><span class="pin">📍</span> 서울특별시 동안구 경수대로 541</p>
                     </div>
                     <div class="store-card-btns">
-                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick="fbq('track', 'Lead');">방문 예약</a>
+                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick="fbq('track', 'Lead');">매장 방문 예약</a>
                     </div>
                 </div>
             </div>
         </div>
         
-        <button id="loadMoreBtn" class="btn-load-more" onclick="loadMoreStores()">전체 22개 매장 보기 ∨</button>
+        <!-- 🚨 전체 개수 업데이트 🚨 -->
+        <button id="loadMoreBtn" class="btn-load-more" onclick="loadMoreStores()">전체 23개 매장 보기 ∨</button>
     </section>
 
     <section id="internet" class="internet-section">
@@ -1375,6 +1399,8 @@
 
             <div class="store-list-wrap">
                 <div class="store-list">
+                    <!-- 🚨 푸터에도 신규 매장 추가 🚨 -->
+                    <div class="store-item"><strong>▶ 수원역점 :</strong> 경기 수원시 팔달구 고매로 26</div>
                     <div class="store-item"><strong>▶ 남문시장점 :</strong> 서울특별시 금천구 독산로87길 2</div>
                     <div class="store-item"><strong>▶ 남현점 :</strong> 서울특별시 관악구 남현길 8</div>
                     <div class="store-item"><strong>▶ 문래힐스테이트점 :</strong> 서울특별시 영등포구 선유로 59</div>
@@ -1386,7 +1412,6 @@
                     <div class="store-item"><strong>▶ 대림9번출구점 :</strong> 서울특별시 영등포구 도림로 135</div>
                     <div class="store-item"><strong>▶ 대림삼거리점 :</strong> 서울특별시 영등포구 디지털로54길 3 1층</div>
                     <div class="store-item"><strong>▶ 평촌학원가점 :</strong> 경기도 안양시 동안구 평촌대로 137-7</div>
-                    
                     <div class="store-item"><strong>▶ 대림11번출구점 :</strong> 서울특별시 영등포구 도림로 144</div>
                     <div class="store-item"><strong>▶ 안양일번가점 :</strong> 경기도 안양시 만안구 안양로292번길 8</div>
                     <div class="store-item"><strong>▶ 신림점 :</strong> 서울특별시 관악구 남부순환로 1601</div>
@@ -1429,7 +1454,6 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // ★ 실시간 예약 토스트 팝업 실행 ★
             startRealtimeToast();
         });
 
@@ -1442,9 +1466,6 @@
             document.getElementById('loadMoreBtn').style.display = 'none';
         }
 
-        // ==========================================
-        // ★ 실시간 예약 100명 자동 생성 및 셔플 로직 ★
-        // ==========================================
         function startRealtimeToast() {
             const lastNames = ["김", "이", "박", "최", "정", "강", "조", "윤", "장", "임", "한", "오", "서", "신", "권", "황", "안", "송", "전", "홍", "유", "고", "문", "양", "손", "배", "백", "허", "남", "심"];
             const firstNames = ["*현", "*민", "*수", "*영", "*훈", "*진", "*석", "*성", "*정", "*기", "*지", "*은", "*아", "*우", "*준", "*호", "*희", "*연", "*윤", "*서", "*하", "*경", "*빈"];
