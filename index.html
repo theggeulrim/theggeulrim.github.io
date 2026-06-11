@@ -375,14 +375,46 @@
         .review-card img { width: 100%; display: block; height: auto; }
         @keyframes scroll-loop-review { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
 
-        /* ★ 추가된 FAQ 섹션 (롱테일 키워드 삽입용) ★ */
-        .faq-section { padding: 80px 20px; background-color: #fbfbfd; border-top: 1px solid #eaeaea; }
+        /* ==============================================================
+           ★ 프리미엄 아코디언 FAQ 섹션 스타일 ★
+           ============================================================== */
+        .faq-section { padding: 100px 20px; background-color: #ffffff; border-top: 1px solid #eaeaea; }
         .faq-container { max-width: 900px; margin: 0 auto; }
-        .faq-title { text-align: center; font-size: 32px; font-weight: 800; margin-bottom: 40px; letter-spacing: -1px; color: #111; }
-        .faq-item { border-bottom: 1px solid #eaeaea; padding: 25px 0; }
-        .faq-q { font-size: 18px; font-weight: 800; color: #111; margin-bottom: 12px; display: flex; gap: 10px; letter-spacing: -0.5px; }
-        .faq-q .q-mark { color: #E6007E; font-weight: 900; }
-        .faq-a { font-size: 15px; color: #555; line-height: 1.6; padding-left: 28px; word-break: keep-all; font-weight: 500; }
+        .faq-title { text-align: center; font-size: 36px; font-weight: 800; margin-bottom: 50px; letter-spacing: -1px; color: #111; }
+        
+        .faq-list { border-top: 2px solid #111; }
+        .faq-item { border-bottom: 1px solid #eaeaea; overflow: hidden; transition: all 0.3s ease; }
+        .faq-q { 
+            width: 100%; text-align: left; background: none; border: none; 
+            padding: 25px 20px; font-size: 18px; font-weight: 700; color: #111; 
+            cursor: pointer; display: flex; justify-content: space-between; align-items: center; 
+            letter-spacing: -0.5px; transition: background-color 0.2s;
+        }
+        .faq-q:hover { background-color: #fcfcfc; }
+        .faq-q .q-mark { color: #E6007E; font-weight: 900; margin-right: 12px; font-size: 20px; }
+        .faq-q .q-text { flex: 1; line-height: 1.4; word-break: keep-all; }
+        
+        .faq-icon { 
+            width: 24px; height: 24px; position: relative; flex-shrink: 0; margin-left: 15px;
+            transition: transform 0.3s ease;
+        }
+        .faq-icon::before, .faq-icon::after {
+            content: ''; position: absolute; background-color: #111; top: 50%; left: 50%; 
+            transform: translate(-50%, -50%); transition: transform 0.3s ease;
+        }
+        .faq-icon::before { width: 14px; height: 2px; }
+        .faq-icon::after { width: 2px; height: 14px; }
+        
+        .faq-item.active .faq-icon { transform: rotate(180deg); }
+        .faq-item.active .faq-icon::after { transform: translate(-50%, -50%) rotate(90deg); opacity: 0; }
+        .faq-item.active .faq-q { color: #E6007E; }
+        
+        .faq-a { 
+            max-height: 0; padding: 0 20px; font-size: 15px; color: #555; line-height: 1.6; 
+            background-color: #fbfbfd; word-break: keep-all; font-weight: 500;
+            transition: max-height 0.4s ease, padding 0.4s ease, opacity 0.4s ease; opacity: 0;
+        }
+        .faq-item.active .faq-a { max-height: 500px; padding: 0 20px 30px 48px; opacity: 1; }
 
         /* 마지막 상담 유도 배너 */
         .final-banner {
@@ -581,10 +613,15 @@
             .review-card { width: 220px; margin-right: 15px; } 
 
             /* FAQ 모바일 최적화 */
-            .faq-section { padding: 50px 15px; }
-            .faq-title { font-size: 24px; margin-bottom: 30px; }
-            .faq-q { font-size: 15px; }
+            .faq-section { padding: 60px 15px; }
+            .faq-title { font-size: 26px; margin-bottom: 30px; }
+            .faq-q { padding: 20px 10px; font-size: 15px; }
+            .faq-q .q-mark { font-size: 18px; margin-right: 6px; }
+            .faq-icon { width: 20px; height: 20px; margin-left: 10px; }
+            .faq-icon::before { width: 12px; }
+            .faq-icon::after { height: 12px; }
             .faq-a { font-size: 13px; }
+            .faq-item.active .faq-a { padding: 0 10px 20px 30px; }
 
             .final-banner { background-position: center bottom; padding: 40px 15px 220px 15px; text-align: center; }
             .final-banner::before { background: linear-gradient(to bottom, rgba(255,255,255,1) 0%, rgba(255,255,255,0.85) 45%, rgba(255,255,255,0) 100%); }
@@ -1328,24 +1365,50 @@
         <div class="faq-container">
             <h2 class="faq-title">무엇이든 물어보세요! U+핫딜센터 FAQ</h2>
             
-            <div class="faq-item">
-                <div class="faq-q"><span class="q-mark">Q.</span> SKT, KT, 알뜰폰에서 통신사 이동(번호이동)을 하면 혜택이 어떻게 되나요?</div>
-                <div class="faq-a">SKT에서 유플러스, KT에서 유플러스, 또는 알뜰폰 번호이동 고객님들 모두 U+핫딜센터만의 단독 보조금 및 스마트폰 공시지원금 혜택을 최대로 적용받으실 수 있습니다. 스마트폰 가격비교 및 핸드폰 견적을 통해 가장 유리한 조건의 기변성지, 번이성지 혜택을 안내해 드립니다.</div>
-            </div>
-            
-            <div class="faq-item">
-                <div class="faq-q"><span class="q-mark">Q.</span> 부모님 효도폰이나 학생폰(키즈폰) 등 가성비 스마트폰 추천도 해주시나요?</div>
-                <div class="faq-a">네, 최신 플래그십 모델(아이폰17, 갤럭시S26) 뿐만 아니라 요금 부담을 확 낮춘 가성비 스마트폰, 부모님 스마트폰 추천(효도폰), 학생폰, 키즈폰 라인업도 완벽하게 준비되어 있습니다. 합리적인 LTE 요금제부터 5G 요금제까지 맞춤형 핸드폰 추천 컨설팅을 도와드립니다.</div>
-            </div>
-            
-            <div class="faq-item">
-                <div class="faq-q"><span class="q-mark">Q.</span> 휴대폰 성지 시세표나 좌표를 따로 볼 수 있는 곳이 있나요?</div>
-                <div class="faq-a">휴대폰 뽐뿌나 각종 커뮤니티에서 찾는 핸드폰 싸게 파는 곳, 휴대폰 성지 좌표를 찾아 헤매실 필요 없습니다. 주식회사 더끌림컴퍼니가 운영하는 23개 전국 휴대폰 성지 직영점에서 스마트폰 특가, 공짜폰, 차비폰(빵집) 수준의 압도적인 단말기 할인 혜택을 투명하게 안내해 드리고 있습니다.</div>
-            </div>
-            
-            <div class="faq-item">
-                <div class="faq-q"><span class="q-mark">Q.</span> 법인폰 개통이나 기업특판 스마트폰 상담도 진행하나요?</div>
-                <div class="faq-a">물론입니다. 개인 고객의 폰교체, 핸드폰 기기변경 외에도 다회선 법인폰 개통 및 핸드폰 법인특판(기업특판 스마트폰) 전문 부서를 운영하고 있습니다. 전국 어디서든 빠른 모바일 교체 상담 및 스마트폰 방문개통 혜택을 누려보세요.</div>
+            <div class="faq-list">
+                <div class="faq-item">
+                    <button class="faq-q">
+                        <span class="q-mark">Q.</span>
+                        <span class="q-text">SKT, KT, 알뜰폰에서 통신사 이동(번호이동)을 하면 혜택이 어떻게 되나요?</span>
+                        <div class="faq-icon"></div>
+                    </button>
+                    <div class="faq-a">
+                        <p>SKT에서 유플러스, KT에서 유플러스, 또는 알뜰폰 번호이동 고객님들 모두 U+핫딜센터만의 단독 보조금 및 스마트폰 공시지원금 혜택을 최대로 적용받으실 수 있습니다. 스마트폰 가격비교 및 핸드폰 견적을 통해 가장 유리한 조건의 기변성지, 번이성지 혜택을 안내해 드립니다.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <button class="faq-q">
+                        <span class="q-mark">Q.</span>
+                        <span class="q-text">부모님 효도폰이나 학생폰(키즈폰) 등 가성비 스마트폰 추천도 해주시나요?</span>
+                        <div class="faq-icon"></div>
+                    </button>
+                    <div class="faq-a">
+                        <p>네, 최신 플래그십 모델(아이폰17, 갤럭시S26) 뿐만 아니라 요금 부담을 확 낮춘 가성비 스마트폰, 부모님 스마트폰 추천(효도폰), 학생폰, 키즈폰 라인업도 완벽하게 준비되어 있습니다. 합리적인 LTE 요금제부터 5G 요금제까지 맞춤형 핸드폰 추천 컨설팅을 도와드립니다.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <button class="faq-q">
+                        <span class="q-mark">Q.</span>
+                        <span class="q-text">휴대폰 성지 시세표나 좌표를 따로 볼 수 있는 곳이 있나요?</span>
+                        <div class="faq-icon"></div>
+                    </button>
+                    <div class="faq-a">
+                        <p>휴대폰 뽐뿌나 각종 커뮤니티에서 찾는 핸드폰 싸게 파는 곳, 휴대폰 성지 좌표를 찾아 헤매실 필요 없습니다. 주식회사 더끌림컴퍼니가 운영하는 23개 전국 휴대폰 성지 직영점에서 스마트폰 특가, 공짜폰, 차비폰(빵집) 수준의 압도적인 단말기 할인 혜택을 투명하게 안내해 드리고 있습니다.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <button class="faq-q">
+                        <span class="q-mark">Q.</span>
+                        <span class="q-text">법인폰 개통이나 기업특판 스마트폰 상담도 진행하나요?</span>
+                        <div class="faq-icon"></div>
+                    </button>
+                    <div class="faq-a">
+                        <p>물론입니다. 개인 고객의 폰교체, 핸드폰 기기변경 외에도 다회선 법인폰 개통 및 핸드폰 법인특판(기업특판 스마트폰) 전문 부서를 운영하고 있습니다. 전국 어디서든 빠른 모바일 교체 상담 및 스마트폰 방문개통 혜택을 누려보세요.</p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -1434,6 +1497,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             startRealtimeToast();
+            initFaqAccordion(); // FAQ 아코디언 초기화
         });
 
         // 더보기 버튼 (매장 노출)
@@ -1443,6 +1507,25 @@
                 store.style.display = 'flex'; 
             });
             document.getElementById('loadMoreBtn').style.display = 'none';
+        }
+
+        // FAQ 아코디언 동작 스크립트
+        function initFaqAccordion() {
+            const faqItems = document.querySelectorAll('.faq-item');
+            faqItems.forEach(item => {
+                const btn = item.querySelector('.faq-q');
+                btn.addEventListener('click', () => {
+                    const isActive = item.classList.contains('active');
+                    
+                    // 다른 열려있는 항목 닫기 (원치 않으시면 이 줄을 삭제하세요)
+                    faqItems.forEach(faq => faq.classList.remove('active')); 
+
+                    // 클릭한 항목 토글
+                    if (!isActive) {
+                        item.classList.add('active');
+                    }
+                });
+            });
         }
 
         function startRealtimeToast() {
