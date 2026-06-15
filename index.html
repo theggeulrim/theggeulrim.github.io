@@ -52,8 +52,8 @@
         .btn-top-reg { background-color: #E6007E; color: #fff; }
 
         /* ==============================================================
-           ★ 공식 메인 배너 ★ 
-           ============================================================== */
+            ★ 공식 메인 배너 ★ 
+            ============================================================== */
         .official-promo-banner {
             background-color: #000000;
             color: #ffffff;
@@ -202,6 +202,44 @@
             border-radius: 6px; letter-spacing: -0.5px; z-index: 5;
         }
         .btn-product-voucher.disabled { background: #888888 !important; box-shadow: none !important; cursor: not-allowed; }
+
+        /* =========================================
+           ✨ S급 단순개봉 플로팅 뱃지 스타일 
+           ========================================= */
+        .openbox-premium-badge {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: #111111;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #ffffff;
+            padding: 8px 16px;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+            z-index: 10;
+            letter-spacing: -0.5px;
+            backdrop-filter: blur(5px);
+        }
+
+        .openbox-premium-badge .icon {
+            color: #FFE000;
+            font-size: 15px;
+            animation: twinkle 2s infinite ease-in-out;
+        }
+
+        .openbox-premium-badge .highlight {
+            color: #FFE000;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(0.9); }
+        }
 
         .payback-badge {
             background: rgba(10, 68, 250, 0.08);
@@ -376,8 +414,8 @@
         @keyframes scroll-loop-review { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
 
         /* ==============================================================
-           ★ 프리미엄 아코디언 FAQ 섹션 스타일 ★
-           ============================================================== */
+            ★ 프리미엄 아코디언 FAQ 섹션 스타일 ★
+            ============================================================== */
         .faq-section { padding: 100px 20px; background-color: #ffffff; border-top: 1px solid #eaeaea; }
         .faq-container { max-width: 900px; margin: 0 auto; }
         .faq-title { text-align: center; font-size: 36px; font-weight: 800; margin-bottom: 50px; letter-spacing: -1px; color: #111; }
@@ -485,8 +523,8 @@
         .realtime-toast .highlight { color: #E6007E; font-weight: 800; }
 
         /* ==============================================================
-           ★ 반응형 분기 처리 (PC & Tablet) ★ 
-           ============================================================== */
+            ★ 반응형 분기 처리 (PC & Tablet) ★ 
+            ============================================================== */
         @media (min-width: 769px) {
             .sticky-header { padding: 0 40px; height: 75px; }
             .header-logo { gap: 10px; margin-right: 0; overflow: visible; }
@@ -502,8 +540,8 @@
         }
 
         /* ==============================================================
-           ★ 반응형 분기 처리 (Mobile) ★ 
-           ============================================================== */
+            ★ 반응형 분기 처리 (Mobile) ★ 
+            ============================================================== */
         @media (max-width: 768px) {
             body { padding-bottom: 75px; }
             
@@ -560,6 +598,10 @@
             .price-row.total .value { font-size: 16px; font-weight: 900; }
             .price-condition { font-size: 9px; margin-top: 6px; margin-bottom: 15px; }
             .btn-product-voucher { padding: 10px 0; font-size: 12px; border-radius: 8px; width: 100%; font-weight: 700;}
+
+            /* 플로팅 뱃지 모바일 최적화 (추가됨) */
+            .openbox-premium-badge { top: 12px; left: 12px; padding: 6px 12px; font-size: 11px; }
+            .openbox-premium-badge .icon { font-size: 13px; }
 
             .vip-banner-wrap { padding: 0 15px; margin-top: 10px; margin-bottom: 50px; }
             .vip-banner { padding: 25px 20px; border-radius: 20px; }
@@ -723,10 +765,16 @@
         <div class="category-wrap">
             <h3 class="category-title">🔥 이 달의 무료 폰 핫딜</h3>
             <div class="product-grid">
+                
                 <div class="product-card">
+                    <div class="openbox-premium-badge">
+                        <span class="icon">✨</span>
+                        <span>S급 <span class="highlight">단순개봉</span></span>
+                    </div>
+                    
                     <div class="product-img-wrap"><img src="s24u.png" alt="갤럭시 S24 Ultra 유플러스 기기변경 번호이동 특가 공시지원금" class="product-img"></div>
                     <div class="product-info-box">
-                        <h3 class="product-name">갤럭시 S24 Ultra (256GB) <span class="open-box-tag">개봉새상품</span></h3>
+                        <h3 class="product-name">갤럭시 S24 Ultra (256GB)</h3>
                         <div class="payback-badge"><span>🎁 온누리상품권</span> <span><strong>288,000원</strong> 지급</span></div>
                         <div class="price-details">
                             <div class="price-row"><span>출고가</span><span class="value">1,698,400 원</span></div>
