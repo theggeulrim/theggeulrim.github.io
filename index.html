@@ -51,16 +51,18 @@
         .btn-top-kakao { background-color: #FEE500; color: #000; }
         .btn-top-reg { background-color: #E6007E; color: #fff; }
 
-        /* Z플립·폴드8 티저 메인 배너 */
+        /* Z플립·폴드8 티저 메인 배너 (양옆 보라 배경으로 와이드하게) */
         .teaser-hero {
-            background-color: #140a2e;
             width: 100%;
-            display: flex;
-            justify-content: center;
-            overflow: hidden;
+            background: radial-gradient(ellipse 65% 85% at 50% 82%, #43219a 0%, #1a0f42 48%, #0a0520 100%);
+            display: flex; justify-content: center; overflow: hidden;
         }
-        .teaser-hero a { display: block; width: 100%; max-width: 720px; line-height: 0; text-decoration: none; }
-        .teaser-hero img { width: 100%; height: auto; display: block; }
+        .teaser-hero a { display: block; width: 100%; max-width: 1000px; line-height: 0; text-decoration: none; }
+        .teaser-hero img {
+            width: 100%; height: auto; display: block;
+            -webkit-mask-image: linear-gradient(to right, transparent 0, #000 6%, #000 94%, transparent 100%);
+            mask-image: linear-gradient(to right, transparent 0, #000 6%, #000 94%, transparent 100%);
+        }
 
         /* 퀵 메뉴 */
         .quick-menu-wrap { background-color: #ffffff; padding: 40px 20px; border-bottom: 1px solid #eaeaea; }
