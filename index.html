@@ -51,16 +51,10 @@
         .btn-top-kakao { background-color: #FEE500; color: #000; }
         .btn-top-reg { background-color: #E6007E; color: #fff; }
 
-                /* Z플립·폴드8 티저 메인 배너 (와이드 이미지 전용) */
+        /* Z플립·폴드8 티저 메인 배너 (PC 와이드 / 모바일 정사각형 자동 전환) */
         .teaser-hero { width: 100%; }
-        .teaser-hero a { display: block; width: 100%; line-height: 0; text-decoration: none; }
+        .teaser-hero a, .teaser-hero picture { display: block; width: 100%; line-height: 0; text-decoration: none; }
         .teaser-hero img { width: 100%; height: auto; display: block; }
-        .teaser-hero a { display: block; width: 100%; max-width: 640px; line-height: 0; text-decoration: none; }
-        .teaser-hero img {
-            width: 100%; height: auto; display: block;
-            -webkit-mask-image: linear-gradient(to right, transparent 0, #000 6%, #000 94%, transparent 100%);
-            mask-image: linear-gradient(to right, transparent 0, #000 6%, #000 94%, transparent 100%);
-        }
 
         /* 퀵 메뉴 */
         .quick-menu-wrap { background-color: #ffffff; padding: 40px 20px; border-bottom: 1px solid #eaeaea; }
@@ -579,7 +573,10 @@
 
     <section class="teaser-hero">
         <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" onclick="fbq('track', 'Lead');">
-            <img src="zfold8_teaser.png" alt="갤럭시 Z 플립·Z 폴드8 시리즈 사전구매 고객 특별 혜택 2026년 7월 22일 공개 예정">
+            <picture>
+                <source media="(max-width: 768px)" srcset="zfold8_square.png">
+                <img src="zfold8_wide.png" alt="갤럭시 Z 플립·Z 폴드8 시리즈 사전구매 고객 특별 혜택 2026년 7월 22일 공개 예정">
+            </picture>
         </a>
     </section>
 
@@ -1405,10 +1402,8 @@
                 btn.addEventListener('click', () => {
                     const isActive = item.classList.contains('active');
 
-                    // 다른 열려있는 항목 닫기 (원치 않으시면 이 줄을 삭제하세요)
                     faqItems.forEach(faq => faq.classList.remove('active'));
 
-                    // 클릭한 항목 토글
                     if (!isActive) {
                         item.classList.add('active');
                     }
