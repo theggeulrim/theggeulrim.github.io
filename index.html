@@ -75,6 +75,7 @@
         .category-wrap:last-child { margin-bottom: 0; }
         .category-title { text-align: center; font-size: 30px; font-weight: 800; margin-bottom: 40px; color: #111; letter-spacing: -1px; }
         .text-lgu-pink { color: #E6007E; }
+        .text-samsung-blue { color: #1428A0; }
 
         .product-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; max-width: 1200px; margin: 0 auto; }
 
@@ -101,7 +102,25 @@
             font-size: 12px; font-weight: 800; padding: 6px 14px;
             border-radius: 6px; letter-spacing: -0.5px; z-index: 5;
         }
+        
+        /* 사전예약 전용 뱃지 스타일 */
+        .preorder-badge {
+            position: absolute; top: 20px; left: 20px;
+            background-color: #1428A0; color: #ffffff;
+            font-size: 13px; font-weight: 800; padding: 8px 16px;
+            border-radius: 30px; letter-spacing: -0.5px; z-index: 5;
+            box-shadow: 0 4px 10px rgba(20, 40, 160, 0.3);
+            animation: pulse-preorder 2s infinite;
+        }
+        @keyframes pulse-preorder {
+            0% { box-shadow: 0 0 0 0 rgba(20, 40, 160, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(20, 40, 160, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(20, 40, 160, 0); }
+        }
+
         .btn-product-voucher.disabled { background: #888888 !important; box-shadow: none !important; cursor: not-allowed; }
+        .btn-product-voucher.preorder-btn { background: linear-gradient(135deg, #1428A0 0%, #0c1860 100%); box-shadow: 0 4px 15px rgba(20, 40, 160, 0.25); }
+        .btn-product-voucher.preorder-btn:hover { box-shadow: 0 6px 20px rgba(20, 40, 160, 0.4); }
 
         /* =========================================
            ✨ S급 단순개봉 플로팅 뱃지 스타일
@@ -141,6 +160,45 @@
             50% { opacity: 0.6; transform: scale(0.9); }
         }
 
+        .payback-badge {
+            background: rgba(10, 68, 250, 0.08);
+            color: #0A44FA;
+            border: 1px solid rgba(10, 68, 250, 0.3);
+            border-radius: 10px;
+            padding: 10px;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 6px;
+            animation: payback-pulse 2s infinite;
+            letter-spacing: -0.5px;
+            transform: translateZ(0); 
+            backface-visibility: hidden;
+            will-change: box-shadow;
+        }
+        .payback-badge strong { font-size: 16px; font-weight: 900; }
+        
+        .payback-badge.preorder-benefit {
+            background: rgba(228, 0, 43, 0.08);
+            color: #E4002B;
+            border-color: rgba(228, 0, 43, 0.3);
+            animation: preorder-pulse 2s infinite;
+        }
+        @keyframes preorder-pulse {
+            0% { box-shadow: 0 0 0 0 rgba(228, 0, 43, 0.3); }
+            70% { box-shadow: 0 0 0 10px rgba(228, 0, 43, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(228, 0, 43, 0); }
+        }
+
+        @keyframes payback-pulse {
+            0% { box-shadow: 0 0 0 0 rgba(10, 68, 250, 0.3); }
+            70% { box-shadow: 0 0 0 10px rgba(10, 68, 250, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(10, 68, 250, 0); }
+        }
+
         .price-details { text-align: left; border-top: 1px solid #f5f5f5; padding-top: 20px; }
         .price-row { display: flex; justify-content: space-between; font-size: 14px; color: #777; margin-bottom: 10px; font-weight: 600; }
         .price-row .value { font-weight: 600; color: #444; }
@@ -148,6 +206,9 @@
         .price-row.total .value { color: #E6007E; font-size: 20px; letter-spacing: -0.5px; }
 
         .price-condition { font-size: 11px; color: #888; text-align: right; margin-top: 15px; margin-bottom: 20px; letter-spacing: -0.5px; }
+        
+        .preorder-desc { font-size: 13px; color: #555; text-align: center; margin-top: 10px; margin-bottom: 20px; line-height: 1.5; font-weight: 600; background-color: #f8f9fa; padding: 12px; border-radius: 10px; word-break: keep-all; }
+        .preorder-desc strong { color: #1428A0; }
 
         .btn-product-voucher {
             margin-top: auto;
@@ -447,16 +508,24 @@
             .product-img { max-width: 100%; height: auto; margin-bottom: 0; }
             .product-name { font-size: 13px; font-weight: 800; margin-bottom: 10px; text-align: center; line-height: 1.3; letter-spacing: -0.5px;}
 
+            .payback-badge { font-size: 11px; padding: 8px 4px; margin-bottom: 12px; flex-direction: column; gap: 4px; }
+            .payback-badge span { display: flex; align-items: center; justify-content: center; gap: 4px; }
+            .payback-badge strong { font-size: 14px; }
+            
+            .preorder-badge { top: 10px; left: 10px; padding: 6px 12px; font-size: 11px; }
+
             .price-details { padding-top: 10px; }
             .price-row { font-size: 10px; margin-bottom: 4px; }
             .price-row .value { font-size: 10px; }
             .price-row.total { margin-top: 8px; padding-top: 8px; }
             .price-row.total span:first-child { font-size: 11px; font-weight: 800; }
             .price-row.total .value { font-size: 16px; font-weight: 900; }
-            .price-condition { font-size: 9px; margin-top: 6px; margin-bottom: 15px; }
+            .price-condition { font-size: 9px; margin-top: 6px; margin-bottom: 10px; }
+            
+            .preorder-desc { font-size: 11px; padding: 8px; margin-bottom: 15px; }
             .btn-product-voucher { padding: 10px 0; font-size: 12px; border-radius: 8px; width: 100%; font-weight: 700;}
 
-            /* 플로팅 뱃지 모바일 최적화 (추가됨) */
+            /* 플로팅 뱃지 모바일 최적화 */
             .openbox-premium-badge { top: 12px; left: 12px; padding: 6px 12px; font-size: 11px; }
             .openbox-premium-badge .icon { font-size: 13px; }
 
@@ -608,9 +677,46 @@
     <section id="phones" class="product-section">
 
         <div class="category-wrap">
-            <h3 class="category-title">🔥 이 달의 무료 폰 핫딜</h3>
+            <h3 class="category-title">🌟 갤럭시 Z 폴드8·플립8 사전예약</h3>
             <div class="product-grid">
 
+                <div class="product-card">
+                    <div class="preorder-badge">사전예약</div>
+                    <div class="product-img-wrap"><img src="flip8.png" alt="갤럭시 Z플립8 사전예약 단독 혜택 더끌림컴퍼니" class="product-img"></div>
+                    <div class="product-info-box">
+                        <h3 class="product-name">갤럭시 Z 플립8 (256GB/512GB)</h3>
+                        <div class="payback-badge preorder-benefit"><span>🎁 U+ 단독 개통 사은품</span> <span><strong>최대 30만원 상당</strong> 혜택</span></div>
+                        <p class="preorder-desc">
+                            <strong>스토리지 반값 업그레이드 지원!</strong><br>
+                            단말기 할인 + 프리미엄 악세사리 팩 증정
+                        </p>
+                        <p class="price-condition">* 7월 28일 사전예약 시작 / 8월 7일 공식 출시</p>
+                        <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="btn-product-voucher preorder-btn" onclick="fbq('track', 'Lead');">사전예약 알림 신청하기</a>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="preorder-badge">사전예약</div>
+                    <div class="product-img-wrap"><img src="fold8.png" alt="갤럭시 Z폴드8 사전예약 혜택 유플러스 핫딜센터" class="product-img"></div>
+                    <div class="product-info-box">
+                        <h3 class="product-name">갤럭시 Z 폴드8 (256GB/512GB)</h3>
+                        <div class="payback-badge preorder-benefit"><span>🎁 U+ 단독 개통 사은품</span> <span><strong>최대 40만원 상당</strong> 혜택</span></div>
+                        <p class="preorder-desc">
+                            <strong>스토리지 반값 업그레이드 지원!</strong><br>
+                            단말기 할인 + 프리미엄 악세사리 팩 증정
+                        </p>
+                        <p class="price-condition">* 7월 28일 사전예약 시작 / 8월 7일 공식 출시</p>
+                        <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="btn-product-voucher preorder-btn" onclick="fbq('track', 'Lead');">사전예약 알림 신청하기</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="category-wrap">
+            <h3 class="category-title">LGU+ 공식 휴대폰 특가 <span class="text-samsung-blue">&lt;삼성&gt;</span></h3>
+            <div class="product-grid">
+                
                 <div class="product-card">
                     <div class="openbox-premium-badge">
                         <span class="icon">✨</span>
@@ -660,16 +766,12 @@
                         <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="btn-product-voucher" onclick="fbq('track', 'Lead');">이 특가로 상담 받기</a>
                     </div>
                 </div>
-            </div>
-        </div>
 
-        <div class="category-wrap">
-            <h3 class="category-title">LGU+ 공식 휴대폰 특가 <span class="text-lgu-pink">&lt;삼성&gt;</span></h3>
-            <div class="product-grid">
                 <div class="product-card">
                     <div class="product-img-wrap"><img src="s26.png" alt="갤럭시S26 사전예약 자급제 비교 유플러스 핫딜센터 삼성폰" class="product-img"></div>
                     <div class="product-info-box">
                         <h3 class="product-name">갤럭시 S26 (256GB)</h3>
+                        <div class="payback-badge"><span>🎁 온누리상품권</span> <span><strong>235,000원</strong> 지급</span></div>
                         <div class="price-details">
                             <div class="price-row"><span>출고가</span><span class="value">1,254,000 원</span></div>
                             <div class="price-row"><span>이통사 지원금</span><span class="value">- 500,000 원</span></div>
@@ -685,6 +787,7 @@
                     <div class="product-img-wrap"><img src="s26p.png" alt="갤럭시S26 플러스 스펙 최신스마트폰 가격 핸드폰 싸게 파는 곳" class="product-img"></div>
                     <div class="product-info-box">
                         <h3 class="product-name">갤럭시 S26+ (256GB)</h3>
+                        <div class="payback-badge"><span>🎁 온누리상품권</span> <span><strong>263,000원</strong> 지급</span></div>
                         <div class="price-details">
                             <div class="price-row"><span>출고가</span><span class="value">1,452,000 원</span></div>
                             <div class="price-row"><span>이통사 지원금</span><span class="value">- 500,000 원</span></div>
@@ -700,6 +803,7 @@
                     <div class="product-img-wrap"><img src="s26u.png" alt="갤럭시S26 울트라 색상 보조금 디자인 통신사이동 혜택" class="product-img"></div>
                     <div class="product-info-box">
                         <h3 class="product-name">갤럭시 S26 Ultra (256GB)</h3>
+                        <div class="payback-badge"><span>🎁 온누리상품권</span> <span><strong>337,000원</strong> 지급</span></div>
                         <div class="price-details">
                             <div class="price-row"><span>출고가</span><span class="value">1,797,400 원</span></div>
                             <div class="price-row"><span>이통사 지원금</span><span class="value">- 500,000 원</span></div>
@@ -716,6 +820,7 @@
                     <div class="product-img-wrap"><img src="flip7.png" alt="갤럭시 Z 플립7 번호이동 성지 유플러스 가족결합 할인" class="product-img"></div>
                     <div class="product-info-box">
                         <h3 class="product-name">갤럭시 Z 플립7 (256GB)</h3>
+                        <div class="payback-badge"><span>🎁 온누리상품권</span> <span><strong>263,000원</strong> 지급</span></div>
                         <div class="price-details">
                             <div class="price-row"><span>출고가</span><span class="value">1,485,000 원</span></div>
                             <div class="price-row"><span>이통사 지원금</span><span class="value">- 500,000 원</span></div>
@@ -732,6 +837,7 @@
                     <div class="product-img-wrap"><img src="fold7.png" alt="갤럭시 Z 폴드7 스마트폰 추천 모바일 교체 상담" class="product-img"></div>
                     <div class="product-info-box">
                         <h3 class="product-name">갤럭시 Z 폴드7 (256GB)</h3>
+                        <div class="payback-badge"><span>🎁 온누리상품권</span> <span><strong>429,000원</strong> 지급</span></div>
                         <div class="price-details">
                             <div class="price-row"><span>출고가</span><span class="value">2,379,300 원</span></div>
                             <div class="price-row"><span>이통사 지원금</span><span class="value">- 500,000 원</span></div>
