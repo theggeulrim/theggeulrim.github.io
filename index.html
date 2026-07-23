@@ -155,9 +155,9 @@
         }
 
         /* Z플립·폴드8 티저 메인 배너 (PC 와이드 / 모바일 정사각형 자동 전환) */
-        .teaser-hero { width: 100%; max-width: 1200px; margin: 0 auto; padding: 24px 20px 0; }
+        .teaser-hero { width: 100%; }
         .teaser-hero a, .teaser-hero picture { display: block; width: 100%; line-height: 0; text-decoration: none; }
-        .teaser-hero img { width: 100%; height: auto; display: block; border-radius: 20px; }
+        .teaser-hero img { width: 100%; height: auto; display: block; }
 
         /* 퀵 메뉴 */
         .quick-menu-wrap { background-color: #ffffff; padding: 40px 20px; border-bottom: 1px solid #eaeaea; }
@@ -579,10 +579,6 @@
             ============================================================== */
         @media (max-width: 768px) {
             body { padding-bottom: 75px; }
-
-            /* 모바일에서는 배너를 화면 끝까지 꽉 채움 */
-            .teaser-hero { padding: 0; max-width: 100%; }
-            .teaser-hero img { border-radius: 0; }
 
             .fab-container { display: none; }
 
