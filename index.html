@@ -938,24 +938,36 @@
         }
         .hero-seo-meta strong { color: #FFE000; font-weight: 800; }
 
-        /* 폴드8 사전예약 안내 텍스트 (본문 SEO) */
+        /* 폴드8 사전예약 안내 (접이식 - 본문 SEO) */
         .preorder-guide {
-            max-width: 1200px; margin: 40px auto 0; background: #ffffff;
-            border: 1px solid #eaeaea; border-radius: 24px; padding: 40px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            max-width: 1200px; margin: 30px auto 0; background: #ffffff;
+            border: 1px solid #eaeaea; border-radius: 16px; overflow: hidden;
         }
-        .preorder-guide h3 {
-            font-size: 22px; font-weight: 800; color: #111; margin-bottom: 18px;
-            letter-spacing: -0.5px; word-break: keep-all;
+        .preorder-guide-toggle {
+            list-style: none; cursor: pointer; display: flex; align-items: center;
+            justify-content: space-between; gap: 12px; padding: 22px 28px;
+            font-size: 16px; font-weight: 700; color: #333; letter-spacing: -0.5px;
+            transition: background-color 0.2s; word-break: keep-all;
         }
-        .preorder-guide h3 .point { color: #E6007E; }
-        .preorder-guide p {
+        .preorder-guide-toggle::-webkit-details-marker { display: none; }
+        .preorder-guide-toggle:hover { background-color: #fafafa; color: #E6007E; }
+        .preorder-guide-toggle .chev {
+            flex-shrink: 0; width: 11px; height: 11px; border-right: 2.5px solid #aaa;
+            border-bottom: 2.5px solid #aaa; transform: rotate(45deg) translate(-3px, -3px);
+            transition: transform 0.25s;
+        }
+        .preorder-guide[open] .preorder-guide-toggle { color: #E6007E; border-bottom: 1px solid #f0f0f0; }
+        .preorder-guide[open] .preorder-guide-toggle .chev {
+            border-color: #E6007E; transform: rotate(-135deg) translate(-3px, -3px);
+        }
+        .preorder-guide-body { padding: 26px 28px 30px; }
+        .preorder-guide-body p {
             font-size: 15px; color: #555; line-height: 1.8; font-weight: 500;
             margin-bottom: 16px; word-break: keep-all;
         }
-        .preorder-guide p:last-child { margin-bottom: 0; }
-        .preorder-guide strong { color: #111; font-weight: 800; }
-        .preorder-guide .pink { color: #E6007E; font-weight: 800; }
+        .preorder-guide-body p:last-child { margin-bottom: 0; }
+        .preorder-guide-body strong { color: #111; font-weight: 800; }
+        .preorder-guide-body .pink { color: #E6007E; font-weight: 800; }
 
         /* 퀵 메뉴 */
         .quick-menu-wrap { background-color: #ffffff; padding: 40px 20px; border-bottom: 1px solid #eaeaea; }
@@ -1423,10 +1435,11 @@
             .hero-seo-meta { gap: 6px; margin-top: 18px; }
             .hero-seo-meta span { font-size: 11.5px; padding: 8px 12px; border-radius: 9px; }
 
-            /* 폴드8 사전예약 안내 텍스트 모바일 */
-            .preorder-guide { margin-top: 25px; padding: 25px 18px; border-radius: 16px; }
-            .preorder-guide h3 { font-size: 17px; margin-bottom: 14px; }
-            .preorder-guide p { font-size: 13px; line-height: 1.7; margin-bottom: 12px; }
+            /* 폴드8 사전예약 안내(접이식) 모바일 */
+            .preorder-guide { margin-top: 18px; border-radius: 12px; }
+            .preorder-guide-toggle { padding: 16px 18px; font-size: 13px; }
+            .preorder-guide-body { padding: 18px 18px 22px; }
+            .preorder-guide-body p { font-size: 13px; line-height: 1.7; margin-bottom: 12px; }
 
             .quick-menu-wrap { padding: 20px 10px; margin-bottom: 0; }
             .quick-menu-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px 5px; width: 100%; }
@@ -1707,8 +1720,12 @@
 
             </div>
 
-            <div class="preorder-guide">
-                <h3>갤럭시 Z <span class="point">폴드8 사전예약</span> 안내 — 폴드8 와이드 · 폴드8 울트라 · Z 플립8</h3>
+            <details class="preorder-guide">
+                <summary class="preorder-guide-toggle">
+                    <span>갤럭시 Z 폴드8 사전예약 안내 — 폴드8 와이드 · 폴드8 울트라 · Z 플립8</span>
+                    <i class="chev"></i>
+                </summary>
+                <div class="preorder-guide-body">
                 <p>
                     갤럭시 Z 폴드8 시리즈 <strong>사전예약</strong>은 <span class="pink">7월 28일</span>에 시작되며, 개통 시작일은 <span class="pink">8월 4일</span>입니다.
                     이번 폴드8 라인업은 <strong>갤럭시 Z 폴드8 와이드</strong>(출고가 2,278,000원)와 <strong>갤럭시 Z 폴드8 울트라</strong>(출고가 2,577,000원),
@@ -1729,8 +1746,9 @@
                     사전예약 물량은 한정되어 있으므로 예약 오픈 전 <strong>사전예약 알림 신청</strong>을 미리 남겨주시면 순번대로 접수해 드립니다.
                     서울·경기 <strong>23개 유플러스 직영점</strong> 방문 예약은 물론, 매장 방문이 어려운 지방 고객님도
                     <strong>전국 우체국 택배 개통</strong>으로 동일한 폴드8 사전예약 혜택을 받으실 수 있습니다.
-                </p>
-            </div>
+                    </p>
+                </div>
+            </details>
         </div>
 
         <div class="category-wrap">
