@@ -60,19 +60,21 @@ section{scroll-margin-top:70px;}
 .btn-top-reg{background:var(--pink); color:#fff;}
 
 /* ── 배너 ──────────────────────────────────── */
-.banner{background:#000; padding-bottom:34px;}
-.banner-link{display:block; width:100%; text-decoration:none;}
-/* 배너 원본은 2.02:1. 위 5.6%(빈 여백)과 아래 12%(제품 하단)만 잘라 2.45:1로 표시 */
-.banner-link picture{position:relative; display:block; width:100%; aspect-ratio:2.45 / 1; overflow:hidden; line-height:0;}
-.banner-link img{position:absolute; left:0; top:-6.8%; width:100%; height:auto; display:block;}
-.banner-cta-bar{display:flex; justify-content:center; padding:26px 20px 0;}
-.banner-cta{display:inline-flex; align-items:center; justify-content:center; gap:10px;
-  height:58px; padding:0 34px; border-radius:16px; background:var(--pink); color:#fff;
+/* 배너: 원본 비율 그대로, 가공 없이 표시 */
+.banner{background:#000;}
+.banner-link,.banner-link picture{display:block; width:100%; line-height:0; text-decoration:none;}
+.banner-link img{width:100%; height:auto; display:block;}
+
+/* 신청 버튼: 배너와 분리된 별도 영역 */
+.apply-bar{background:#fff; border-bottom:1px solid var(--line);
+  display:flex; justify-content:center; padding:24px 20px;}
+.apply-btn{display:inline-flex; align-items:center; justify-content:center; gap:10px;
+  height:58px; padding:0 38px; border-radius:16px; background:var(--pink); color:#fff; text-decoration:none;
   font-size:17px; font-weight:800; letter-spacing:-.4px; line-height:1;
-  box-shadow:0 10px 30px rgba(230,0,126,.42); transition:.2s;}
-.banner-cta em{font-style:normal; transition:transform .2s;}
-.banner-link:hover .banner-cta{background:var(--pink-dark); transform:translateY(-2px);}
-.banner-link:hover .banner-cta em{transform:translateX(4px);}
+  box-shadow:0 8px 24px rgba(230,0,126,.32); transition:.2s;}
+.apply-btn em{font-style:normal; transition:transform .2s;}
+.apply-btn:hover{background:var(--pink-dark); transform:translateY(-2px);}
+.apply-btn:hover em{transform:translateX(4px);}
 
 /* ── 신청 폼 ───────────────────────────────── */
 .apply{padding:60px 24px 80px;}
@@ -143,11 +145,8 @@ footer{background:#111; color:#8A8F99; padding:40px 24px 110px;}
 
 @media (max-width:768px){
   body{padding-bottom:70px;}
-  .banner{padding-bottom:22px;}
-  .banner-link picture{aspect-ratio:auto;}
-  .banner-link img{position:static; top:auto;}
-  .banner-cta-bar{padding:18px 16px 0;}
-  .banner-cta{display:flex; width:100%; height:54px; font-size:16px; border-radius:14px;}
+  .apply-bar{padding:16px;}
+  .apply-btn{display:flex; width:100%; height:54px; font-size:16px; border-radius:14px;}
   .apply{padding:40px 20px 56px;}
   .apply-card{padding:24px 20px; border-radius:18px;}
   .apply .lead{font-size:14.5px;}
@@ -177,11 +176,12 @@ footer{background:#111; color:#8A8F99; padding:40px 24px 110px;}
       <source media="(max-width: 768px)" srcset="../../ip18_square.png">
       <img src="../../ip18_hero.png" alt="아이폰 18 Pro 아이폰 18 Pro Max 사전예약 시 50만원 할인 쿠폰 - 9월 11일 사전예약 시작, 9월 18일 출시일 당일 수령 보장, LG유플러스 공식인증 대리점 U+핫딜센터">
     </picture>
-    <span class="banner-cta-bar">
-      <span class="banner-cta">얼리버드 신청하기 <em>→</em></span>
-    </span>
   </a>
 </section>
+
+<div class="apply-bar">
+  <a href="#apply" class="apply-btn">얼리버드 신청하기 <em>→</em></a>
+</div>
 
 <!-- ═══════════ 신청 폼 ═══════════ -->
 <section class="apply" id="apply">
