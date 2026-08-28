@@ -316,14 +316,15 @@ var KAKAO = 'http://pf.kakao.com/_xlyGxin/chat';
    id 가 비어 있으면 기존처럼 '내용 복사 + 카카오톡 열기'로 동작합니다.
    ══════════════════════════════════════════════════════════════ */
 var GFORM = {
-  id: '',
+  id: '1FAIpQLSeU305LlE9gVMOow3kRepwMq_-IUOm9WSbzawwogSj9h7keRQ',
   entry: {
-    device : '',   // 신청할 기기
-    type   : '',   // 신청 유형 (번호이동 / 기기변경)
-    name   : '',   // 이름
-    phone  : '',   // 휴대폰 번호
-    carrier: '',   // 현재 통신사
-    receive: ''    // 수령 방법
+    device  : 'entry.1808209530',  // 신청 기기
+    type    : 'entry.1220548477',  // 신청 유형 (번호이동 / 기기변경)
+    name    : 'entry.1227115856',  // 이름
+    phone   : 'entry.1344559811',  // 휴대폰 번호
+    carrier : 'entry.90675378',    // 현재 통신사
+    carrier2: 'entry.632357446',   // 현재 통신사 (구글폼에 중복 생성된 문항 · 같은 값 전송)
+    receive : 'entry.1345013994'   // 수령 방법
   }
 };
 /* ▲▲▲ 여기까지 ▲▲▲ */
@@ -487,12 +488,13 @@ document.getElementById('submitBtn').addEventListener('click', function(){
   document.getElementById('errMsg').classList.remove('on');
 
   var data = {
-    device : state.device,
-    type   : state.type,
-    name   : name,
-    phone  : phone,
-    carrier: state.carrier,
-    receive: document.getElementById('fReceive').value
+    device  : state.device,
+    type    : state.type,
+    name    : name,
+    phone   : phone,
+    carrier : state.carrier,
+    carrier2: state.carrier,
+    receive : document.getElementById('fReceive').value
   };
   lastSummary = buildSummary();
 
