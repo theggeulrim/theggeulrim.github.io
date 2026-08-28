@@ -3,13 +3,13 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
     <url>
         <loc>https://theggeulrim.github.io/</loc>
-        <lastmod>2026-07-24</lastmod>
+        <lastmod>2026-08-28</lastmod>
         <changefreq>daily</changefreq>
         <priority>1.0</priority>
         <image:image>
-            <image:loc>https://theggeulrim.github.io/yeyak_wide.png</image:loc>
-            <image:title>갤럭시 Z 폴드8 사전예약 OPEN</image:title>
-            <image:caption>갤럭시 Z 폴드8 사전예약 - 폴드8 와이드, 폴드8 울트라, Z 플립8 더블 스토리지 무료 업그레이드</image:caption>
+            <image:loc>https://theggeulrim.github.io/ip18_hero.png</image:loc>
+            <image:title>아이폰18 사전예약 OPEN</image:title>
+            <image:caption>아이폰18 Pro·Pro Max 사전예약 시 50만원 즉시 할인, 9월 18일 출시일 당일 수령</image:caption>
         </image:image>
         <image:image>
             <image:loc>https://theggeulrim.github.io/zfold8wide.png</image:loc>
@@ -29,5 +29,10 @@
         <lastmod>2026-08-28</lastmod>
         <changefreq>daily</changefreq>
         <priority>0.9</priority>
+        <image:image>
+            <image:loc>https://theggeulrim.github.io/ip18_hero.png</image:loc>
+            <image:title>아이폰18 사전예약 - iPhone 18 Pro·Pro Max 50만원 즉시 할인</image:title>
+            <image:caption>아이폰18 사전예약 9월 11일 오픈, 9월 18일 정식 출시. 사전예약 시 50만원 즉시 할인, 출시일 당일 수령 보장.</image:caption>
+        </image:image>
     </url>
 </urlset>
