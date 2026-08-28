@@ -202,9 +202,10 @@ footer{background:#111; color:#8A8F99; padding:40px 24px 110px;}
         <div class="field">
           <label>신청 유형</label>
           <div class="opt-row" id="typeOpts">
-            <button type="button" class="opt" data-type="번호이동" aria-pressed="true">번호이동 · 통신사 이동</button>
-            <button type="button" class="opt" data-type="기기변경" aria-pressed="false">기기변경 · LG U+ 유지</button>
+            <button type="button" class="opt" data-type="번호이동" aria-pressed="true">번호이동</button>
+            <button type="button" class="opt" data-type="기기변경" aria-pressed="false">기기변경</button>
           </div>
+          <p class="hint" id="typeHint">지금 쓰는 통신사에서 <b>LG U+로 옮기면</b> 번호이동, <b>LG U+를 그대로 쓰면서</b> 기기만 바꾸면 기기변경입니다.</p>
         </div>
 
         <div class="field">
@@ -225,7 +226,7 @@ footer{background:#111; color:#8A8F99; padding:40px 24px 110px;}
             <button type="button" class="opt" data-carrier="LG U+">LG U+</button>
             <button type="button" class="opt" data-carrier="알뜰폰">알뜰폰</button>
           </div>
-          <p class="hint" id="carrierHint">번호이동은 SK · KT · 알뜰폰에서 LG U+로 옮기는 경우입니다. 이미 LG U+를 쓰고 계시면 기기변경을 선택해주세요.</p>
+          <p class="hint" id="carrierHint">번호이동을 선택하셔서 SK · KT · 알뜰폰만 고를 수 있습니다.</p>
         </div>
 
         <div class="field">
@@ -250,7 +251,7 @@ footer{background:#111; color:#8A8F99; padding:40px 24px 110px;}
             <b>수집 목적</b> : 아이폰 18 얼리버드 사전예약 상담 및 개통 안내<br>
             <b>보유 기간</b> : 상담 종료 후 6개월 이내 파기 (요청 시 즉시 파기)<br>
             <b>수집 주체</b> : 주식회사 더끌림컴퍼니 (LG유플러스 공식인증 대리점)<br><br>
-            동의를 거부하실 수 있으며, 이 경우 사전예약 상담 진행이 어렵습니다. 신청 내용은 별도 서버에 저장되지 않고 카카오톡 상담창을 통해 전달됩니다.
+            동의를 거부하실 수 있으며, 이 경우 사전예약 상담 진행이 어렵습니다.
           </div>
         </div>
 
@@ -262,8 +263,8 @@ footer{background:#111; color:#8A8F99; padding:40px 24px 110px;}
     <div class="done" id="doneArea">
       <div class="apply-card">
         <div class="done-mark">✓</div>
-        <h2>신청 내용이 복사되었습니다</h2>
-        <p>카카오톡 상담창에 <b>붙여넣기</b> 하시면 접수가 완료됩니다.<br>순서대로 담당자가 연락드립니다.</p>
+        <h2 id="doneTitle">신청 내용이 복사되었습니다</h2>
+        <p id="doneDesc">카카오톡 상담창에 <b>붙여넣기</b> 하시면 접수가 완료됩니다.<br>순서대로 담당자가 연락드립니다.</p>
         <div class="done-summary" id="doneSummary"></div>
         <div class="done-btns">
           <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" rel="noopener" class="btn-kakao">카카오톡 상담창 열기</a>
@@ -293,6 +294,8 @@ footer{background:#111; color:#8A8F99; padding:40px 24px 110px;}
   </div>
 </footer>
 
+<iframe name="gformTarget" id="gformTarget" style="display:none" title="전송" aria-hidden="true"></iframe>
+
 <div class="bottom-bar">
   <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" rel="noopener" style="background:#FEE500; color:#000;" onclick="trackLead()">💬 카카오톡 상담</a>
   <a href="tel:070-4007-7776" style="background:#E6007E; color:#fff;">📞 빠른 전화 문의</a>
@@ -300,6 +303,31 @@ footer{background:#111; color:#8A8F99; padding:40px 24px 110px;}
 
 <script>
 var KAKAO = 'http://pf.kakao.com/_xlyGxin/chat';
+
+/* ══════════════════════════════════════════════════════════════
+   ▼▼▼ 구글폼 연결 설정 ▼▼▼
+
+   id      : 구글폼 주소에서 /forms/d/e/ 와 /viewform 사이의 긴 문자열
+             예) https://docs.google.com/forms/d/e/1FAIpQLSd...AbCdE/viewform
+                                                  ↑ 이 부분
+
+   entry   : 각 문항의 entry 번호 (예: 'entry.123456789')
+
+   id 가 비어 있으면 기존처럼 '내용 복사 + 카카오톡 열기'로 동작합니다.
+   ══════════════════════════════════════════════════════════════ */
+var GFORM = {
+  id: '',
+  entry: {
+    device : '',   // 신청할 기기
+    type   : '',   // 신청 유형 (번호이동 / 기기변경)
+    name   : '',   // 이름
+    phone  : '',   // 휴대폰 번호
+    carrier: '',   // 현재 통신사
+    receive: ''    // 수령 방법
+  }
+};
+/* ▲▲▲ 여기까지 ▲▲▲ */
+
 var state = { device:'iPhone 18 Pro', type:'번호이동', carrier:'' };
 
 function trackLead(){
@@ -338,8 +366,8 @@ function applyTypeRules(){
     }
   });
   document.getElementById('carrierHint').textContent = isMnp
-    ? '번호이동은 SK · KT · 알뜰폰에서 LG U+로 옮기는 경우입니다. 이미 LG U+를 쓰고 계시면 기기변경을 선택해주세요.'
-    : '기기변경은 LG U+를 그대로 유지하면서 기기만 바꾸는 경우입니다.';
+    ? '번호이동을 선택하셔서 SK · KT · 알뜰폰만 고를 수 있습니다.'
+    : '기기변경을 선택하셔서 LG U+만 고를 수 있습니다.';
 }
 
 /* ── 현재 통신사 ── */
@@ -404,6 +432,49 @@ function showErr(msg){
   el.classList.add('on');
 }
 
+/* 구글폼으로 전송 (숨김 iframe POST · CORS 영향 없음) */
+function sendToGoogleForm(data, done){
+  if(!GFORM.id){ done(false); return; }
+
+  var f = document.createElement('form');
+  f.action = 'https://docs.google.com/forms/d/e/' + GFORM.id + '/formResponse';
+  f.method = 'POST';
+  f.target = 'gformTarget';
+  f.style.display = 'none';
+
+  Object.keys(GFORM.entry).forEach(function(k){
+    var key = GFORM.entry[k];
+    if(!key) return;
+    var i = document.createElement('input');
+    i.type = 'hidden';
+    i.name = (key.indexOf('entry.') === 0) ? key : ('entry.' + key);
+    i.value = data[k] || '';
+    f.appendChild(i);
+  });
+
+  var frame = document.getElementById('gformTarget');
+  var finished = false;
+  function finish(ok){ if(finished) return; finished = true; frame.onload = null; done(ok); }
+
+  frame.onload = function(){ finish(true); };
+  setTimeout(function(){ finish(true); }, 2500);   // 응답을 읽을 수 없으므로 시간으로 마무리
+
+  document.body.appendChild(f);
+  f.submit();
+  setTimeout(function(){ f.remove(); }, 3000);
+}
+
+function showDone(sent){
+  document.getElementById('doneSummary').textContent = lastSummary;
+  document.getElementById('doneTitle').textContent = sent ? '사전예약 신청이 접수되었습니다' : '신청 내용이 복사되었습니다';
+  document.getElementById('doneDesc').innerHTML = sent
+    ? '순서대로 담당자가 <b>기재해주신 번호로 연락</b>드립니다.<br>더 빠른 상담을 원하시면 아래 카카오톡으로 문의해주세요.'
+    : '카카오톡 상담창에 <b>붙여넣기</b> 하시면 접수가 완료됩니다.<br>순서대로 담당자가 연락드립니다.';
+  document.getElementById('formArea').style.display = 'none';
+  document.getElementById('doneArea').classList.add('on');
+  window.scrollTo({ top: 0, behavior:'smooth' });
+}
+
 document.getElementById('submitBtn').addEventListener('click', function(){
   var name = document.getElementById('fName').value.trim();
   var phone = document.getElementById('fPhone').value.trim();
@@ -415,16 +486,32 @@ document.getElementById('submitBtn').addEventListener('click', function(){
 
   document.getElementById('errMsg').classList.remove('on');
 
+  var data = {
+    device : state.device,
+    type   : state.type,
+    name   : name,
+    phone  : phone,
+    carrier: state.carrier,
+    receive: document.getElementById('fReceive').value
+  };
   lastSummary = buildSummary();
-  copyText(lastSummary);
-  trackLead();
 
-  document.getElementById('doneSummary').textContent = lastSummary;
-  document.getElementById('formArea').style.display = 'none';
-  document.getElementById('doneArea').classList.add('on');
-  window.scrollTo({ top: 0, behavior:'smooth' });
+  var btn = this;
+  btn.disabled = true;
+  btn.textContent = '접수 중...';
 
-  window.open(KAKAO, '_blank');
+  if(GFORM.id){
+    sendToGoogleForm(data, function(){
+      trackLead();
+      showDone(true);
+    });
+  }else{
+    /* 구글폼 미연결 상태 : 기존 방식(복사 + 카카오톡) */
+    copyText(lastSummary);
+    trackLead();
+    showDone(false);
+    window.open(KAKAO, '_blank');
+  }
 });
 
 document.getElementById('recopyBtn').addEventListener('click', function(){
