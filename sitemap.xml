@@ -24,4 +24,10 @@
             <image:title>갤럭시 Z 플립8 사전예약</image:title>
         </image:image>
     </url>
+    <url>
+        <loc>https://theggeulrim.github.io/earlybird/ip18pro/</loc>
+        <lastmod>2026-08-28</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>0.9</priority>
+    </url>
 </urlset>

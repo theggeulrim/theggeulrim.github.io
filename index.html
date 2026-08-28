@@ -886,10 +886,126 @@
             transform-origin: center right;
         }
 
-        /* Z플립·폴드8 티저 메인 배너 (PC 와이드 / 모바일 정사각형 자동 전환) */
-        .teaser-hero { width: 100%; }
-        .teaser-hero a, .teaser-hero picture { display: block; width: 100%; line-height: 0; text-decoration: none; }
-        .teaser-hero img { width: 100%; height: auto; display: block; }
+        /* 아이폰 18 Pro / 울트라(폴더블) 얼리버드 사전예약 히어로 배너 */
+        .ip18-hero { width: 100%; background-color: #000000; }
+        .ip18-hero-link {
+            position: relative;
+            display: block;
+            width: 100%;
+            max-width: 1600px;
+            margin: 0 auto;
+            min-height: 520px;
+            overflow: hidden;
+            text-decoration: none;
+            color: #ffffff;
+            background-color: #000000;
+            isolation: isolate;
+        }
+        .ip18-glow {
+            position: absolute; inset: 0; z-index: 0; pointer-events: none;
+            background:
+                radial-gradient(115% 95% at 74% 42%, rgba(96, 118, 178, 0.38) 0%, rgba(0,0,0,0) 62%),
+                radial-gradient(85% 75% at 102% 2%, rgba(138, 104, 176, 0.30) 0%, rgba(0,0,0,0) 58%),
+                #000000;
+        }
+        .ip18-device {
+            position: absolute; z-index: 1; pointer-events: none;
+            right: 3%; top: -6%;
+            height: 155%; width: auto; max-width: none; aspect-ratio: 380 / 780;
+            transform: rotate(-10deg);
+            transform-origin: 50% 40%;
+            filter: drop-shadow(0 50px 90px rgba(0,0,0,0.85));
+            transition: transform 0.5s ease;
+        }
+        .ip18-hero-link:hover .ip18-device { transform: rotate(-10deg) scale(1.03); }
+        .ip18-scrim {
+            position: absolute; inset: 0; z-index: 2; pointer-events: none;
+            background: linear-gradient(90deg, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.72) 32%, rgba(0,0,0,0.16) 60%, rgba(0,0,0,0.42) 100%);
+        }
+        .ip18-scrim2 {
+            position: absolute; inset: 0; z-index: 2; pointer-events: none;
+            background: linear-gradient(180deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0) 26%, rgba(0,0,0,0) 68%, rgba(0,0,0,1) 100%);
+        }
+        .ip18-inner {
+            position: relative; z-index: 3;
+            max-width: 1200px; margin: 0 auto;
+            padding: 96px 32px 104px;
+        }
+        .ip18-status {
+            display: inline-flex; align-items: center; gap: 9px;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.14);
+            border-radius: 999px;
+            padding: 9px 16px;
+            font-size: 14px; font-weight: 600; color: #ffffff; letter-spacing: -0.3px;
+            -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+        }
+        .ip18-status i {
+            width: 8px; height: 8px; border-radius: 50%; background: #E6007E;
+            box-shadow: 0 0 0 0 rgba(230,0,126,0.7);
+            animation: ip18Pulse 1.8s infinite;
+        }
+        @keyframes ip18Pulse {
+            0%   { box-shadow: 0 0 0 0 rgba(230,0,126,0.65); }
+            70%  { box-shadow: 0 0 0 9px rgba(230,0,126,0); }
+            100% { box-shadow: 0 0 0 0 rgba(230,0,126,0); }
+        }
+        .ip18-title {
+            font-size: clamp(34px, 4.6vw, 62px);
+            font-weight: 800;
+            line-height: 1.14;
+            letter-spacing: -0.033em;
+            color: #ffffff;
+            margin: 22px 0 14px;
+            word-break: keep-all;
+            max-width: 880px;
+        }
+        .ip18-sub {
+            font-size: 19px; font-weight: 500; color: #C9CDD6;
+            line-height: 1.55; letter-spacing: -0.4px;
+            margin: 0 0 26px; max-width: 620px; word-break: keep-all;
+        }
+        .ip18-chips { display: flex; flex-wrap: wrap; gap: 10px; max-width: 660px; }
+        .ip18-chip {
+            display: inline-flex; align-items: center;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.14);
+            border-radius: 999px;
+            padding: 10px 16px;
+            font-size: 14px; font-weight: 600; color: #ffffff; letter-spacing: -0.3px;
+            -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+        }
+        .ip18-cta {
+            display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+            height: 56px; padding: 0 30px; margin-top: 34px;
+            background-color: #E6007E; color: #ffffff;
+            font-size: 17px; font-weight: 700; letter-spacing: -0.4px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(230,0,126,0.42);
+            transition: background-color 0.2s, transform 0.2s, box-shadow 0.2s;
+        }
+        .ip18-cta em { font-style: normal; transition: transform 0.2s; }
+        .ip18-hero-link:hover .ip18-cta {
+            background-color: #c4006b; transform: translateY(-2px);
+            box-shadow: 0 14px 34px rgba(230,0,126,0.52);
+        }
+        .ip18-hero-link:hover .ip18-cta em { transform: translateX(4px); }
+        .ip18-badge {
+            position: absolute; z-index: 3; top: 28px; right: 28px;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.14);
+            border-radius: 999px;
+            padding: 8px 15px;
+            font-size: 13px; font-weight: 600; color: rgba(255,255,255,0.88); letter-spacing: -0.3px;
+            -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+        }
+        .ip18-cap {
+            position: absolute; z-index: 3; right: 26px; bottom: 16px;
+            font-size: 12px; color: #8A8F99; letter-spacing: -0.3px; margin: 0;
+        }
+        /* 배너를 디자인 이미지로 교체할 때 쓰는 스타일 (아래 HTML 주석 참고) */
+        .ip18-photo { display: block; width: 100%; line-height: 0; }
+        .ip18-photo img { width: 100%; height: auto; display: block; }
 
         /* 퀵 메뉴 */
         .quick-menu-wrap { background-color: #ffffff; padding: 40px 20px; border-bottom: 1px solid #eaeaea; }
@@ -1318,6 +1434,22 @@
         @media (max-width: 768px) {
             body { padding-bottom: 75px; }
 
+            /* 아이폰 18 Pro 얼리버드 사전예약 배너 (모바일) */
+            .ip18-hero-link { min-height: 0; }
+            .ip18-inner { padding: 38px 20px 36px; }
+            .ip18-status { font-size: 12px; padding: 7px 13px; gap: 7px; }
+            .ip18-status i { width: 7px; height: 7px; }
+            .ip18-title { font-size: 30px; line-height: 1.2; letter-spacing: -0.04em; margin: 18px 0 10px; }
+            .ip18-sub { font-size: 14px; margin-bottom: 18px; }
+            .ip18-chips { gap: 7px; }
+            .ip18-chip { font-size: 12px; padding: 8px 12px; }
+            .ip18-cta { display: flex; width: 100%; height: 54px; margin-top: 26px; font-size: 16px; border-radius: 14px; }
+            .ip18-device { right: -64px; top: 50%; height: 118%; opacity: 0.42; transform: translateY(-50%) rotate(-12deg); }
+            .ip18-hero-link:hover .ip18-device { transform: translateY(-50%) rotate(-12deg); }
+            .ip18-scrim { background: linear-gradient(180deg, rgba(0,0,0,0.74) 0%, rgba(0,0,0,0.52) 55%, rgba(0,0,0,0.78) 100%); }
+            .ip18-badge { top: 16px; right: 16px; font-size: 11px; padding: 6px 11px; }
+            .ip18-cap { display: none; }
+
             .fab-container { display: none; }
 
             .bottom-cta-bar {
@@ -1489,12 +1621,86 @@
             <a href="tel:070-4007-7776" class="btn-top-reg">전화 상담</a>
         </div>
     </header>
-    <section class="teaser-hero">
-        <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" onclick="fbq('track', 'Lead');">
-            <picture>
-                <source media="(max-width: 768px)" srcset="main_square.png">
-                <img src="main_wide.png" alt="갤럭시 Z 폴드8 와이드 폴드8 울트라 Z플립8 아이폰17 갤럭시S26 번호이동 기기변경 특가 - 공시지원금 대리점 추가지원금 전국 택배개통 유플러스 공식인증 U+핫딜센터 휴대폰 성지 시세">
+    <section class="ip18-hero">
+        <a class="ip18-hero-link" href="earlybird/ip18pro/" onclick="fbq('track', 'Lead');">
+            <!-- ============================================================
+                 배너를 디자인 이미지로 바꾸실 때
+                 1) ip18_wide.png  (PC용 · 2400 x 800px, 3:1)
+                    ip18_square.png (모바일용 · 1200 x 1200px, 1:1)
+                    두 파일을 index.html과 같은 폴더에 올립니다.
+                 2) 바로 아래 picture 블록을 감싼 주석 기호를 지웁니다.
+                 3) 그 아래 ip18-glow 부터 ip18-cap 까지를 통째로 지우면
+                    이미지 배너만 남습니다.
+                 ============================================================
+            <picture class="ip18-photo">
+                <source media="(max-width: 768px)" srcset="ip18_square.png">
+                <img src="ip18_wide.png" alt="아이폰 18 Pro 아이폰 울트라 폴더블 얼리버드 사전예약 - LG유플러스 공식인증 대리점 U+핫딜센터 번호이동 기기변경 특가">
             </picture>
+                 ============================================================ -->
+            <span class="ip18-glow" aria-hidden="true"></span>
+            <svg class="ip18-device" viewBox="0 0 380 780" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+                <defs>
+                    <linearGradient id="ip18Body" x1="20" y1="0" x2="360" y2="780" gradientUnits="userSpaceOnUse">
+                        <stop offset="0" stop-color="#4d5159"/>
+                        <stop offset="0.18" stop-color="#22252b"/>
+                        <stop offset="0.44" stop-color="#0c0d10"/>
+                        <stop offset="0.70" stop-color="#31353d"/>
+                        <stop offset="0.88" stop-color="#14161a"/>
+                        <stop offset="1" stop-color="#26292f"/>
+                    </linearGradient>
+                    <linearGradient id="ip18Rim" x1="0" y1="0" x2="380" y2="780" gradientUnits="userSpaceOnUse">
+                        <stop offset="0" stop-color="#ffffff" stop-opacity="0.55"/>
+                        <stop offset="0.35" stop-color="#ffffff" stop-opacity="0.10"/>
+                        <stop offset="0.62" stop-color="#ffffff" stop-opacity="0.34"/>
+                        <stop offset="1" stop-color="#ffffff" stop-opacity="0.08"/>
+                    </linearGradient>
+                    <linearGradient id="ip18Plateau" x1="34" y1="34" x2="210" y2="210" gradientUnits="userSpaceOnUse">
+                        <stop offset="0" stop-color="#ffffff" stop-opacity="0.16"/>
+                        <stop offset="1" stop-color="#ffffff" stop-opacity="0.02"/>
+                    </linearGradient>
+                    <radialGradient id="ip18Lens" cx="0.35" cy="0.30" r="0.85">
+                        <stop offset="0" stop-color="#3c424b"/>
+                        <stop offset="0.55" stop-color="#111317"/>
+                        <stop offset="1" stop-color="#05060a"/>
+                    </radialGradient>
+                    <linearGradient id="ip18Sheen" x1="60" y1="240" x2="330" y2="700" gradientUnits="userSpaceOnUse">
+                        <stop offset="0" stop-color="#ffffff" stop-opacity="0.10"/>
+                        <stop offset="0.55" stop-color="#ffffff" stop-opacity="0.02"/>
+                        <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+                    </linearGradient>
+                </defs>
+                <rect x="4" y="4" width="372" height="772" rx="76" fill="url(#ip18Body)"/>
+                <rect x="4" y="4" width="372" height="772" rx="76" fill="url(#ip18Sheen)"/>
+                <rect x="4" y="4" width="372" height="772" rx="76" fill="none" stroke="url(#ip18Rim)" stroke-width="3"/>
+                <rect x="15" y="15" width="350" height="750" rx="66" fill="none" stroke="#ffffff" stroke-opacity="0.06" stroke-width="1.5"/>
+                <rect x="34" y="34" width="176" height="176" rx="48" fill="url(#ip18Plateau)" stroke="#ffffff" stroke-opacity="0.13" stroke-width="1.5"/>
+                <circle cx="90" cy="90" r="29" fill="#0b0c0f" stroke="#ffffff" stroke-opacity="0.18" stroke-width="1.5"/>
+                <circle cx="90" cy="90" r="20" fill="url(#ip18Lens)"/>
+                <circle cx="83" cy="83" r="5.5" fill="#ffffff" fill-opacity="0.22"/>
+                <circle cx="154" cy="90" r="29" fill="#0b0c0f" stroke="#ffffff" stroke-opacity="0.18" stroke-width="1.5"/>
+                <circle cx="154" cy="90" r="20" fill="url(#ip18Lens)"/>
+                <circle cx="147" cy="83" r="5.5" fill="#ffffff" fill-opacity="0.22"/>
+                <circle cx="90" cy="154" r="29" fill="#0b0c0f" stroke="#ffffff" stroke-opacity="0.18" stroke-width="1.5"/>
+                <circle cx="90" cy="154" r="20" fill="url(#ip18Lens)"/>
+                <circle cx="83" cy="147" r="5.5" fill="#ffffff" fill-opacity="0.22"/>
+                <circle cx="156" cy="152" r="12" fill="#e3e8f0" fill-opacity="0.45" stroke="#ffffff" stroke-opacity="0.20" stroke-width="1.5"/>
+                <circle cx="156" cy="180" r="4" fill="#ffffff" fill-opacity="0.16"/>
+            </svg>
+            <span class="ip18-scrim" aria-hidden="true"></span>
+            <span class="ip18-scrim2" aria-hidden="true"></span>
+            <div class="ip18-inner">
+                <span class="ip18-status"><i></i>얼리버드 사전예약 진행 중</span>
+                <h1 class="ip18-title">아이폰 18 Pro · 울트라(폴더블)</h1>
+                <p class="ip18-sub">LG U+ 공식인증 대리점이 직접 진행하는 얼리버드 사전예약</p>
+                <div class="ip18-chips">
+                    <span class="ip18-chip">출시일 당일 개통 순번 우선 배정</span>
+                    <span class="ip18-chip">제휴카드 · 반납 · 부가 X</span>
+                    <span class="ip18-chip">서울·경기 23개 직영점 · 전국 택배</span>
+                </div>
+                <span class="ip18-cta">얼리버드 신청하러 가기 <em>→</em></span>
+            </div>
+            <span class="ip18-badge">9/18 출시 예정</span>
+            <p class="ip18-cap">예상 이미지 · 실제와 다를 수 있음</p>
         </a>
     </section>
 
