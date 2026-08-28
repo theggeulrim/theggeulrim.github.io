@@ -65,15 +65,18 @@ section{scroll-margin-top:70px;}
 .banner-link,.banner-link picture{display:block; width:100%; line-height:0; text-decoration:none;}
 .banner-link img{width:100%; height:auto; display:block;}
 
-/* 신청 버튼: 배너와 분리된 별도 영역 */
-.apply-bar{background:#fff; border-bottom:1px solid var(--line);
-  display:flex; justify-content:center; padding:24px 20px;}
-.apply-btn{display:inline-flex; align-items:center; justify-content:center; gap:10px;
-  height:58px; padding:0 38px; border-radius:16px; background:var(--pink); color:#fff; text-decoration:none;
+/* 신청 CTA 스트립 : 배너의 검정을 이어받는 별도 영역 */
+.apply-bar{background:#0A0A0C; border-top:1px solid rgba(255,255,255,.07); padding:26px 24px 30px;}
+.apply-bar-inner{max-width:1080px; margin:0 auto; display:flex; align-items:center;
+  justify-content:space-between; gap:18px 28px; flex-wrap:wrap;}
+.apply-copy strong{display:block; color:#fff; font-size:19px; font-weight:800; letter-spacing:-.5px; word-break:keep-all;}
+.apply-copy span{display:block; margin-top:7px; color:#9AA0AB; font-size:14px; letter-spacing:-.3px; word-break:keep-all;}
+.apply-btn{display:inline-flex; align-items:center; justify-content:center; gap:10px; flex-shrink:0;
+  height:60px; padding:0 38px; border-radius:16px; background:var(--pink); color:#fff; text-decoration:none;
   font-size:17px; font-weight:800; letter-spacing:-.4px; line-height:1;
-  box-shadow:0 8px 24px rgba(230,0,126,.32); transition:.2s;}
+  box-shadow:0 6px 20px rgba(230,0,126,.35); transition:.2s;}
 .apply-btn em{font-style:normal; transition:transform .2s;}
-.apply-btn:hover{background:var(--pink-dark); transform:translateY(-2px);}
+.apply-btn:hover{background:#ff1a94; transform:translateY(-2px); box-shadow:0 10px 28px rgba(230,0,126,.5);}
 .apply-btn:hover em{transform:translateX(4px);}
 
 /* ── 신청 폼 ───────────────────────────────── */
@@ -145,8 +148,11 @@ footer{background:#111; color:#8A8F99; padding:40px 24px 110px;}
 
 @media (max-width:768px){
   body{padding-bottom:70px;}
-  .apply-bar{padding:16px;}
-  .apply-btn{display:flex; width:100%; height:54px; font-size:16px; border-radius:14px;}
+  .apply-bar{padding:20px 16px 24px;}
+  .apply-bar-inner{flex-direction:column; align-items:stretch; gap:16px; text-align:center;}
+  .apply-copy strong{font-size:16px;}
+  .apply-copy span{font-size:13px; margin-top:5px;}
+  .apply-btn{display:flex; width:100%; height:56px; font-size:16px; border-radius:14px;}
   .apply{padding:40px 20px 56px;}
   .apply-card{padding:24px 20px; border-radius:18px;}
   .apply .lead{font-size:14.5px;}
@@ -180,7 +186,13 @@ footer{background:#111; color:#8A8F99; padding:40px 24px 110px;}
 </section>
 
 <div class="apply-bar">
-  <a href="#apply" class="apply-btn">얼리버드 신청하기 <em>→</em></a>
+  <div class="apply-bar-inner">
+    <div class="apply-copy">
+      <strong>9/11 사전예약 오픈 · 선착순 순번 배정</strong>
+      <span>예약금·결제 없이 순번만 미리 잡아드립니다</span>
+    </div>
+    <a href="#apply" class="apply-btn">신청서 작성하기 <em>→</em></a>
+  </div>
 </div>
 
 <!-- ═══════════ 신청 폼 ═══════════ -->
