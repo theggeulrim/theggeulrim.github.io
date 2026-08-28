@@ -887,10 +887,22 @@
         }
 
         /* 아이폰 18 Pro 사전예약 메인 배너 (PC 와이드 / 모바일 정사각형 자동 전환) */
-        .ip18-hero { width: 100%; background-color: #000000; }
-        .ip18-hero-link { display: block; width: 100%; max-width: 1440px; margin: 0 auto; line-height: 0; text-decoration: none; }
+        .ip18-hero { width: 100%; background-color: #000000; padding-bottom: 34px; }
+        .ip18-hero-link { display: block; width: 100%; max-width: 1080px; margin: 0 auto; text-decoration: none; }
         .ip18-photo { display: block; width: 100%; line-height: 0; }
         .ip18-photo img { width: 100%; height: auto; display: block; }
+        .ip18-cta-bar { display: flex; justify-content: center; padding: 26px 20px 0; }
+        .ip18-cta-btn {
+            display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+            height: 58px; padding: 0 34px; border-radius: 16px;
+            background-color: #E6007E; color: #ffffff;
+            font-size: 17px; font-weight: 800; letter-spacing: -0.4px; line-height: 1;
+            box-shadow: 0 10px 30px rgba(230,0,126,0.42);
+            transition: background-color 0.2s, transform 0.2s;
+        }
+        .ip18-cta-btn em { font-style: normal; transition: transform 0.2s; }
+        .ip18-hero-link:hover .ip18-cta-btn { background-color: #c4006b; transform: translateY(-2px); }
+        .ip18-hero-link:hover .ip18-cta-btn em { transform: translateX(4px); }
 
         /* 퀵 메뉴 */
         .quick-menu-wrap { background-color: #ffffff; padding: 40px 20px; border-bottom: 1px solid #eaeaea; }
@@ -1319,6 +1331,11 @@
         @media (max-width: 768px) {
             body { padding-bottom: 75px; }
 
+            /* 아이폰 18 사전예약 배너 (모바일) */
+            .ip18-hero { padding-bottom: 24px; }
+            .ip18-cta-bar { padding: 18px 16px 0; }
+            .ip18-cta-btn { display: flex; width: 100%; height: 54px; font-size: 16px; border-radius: 14px; }
+
 
             .fab-container { display: none; }
 
@@ -1497,6 +1514,9 @@
                 <source media="(max-width: 768px)" srcset="ip18_square.png">
                 <img src="ip18_hero.png" alt="아이폰 18 Pro 아이폰 18 Pro Max 사전예약 50만원 할인 쿠폰 - 9월 11일 사전예약 시작 9월 18일 출시일 당일 수령 보장, LG유플러스 공식인증 대리점 U+핫딜센터 번호이동 기기변경 특가">
             </picture>
+            <span class="ip18-cta-bar">
+                <span class="ip18-cta-btn">아이폰 18 Pro 얼리버드 신청하기 <em>→</em></span>
+            </span>
         </a>
     </section>
 
