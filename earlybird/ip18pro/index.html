@@ -61,9 +61,10 @@ section{scroll-margin-top:70px;}
 
 /* ── 배너 ──────────────────────────────────── */
 .banner{background:#000; padding-bottom:34px;}
-.banner-link{display:block; width:100%; max-width:1080px; margin:0 auto; text-decoration:none;}
-.banner-link picture{display:block; width:100%; line-height:0;}
-.banner-link img{width:100%; height:auto; display:block;}
+.banner-link{display:block; width:100%; text-decoration:none;}
+/* 배너 원본은 2.02:1. 위 5.6%(빈 여백)과 아래 12%(제품 하단)만 잘라 2.45:1로 표시 */
+.banner-link picture{position:relative; display:block; width:100%; aspect-ratio:2.45 / 1; overflow:hidden; line-height:0;}
+.banner-link img{position:absolute; left:0; top:-6.8%; width:100%; height:auto; display:block;}
 .banner-cta-bar{display:flex; justify-content:center; padding:26px 20px 0;}
 .banner-cta{display:inline-flex; align-items:center; justify-content:center; gap:10px;
   height:58px; padding:0 34px; border-radius:16px; background:var(--pink); color:#fff;
@@ -142,7 +143,9 @@ footer{background:#111; color:#8A8F99; padding:40px 24px 110px;}
 
 @media (max-width:768px){
   body{padding-bottom:70px;}
-  .banner{padding-bottom:24px;}
+  .banner{padding-bottom:22px;}
+  .banner-link picture{aspect-ratio:auto;}
+  .banner-link img{position:static; top:auto;}
   .banner-cta-bar{padding:18px 16px 0;}
   .banner-cta{display:flex; width:100%; height:54px; font-size:16px; border-radius:14px;}
   .apply{padding:40px 20px 56px;}
