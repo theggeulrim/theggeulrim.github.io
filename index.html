@@ -956,7 +956,7 @@
             padding: 6px 13px; border-radius: 999px;
         }
         .ip18-notice h3 {
-            margin: 14px 0 12px; font-size: 24px; font-weight: 900; color: #111111;
+            margin: 14px 0 0; font-size: 24px; font-weight: 900; color: #111111;
             letter-spacing: -1px; line-height: 1.35; word-break: keep-all;
         }
         .ip18-notice p { font-size: 15px; line-height: 1.85; color: #555555; word-break: keep-all; }
@@ -970,6 +970,22 @@
             transition: background-color 0.2s, transform 0.2s;
         }
         .ip18-notice-btn:hover { background-color: #c4006b; transform: translateY(-2px); }
+
+        /* 안내 본문은 기본 접힘 (검색엔진은 HTML을 그대로 읽습니다) */
+        .ip18-notice-body { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+        .ip18-notice.open .ip18-notice-body { max-height: 1200px; }
+        .ip18-notice.open .ip18-notice-body p { padding-top: 16px; }
+        .ip18-notice-toggle {
+            display: flex; align-items: center; justify-content: space-between; gap: 10px;
+            width: 100%; margin-top: 16px; padding: 14px 18px;
+            background-color: #ffffff; border: 1px solid #f0cfe1; border-radius: 12px;
+            font-family: inherit; font-size: 15px; font-weight: 700; color: #E6007E;
+            letter-spacing: -0.3px; cursor: pointer;
+            transition: border-color 0.2s, background-color 0.2s;
+        }
+        .ip18-notice-toggle:hover { border-color: #E6007E; background-color: #fff8fc; }
+        .ip18-notice-toggle .arw { font-size: 12px; transition: transform 0.3s ease; }
+        .ip18-notice.open .ip18-notice-toggle .arw { transform: rotate(180deg); }
 
         /* 퀵 메뉴 */
         .quick-menu-wrap { background-color: #ffffff; padding: 40px 20px; border-bottom: 1px solid #eaeaea; }
@@ -1398,10 +1414,12 @@
         @media (max-width: 768px) {
             body { padding-bottom: 75px; }
 
-            .ip18-notice { padding: 22px 18px; margin-bottom: 28px; border-radius: 16px; }
-            .ip18-notice h3 { font-size: 19px; margin: 12px 0 10px; }
+            .ip18-notice { padding: 20px 18px; margin-bottom: 26px; border-radius: 16px; }
+            .ip18-notice h3 { font-size: 18px; margin: 11px 0 0; }
             .ip18-notice p { font-size: 14px; line-height: 1.8; }
-            .ip18-notice-btn { display: flex; width: 100%; justify-content: center; height: 50px; font-size: 15px; }
+            .ip18-notice.open .ip18-notice-body p { padding-top: 12px; }
+            .ip18-notice-toggle { margin-top: 12px; padding: 12px 14px; font-size: 14px; }
+            .ip18-notice-btn { display: flex; width: 100%; justify-content: center; height: 50px; font-size: 15px; margin-top: 12px; }
 
             /* 아이폰 18 사전예약 배너 (모바일) */
             .ip18-apply-bar { padding: 20px 16px 24px; }
@@ -1838,6 +1856,7 @@
             <div class="ip18-notice">
                 <span class="ip18-notice-badge">사전예약 접수중</span>
                 <h3>아이폰18 사전예약 &middot; iPhone 18 Pro / iPhone 18 Pro Max</h3>
+                <div class="ip18-notice-body">
                 <p>
                     <strong>아이폰18 사전예약</strong>은 <em>9월 11일(금)</em>부터 시작되며, 정식 출시일은 <em>9월 18일(금)</em>입니다.
                     U+핫딜센터에서 <strong>아이폰18 프로 &middot; 아이폰18 프로맥스</strong>를 사전예약하시면
@@ -1848,8 +1867,22 @@
                     얼리버드로 미리 신청해두시면 <strong>개통 순번이 먼저 배정</strong>됩니다.
                     서울 &middot; 경기 23개 직영점 방문 개통과 전국 택배 개통 모두 가능합니다.
                 </p>
+                </div>
+                <button type="button" class="ip18-notice-toggle" id="ip18NoticeToggle" aria-expanded="false">사전예약 안내 자세히 보기 <span class="arw">&#9662;</span></button>
                 <a href="earlybird/ip18pro/" class="ip18-notice-btn" onclick="fbq('track', 'Lead');">아이폰18 사전예약 신청하기 &rarr;</a>
             </div>
+            <script>
+            (function(){
+                var btn = document.getElementById('ip18NoticeToggle');
+                if(!btn) return;
+                var card = btn.closest('.ip18-notice');
+                btn.addEventListener('click', function(){
+                    var open = card.classList.toggle('open');
+                    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+                    btn.childNodes[0].nodeValue = open ? '안내 접기 ' : '사전예약 안내 자세히 보기 ';
+                });
+            })();
+            </script>
             <div class="product-grid">
                 <div class="product-card">
                     <div class="product-img-wrap"><img src="ip17.png" alt="아이폰17 512GB 출시일 가격 자급제 번호이동 성지 유플러스 공식인증대리점" class="product-img"></div>
