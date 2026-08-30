@@ -1,0 +1,58 @@
+name: 시세 확인일 자동 갱신
+
+on:
+  schedule:
+    - cron: '0 0 * * *'      # 매일 한국시간 오전 9시
+  workflow_dispatch:          # 필요할 때 수동 실행
+
+permissions:
+  contents: write
+
+jobs:
+  update-date:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 날짜 갱신
+        run: |
+          export TZ=Asia/Seoul
+          KO=$(date '+%Y년 %-m월 %-d일')
+          ISO=$(date '+%Y-%m-%d')
+          echo "갱신 날짜: $KO / $ISO"
+
+          python3 - "$KO" "$ISO" <<'PYEOF'
+          import re, sys, json
+          ko, iso = sys.argv[1], sys.argv[2]
+
+          # ---- index.html ----
+          h = open('index.html', encoding='utf-8').read()
+          h, n1 = re.subn(r'\d{4}년 \d{1,2}월 \d{1,2}일 시세 최종 확인',
+                          ko + ' 시세 최종 확인', h)
+          h, n2 = re.subn(r'"dateModified": "\d{4}-\d{2}-\d{2}"',
+                          '"dateModified": "%s"' % iso, h)
+
+          # 구조화 데이터가 깨지면 중단
+          m = re.search(r'<script type="application/ld\+json">(.*?)</script>', h, re.S)
+          json.loads(m.group(1))
+
+          open('index.html', 'w', encoding='utf-8').write(h)
+
+          # ---- sitemap.xml (첫 번째 = 메인 페이지만) ----
+          s = open('sitemap.xml', encoding='utf-8').read()
+          s, n3 = re.subn(r'<lastmod>\d{4}-\d{2}-\d{2}</lastmod>',
+                          '<lastmod>%s</lastmod>' % iso, s, count=1)
+          open('sitemap.xml', 'w', encoding='utf-8').write(s)
+
+          print('본문·구조화데이터 %d곳 / dateModified %d곳 / sitemap %d곳' % (n1, n2, n3))
+          assert n1 >= 6, '본문 날짜 치환 실패'
+          PYEOF
+
+      - name: 커밋
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add index.html sitemap.xml
+          git diff --staged --quiet && echo "변경 없음" && exit 0
+          git commit -m "시세 확인일 갱신: $(TZ=Asia/Seoul date '+%Y-%m-%d')"
+          git push
