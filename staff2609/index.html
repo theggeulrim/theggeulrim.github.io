@@ -79,7 +79,7 @@ img{max-width:100%;}
 .sec-desc b{color:var(--pink); font-weight:800;}
 .grid{display:grid; grid-template-columns:repeat(3,1fr); gap:16px;}
 .p-card{position:relative; background:#fff; border:1px solid var(--line); border-radius:18px;
-  padding:22px 20px; display:flex; flex-direction:column;}
+  padding:22px 20px; display:flex; flex-direction:column; min-width:0;}
 .card-badge{position:absolute; top:14px; left:14px; background:#111; color:#fff; font-size:11px;
   font-weight:800; padding:4px 9px; border-radius:6px; letter-spacing:-.3px;}
 .p-img{height:150px; display:flex; align-items:center; justify-content:center; margin-bottom:12px;}
@@ -134,17 +134,56 @@ footer b{color:#fff; font-weight:800;}
 
 @media (max-width:900px){ .grid{grid-template-columns:repeat(2,1fr);} .s-grid{grid-template-columns:repeat(3,1fr);} }
 @media (max-width:600px){
-  .grid{grid-template-columns:1fr; gap:13px;}
-  .hero{padding:34px 18px 32px;}
-  .hero-cta{display:flex; width:100%; height:54px; font-size:16px;}
-  .wrap{padding:26px 16px 16px;}
-  .basis{padding:0 16px;}
-  .p-img{height:120px;} .p-img img{max-height:120px;}
-  .closing{padding:44px 18px;}
-  .stores{padding:34px 16px 32px;}
-  .s-grid{grid-template-columns:repeat(2,1fr); gap:10px;}
-  .s-name{font-size:14px;}
-  .s-addr{font-size:12px;}
+  /* 텍스트 : 줄바꿈 줄이기 */
+  .hero{padding:30px 16px 28px;}
+  .hero h1{font-size:22px; line-height:1.3; margin:13px 0 10px; letter-spacing:-.05em;}
+  .hero p{font-size:13.5px; line-height:1.65;}
+  .hero p br{display:none;}
+  .eyebrow{font-size:11.5px; padding:5px 11px;}
+  .hero-cta{display:flex; width:100%; height:52px; font-size:15.5px; margin-top:20px;}
+  .basis{padding:0 14px; margin-top:20px;}
+  .basis-in{padding:16px 15px; border-radius:14px;}
+  .basis-live{font-size:11.5px; padding:5px 10px;}
+  .basis-date{font-size:13.5px;}
+  .basis p{font-size:12.5px; line-height:1.65;}
+  .notice-change{font-size:12px; line-height:1.6; padding:11px 12px; margin-top:10px;}
+  .chips{gap:5px; margin-top:11px;}
+  .chips li{font-size:11px; padding:4px 9px;}
+  .sec-title{font-size:17px;}
+  .sec-desc{font-size:12.5px; line-height:1.6; margin:7px 0 14px;}
+
+  /* 단말기 : 2열로 압축 */
+  .wrap{padding:24px 14px 14px;}
+  .grid{grid-template-columns:repeat(2,1fr); gap:9px;}
+  .p-card{padding:14px 11px; border-radius:14px;}
+  .card-badge{top:9px; left:9px; font-size:9.5px; padding:3px 7px;}
+  .p-img{height:92px; margin-bottom:8px;}
+  .p-img img{max-height:92px;}
+  .p-name{font-size:13.5px; margin-bottom:9px; letter-spacing:-.6px;}
+  .cap-tabs{gap:3px; margin-bottom:10px;}
+  .cap-btn{font-size:10px; padding:5px 6px; white-space:nowrap;}
+  .p-price{padding-top:10px;}
+  .p-row{font-size:11px; padding:2px 0; letter-spacing:-.5px;}
+  .p-row.total{font-size:11.5px; margin-top:6px; padding-top:8px;}
+  .p-row.total b{font-size:15px; letter-spacing:-.6px;}
+  .p-cond{display:none;}
+  .p-btn{font-size:12px; padding:10px 4px; border-radius:9px;}
+
+  /* 매장 */
+  .stores{padding:30px 14px 28px;}
+  .stores-head h2{font-size:17px;}
+  .stores-head p{font-size:12.5px; line-height:1.6;}
+  .s-grid{grid-template-columns:repeat(2,1fr); gap:9px;}
+  .s-name{font-size:13px;}
+  .s-addr{font-size:11.5px; line-height:1.45;}
+
+  /* 마무리 */
+  .closing{padding:40px 16px;}
+  .closing h2{font-size:19px;}
+  .closing p{font-size:13.5px; margin-top:11px;}
+  .legal{padding:22px 16px;}
+  .legal p{font-size:11.5px; line-height:1.7;}
+  footer{padding:26px 16px; font-size:12px;}
 }
 </style>
 </head>
@@ -163,8 +202,8 @@ footer b{color:#fff; font-weight:800;}
     <span class="eyebrow"><i></i>기업 임직원 특판</span>
     <h1>기업 임직원 특판 <b>단가표</b>와<br>즉시 상담 창구입니다.</h1>
     <p>
-      아래 단가는 LG U+ 번호이동(통신사 이동) 기준이며, 카카오톡으로 문의 주시면 담당자가 바로 안내드립니다.<br>
-      매장 방문 개통(서울·경기 23개 직영점)과 전국 택배 개통 모두 가능합니다.
+      LG U+ 번호이동 기준 단가입니다. 카카오톡으로 문의 주시면 담당자가 바로 안내드리며,<br>
+      매장 방문(서울·경기 23개 직영점)과 전국 택배 개통 모두 가능합니다.
     </p>
     <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" rel="noopener" class="hero-cta" onclick="lead()">카카오톡으로 즉시 상담</a>
   </div>
@@ -176,8 +215,8 @@ footer b{color:#fff; font-weight:800;}
       <span class="basis-live"><i></i>실시간 시세</span>
       <span class="basis-date" id="pbDate">시세 최종 확인</span>
     </div>
-    <p>표기된 모든 가격은 <b>LG U+ 번호이동(통신사 이동) / 85요금제 6개월 유지</b> 조건입니다. 통신사 정책이 변경되면 즉시 반영하며, 이 외에 추가로 요구하는 조건은 없습니다.</p>
-    <p class="notice-change"><b>기기변경(LG U+ 유지) 가격은 별도 문의</b> 주세요. 사용 기간 · 요금제 · 결합 상태에 따라 조건이 달라져, 카카오톡으로 문의 주시면 개별 계산해 안내드립니다.</p>
+    <p>모든 가격은 <b>LG U+ 번호이동 / 85요금제 6개월 유지</b> 조건이며, 이 외에 추가로 요구하는 조건은 없습니다.</p>
+    <p class="notice-change"><b>기기변경(LG U+ 유지)은 별도 문의</b> 주세요. 사용 기간·요금제·결합 상태에 따라 조건이 달라 개별 계산해 안내드립니다.</p>
     <ul class="chips">
       <li>부가서비스 가입 없음</li>
       <li>제휴카드 결합 없음</li>
@@ -359,7 +398,7 @@ footer b{color:#fff; font-weight:800;}
   <div class="stores-in">
     <div class="stores-head">
       <h2>매장 방문 개통 &middot; 서울·경기 23개 직영점</h2>
-      <p>아래 직영점 어디서나 위 단가 그대로 개통하실 수 있습니다. 방문이 어려우시면 전국 택배 개통도 가능하니 카카오톡으로 말씀해주세요.</p>
+      <p>아래 직영점 어디서나 위 단가 그대로 개통하실 수 있습니다. 방문이 어려우시면 전국 택배 개통도 가능합니다.</p>
     </div>
     <div class="s-grid">
       <div class="s-card">
