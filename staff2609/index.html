@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="format-detection" content="telephone=no, date=no, email=no, address=no">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="googlebot" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<title>기업 임직원 특판 | 주식회사 더끌림컴퍼니</title>
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.css">
+
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+:root{
+  --pink:#E6007E; --pink-dark:#c4006b;
+  --ink:#191F28; --sub:#5A6270; --muted:#8A8F99; --line:#EAECEF; --bg:#F7F8FA;
+}
+body{
+  font-family:'Pretendard Variable','Pretendard','Apple SD Gothic Neo','Malgun Gothic',sans-serif;
+  color:var(--ink); background:var(--bg); padding-top:60px; padding-bottom:76px;
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;}
+
+/* 상단바 */
+.hd{position:fixed; top:0; left:0; width:100%; height:60px; background:rgba(255,255,255,.98);
+  backdrop-filter:blur(10px); display:flex; justify-content:space-between; align-items:center;
+  padding:0 16px; border-bottom:1px solid var(--line); z-index:100;}
+.hd-logo{display:flex; align-items:center; gap:7px; overflow:hidden;}
+.hd-logo img{height:26px;}
+.hd-logo span{font-size:13px; font-weight:800; color:#333; letter-spacing:-.5px; white-space:nowrap;}
+.hd-btn{background:var(--pink); color:#fff; font-size:12px; font-weight:800; padding:9px 14px;
+  border-radius:8px; text-decoration:none; white-space:nowrap;}
+
+/* 히어로 */
+.hero{background:#0F1115; color:#fff; padding:44px 20px 40px;}
+.hero-in{max-width:1100px; margin:0 auto;}
+.eyebrow{display:inline-flex; align-items:center; gap:7px; background:rgba(230,0,126,.14);
+  border:1px solid rgba(230,0,126,.45); color:#FF4FA8; font-size:12.5px; font-weight:800;
+  padding:6px 13px; border-radius:999px; letter-spacing:.2px;}
+.eyebrow i{width:7px; height:7px; border-radius:50%; background:var(--pink); flex-shrink:0;}
+.hero h1{font-size:clamp(26px,3.6vw,38px); font-weight:900; letter-spacing:-.045em;
+  line-height:1.25; margin:16px 0 12px; word-break:keep-all;}
+.hero h1 b{color:#FF3DA0; font-weight:900;}
+.hero p{font-size:15.5px; line-height:1.75; color:#B8BDC7; letter-spacing:-.4px; word-break:keep-all;}
+.hero-cta{display:inline-flex; align-items:center; justify-content:center; gap:9px; margin-top:24px;
+  height:58px; padding:0 30px; border-radius:15px; background:#FEE500; color:#111; text-decoration:none;
+  font-size:17px; font-weight:800; letter-spacing:-.4px; box-shadow:0 8px 26px rgba(254,229,0,.28); transition:.2s;}
+.hero-cta:hover{transform:translateY(-2px);}
+
+/* 조건 안내 */
+.basis{max-width:1100px; margin:28px auto 0; padding:0 20px;}
+.basis-in{background:#fff; border:1px solid var(--line); border-radius:16px; padding:20px 22px;
+  box-shadow:0 2px 12px rgba(0,0,0,.04);}
+.basis-head{display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:11px;}
+.basis-live{display:inline-flex; align-items:center; gap:7px; background:rgba(230,0,126,.07);
+  border:1px solid rgba(230,0,126,.22); color:var(--pink); font-size:12.5px; font-weight:800;
+  padding:6px 12px; border-radius:999px;}
+.basis-live i{width:7px; height:7px; border-radius:50%; background:var(--pink);}
+.basis-date{font-size:15px; font-weight:800; letter-spacing:-.5px;}
+.basis p{font-size:14px; line-height:1.75; color:var(--sub); letter-spacing:-.4px; word-break:keep-all;}
+.basis p b{color:#111; font-weight:800;}
+.notice-change{margin-top:12px; padding:13px 15px; background:#FFF6FB; border:1px solid #F6D3E6;
+  border-radius:11px; font-size:13.5px; line-height:1.7; color:var(--sub);}
+.notice-change b{color:var(--pink); font-weight:800;}
+.chips{display:flex; flex-wrap:wrap; gap:6px; margin-top:13px; list-style:none;}
+.chips li{font-size:12.5px; font-weight:700; color:#0a7d4b; background:#eaf8f1;
+  border:1px solid #c3e8d6; border-radius:999px; padding:5px 11px;}
+.chips li::before{content:"\2713 ";}
+
+/* 단가 그리드 */
+.wrap{max-width:1100px; margin:0 auto; padding:34px 20px 20px;}
+.sec-title{font-size:20px; font-weight:900; letter-spacing:-.8px;}
+.sec-desc{margin:8px 0 18px; font-size:14px; line-height:1.7; color:var(--sub); letter-spacing:-.4px; word-break:keep-all;}
+.sec-desc b{color:var(--pink); font-weight:800;}
+.grid{display:grid; grid-template-columns:repeat(3,1fr); gap:16px;}
+.p-card{position:relative; background:#fff; border:1px solid var(--line); border-radius:18px;
+  padding:22px 20px; display:flex; flex-direction:column;}
+.card-badge{position:absolute; top:14px; left:14px; background:#111; color:#fff; font-size:11px;
+  font-weight:800; padding:4px 9px; border-radius:6px; letter-spacing:-.3px;}
+.p-img{height:150px; display:flex; align-items:center; justify-content:center; margin-bottom:12px;}
+.p-img img{max-height:150px; width:auto;}
+.p-name{font-size:17px; font-weight:800; text-align:center; letter-spacing:-.5px; margin-bottom:12px;}
+.cap-tabs{display:flex; flex-wrap:wrap; gap:5px; justify-content:center; margin-bottom:14px;}
+.cap-btn{font-family:inherit; font-size:12.5px; font-weight:700; padding:7px 12px; border-radius:999px;
+  border:1px solid var(--line); background:#fff; color:var(--sub); cursor:pointer; transition:.15s;}
+.cap-btn.active{background:var(--pink); border-color:var(--pink); color:#fff;}
+.cap-btn.sold{opacity:.4; cursor:not-allowed; text-decoration:line-through;}
+.p-price{border-top:1px solid var(--line); padding-top:13px;}
+.p-row{display:flex; justify-content:space-between; align-items:baseline; font-size:13.5px;
+  color:var(--sub); padding:4px 0; letter-spacing:-.3px;}
+.p-row b{font-weight:700; color:#444;}
+.p-row.total{border-top:1px dashed var(--line); margin-top:8px; padding-top:11px; font-size:14px; font-weight:800; color:#111;}
+.p-row.total b{font-size:20px; font-weight:900; color:var(--pink); letter-spacing:-.8px;}
+.p-cond{font-size:11px; color:var(--muted); text-align:right; margin:10px 0 14px; letter-spacing:-.3px;}
+.p-btn{margin-top:auto; display:block; text-align:center; background:#111; color:#fff; text-decoration:none;
+  font-size:14px; font-weight:800; padding:13px; border-radius:11px; letter-spacing:-.4px; transition:.2s;}
+.p-btn:hover{background:var(--pink);}
+
+/* 매장 */
+.stores{background:#fff; border-top:1px solid var(--line); padding:44px 20px 40px;}
+.stores-in{max-width:1100px; margin:0 auto;}
+.stores-head{margin-bottom:20px;}
+.stores-head h2{font-size:20px; font-weight:900; letter-spacing:-.8px;}
+.stores-head p{margin-top:8px; font-size:14px; line-height:1.7; color:var(--sub); letter-spacing:-.4px; word-break:keep-all;}
+.s-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:14px;}
+.s-card{background:#fff; border:1px solid var(--line); border-radius:14px; overflow:hidden; transition:.2s;}
+.s-card:hover{border-color:var(--pink); transform:translateY(-3px); box-shadow:0 8px 20px rgba(0,0,0,.07);}
+.s-img{width:100%; aspect-ratio:16/10; object-fit:cover; background:#f2f3f5; display:block;}
+.s-body{padding:13px 14px 15px;}
+.s-name{font-size:15px; font-weight:800; letter-spacing:-.4px; display:flex; align-items:center; gap:6px;}
+.s-name::before{content:''; width:3px; height:14px; background:var(--pink); border-radius:2px; flex-shrink:0;}
+.s-addr{margin-top:6px; font-size:12.5px; line-height:1.5; color:var(--sub); word-break:keep-all;}
+
+/* 마무리 */
+.closing{background:#0F1115; color:#fff; text-align:center; padding:56px 20px;}
+.closing h2{font-size:clamp(21px,2.8vw,28px); font-weight:900; letter-spacing:-.04em; line-height:1.4; word-break:keep-all;}
+.closing p{margin-top:13px; font-size:15px; color:#9AA0AB; line-height:1.7; word-break:keep-all;}
+.closing .hero-cta{margin-top:26px;}
+.legal{background:#fff; border-top:1px solid var(--line); padding:26px 20px;}
+.legal p{max-width:1100px; margin:0 auto; font-size:12.5px; line-height:1.8; color:var(--muted); word-break:keep-all;}
+footer{background:#111; color:#8A8F99; padding:30px 20px; font-size:12.5px; line-height:1.8;}
+footer div{max-width:1100px; margin:0 auto;}
+footer b{color:#fff; font-weight:800;}
+
+/* 하단 고정 */
+.bar{display:flex; position:fixed; bottom:0; left:0; width:100%; z-index:200; box-shadow:0 -4px 18px rgba(0,0,0,.12);}
+.bar a{flex:1; display:flex; align-items:center; justify-content:center; gap:7px; padding:17px 0;
+  font-size:15px; font-weight:800; text-decoration:none; letter-spacing:-.5px;}
+
+@media (max-width:900px){ .grid{grid-template-columns:repeat(2,1fr);} .s-grid{grid-template-columns:repeat(3,1fr);} }
+@media (max-width:600px){
+  .grid{grid-template-columns:1fr; gap:13px;}
+  .hero{padding:34px 18px 32px;}
+  .hero-cta{display:flex; width:100%; height:54px; font-size:16px;}
+  .wrap{padding:26px 16px 16px;}
+  .basis{padding:0 16px;}
+  .p-img{height:120px;} .p-img img{max-height:120px;}
+  .closing{padding:44px 18px;}
+  .stores{padding:34px 16px 32px;}
+  .s-grid{grid-template-columns:repeat(2,1fr); gap:10px;}
+  .s-name{font-size:14px;}
+  .s-addr{font-size:12px;}
+}
+</style>
+</head>
+<body>
+
+<header class="hd">
+  <div class="hd-logo">
+    <img src="../cert_mark.png" alt="LG유플러스 공식인증 대리점">
+    <span>주식회사 더끌림컴퍼니 · 기업 임직원 특판</span>
+  </div>
+  <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" rel="noopener" class="hd-btn" onclick="lead()">카톡 상담</a>
+</header>
+
+<section class="hero">
+  <div class="hero-in">
+    <span class="eyebrow"><i></i>기업 임직원 특판</span>
+    <h1>기업 임직원 특판 <b>단가표</b>와<br>즉시 상담 창구입니다.</h1>
+    <p>
+      아래 단가는 LG U+ 번호이동(통신사 이동) 기준이며, 카카오톡으로 문의 주시면 담당자가 바로 안내드립니다.<br>
+      매장 방문 개통(서울·경기 23개 직영점)과 전국 택배 개통 모두 가능합니다.
+    </p>
+    <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" rel="noopener" class="hero-cta" onclick="lead()">카카오톡으로 즉시 상담</a>
+  </div>
+</section>
+
+<div class="basis">
+  <div class="basis-in">
+    <div class="basis-head">
+      <span class="basis-live"><i></i>실시간 시세</span>
+      <span class="basis-date" id="pbDate">시세 최종 확인</span>
+    </div>
+    <p>표기된 모든 가격은 <b>LG U+ 번호이동(통신사 이동) / 85요금제 6개월 유지</b> 조건입니다. 통신사 정책이 변경되면 즉시 반영하며, 이 외에 추가로 요구하는 조건은 없습니다.</p>
+    <p class="notice-change"><b>기기변경(LG U+ 유지) 가격은 별도 문의</b> 주세요. 사용 기간 · 요금제 · 결합 상태에 따라 조건이 달라져, 카카오톡으로 문의 주시면 개별 계산해 안내드립니다.</p>
+    <ul class="chips">
+      <li>부가서비스 가입 없음</li>
+      <li>제휴카드 결합 없음</li>
+      <li>중고폰 반납 없음</li>
+      <li>인터넷 결합 없음</li>
+    </ul>
+  </div>
+</div>
+
+<div class="wrap">
+  <h2 class="sec-title">단말기 특판 단가</h2>
+  <p class="sec-desc">일반 판매가 대비 <b>기기당 최대 17만원 추가 지원</b>이 반영된 기업 임직원 전용 단가입니다.</p>
+  <div class="grid">
+      <div class="p-card">
+        <div class="p-img"><img src="../zflip8.png" alt="갤럭시 Z 플립8" loading="lazy"></div>
+        <h3 class="p-name">갤럭시 Z 플립8</h3>
+        <div class="cap-tabs">
+          <button type="button" class="cap-btn active" data-retail="1,683,000" data-carrier="500,000" data-agency="800,000" data-final="383,000">256GB</button>
+          <button type="button" class="cap-btn" data-retail="1,936,000" data-carrier="500,000" data-agency="800,000" data-final="636,000">512GB</button>
+        </div>
+        <div class="p-price">
+          <div class="p-row"><span>출고가</span><b data-f="retail">1,683,000 원</b></div>
+          <div class="p-row"><span>이통사 지원금</span><b data-f="carrier">- 500,000 원</b></div>
+          <div class="p-row"><span>대리점 지원금</span><b data-f="agency">- 800,000 원</b></div>
+          <div class="p-row total"><span>할부원금</span><b data-f="final">383,000 원</b></div>
+        </div>
+        <p class="p-cond">(LGU+ 통신사 이동 / 85요금제 6개월 유지 조건)</p>
+        <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" rel="noopener" class="p-btn" onclick="lead()">이 모델로 상담받기</a>
+      </div>
+      <div class="p-card">
+        <div class="p-img"><img src="../zfold8wide.png" alt="갤럭시 Z 폴드8 와이드" loading="lazy"></div>
+        <h3 class="p-name">갤럭시 Z 폴드8 와이드</h3>
+        <div class="cap-tabs">
+          <button type="button" class="cap-btn active" data-retail="2,278,100" data-carrier="500,000" data-agency="650,000" data-final="1,128,100">256GB</button>
+          <button type="button" class="cap-btn" data-retail="2,531,100" data-carrier="500,000" data-agency="800,000" data-final="1,231,100">512GB</button>
+          <button type="button" class="cap-btn" data-retail="3,152,600" data-carrier="500,000" data-agency="700,000" data-final="1,952,600">1TB</button>
+        </div>
+        <div class="p-price">
+          <div class="p-row"><span>출고가</span><b data-f="retail">2,278,100 원</b></div>
+          <div class="p-row"><span>이통사 지원금</span><b data-f="carrier">- 500,000 원</b></div>
+          <div class="p-row"><span>대리점 지원금</span><b data-f="agency">- 650,000 원</b></div>
+          <div class="p-row total"><span>할부원금</span><b data-f="final">1,128,100 원</b></div>
+        </div>
+        <p class="p-cond">(LGU+ 통신사 이동 / 85요금제 6개월 유지 조건)</p>
+        <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" rel="noopener" class="p-btn" onclick="lead()">이 모델로 상담받기</a>
+      </div>
+      <div class="p-card">
+        <div class="p-img"><img src="../zfold8ultra.png" alt="갤럭시 Z 폴드8 울트라" loading="lazy"></div>
+        <h3 class="p-name">갤럭시 Z 폴드8 울트라</h3>
+        <div class="cap-tabs">
+          <button type="button" class="cap-btn active" data-retail="2,577,300" data-carrier="500,000" data-agency="720,000" data-final="1,357,300">256GB</button>
+          <button type="button" class="cap-btn" data-retail="2,830,300" data-carrier="500,000" data-agency="720,000" data-final="1,610,300">512GB</button>
+          <button type="button" class="cap-btn" data-retail="3,451,800" data-carrier="500,000" data-agency="720,000" data-final="2,231,800">1TB</button>
+        </div>
+        <div class="p-price">
+          <div class="p-row"><span>출고가</span><b data-f="retail">2,577,300 원</b></div>
+          <div class="p-row"><span>이통사 지원금</span><b data-f="carrier">- 500,000 원</b></div>
+          <div class="p-row"><span>대리점 지원금</span><b data-f="agency">- 720,000 원</b></div>
+          <div class="p-row total"><span>할부원금</span><b data-f="final">1,357,300 원</b></div>
+        </div>
+        <p class="p-cond">(LGU+ 통신사 이동 / 85요금제 6개월 유지 조건)</p>
+        <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" rel="noopener" class="p-btn" onclick="lead()">이 모델로 상담받기</a>
+      </div>
+      <div class="p-card">
+        <span class="card-badge">A급 단순개봉</span>
+        <div class="p-img"><img src="../flip6.png" alt="갤럭시 Z 플립6" loading="lazy"></div>
+        <h3 class="p-name">갤럭시 Z 플립6</h3>
+        <div class="cap-tabs">
+          <button type="button" class="cap-btn active" data-retail="1,485,000" data-carrier="500,000" data-agency="985,000" data-final="0">256GB</button>
+        </div>
+        <div class="p-price">
+          <div class="p-row"><span>출고가</span><b data-f="retail">1,485,000 원</b></div>
+          <div class="p-row"><span>이통사 지원금</span><b data-f="carrier">- 500,000 원</b></div>
+          <div class="p-row"><span>대리점 지원금</span><b data-f="agency">- 985,000 원</b></div>
+          <div class="p-row total"><span>할부원금</span><b data-f="final">0 원</b></div>
+        </div>
+        <p class="p-cond">(LGU+ 통신사 이동 / 85요금제 6개월 유지 조건)</p>
+        <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" rel="noopener" class="p-btn" onclick="lead()">이 모델로 상담받기</a>
+      </div>
+      <div class="p-card">
+        <div class="p-img"><img src="../s25e.png" alt="갤럭시 S25 Edge" loading="lazy"></div>
+        <h3 class="p-name">갤럭시 S25 Edge</h3>
+        <div class="cap-tabs">
+          <button type="button" class="cap-btn active" data-retail="1,353,000" data-carrier="700,000" data-agency="653,000" data-final="0">256GB</button>
+        </div>
+        <div class="p-price">
+          <div class="p-row"><span>출고가</span><b data-f="retail">1,353,000 원</b></div>
+          <div class="p-row"><span>이통사 지원금</span><b data-f="carrier">- 700,000 원</b></div>
+          <div class="p-row"><span>대리점 지원금</span><b data-f="agency">- 653,000 원</b></div>
+          <div class="p-row total"><span>할부원금</span><b data-f="final">0 원</b></div>
+        </div>
+        <p class="p-cond">(LGU+ 통신사 이동 / 85요금제 6개월 유지 조건)</p>
+        <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" rel="noopener" class="p-btn" onclick="lead()">이 모델로 상담받기</a>
+      </div>
+      <div class="p-card">
+        <div class="p-img"><img src="../s26.png" alt="갤럭시 S26" loading="lazy"></div>
+        <h3 class="p-name">갤럭시 S26</h3>
+        <div class="cap-tabs">
+          <button type="button" class="cap-btn active" data-retail="1,254,000" data-carrier="500,000" data-agency="754,000" data-final="0">256GB</button>
+          <button type="button" class="cap-btn" data-retail="1,507,000" data-carrier="500,000" data-agency="820,000" data-final="187,000">512GB</button>
+        </div>
+        <div class="p-price">
+          <div class="p-row"><span>출고가</span><b data-f="retail">1,254,000 원</b></div>
+          <div class="p-row"><span>이통사 지원금</span><b data-f="carrier">- 500,000 원</b></div>
+          <div class="p-row"><span>대리점 지원금</span><b data-f="agency">- 754,000 원</b></div>
+          <div class="p-row total"><span>할부원금</span><b data-f="final">0 원</b></div>
+        </div>
+        <p class="p-cond">(LGU+ 통신사 이동 / 85요금제 6개월 유지 조건)</p>
+        <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" rel="noopener" class="p-btn" onclick="lead()">이 모델로 상담받기</a>
+      </div>
+      <div class="p-card">
+        <div class="p-img"><img src="../s26p.png" alt="갤럭시 S26+" loading="lazy"></div>
+        <h3 class="p-name">갤럭시 S26+</h3>
+        <div class="cap-tabs">
+          <button type="button" class="cap-btn active" data-retail="1,452,000" data-carrier="500,000" data-agency="820,000" data-final="132,000">256GB</button>
+          <button type="button" class="cap-btn" data-retail="1,705,000" data-carrier="500,000" data-agency="820,000" data-final="385,000">512GB</button>
+        </div>
+        <div class="p-price">
+          <div class="p-row"><span>출고가</span><b data-f="retail">1,452,000 원</b></div>
+          <div class="p-row"><span>이통사 지원금</span><b data-f="carrier">- 500,000 원</b></div>
+          <div class="p-row"><span>대리점 지원금</span><b data-f="agency">- 820,000 원</b></div>
+          <div class="p-row total"><span>할부원금</span><b data-f="final">132,000 원</b></div>
+        </div>
+        <p class="p-cond">(LGU+ 통신사 이동 / 85요금제 6개월 유지 조건)</p>
+        <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" rel="noopener" class="p-btn" onclick="lead()">이 모델로 상담받기</a>
+      </div>
+      <div class="p-card">
+        <div class="p-img"><img src="../s26u.png" alt="갤럭시 S26 Ultra" loading="lazy"></div>
+        <h3 class="p-name">갤럭시 S26 Ultra</h3>
+        <div class="cap-tabs">
+          <button type="button" class="cap-btn active" data-retail="1,797,400" data-carrier="500,000" data-agency="820,000" data-final="477,400">256GB</button>
+          <button type="button" class="cap-btn" data-retail="2,050,400" data-carrier="500,000" data-agency="820,000" data-final="730,400">512GB</button>
+        </div>
+        <div class="p-price">
+          <div class="p-row"><span>출고가</span><b data-f="retail">1,797,400 원</b></div>
+          <div class="p-row"><span>이통사 지원금</span><b data-f="carrier">- 500,000 원</b></div>
+          <div class="p-row"><span>대리점 지원금</span><b data-f="agency">- 820,000 원</b></div>
+          <div class="p-row total"><span>할부원금</span><b data-f="final">477,400 원</b></div>
+        </div>
+        <p class="p-cond">(LGU+ 통신사 이동 / 85요금제 6개월 유지 조건)</p>
+        <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" rel="noopener" class="p-btn" onclick="lead()">이 모델로 상담받기</a>
+      </div>
+      <div class="p-card">
+        <div class="p-img"><img src="../17pr.png" alt="iPhone 17 Pro" loading="lazy"></div>
+        <h3 class="p-name">iPhone 17 Pro</h3>
+        <div class="cap-tabs">
+          <button type="button" class="cap-btn active" data-retail="1,782,000" data-carrier="550,000" data-agency="710,000" data-final="522,000">256GB</button>
+          <button type="button" class="cap-btn" data-retail="2,090,000" data-carrier="550,000" data-agency="710,000" data-final="830,000">512GB</button>
+        </div>
+        <div class="p-price">
+          <div class="p-row"><span>출고가</span><b data-f="retail">1,782,000 원</b></div>
+          <div class="p-row"><span>이통사 지원금</span><b data-f="carrier">- 550,000 원</b></div>
+          <div class="p-row"><span>대리점 지원금</span><b data-f="agency">- 710,000 원</b></div>
+          <div class="p-row total"><span>할부원금</span><b data-f="final">522,000 원</b></div>
+        </div>
+        <p class="p-cond">(LGU+ 통신사 이동 / 85요금제 6개월 유지 조건)</p>
+        <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" rel="noopener" class="p-btn" onclick="lead()">이 모델로 상담받기</a>
+      </div>
+      <div class="p-card">
+        <div class="p-img"><img src="../17pm.png" alt="iPhone 17 Pro Max" loading="lazy"></div>
+        <h3 class="p-name">iPhone 17 Pro Max</h3>
+        <div class="cap-tabs">
+          <button type="button" class="cap-btn active" data-retail="1,980,000" data-carrier="151,000" data-agency="670,000" data-final="1,159,000">256GB</button>
+          <button type="button" class="cap-btn" data-retail="2,288,000" data-carrier="151,000" data-agency="670,000" data-final="1,467,000">512GB</button>
+        </div>
+        <div class="p-price">
+          <div class="p-row"><span>출고가</span><b data-f="retail">1,980,000 원</b></div>
+          <div class="p-row"><span>이통사 지원금</span><b data-f="carrier">- 151,000 원</b></div>
+          <div class="p-row"><span>대리점 지원금</span><b data-f="agency">- 670,000 원</b></div>
+          <div class="p-row total"><span>할부원금</span><b data-f="final">1,159,000 원</b></div>
+        </div>
+        <p class="p-cond">(LGU+ 통신사 이동 / 85요금제 6개월 유지 조건)</p>
+        <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" rel="noopener" class="p-btn" onclick="lead()">이 모델로 상담받기</a>
+      </div>
+  </div>
+</div>
+
+<section class="stores">
+  <div class="stores-in">
+    <div class="stores-head">
+      <h2>매장 방문 개통 &middot; 서울·경기 23개 직영점</h2>
+      <p>아래 직영점 어디서나 위 단가 그대로 개통하실 수 있습니다. 방문이 어려우시면 전국 택배 개통도 가능하니 카카오톡으로 말씀해주세요.</p>
+    </div>
+    <div class="s-grid">
+      <div class="s-card">
+        <img src="../store23.jpeg" alt="수원역점 - 경기 수원시 팔달구 수원역 휴대폰 성지 LG유플러스 공식인증대리점 갤럭시 Z 폴드8 플립8 아이폰17 기기변경 번호이동 매장" class="s-img" loading="lazy">
+        <div class="s-body">
+          <h3 class="s-name">수원역점</h3>
+          <p class="s-addr">경기 수원시 팔달구 고매로 26</p>
+        </div>
+      </div>
+      <div class="s-card">
+        <img src="../store20.jpeg" alt="칠보마을점 - 경기 수원시 권선구 칠보마을 휴대폰 성지 LG유플러스 공식인증대리점 갤럭시 Z 폴드8 플립8 아이폰17 기기변경 번호이동 매장" class="s-img" loading="lazy">
+        <div class="s-body">
+          <h3 class="s-name">칠보마을점</h3>
+          <p class="s-addr">경기도 수원시 권선구 금곡로102번길 30 1층</p>
+        </div>
+      </div>
+      <div class="s-card">
+        <img src="../store18.jpeg" alt="안양일번가점 - 경기 안양시 만안구 안양일번가 휴대폰 성지 LG유플러스 공식인증대리점 갤럭시 Z 폴드8 플립8 아이폰17 기기변경 번호이동 매장" class="s-img" loading="lazy">
+        <div class="s-body">
+          <h3 class="s-name">안양일번가점</h3>
+          <p class="s-addr">경기도 안양시 만안구 안양로292번길 8</p>
+        </div>
+      </div>
+      <div class="s-card">
+        <img src="../store12.jpeg" alt="범계점 - 경기 안양시 동안구 범계역 휴대폰 성지 LG유플러스 공식인증대리점 갤럭시 Z 폴드8 플립8 아이폰17 기기변경 번호이동 매장" class="s-img" loading="lazy">
+        <div class="s-body">
+          <h3 class="s-name">범계점</h3>
+          <p class="s-addr">경기도 안양시 동안구 평촌대로223번길 49</p>
+        </div>
+      </div>
+      <div class="s-card">
+        <img src="../store2.jpeg" alt="강서구청점 - 서울 강서구 강서구청 휴대폰 성지 LG유플러스 공식인증대리점 갤럭시 Z 폴드8 플립8 아이폰17 기기변경 번호이동 매장" class="s-img" loading="lazy">
+        <div class="s-body">
+          <h3 class="s-name">강서구청점</h3>
+          <p class="s-addr">서울특별시 강서구 화곡로 322</p>
+        </div>
+      </div>
+      <div class="s-card">
+        <img src="../store11.jpeg" alt="문래힐스테이트점 - 서울 영등포구 문래동 문래 휴대폰 성지 LG유플러스 공식인증대리점 갤럭시 Z 폴드8 플립8 아이폰17 기기변경 번호이동 매장" class="s-img" loading="lazy">
+        <div class="s-body">
+          <h3 class="s-name">문래힐스테이트점</h3>
+          <p class="s-addr">서울특별시 영등포구 선유로 59</p>
+        </div>
+      </div>
+      <div class="s-card">
+        <img src="../store16.jpeg" alt="신림점 - 서울 관악구 신림 휴대폰 성지 LG유플러스 공식인증대리점 갤럭시 Z 폴드8 플립8 아이폰17 기기변경 번호이동 매장" class="s-img" loading="lazy">
+        <div class="s-body">
+          <h3 class="s-name">신림점</h3>
+          <p class="s-addr">서울특별시 관악구 남부순환로 1601</p>
+        </div>
+      </div>
+      <div class="s-card">
+        <img src="../store15.jpeg" alt="사당점 - 서울 동작구 사당역 휴대폰 성지 LG유플러스 공식인증대리점 갤럭시 Z 폴드8 플립8 아이폰17 기기변경 번호이동 매장" class="s-img" loading="lazy">
+        <div class="s-body">
+          <h3 class="s-name">사당점</h3>
+          <p class="s-addr">서울특별시 동작구 동작대로 45</p>
+        </div>
+      </div>
+      <div class="s-card">
+        <img src="../store1.jpeg" alt="가산점 - 서울 금천구 가산디지털단지 휴대폰 성지 LG유플러스 공식인증대리점 갤럭시 Z 폴드8 플립8 아이폰17 기기변경 번호이동 매장" class="s-img" loading="lazy">
+        <div class="s-body">
+          <h3 class="s-name">가산점</h3>
+          <p class="s-addr">서울특별시 금천구 디지털로 212</p>
+        </div>
+      </div>
+      <div class="s-card">
+        <img src="../store3.jpeg" alt="관양시장점 - 경기 안양시 동안구 관양시장 휴대폰 성지 LG유플러스 공식인증대리점 갤럭시 Z 폴드8 플립8 아이폰17 기기변경 번호이동 매장" class="s-img" loading="lazy">
+        <div class="s-body">
+          <h3 class="s-name">관양시장점</h3>
+          <p class="s-addr">경기도 안양시 동안구 관악대로 341</p>
+        </div>
+      </div>
+      <div class="s-card">
+        <img src="../store4.jpeg" alt="낙성대점 - 서울 관악구 낙성대 휴대폰 성지 LG유플러스 공식인증대리점 갤럭시 Z 폴드8 플립8 아이폰17 기기변경 번호이동 매장" class="s-img" loading="lazy">
+        <div class="s-body">
+          <h3 class="s-name">낙성대점</h3>
+          <p class="s-addr">서울특별시 관악구 남부순환로 1952</p>
+        </div>
+      </div>
+      <div class="s-card">
+        <img src="../store5.jpeg" alt="난곡점 - 서울 관악구 난곡 휴대폰 성지 LG유플러스 공식인증대리점 갤럭시 Z 폴드8 플립8 아이폰17 기기변경 번호이동 매장" class="s-img" loading="lazy">
+        <div class="s-body">
+          <h3 class="s-name">난곡점</h3>
+          <p class="s-addr">서울특별시 관악구 난곡로 194</p>
+        </div>
+      </div>
+      <div class="s-card">
+        <img src="../store6.jpeg" alt="남문시장점 - 서울 금천구 독산동 남문시장 휴대폰 성지 LG유플러스 공식인증대리점 갤럭시 Z 폴드8 플립8 아이폰17 기기변경 번호이동 매장" class="s-img" loading="lazy">
+        <div class="s-body">
+          <h3 class="s-name">남문시장점</h3>
+          <p class="s-addr">서울특별시 금천구 독산로87길 2</p>
+        </div>
+      </div>
+      <div class="s-card">
+        <img src="../store7.jpeg" alt="남현점 - 서울 관악구 남현동 휴대폰 성지 LG유플러스 공식인증대리점 갤럭시 Z 폴드8 플립8 아이폰17 기기변경 번호이동 매장" class="s-img" loading="lazy">
+        <div class="s-body">
+          <h3 class="s-name">남현점</h3>
+          <p class="s-addr">서울특별시 관악구 남현길 8</p>
+        </div>
+      </div>
+      <div class="s-card">
+        <img src="../store8.jpeg" alt="대림9번출구점 - 서울 영등포구 대림역 휴대폰 성지 LG유플러스 공식인증대리점 갤럭시 Z 폴드8 플립8 아이폰17 기기변경 번호이동 매장" class="s-img" loading="lazy">
+        <div class="s-body">
+          <h3 class="s-name">대림9번출구점</h3>
+          <p class="s-addr">서울특별시 영등포구 도림로 135</p>
+        </div>
+      </div>
+      <div class="s-card">
+        <img src="../store9.jpeg" alt="대림11번출구점 - 서울 영등포구 대림역 휴대폰 성지 LG유플러스 공식인증대리점 갤럭시 Z 폴드8 플립8 아이폰17 기기변경 번호이동 매장" class="s-img" loading="lazy">
+        <div class="s-body">
+          <h3 class="s-name">대림11번출구점</h3>
+          <p class="s-addr">서울특별시 영등포구 도림로 144</p>
+        </div>
+      </div>
+      <div class="s-card">
+        <img src="../store10.jpeg" alt="대림삼거리점 - 서울 영등포구 대림삼거리 휴대폰 성지 LG유플러스 공식인증대리점 갤럭시 Z 폴드8 플립8 아이폰17 기기변경 번호이동 매장" class="s-img" loading="lazy">
+        <div class="s-body">
+          <h3 class="s-name">대림삼거리점</h3>
+          <p class="s-addr">서울특별시 영등포구 디지털로54길 3 1층</p>
+        </div>
+      </div>
+      <div class="s-card">
+        <img src="../store13.jpeg" alt="봉천사거리점 - 서울 관악구 봉천사거리 휴대폰 성지 LG유플러스 공식인증대리점 갤럭시 Z 폴드8 플립8 아이폰17 기기변경 번호이동 매장" class="s-img" loading="lazy">
+        <div class="s-body">
+          <h3 class="s-name">봉천사거리점</h3>
+          <p class="s-addr">서울특별시 관악구 관악로 194</p>
+        </div>
+      </div>
+      <div class="s-card">
+        <img src="../store14.jpeg" alt="비산이마트점 - 경기 안양시 동안구 비산동 휴대폰 성지 LG유플러스 공식인증대리점 갤럭시 Z 폴드8 플립8 아이폰17 기기변경 번호이동 매장" class="s-img" loading="lazy">
+        <div class="s-body">
+          <h3 class="s-name">비산이마트점</h3>
+          <p class="s-addr">경기도 안양시 동안구 관악대로 99</p>
+        </div>
+      </div>
+      <div class="s-card">
+        <img src="../store17.jpeg" alt="영등포구청점 - 서울 영등포구 영등포구청 휴대폰 성지 LG유플러스 공식인증대리점 갤럭시 Z 폴드8 플립8 아이폰17 기기변경 번호이동 매장" class="s-img" loading="lazy">
+        <div class="s-body">
+          <h3 class="s-name">영등포구청점</h3>
+          <p class="s-addr">서울특별시 영등포구 당산로 136-1</p>
+        </div>
+      </div>
+      <div class="s-card">
+        <img src="../store19.jpeg" alt="증미산점 - 서울 강서구 증미역 휴대폰 성지 LG유플러스 공식인증대리점 갤럭시 Z 폴드8 플립8 아이폰17 기기변경 번호이동 매장" class="s-img" loading="lazy">
+        <div class="s-body">
+          <h3 class="s-name">증미산점</h3>
+          <p class="s-addr">서울특별시 강서구 양천로 583</p>
+        </div>
+      </div>
+      <div class="s-card">
+        <img src="../store21.jpeg" alt="평촌학원가점 - 경기 안양시 동안구 평촌 학원가 휴대폰 성지 LG유플러스 공식인증대리점 갤럭시 Z 폴드8 플립8 아이폰17 기기변경 번호이동 매장" class="s-img" loading="lazy">
+        <div class="s-body">
+          <h3 class="s-name">평촌학원가점</h3>
+          <p class="s-addr">경기도 안양시 동안구 평촌대로 137-7</p>
+        </div>
+      </div>
+      <div class="s-card">
+        <img src="../store22.jpeg" alt="호계점 - 경기 안양시 동안구 호계 휴대폰 성지 LG유플러스 공식인증대리점 갤럭시 Z 폴드8 플립8 아이폰17 기기변경 번호이동 매장" class="s-img" loading="lazy">
+        <div class="s-body">
+          <h3 class="s-name">호계점</h3>
+          <p class="s-addr">경기도 안양시 동안구 경수대로 541</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="closing">
+  <h2>원하시는 모델을 말씀해주세요.<br>바로 조건 안내드리겠습니다.</h2>
+  <p>재고와 개통 일정까지 한 번에 확인해드립니다.</p>
+  <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" rel="noopener" class="hero-cta" onclick="lead()">카카오톡으로 즉시 상담</a>
+</section>
+
+<div class="legal">
+  <p>※ 본 페이지는 기업 임직원 특판 대상 안내용으로, 외부 공유를 삼가주시기 바랍니다. 표기된 지원금과 할부원금은 통신사 정책에 따라 사전 고지 없이 변경될 수 있으며, 실제 개통 조건은 개통 시점의 정책을 따릅니다. 개통은 LG유플러스 공식인증 대리점인 주식회사 더끌림컴퍼니에서 진행합니다.</p>
+</div>
+
+<footer>
+  <div>
+    <b>주식회사 더끌림컴퍼니</b><br>LG유플러스 공식인증 대리점<br>
+    대표 이민진 &nbsp;|&nbsp; 사업자번호 192-88-01136 &nbsp;|&nbsp; 대표번호 070-4007-7776<br>
+    서울특별시 관악구 난곡로 194, 1층(신림동)
+  </div>
+</footer>
+
+<div class="bar">
+  <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" rel="noopener" style="background:#FEE500; color:#111;" onclick="lead()">💬 카카오톡 즉시 상담</a>
+  <a href="tel:070-4007-7776" style="background:#E6007E; color:#fff;">📞 전화 문의</a>
+</div>
+
+<script>
+function lead(){ try{ if(window.fbq) fbq('track','Lead'); }catch(e){} }
+
+/* 용량 탭 전환 */
+document.querySelectorAll('.p-card').forEach(function(card){
+  card.querySelectorAll('.cap-btn').forEach(function(btn){
+    if(btn.disabled) return;
+    btn.addEventListener('click', function(){
+      card.querySelectorAll('.cap-btn').forEach(function(b){ b.classList.remove('active'); });
+      btn.classList.add('active');
+      ['retail','carrier','agency','final'].forEach(function(k){
+        var el = card.querySelector('[data-f="' + k + '"]');
+        if(!el) return;
+        var v = btn.getAttribute('data-' + k);
+        el.textContent = (k === 'retail' || k === 'final') ? v + ' 원' : '- ' + v + ' 원';
+      });
+    });
+  });
+});
+
+/* 시세 확인일 (한국 날짜 기준 자동) */
+(function(){
+  var el = document.getElementById('pbDate');
+  var kst = new Date(Date.now() + (new Date().getTimezoneOffset() * 60000) + 9 * 3600000);
+  el.textContent = kst.getFullYear() + '년 ' + (kst.getMonth() + 1) + '월 ' + kst.getDate() + '일 시세 최종 확인';
+})();
+</script>
+
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1703870407072402');
+fbq('track', 'PageView');
+</script>
+
+</body>
+</html>

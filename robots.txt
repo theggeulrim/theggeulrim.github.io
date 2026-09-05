@@ -9,4 +9,45 @@ Allow: /
 User-agent: Daum
 Allow: /
 
+# ===== AI 검색 크롤러 (명시적 허용) =====
+# ChatGPT 검색 색인
+User-agent: OAI-SearchBot
+Allow: /
+
+# ChatGPT 학습/색인
+User-agent: GPTBot
+Allow: /
+
+# ChatGPT 사용자 요청 시 실시간 조회
+User-agent: ChatGPT-User
+Allow: /
+
+# Perplexity
+User-agent: PerplexityBot
+Allow: /
+
+# Claude
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+# Google Gemini / AI Overviews
+User-agent: Google-Extended
+Allow: /
+
+# Microsoft Copilot
+User-agent: Bingbot
+Allow: /
+
+# ===== 내부 관리 페이지 =====
+Disallow: /market/admin/
+Disallow: /market/dealer/
+Disallow: /global/partners/
+Disallow: /staff2609/
+
 Sitemap: https://theggeulrim.github.io/sitemap.xml
