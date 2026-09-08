@@ -1013,6 +1013,17 @@
         /* 배너: 원본 비율 그대로, 가공 없이 표시 */
         .ip18-hero { width: 100%; background-color: #010101; }
         .ip18-hero-link, .ip18-photo { display: block; width: 100%; line-height: 0; text-decoration: none; }
+        /* 배너 위 "~" 오버레이 — 사전예약이 9/12 하루만인 것처럼 보이지 않도록.
+           좌표는 배너 이미지의 "9/12(토)" 글자 위치를 실측해 잡았습니다.
+           배너 이미지를 교체하면 이 좌표도 다시 맞춰야 합니다. */
+        .ip18-hero-link { position: relative; container-type: inline-size; }
+        .ip18-tilde {
+            position: absolute; z-index: 2; pointer-events: none;
+            left: 18.5%; top: 75.5%; transform: translateY(-50%);
+            color: #ffffff; font-weight: 500; line-height: 1;
+            font-size: 3.6vw;
+            font-size: 3.6cqw;
+        }
         .ip18-photo img { width: 100%; height: auto; display: block; }
 
         /* 신청 CTA 스트립 : 배너의 검정을 이어받는 별도 영역 */
@@ -1573,6 +1584,8 @@
             .ip18-notice-toggle { margin-top: 12px; padding: 12px 14px; font-size: 14px; }
             .ip18-notice-btn { display: flex; width: 100%; justify-content: center; height: 50px; font-size: 15px; margin-top: 12px; }
 
+            /* 아이폰 18 사전예약 배너 (모바일 · 정사각 이미지 기준 좌표) */
+            .ip18-tilde { left: 44.0%; top: 41.7%; font-size: 6.5vw; font-size: 6.5cqw; }
             /* 아이폰 18 사전예약 배너 (모바일) */
             .ip18-apply-bar { padding: 20px 16px 24px; }
             .ip18-apply-inner { flex-direction: column; align-items: stretch; gap: 16px; text-align: center; }
@@ -1768,6 +1781,7 @@
                 <source media="(max-width: 768px)" srcset="ip18_square.png">
                 <img src="ip18_hero.png" alt="아이폰 18 Pro 아이폰 18 Pro Max 사전예약 50만원 할인 쿠폰 - 9월 12일 사전예약 시작 9월 18일 출시일 당일 수령 보장, LG유플러스 공식인증 대리점 U+핫딜센터 번호이동 기기변경 특가">
             </picture>
+            <span class="ip18-tilde" aria-hidden="true">~</span>
         </a>
     </section>
 
@@ -1776,7 +1790,7 @@
             <div class="ip18-apply-copy">
                 <span class="ip18-dday" id="ip18Dday"></span>
                 <strong><b>9/12</b> 밤 9시 사전예약 오픈</strong>
-                <span class="ip18-apply-sub">출시 당일 수령 보장</span>
+                <span class="ip18-apply-sub">출시 전까지 접수 · 9/18(금) 당일 수령 보장</span>
             </div>
             <a href="earlybird/ip18pro/" class="ip18-apply-btn" onclick="fbq('track', 'Lead');">얼리버드 신청하기 <em>→</em></a>
         </div>
