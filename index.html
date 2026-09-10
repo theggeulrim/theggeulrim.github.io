@@ -1191,12 +1191,6 @@
             font-size: 12.5px; font-weight: 800; letter-spacing: -0.5px;
             box-shadow: 0 8px 18px rgba(230,0,126,0.28);
         }
-        .product-img.ip18-crop {
-            width: 78%; max-width: 78%; aspect-ratio: 1 / 1;
-            object-fit: cover; border-radius: 16px; background-color: #0a0a0a;
-        }
-        .ip18-crop.pro { object-position: 74% 42%; }
-        .ip18-crop.max { object-position: 90% 45%; }
         .ip18-note {
             font-size: 11.5px; line-height: 1.6; color: #8A8F99;
             letter-spacing: -0.3px; margin: 0 0 16px; word-break: keep-all;
@@ -1883,6 +1877,90 @@
         })();
         </script>
 
+        <div class="category-wrap" id="ip18">
+            <h2 class="category-title">LGU+ 공식 휴대폰 특가 <span class="text-lgu-pink">&lt;아이폰18 사전예약&gt;</span></h2>
+
+            <div class="ip18-notice">
+                <span class="ip18-notice-badge">사전예약 접수중</span>
+                <h3>아이폰18 사전예약 &middot; iPhone 18 Pro / iPhone 18 Pro Max</h3>
+                <div class="ip18-notice-body">
+                <p>
+                    <strong>아이폰18 사전예약</strong>은 <em>9월 12일(토) 저녁 9시</em>부터 시작되며, 정식 출시일은 <em>9월 18일(금) 오전 8시</em>입니다. 애플 언팩은 <em>9월 10일(목) 새벽 2시</em>입니다.
+                    U+핫딜센터에서 <strong>아이폰18 프로 &middot; 아이폰18 프로맥스</strong>를 사전예약하시면
+                    <strong>사전예약 시 50만원 즉시 할인</strong>이 적용되고, <strong>출시일 당일 수령</strong>이 보장됩니다.
+                    <strong>번호이동</strong>(SK &middot; KT &middot; 알뜰폰 &rarr; LG U+)과 <strong>기기변경</strong>(LG U+ 유지) 모두 접수 가능하며,
+                    제휴카드 &middot; 중고 반납 &middot; 부가서비스 조건은 없습니다.
+                    아이폰18 가격과 공시지원금은 애플 및 통신사 정책 발표 후 확정되며,
+                    얼리버드로 미리 신청해두시면 <strong>개통 순번이 먼저 배정</strong>됩니다.
+                    서울 &middot; 경기 23개 직영점 방문 개통과 전국 택배 개통 모두 가능합니다.
+                </p>
+                </div>
+                <button type="button" class="ip18-notice-toggle" id="ip18NoticeToggle" aria-expanded="false">사전예약 안내 자세히 보기 <span class="arw">&#9662;</span></button>
+                <a href="earlybird/ip18pro/" class="ip18-notice-btn" onclick="fbq('track', 'Lead');">아이폰18 사전예약 신청하기 &rarr;</a>
+            </div>
+            <script>
+            (function(){
+                var btn = document.getElementById('ip18NoticeToggle');
+                if(!btn) return;
+                var card = btn.closest('.ip18-notice');
+                btn.addEventListener('click', function(){
+                    var open = card.classList.toggle('open');
+                    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+                    btn.childNodes[0].nodeValue = open ? '안내 접기 ' : '사전예약 안내 자세히 보기 ';
+                });
+            })();
+            </script>
+
+            <div class="product-grid">
+                <div class="product-card">
+                    <span class="preorder-badge">사전예약 접수중</span>
+                    <div class="product-img-wrap"><img src="ip18pro.png" alt="아이폰18 프로 사전예약 가격 출고가 할부원금 번호이동 LG유플러스 공식인증 대리점" class="product-img" loading="lazy"></div>
+                    <div class="product-info-box">
+                        <h3 class="product-name">iPhone 18 Pro</h3>
+                        <div class="capacity-tabs">
+                            <button type="button" class="cap-btn active" data-retail="1,990,000" data-carrier="미정" data-agency="500,000" data-final="1,490,000">256GB</button>
+                            <button type="button" class="cap-btn" data-retail="2,290,000" data-carrier="미정" data-agency="500,000" data-final="1,790,000">512GB</button>
+                            <button type="button" class="cap-btn" data-retail="2,890,000" data-carrier="미정" data-agency="500,000" data-final="2,390,000">1TB</button>
+                            <button type="button" class="cap-btn" data-retail="3,790,000" data-carrier="미정" data-agency="500,000" data-final="3,290,000">2TB</button>
+                        </div>
+                        <div class="price-details">
+                            <div class="price-row"><span>출고가</span><span class="value" data-f="retail">1,990,000 원</span></div>
+                            <div class="price-row"><span>이통사 지원금</span><span class="value" data-f="carrier">미정</span></div>
+                            <div class="price-row"><span>대리점 지원금</span><span class="value" data-f="agency">- 500,000 원</span></div>
+                            <div class="price-row total"><span>할부원금</span><span class="value" data-f="final">1,490,000 원</span></div>
+                        </div>
+                        <p class="price-condition has-terms">(LGU+ 통신사 이동 / 85요금제 6개월 유지 조건)</p>
+                        <ul class="deal-terms"><li>부가서비스 없음</li><li>카드결합 없음</li><li>중고반납 없음</li></ul>
+                        <p class="ip18-note">이통사 지원금 확정 전이라 <b>대리점 지원금만</b> 반영된 금액입니다. 지원금이 적을 경우 <b>선택약정 25&#37; 할인</b>으로 안내드립니다.</p>
+                        <a href="earlybird/ip18pro/" class="btn-product-voucher" onclick="fbq('track', 'Lead');">사전예약 신청하기</a>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <span class="preorder-badge">사전예약 접수중</span>
+                    <div class="product-img-wrap"><img src="ip18pm.png" alt="아이폰18 프로맥스 사전예약 가격 출고가 할부원금 번호이동 LG유플러스 공식인증 대리점" class="product-img" loading="lazy"></div>
+                    <div class="product-info-box">
+                        <h3 class="product-name">iPhone 18 Pro Max</h3>
+                        <div class="capacity-tabs">
+                            <button type="button" class="cap-btn active" data-retail="2,190,000" data-carrier="미정" data-agency="500,000" data-final="1,690,000">256GB</button>
+                            <button type="button" class="cap-btn" data-retail="2,490,000" data-carrier="미정" data-agency="500,000" data-final="1,990,000">512GB</button>
+                            <button type="button" class="cap-btn" data-retail="3,090,000" data-carrier="미정" data-agency="500,000" data-final="2,590,000">1TB</button>
+                            <button type="button" class="cap-btn" data-retail="3,990,000" data-carrier="미정" data-agency="500,000" data-final="3,490,000">2TB</button>
+                        </div>
+                        <div class="price-details">
+                            <div class="price-row"><span>출고가</span><span class="value" data-f="retail">2,190,000 원</span></div>
+                            <div class="price-row"><span>이통사 지원금</span><span class="value" data-f="carrier">미정</span></div>
+                            <div class="price-row"><span>대리점 지원금</span><span class="value" data-f="agency">- 500,000 원</span></div>
+                            <div class="price-row total"><span>할부원금</span><span class="value" data-f="final">1,690,000 원</span></div>
+                        </div>
+                        <p class="price-condition has-terms">(LGU+ 통신사 이동 / 85요금제 6개월 유지 조건)</p>
+                        <ul class="deal-terms"><li>부가서비스 없음</li><li>카드결합 없음</li><li>중고반납 없음</li></ul>
+                        <p class="ip18-note">이통사 지원금 확정 전이라 <b>대리점 지원금만</b> 반영된 금액입니다. 지원금이 적을 경우 <b>선택약정 25&#37; 할인</b>으로 안내드립니다.</p>
+                        <a href="earlybird/ip18pro/" class="btn-product-voucher" onclick="fbq('track', 'Lead');">사전예약 신청하기</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="category-wrap" id="foldable">
             <h2 class="category-title">LGU+ 공식 휴대폰 특가 <span class="text-samsung-blue">&lt;갤럭시 Z 폴드8·플립8&gt;</span></h2>
             <div class="product-grid">
@@ -2083,83 +2161,7 @@
         <div class="category-wrap">
             <h2 class="category-title">LGU+ 공식 휴대폰 특가 <span class="text-lgu-pink">&lt;아이폰&gt;</span></h2>
 
-            <div class="ip18-notice">
-                <span class="ip18-notice-badge">사전예약 접수중</span>
-                <h3>아이폰18 사전예약 &middot; iPhone 18 Pro / iPhone 18 Pro Max</h3>
-                <div class="ip18-notice-body">
-                <p>
-                    <strong>아이폰18 사전예약</strong>은 <em>9월 12일(토) 저녁 9시</em>부터 시작되며, 정식 출시일은 <em>9월 18일(금) 오전 8시</em>입니다. 애플 언팩은 <em>9월 10일(목) 새벽 2시</em>입니다.
-                    U+핫딜센터에서 <strong>아이폰18 프로 &middot; 아이폰18 프로맥스</strong>를 사전예약하시면
-                    <strong>사전예약 시 50만원 즉시 할인</strong>이 적용되고, <strong>출시일 당일 수령</strong>이 보장됩니다.
-                    <strong>번호이동</strong>(SK &middot; KT &middot; 알뜰폰 &rarr; LG U+)과 <strong>기기변경</strong>(LG U+ 유지) 모두 접수 가능하며,
-                    제휴카드 &middot; 중고 반납 &middot; 부가서비스 조건은 없습니다.
-                    아이폰18 가격과 공시지원금은 애플 및 통신사 정책 발표 후 확정되며,
-                    얼리버드로 미리 신청해두시면 <strong>개통 순번이 먼저 배정</strong>됩니다.
-                    서울 &middot; 경기 23개 직영점 방문 개통과 전국 택배 개통 모두 가능합니다.
-                </p>
-                </div>
-                <button type="button" class="ip18-notice-toggle" id="ip18NoticeToggle" aria-expanded="false">사전예약 안내 자세히 보기 <span class="arw">&#9662;</span></button>
-                <a href="earlybird/ip18pro/" class="ip18-notice-btn" onclick="fbq('track', 'Lead');">아이폰18 사전예약 신청하기 &rarr;</a>
-            </div>
-            <script>
-            (function(){
-                var btn = document.getElementById('ip18NoticeToggle');
-                if(!btn) return;
-                var card = btn.closest('.ip18-notice');
-                btn.addEventListener('click', function(){
-                    var open = card.classList.toggle('open');
-                    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-                    btn.childNodes[0].nodeValue = open ? '안내 접기 ' : '사전예약 안내 자세히 보기 ';
-                });
-            })();
-            </script>
             <div class="product-grid">
-                <div class="product-card">
-                    <span class="preorder-badge">사전예약 접수중</span>
-                    <div class="product-img-wrap"><img src="ip18_hero.png" alt="아이폰18 프로 사전예약 가격 출고가 할부원금 번호이동 LG유플러스 공식인증 대리점" class="product-img ip18-crop pro" loading="lazy"></div>
-                    <div class="product-info-box">
-                        <h3 class="product-name">iPhone 18 Pro</h3>
-                        <div class="capacity-tabs">
-                            <button type="button" class="cap-btn active" data-retail="1,990,000" data-carrier="미정" data-agency="500,000" data-final="1,490,000">256GB</button>
-                            <button type="button" class="cap-btn" data-retail="2,290,000" data-carrier="미정" data-agency="500,000" data-final="1,790,000">512GB</button>
-                            <button type="button" class="cap-btn" data-retail="2,890,000" data-carrier="미정" data-agency="500,000" data-final="2,390,000">1TB</button>
-                            <button type="button" class="cap-btn" data-retail="3,790,000" data-carrier="미정" data-agency="500,000" data-final="3,290,000">2TB</button>
-                        </div>
-                        <div class="price-details">
-                            <div class="price-row"><span>출고가</span><span class="value" data-f="retail">1,990,000 원</span></div>
-                            <div class="price-row"><span>이통사 지원금</span><span class="value" data-f="carrier">미정</span></div>
-                            <div class="price-row"><span>대리점 지원금</span><span class="value" data-f="agency">- 500,000 원</span></div>
-                            <div class="price-row total"><span>할부원금</span><span class="value" data-f="final">1,490,000 원</span></div>
-                        </div>
-                        <p class="price-condition has-terms">(LGU+ 통신사 이동 / 85요금제 6개월 유지 조건)</p>
-                        <ul class="deal-terms"><li>부가서비스 없음</li><li>카드결합 없음</li><li>중고반납 없음</li></ul>
-                        <p class="ip18-note">이통사 지원금 확정 전이라 <b>대리점 지원금만</b> 반영된 금액입니다. 지원금이 적을 경우 <b>선택약정 25&#37; 할인</b>으로 안내드립니다.</p>
-                        <a href="earlybird/ip18pro/" class="btn-product-voucher" onclick="fbq('track', 'Lead');">사전예약 신청하기</a>
-                    </div>
-                </div>
-                <div class="product-card">
-                    <span class="preorder-badge">사전예약 접수중</span>
-                    <div class="product-img-wrap"><img src="ip18_hero.png" alt="아이폰18 프로맥스 사전예약 가격 출고가 할부원금 번호이동 LG유플러스 공식인증 대리점" class="product-img ip18-crop max" loading="lazy"></div>
-                    <div class="product-info-box">
-                        <h3 class="product-name">iPhone 18 Pro Max</h3>
-                        <div class="capacity-tabs">
-                            <button type="button" class="cap-btn active" data-retail="2,190,000" data-carrier="미정" data-agency="500,000" data-final="1,690,000">256GB</button>
-                            <button type="button" class="cap-btn" data-retail="2,490,000" data-carrier="미정" data-agency="500,000" data-final="1,990,000">512GB</button>
-                            <button type="button" class="cap-btn" data-retail="3,090,000" data-carrier="미정" data-agency="500,000" data-final="2,590,000">1TB</button>
-                            <button type="button" class="cap-btn" data-retail="3,990,000" data-carrier="미정" data-agency="500,000" data-final="3,490,000">2TB</button>
-                        </div>
-                        <div class="price-details">
-                            <div class="price-row"><span>출고가</span><span class="value" data-f="retail">2,190,000 원</span></div>
-                            <div class="price-row"><span>이통사 지원금</span><span class="value" data-f="carrier">미정</span></div>
-                            <div class="price-row"><span>대리점 지원금</span><span class="value" data-f="agency">- 500,000 원</span></div>
-                            <div class="price-row total"><span>할부원금</span><span class="value" data-f="final">1,690,000 원</span></div>
-                        </div>
-                        <p class="price-condition has-terms">(LGU+ 통신사 이동 / 85요금제 6개월 유지 조건)</p>
-                        <ul class="deal-terms"><li>부가서비스 없음</li><li>카드결합 없음</li><li>중고반납 없음</li></ul>
-                        <p class="ip18-note">이통사 지원금 확정 전이라 <b>대리점 지원금만</b> 반영된 금액입니다. 지원금이 적을 경우 <b>선택약정 25&#37; 할인</b>으로 안내드립니다.</p>
-                        <a href="earlybird/ip18pro/" class="btn-product-voucher" onclick="fbq('track', 'Lead');">사전예약 신청하기</a>
-                    </div>
-                </div>
                 <div class="product-card">
                     <div class="product-img-wrap"><img src="ip17.png" alt="아이폰17 512GB 출시일 가격 자급제 번호이동 성지 유플러스 공식인증대리점" class="product-img"></div>
                     <div class="product-info-box">
