@@ -1117,8 +1117,11 @@
         .product-section { padding: 80px 20px; background-color: #fbfbfd; overflow: hidden; }
         .category-wrap { margin-bottom: 80px; }
         .category-wrap:last-child { margin-bottom: 0; }
-        .category-title { text-align: center; font-size: 30px; font-weight: 800; margin-bottom: 40px; color: #111; letter-spacing: -1px; }
+        .category-title { text-align: center; font-size: 30px; font-weight: 800; margin-bottom: 40px; color: #111; letter-spacing: -1px; word-break: keep-all; text-wrap: balance; }
         .text-lgu-pink { color: #E6007E; }
+        .nowrap { white-space: nowrap; }
+        .category-title .text-lgu-pink,
+        .category-title .text-samsung-blue { display: inline-block; }
         .text-samsung-blue { color: #1428A0; }
 
         .product-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; max-width: 1200px; margin: 0 auto; }
@@ -1247,7 +1250,7 @@
         .price-row.total { margin-top: 15px; border-top: 1px dashed #e0e0e0; padding-top: 15px; font-weight: 800; color: #E6007E; font-size: 16px; }
         .price-row.total .value { color: #E6007E; font-size: 20px; letter-spacing: -0.5px; }
 
-        .price-condition { font-size: 11px; color: #888; text-align: right; margin-top: 15px; margin-bottom: 20px; letter-spacing: -0.5px; }
+        .price-condition { font-size: 11px; color: #888; text-align: right; margin-top: 15px; margin-bottom: 20px; letter-spacing: -0.5px; word-break: keep-all; text-wrap: balance; }
         .price-condition.has-terms { margin-bottom: 8px; }
         .price-basis {
             max-width: 1200px; margin: 0 auto 34px; padding: 22px 26px;
@@ -1353,7 +1356,7 @@
 
         .store-card-title { font-size: 19px; font-weight: 800; color: #111; letter-spacing: -0.5px; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
         .store-card-title::before { content: ''; display: inline-block; width: 4px; height: 16px; background-color: #E6007E; border-radius: 2px; }
-        .store-card-address { font-size: 14px; color: #555; line-height: 1.4; font-weight: 500; display: flex; align-items: flex-start; gap: 4px; word-break: keep-all; }
+        .store-card-address { font-size: 14px; color: #555; line-height: 1.4; font-weight: 500; display: flex; align-items: flex-start; gap: 4px; word-break: keep-all; text-wrap: balance; }
         .store-card-address .pin { filter: grayscale(1); opacity: 0.6; font-size: 14px; }
 
         .store-card-btns { display: flex; flex-direction: column; margin-top: auto; }
@@ -1422,7 +1425,7 @@
             ============================================================== */
         .faq-section { padding: 100px 20px; background-color: #ffffff; border-top: 1px solid #eaeaea; }
         .faq-container { max-width: 900px; margin: 0 auto; }
-        .faq-title { text-align: center; font-size: 36px; font-weight: 800; margin-bottom: 50px; letter-spacing: -1px; color: #111; }
+        .faq-title { text-align: center; font-size: 36px; font-weight: 800; margin-bottom: 50px; letter-spacing: -1px; color: #111; word-break: keep-all; text-wrap: balance; }
 
         .faq-list { border-top: 2px solid #111; }
         .faq-item { border-bottom: 1px solid #eaeaea; overflow: hidden; transition: all 0.3s ease; }
@@ -1434,7 +1437,7 @@
         }
         .faq-q:hover { background-color: #fcfcfc; }
         .faq-q .q-mark { color: #E6007E; font-weight: 900; margin-right: 12px; font-size: 20px; }
-        .faq-q .q-text { flex: 1; line-height: 1.4; word-break: keep-all; }
+        .faq-q .q-text { flex: 1; line-height: 1.4; word-break: keep-all; text-wrap: balance; }
 
         .faq-icon {
             width: 24px; height: 24px; position: relative; flex-shrink: 0; margin-left: 15px;
@@ -1453,7 +1456,7 @@
 
         .faq-a {
             max-height: 0; padding: 0 20px; font-size: 15px; color: #555; line-height: 1.6;
-            background-color: #fbfbfd; word-break: keep-all; font-weight: 500;
+            background-color: #fbfbfd; word-break: keep-all; text-wrap: pretty; font-weight: 500;
             transition: max-height 0.4s ease, padding 0.4s ease, opacity 0.4s ease; opacity: 0;
         }
         .faq-item.active .faq-a { max-height: 500px; padding: 0 20px 30px 48px; opacity: 1; }
@@ -1508,7 +1511,7 @@
         .footer-logo-img { width: 90px; height: auto; object-fit: contain; }
         .store-list-wrap { margin-bottom: 30px; overflow-x: auto; padding-bottom: 15px; }
         .store-list { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 40px; white-space: nowrap; }
-        .store-item { color: #cccccc; font-size: 12px; }
+        .store-item { color: #cccccc; font-size: 12px; word-break: keep-all; text-wrap: balance; }
         .store-item strong { color: #ffffff; font-weight: 700; margin-right: 5px; }
         .footer-bottom { border-top: 1px solid #333333; padding-top: 20px; font-size: 11px; color: #777777; text-align: center; }
         .footer-warning { margin-bottom: 5px; }
@@ -1616,8 +1619,13 @@
             .product-img { max-width: 100%; height: auto; margin-bottom: 0; }
             .product-name { font-size: 13px; font-weight: 800; margin-bottom: 8px; text-align: center; line-height: 1.3; letter-spacing: -0.5px;}
 
-            .capacity-tabs { gap: 4px; margin-bottom: 10px; }
-            .cap-btn { font-size: 10px; padding: 5px 8px; border-radius: 14px; }
+            .capacity-tabs { gap: 3px; margin-bottom: 10px; }
+            .cap-btn { font-size: 9.5px; padding: 5px 6px; border-radius: 14px; }
+            .capacity-tabs:has(.cap-btn:nth-child(4)) .cap-btn { flex: 1 1 calc(50% - 3px); }
+            .preorder-badge { top: 10px; left: 10px; font-size: 9.5px; padding: 4px 9px; box-shadow: none; }
+            .ip18-note { font-size: 10.5px; line-height: 1.55; margin-bottom: 12px; }
+            .price-condition { font-size: 9.5px; margin-top: 10px; margin-bottom: 14px; }
+            .deal-terms li { font-size: 10px; padding: 3px 7px; }
 
             .payback-badge { font-size: 11px; padding: 8px 4px; margin-bottom: 12px; flex-direction: column; gap: 4px; }
             .payback-badge span { display: flex; align-items: center; justify-content: center; gap: 4px; }
@@ -1866,20 +1874,20 @@
                     <div class="product-info-box">
                         <h3 class="product-name">iPhone 18 Pro</h3>
                         <div class="capacity-tabs">
-                            <button type="button" class="cap-btn active" data-retail="1,990,000" data-carrier="미정" data-agency="500,000" data-final="1,490,000">256GB</button>
-                            <button type="button" class="cap-btn" data-retail="2,290,000" data-carrier="미정" data-agency="500,000" data-final="1,790,000">512GB</button>
-                            <button type="button" class="cap-btn" data-retail="2,890,000" data-carrier="미정" data-agency="500,000" data-final="2,390,000">1TB</button>
-                            <button type="button" class="cap-btn" data-retail="3,790,000" data-carrier="미정" data-agency="500,000" data-final="3,290,000">2TB</button>
+                            <button type="button" class="cap-btn active" data-retail="1,990,000" data-carrier="300,000" data-agency="500,000" data-final="1,190,000">256GB</button>
+                            <button type="button" class="cap-btn" data-retail="2,290,000" data-carrier="300,000" data-agency="500,000" data-final="1,490,000">512GB</button>
+                            <button type="button" class="cap-btn" data-retail="2,890,000" data-carrier="300,000" data-agency="500,000" data-final="2,090,000">1TB</button>
+                            <button type="button" class="cap-btn" data-retail="3,790,000" data-carrier="300,000" data-agency="500,000" data-final="2,990,000">2TB</button>
                         </div>
                         <div class="price-details">
                             <div class="price-row"><span>출고가</span><span class="value" data-f="retail">1,990,000 원</span></div>
-                            <div class="price-row"><span>이통사 지원금</span><span class="value" data-f="carrier">미정</span></div>
+                            <div class="price-row"><span>이통사 지원금</span><span class="value" data-f="carrier">- 300,000 원</span></div>
                             <div class="price-row"><span>대리점 지원금</span><span class="value" data-f="agency">- 500,000 원</span></div>
-                            <div class="price-row total"><span>할부원금</span><span class="value" data-f="final">1,490,000 원</span></div>
+                            <div class="price-row total"><span>할부원금</span><span class="value" data-f="final">1,190,000 원</span></div>
                         </div>
                         <p class="price-condition has-terms">(LGU+ 통신사 이동 / 85요금제 6개월 유지 조건)</p>
                         <ul class="deal-terms"><li>부가서비스 없음</li><li>카드결합 없음</li><li>중고반납 없음</li></ul>
-                        <p class="ip18-note">이통사 지원금 확정 전이라 <b>대리점 지원금만</b> 반영된 금액입니다. 지원금이 적을 경우 <b>선택약정 25&#37; 할인</b>으로 안내드립니다.</p>
+                        <p class="ip18-note"><b>115,000원 요금제 3개월</b> 사용 시 공시지원금 <b>45만원</b> 적용 &middot; 이통사 지원금과 <b>선택약정 25&#37;</b> 중 선택 가능</p>
                         <a href="earlybird/ip18pro/" class="btn-product-voucher" onclick="fbq('track', 'Lead');">사전예약 신청하기</a>
                     </div>
                 </div>
@@ -1889,20 +1897,20 @@
                     <div class="product-info-box">
                         <h3 class="product-name">iPhone 18 Pro Max</h3>
                         <div class="capacity-tabs">
-                            <button type="button" class="cap-btn active" data-retail="2,190,000" data-carrier="미정" data-agency="500,000" data-final="1,690,000">256GB</button>
-                            <button type="button" class="cap-btn" data-retail="2,490,000" data-carrier="미정" data-agency="500,000" data-final="1,990,000">512GB</button>
-                            <button type="button" class="cap-btn" data-retail="3,090,000" data-carrier="미정" data-agency="500,000" data-final="2,590,000">1TB</button>
-                            <button type="button" class="cap-btn" data-retail="3,990,000" data-carrier="미정" data-agency="500,000" data-final="3,490,000">2TB</button>
+                            <button type="button" class="cap-btn active" data-retail="2,190,000" data-carrier="300,000" data-agency="500,000" data-final="1,390,000">256GB</button>
+                            <button type="button" class="cap-btn" data-retail="2,490,000" data-carrier="300,000" data-agency="500,000" data-final="1,690,000">512GB</button>
+                            <button type="button" class="cap-btn" data-retail="3,090,000" data-carrier="300,000" data-agency="500,000" data-final="2,290,000">1TB</button>
+                            <button type="button" class="cap-btn" data-retail="3,990,000" data-carrier="300,000" data-agency="500,000" data-final="3,190,000">2TB</button>
                         </div>
                         <div class="price-details">
                             <div class="price-row"><span>출고가</span><span class="value" data-f="retail">2,190,000 원</span></div>
-                            <div class="price-row"><span>이통사 지원금</span><span class="value" data-f="carrier">미정</span></div>
+                            <div class="price-row"><span>이통사 지원금</span><span class="value" data-f="carrier">- 300,000 원</span></div>
                             <div class="price-row"><span>대리점 지원금</span><span class="value" data-f="agency">- 500,000 원</span></div>
-                            <div class="price-row total"><span>할부원금</span><span class="value" data-f="final">1,690,000 원</span></div>
+                            <div class="price-row total"><span>할부원금</span><span class="value" data-f="final">1,390,000 원</span></div>
                         </div>
                         <p class="price-condition has-terms">(LGU+ 통신사 이동 / 85요금제 6개월 유지 조건)</p>
                         <ul class="deal-terms"><li>부가서비스 없음</li><li>카드결합 없음</li><li>중고반납 없음</li></ul>
-                        <p class="ip18-note">이통사 지원금 확정 전이라 <b>대리점 지원금만</b> 반영된 금액입니다. 지원금이 적을 경우 <b>선택약정 25&#37; 할인</b>으로 안내드립니다.</p>
+                        <p class="ip18-note"><b>115,000원 요금제 3개월</b> 사용 시 공시지원금 <b>45만원</b> 적용 &middot; 이통사 지원금과 <b>선택약정 25&#37;</b> 중 선택 가능</p>
                         <a href="earlybird/ip18pro/" class="btn-product-voucher" onclick="fbq('track', 'Lead');">사전예약 신청하기</a>
                     </div>
                 </div>
@@ -2835,7 +2843,7 @@
                         <div class="faq-icon"></div>
                     </button>
                     <div class="faq-a">
-                        <p>네, <strong>LG유플러스 공식인증 대리점</strong>입니다. 운영사는 <strong>주식회사 더끌림컴퍼니</strong>(대표 이민진), 사업자등록번호 <strong>192-88-01136</strong>, 본사 주소는 서울특별시 관악구 난곡로 194, 1층(신림동), 대표번호는 070-4007-7776입니다. 서울·경기 23개 직영점을 직접 운영하고 있어 온라인 접수 후 매장 방문 확인도 가능합니다.</p>
+                        <p>네, <strong>LG유플러스 공식인증 대리점</strong>입니다. 운영사는 <strong>주식회사 더끌림컴퍼니</strong>(대표 이민진), 사업자등록번호 <strong class="nowrap">192-88-01136</strong>, 본사 주소는 서울특별시 관악구 난곡로 194, <span class="nowrap">1층(신림동)</span>, 대표번호는 <span class="nowrap">070-4007-7776</span>입니다. 서울·경기 23개 직영점을 직접 운영하고 있어 온라인 접수 후 매장 방문 확인도 가능합니다.</p>
                     </div>
                 </div>
 
