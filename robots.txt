@@ -49,7 +49,5 @@ Disallow: /market/admin/
 Disallow: /market/dealer/
 Disallow: /global/partners/
 Disallow: /staff2609/
-Disallow: /reviews/admin/
-Disallow: /tools/
 
 Sitemap: https://theggeulrim.github.io/sitemap.xml
