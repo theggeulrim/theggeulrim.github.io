@@ -2096,7 +2096,7 @@
                         <h3 class="product-name">iPhone 17 Pro</h3>
                         <div class="capacity-tabs">
                             <button type="button" class="cap-btn active" data-retail="1,782,000" data-carrier="550,000" data-agency="430,000" data-final="802,000">256GB</button>
-                            <button type="button" class="cap-btn" data-retail="2,090,000" data-carrier="550,000" data-agency="430,000" data-final="1,110,000">512GB</button>
+                            <button type="button" class="cap-btn sold" disabled>512GB 품절</button>
                         </div>
                         <div class="price-details">
                             <div class="price-row"><span>출고가</span><span class="value" data-f="retail">1,782,000 원</span></div>
@@ -2115,14 +2115,14 @@
                     <div class="product-info-box">
                         <h3 class="product-name">iPhone 17 Pro Max</h3>
                         <div class="capacity-tabs">
-                            <button type="button" class="cap-btn active" data-retail="1,980,000" data-carrier="151,000" data-agency="430,000" data-final="1,399,000">256GB</button>
-                            <button type="button" class="cap-btn" data-retail="2,288,000" data-carrier="151,000" data-agency="430,000" data-final="1,707,000">512GB</button>
+                            <button type="button" class="cap-btn sold" disabled>256GB 품절</button>
+                            <button type="button" class="cap-btn sold" disabled>512GB 품절</button>
                         </div>
                         <div class="price-details">
-                            <div class="price-row"><span>출고가</span><span class="value" data-f="retail">1,980,000 원</span></div>
-                            <div class="price-row"><span>이통사 지원금</span><span class="value" data-f="carrier">- 151,000 원</span></div>
-                            <div class="price-row"><span>대리점 지원금</span><span class="value" data-f="agency">- 430,000 원</span></div>
-                            <div class="price-row total"><span>할부원금</span><span class="value" data-f="final">1,399,000 원</span></div>
+                            <div class="price-row"><span>출고가</span><span class="value" data-f="retail">-</span></div>
+                            <div class="price-row"><span>이통사 지원금</span><span class="value" data-f="carrier">-</span></div>
+                            <div class="price-row"><span>대리점 지원금</span><span class="value" data-f="agency">-</span></div>
+                            <div class="price-row total"><span>할부원금</span><span class="value" data-f="final">품절</span></div>
                         </div>
                         <p class="price-condition has-terms">(LGU+ 통신사 이동 / 85요금제 6개월 유지 조건)</p>
                         <ul class="deal-terms"><li>부가서비스 없음</li><li>카드결합 없음</li><li>중고반납 없음</li></ul>
@@ -3092,7 +3092,16 @@
                     }
                 });
                 const active = card.querySelector('.cap-btn.active:not([disabled])') || card.querySelector('.cap-btn:not([disabled])');
-                if (active) renderCapRows(card, active);
+                if (active) {
+                    renderCapRows(card, active);
+                } else {                                   // 전 용량 품절
+                    ['retail', 'carrier', 'agency'].forEach(f => {
+                        const el = card.querySelector('[data-f="' + f + '"]');
+                        if (el) el.textContent = '-';
+                    });
+                    const fin = card.querySelector('[data-f="final"]');
+                    if (fin) fin.textContent = '품절';
+                }
 
                 const cond = card.querySelector('.price-condition');
                 if (cond) cond.textContent = cond.textContent.replace(/통신사 이동|기기변경/, typeText).replace(/\d+요금제/, cardPlan + '요금제');
