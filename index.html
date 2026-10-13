@@ -1016,6 +1016,22 @@
         .ip18-hero-link, .ip18-photo { display: block; width: 100%; line-height: 0; text-decoration: none; }
         .ip18-photo img { width: 100%; height: auto; display: block; }
 
+        /* 히어로 아래 얼리버드 신청 띠 (아이폰 듀오) */
+        .eb-strip { background: #ffffff; border-bottom: 1px solid #eaeaea; padding: 22px 20px; }
+        .eb-strip-inner { max-width: 1000px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 14px 24px; flex-wrap: wrap; }
+        .eb-copy strong { display: block; font-size: 22px; font-weight: 800; letter-spacing: -0.8px; color: #111; word-break: keep-all; }
+        .eb-copy strong b { color: #E6007E; }
+        .eb-copy span { display: block; margin-top: 4px; font-size: 14px; color: #777; letter-spacing: -0.3px; word-break: keep-all; }
+        .eb-btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 56px; padding: 0 34px; border-radius: 14px; background: #E6007E; color: #fff; text-decoration: none; font-size: 17px; font-weight: 800; letter-spacing: -0.4px; box-shadow: 0 6px 18px rgba(230,0,126,0.3); transition: transform 0.2s, background-color 0.2s; flex-shrink: 0; }
+        .eb-btn:hover { background: #ff1a94; transform: translateY(-2px); }
+        @media (max-width: 768px) {
+            .eb-strip { padding: 18px 16px; }
+            .eb-strip-inner { flex-direction: column; align-items: stretch; text-align: center; }
+            .eb-copy strong { font-size: 19px; }
+            .eb-copy span { font-size: 13px; }
+            .eb-btn { width: 100%; height: 54px; font-size: 16px; }
+        }
+
         .quick-menu-wrap { background-color: #ffffff; padding: 40px 20px; border-bottom: 1px solid #eaeaea; }
         .quick-menu-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 30px 40px; max-width: 1000px; margin: 0 auto; }
         .quick-menu-item { display: flex; flex-direction: column; align-items: center; text-decoration: none; color: #333; gap: 12px; transition: transform 0.2s; }
@@ -1744,6 +1760,16 @@
             </picture>
         </a>
     </section>
+
+    <div class="eb-strip">
+        <div class="eb-strip-inner">
+            <div class="eb-copy">
+                <strong>아이폰 듀오 사전예약 <b>50만원 즉시 할인</b></strong>
+                <span>10월 16일(금) 밤 9시 예약 시작 · 미리 신청하면 순서대로 연락드립니다</span>
+            </div>
+            <a href="earlybird/ipduo/#apply" class="eb-btn">얼리버드 신청하기 →</a>
+        </div>
+    </div>
 
     <div class="quick-menu-wrap">
         <div class="quick-menu-grid">
