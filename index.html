@@ -1758,6 +1758,280 @@
 
             .footer-bottom { text-align: left; font-size: 11px; line-height: 1.5; margin-top: 10px; }
         }
+    
+/* ===== 2026-10-15 공식몰 스타일 개편 ===== */
+
+/* ===================== 2026-10 개편: 공식 온라인샵 스타일 ===================== */
+:root {
+    --os-pink: #E6007E; --os-pink-2: #E30084; --os-pink-bg: #FFF0F7;
+    --os-text: #181A1B; --os-sub: #3C3C3C; --os-grey: #666; --os-grey-2: #999;
+    --os-line: #E7EBEE; --os-line-2: #D7DCE0; --os-bg: #F6F7F9;
+}
+body { background: #fff; color: var(--os-text); padding-top: 0; letter-spacing: -0.02em; }
+body.os-lock { overflow: hidden; }
+body.os-lock .fab-container, body.os-lock .bottom-cta-bar, body.os-lock .realtime-toast { display: none !important; }
+.os-inner { max-width: 1280px; margin: 0 auto; padding: 0 40px; }
+
+/* 헤더 */
+.os-util { background: var(--os-bg); border-bottom: 1px solid var(--os-line); font-size: 12px; color: var(--os-grey); }
+.os-util .os-inner { display: flex; justify-content: space-between; align-items: center; height: 32px; }
+.os-util a { color: var(--os-grey); text-decoration: none; margin-left: 16px; }
+.os-util b { color: var(--os-text); font-weight: 700; }
+.os-header { position: sticky; top: 0; z-index: 900; background: #fff; border-bottom: 1px solid var(--os-line); }
+.os-header .os-inner { display: flex; align-items: center; height: 72px; gap: 40px; }
+.os-logo { display: flex; align-items: center; gap: 8px; text-decoration: none; color: var(--os-text); flex-shrink: 0; }
+.os-logo img { height: 28px; width: auto; }
+.os-logo strong { font-size: 19px; font-weight: 800; letter-spacing: -0.04em; }
+.os-logo strong i { font-style: normal; color: var(--os-pink); }
+.os-gnb { display: flex; gap: 32px; flex: 1; }
+.os-gnb a { font-size: 17px; font-weight: 700; color: var(--os-text); text-decoration: none; padding: 24px 0; border-bottom: 2px solid transparent; white-space: nowrap; }
+.os-gnb a:hover, .os-gnb a.on { color: var(--os-pink); border-bottom-color: var(--os-pink); }
+.os-head-btns { display: flex; gap: 8px; flex-shrink: 0; }
+.os-btn { display: inline-flex; align-items: center; justify-content: center; gap: 4px; height: 40px; padding: 0 18px; border-radius: 8px; font-size: 14px; font-weight: 700; text-decoration: none; cursor: pointer; border: 1px solid transparent; font-family: inherit; white-space: nowrap; }
+.os-btn-line { border-color: var(--os-line-2); color: var(--os-text); background: #fff; }
+.os-btn-line:hover { border-color: var(--os-text); }
+.os-btn-pink { background: var(--os-pink); color: #fff; }
+.os-btn-pink:hover { background: #cc0070; }
+.os-btn-pinkline { border-color: var(--os-pink); color: var(--os-pink); background: #fff; }
+.os-btn-kakao { background: #FEE500; color: #181A1B; }
+
+/* 히어로 영역은 기존 배너 재사용 */
+.ip18-hero { margin-top: 0 !important; }
+
+/* 페이지 타이틀 */
+.os-shop { padding: 56px 0 80px; scroll-margin-top: 72px; }
+.os-page-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; margin-bottom: 24px; }
+.os-page-head h2 { font-size: 36px; font-weight: 700; letter-spacing: -0.04em; }
+.os-page-head p { font-size: 13px; color: var(--os-grey); text-align: right; line-height: 1.6; }
+.os-sync { display: inline-flex; align-items: center; gap: 6px; }
+.os-sync i { width: 7px; height: 7px; border-radius: 50%; background: #1DB954; display: inline-block; }
+.os-sync.off i { background: #bbb; }
+.os-maker { display: flex; gap: 8px; margin-bottom: 32px; border-bottom: 1px solid var(--os-line); }
+.os-maker button { background: none; border: 0; font-family: inherit; font-size: 18px; font-weight: 700; color: var(--os-grey-2); padding: 0 8px 14px; margin-right: 16px; border-bottom: 3px solid transparent; margin-bottom: -1px; cursor: pointer; }
+.os-maker button.on { color: var(--os-text); border-bottom-color: var(--os-text); }
+
+/* 필터 + 목록 */
+.os-layout { display: grid; grid-template-columns: 240px 1fr; gap: 40px; align-items: start; }
+.os-filter { position: sticky; top: 96px; }
+.os-fgroup { padding: 20px 0; border-bottom: 1px solid var(--os-line); }
+.os-fgroup:first-child { padding-top: 0; }
+.os-fgroup h3 { font-size: 16px; font-weight: 700; margin-bottom: 14px; }
+.os-radio { display: flex; align-items: center; gap: 8px; font-size: 15px; color: var(--os-sub); padding: 6px 0; cursor: pointer; }
+.os-radio input { appearance: none; -webkit-appearance: none; width: 20px; height: 20px; border: 1px solid var(--os-line-2); border-radius: 50%; margin: 0; flex-shrink: 0; cursor: pointer; }
+.os-radio input:checked { border: 6px solid var(--os-pink); }
+.os-radio input:checked + span { color: var(--os-text); font-weight: 700; }
+.os-select { width: 100%; height: 44px; border: 1px solid var(--os-line-2); border-radius: 8px; padding: 0 36px 0 12px; font-family: inherit; font-size: 14px; color: var(--os-text); background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23181A1B' stroke-width='1.5' fill='none'/%3E%3C/svg%3E") no-repeat right 14px center; -webkit-appearance: none; appearance: none; cursor: pointer; }
+.os-fnote { font-size: 12px; color: var(--os-grey); line-height: 1.6; margin-top: 10px; }
+.os-fnote b { color: var(--os-pink); font-weight: 700; }
+
+.os-list-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; font-size: 14px; color: var(--os-grey); }
+.os-list-head b { color: var(--os-text); }
+.os-cond { font-size: 13px; color: var(--os-grey); }
+.os-cond em { font-style: normal; color: var(--os-text); font-weight: 700; }
+.os-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+
+/* 상품 카드 */
+.os-card { position: relative; border: 1px solid var(--os-line); border-radius: 16px; padding: 20px; background: #fff; display: flex; flex-direction: column; cursor: pointer; transition: box-shadow .2s, border-color .2s; }
+.os-card:hover { border-color: var(--os-line-2); box-shadow: 0 8px 24px rgba(0,0,0,.06); }
+.os-card.is-soldout { cursor: default; }
+.os-card.is-soldout .os-card-img img { opacity: .4; }
+.os-badges { display: flex; gap: 4px; min-height: 22px; }
+.os-badge { display: inline-flex; align-items: center; height: 22px; padding: 0 8px; border-radius: 4px; font-size: 12px; font-weight: 700; background: var(--os-bg); color: var(--os-sub); }
+.os-badge.new { background: var(--os-pink-bg); color: var(--os-pink); }
+.os-badge.hot { background: #EEF3FF; color: #2F5CE0; }
+.os-badge.pre { background: var(--os-text); color: #fff; }
+.os-badge.zero { background: #E9F8EF; color: #128A44; }
+.os-badge.out { background: #eee; color: #888; }
+.os-card-img { height: 200px; display: flex; align-items: center; justify-content: center; margin: 8px 0 12px; }
+.os-card-img img { max-height: 100%; max-width: 100%; object-fit: contain; }
+.os-card-name { font-size: 18px; font-weight: 700; letter-spacing: -0.03em; }
+.os-caps { display: flex; flex-wrap: wrap; gap: 4px; margin: 10px 0 16px; }
+.os-cap { height: 28px; padding: 0 10px; border-radius: 14px; border: 1px solid var(--os-line-2); background: #fff; font-family: inherit; font-size: 12px; color: var(--os-sub); cursor: pointer; }
+.os-cap.on { border-color: var(--os-pink-2); color: var(--os-pink-2); font-weight: 700; }
+.os-cap:disabled { color: #bbb; border-color: #eee; text-decoration: line-through; cursor: not-allowed; }
+.os-total { border-top: 1px solid var(--os-line); padding-top: 14px; }
+.os-total-label { display: flex; justify-content: space-between; align-items: baseline; font-size: 13px; color: var(--os-grey); }
+.os-total-label em { color: var(--os-grey-2); font-style: normal; }
+.os-total-price { text-align: right; font-size: 22px; font-weight: 700; color: var(--os-text); margin: 2px 0 12px; letter-spacing: -0.03em; }
+.os-total-price small { font-size: 14px; font-weight: 500; }
+.os-rows { background: var(--os-bg); border-radius: 10px; padding: 12px 14px; font-size: 13px; color: var(--os-sub); }
+.os-row { display: flex; justify-content: space-between; gap: 8px; line-height: 1.9; }
+.os-row b { color: var(--os-text); font-weight: 700; }
+.os-row .pink { color: var(--os-pink); font-weight: 700; }
+.os-row s { color: var(--os-grey-2); margin-right: 4px; }
+.os-row.sep { border-top: 1px dashed var(--os-line-2); margin-top: 6px; padding-top: 6px; }
+.os-row .tag { font-size: 11px; font-weight: 700; color: var(--os-pink); border: 1px solid var(--os-pink); border-radius: 3px; padding: 0 4px; margin-left: 4px; line-height: 16px; display: inline-block; vertical-align: 1px; }
+.os-card-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 14px; }
+.os-card-btns .os-btn { height: 36px; font-size: 14px; padding: 0; }
+.os-pre-box { background: var(--os-bg); border-radius: 10px; padding: 14px; font-size: 13px; color: var(--os-sub); line-height: 1.7; }
+.os-pre-box b { color: var(--os-pink); }
+.os-disclaimer { margin-top: 28px; font-size: 13px; color: var(--os-grey); line-height: 1.8; background: var(--os-bg); border-radius: 12px; padding: 18px 20px; }
+.os-disclaimer li { list-style: none; position: relative; padding-left: 10px; }
+.os-disclaimer li::before { content: ''; position: absolute; left: 0; top: 11px; width: 3px; height: 3px; background: var(--os-grey); border-radius: 50%; }
+
+/* ===================== 상세 견적 (공식 상품 상세 구조) ===================== */
+.os-pd { position: fixed; inset: 0; z-index: 3000; background: rgba(0,0,0,.5); display: none; }
+.os-pd.open { display: block; }
+.os-pd-panel { position: absolute; inset: 24px; max-width: 1280px; margin: 0 auto; background: #fff; border-radius: 20px; overflow: hidden; display: flex; flex-direction: column; }
+.os-pd-top { display: flex; align-items: center; justify-content: space-between; height: 60px; padding: 0 28px; border-bottom: 1px solid var(--os-line); flex-shrink: 0; }
+.os-pd-top strong { font-size: 16px; font-weight: 700; }
+.os-pd-close { width: 40px; height: 40px; border: 0; background: none; cursor: pointer; position: relative; margin-right: -8px; }
+.os-pd-close::before, .os-pd-close::after { content: ''; position: absolute; left: 10px; top: 19px; width: 20px; height: 2px; background: var(--os-text); transform: rotate(45deg); }
+.os-pd-close::after { transform: rotate(-45deg); }
+.os-pd-body { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+.os-pd-grid { display: grid; grid-template-columns: 1fr 400px; gap: 48px; padding: 32px 40px 48px; align-items: start; }
+.os-pd-prod { display: grid; grid-template-columns: 260px 1fr; gap: 32px; align-items: center; padding-bottom: 32px; border-bottom: 1px solid var(--os-line); }
+.os-pd-prod-img { background: var(--os-bg); border-radius: 16px; height: 300px; display: flex; align-items: center; justify-content: center; }
+.os-pd-prod-img img { max-height: 86%; max-width: 86%; object-fit: contain; }
+.os-pd-name { font-size: 28px; font-weight: 700; letter-spacing: -0.04em; margin: 8px 0 4px; }
+.os-pd-code { font-size: 13px; color: var(--os-grey-2); margin-bottom: 20px; }
+.os-pd-label { font-size: 14px; font-weight: 700; margin-bottom: 8px; }
+.os-step { padding: 32px 0; border-bottom: 1px solid var(--os-line); }
+.os-step:last-child { border-bottom: 0; }
+.os-step h3 { font-size: 20px; font-weight: 700; margin-bottom: 16px; letter-spacing: -0.03em; }
+.os-step h3 small { font-size: 13px; font-weight: 500; color: var(--os-grey); margin-left: 8px; }
+.os-choice { display: grid; gap: 10px; }
+.os-choice.c3 { grid-template-columns: repeat(3, 1fr); }
+.os-choice.c2 { grid-template-columns: repeat(2, 1fr); }
+.os-choice.c4 { grid-template-columns: repeat(4, 1fr); }
+.os-opt { position: relative; text-align: left; border: 1px solid var(--os-line-2); border-radius: 12px; background: #fff; padding: 16px; font-family: inherit; color: var(--os-text); cursor: pointer; transition: border-color .15s; }
+.os-opt:hover { border-color: #9aa3ab; }
+.os-opt.on { border: 2px solid var(--os-pink-2); padding: 15px; }
+.os-opt:disabled { opacity: .45; cursor: not-allowed; }
+.os-opt-t { display: block; font-size: 16px; font-weight: 700; }
+.os-opt-d { display: block; font-size: 13px; color: var(--os-grey); margin-top: 4px; line-height: 1.5; }
+.os-opt-v { display: block; font-size: 15px; font-weight: 700; margin-top: 10px; }
+.os-opt-v.pink { color: var(--os-pink); }
+.os-opt .best { position: absolute; top: -10px; right: 12px; background: var(--os-pink); color: #fff; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 10px; }
+.os-plan-more { margin-top: 12px; }
+.os-plan-note { font-size: 13px; color: var(--os-grey); margin-top: 10px; line-height: 1.6; }
+.os-plan-note b { color: var(--os-pink); }
+.os-dc-rows { margin-top: 12px; padding-top: 12px; border-top: 1px dashed var(--os-line-2); font-size: 13px; color: var(--os-sub); }
+.os-dc-rows div { display: flex; justify-content: space-between; line-height: 1.9; }
+.os-dc-rows b { color: var(--os-text); }
+.os-diff { margin-top: 12px; font-size: 14px; background: var(--os-pink-bg); color: var(--os-text); border-radius: 10px; padding: 12px 14px; line-height: 1.6; }
+.os-diff b { color: var(--os-pink); }
+.os-inst { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
+.os-inst .os-opt { text-align: center; padding: 12px 6px; }
+.os-inst .os-opt.on { padding: 11px 5px; }
+.os-inst .os-opt-t { font-size: 15px; }
+.os-inst .os-opt-d { font-size: 12px; }
+
+/* 우측 요약 */
+.os-sum { position: sticky; top: 0; border: 1px solid var(--os-line); border-radius: 16px; padding: 24px; background: #fff; }
+.os-sum-head { display: flex; justify-content: space-between; align-items: baseline; padding-bottom: 18px; border-bottom: 1px solid var(--os-text); }
+.os-sum-head span { font-size: 15px; font-weight: 700; }
+.os-sum-head strong { font-size: 30px; font-weight: 700; color: var(--os-pink); letter-spacing: -0.04em; }
+.os-sum-head strong small { font-size: 16px; font-weight: 500; color: var(--os-text); }
+.os-sum-sec { padding: 16px 0; border-bottom: 1px solid var(--os-line); }
+.os-sum-sec h4 { display: flex; justify-content: space-between; font-size: 15px; font-weight: 700; margin-bottom: 8px; }
+.os-sum-row { display: flex; justify-content: space-between; gap: 10px; font-size: 13px; color: var(--os-grey); line-height: 2; }
+.os-sum-row b { color: var(--os-sub); font-weight: 500; white-space: nowrap; }
+.os-sum-row b.pink { color: var(--os-pink); font-weight: 700; }
+.os-sum-row b.strong { color: var(--os-text); font-weight: 700; }
+.os-sum-terms { display: flex; flex-wrap: wrap; gap: 6px; padding: 14px 0 4px; }
+.os-sum-terms span { font-size: 12px; background: var(--os-bg); color: var(--os-sub); padding: 4px 8px; border-radius: 4px; }
+.os-sum-src { font-size: 12px; color: var(--os-grey-2); line-height: 1.6; margin-top: 10px; }
+.os-sum-btns { display: grid; grid-template-columns: 1fr 1.6fr; gap: 8px; margin-top: 16px; }
+.os-sum-btns .os-btn { height: 52px; font-size: 16px; }
+.os-mbar { display: none; }
+.os-copied { position: fixed; left: 50%; bottom: 100px; transform: translateX(-50%); background: rgba(24,26,27,.92); color: #fff; font-size: 14px; padding: 12px 18px; border-radius: 10px; z-index: 4000; opacity: 0; pointer-events: none; transition: opacity .2s; text-align: center; line-height: 1.5; }
+.os-copied.show { opacity: 1; }
+
+/* 반응형 */
+@media (max-width: 1180px) {
+    .os-grid { grid-template-columns: repeat(2, 1fr); }
+    .os-pd-grid { grid-template-columns: 1fr 360px; gap: 32px; padding: 28px; }
+    .os-gnb { gap: 22px; }
+    .os-gnb a { font-size: 16px; }
+}
+@media (max-width: 960px) {
+    .os-inner { padding: 0 20px; }
+    .os-util { display: none; }
+    .os-header .os-inner { height: 56px; gap: 12px; }
+    .os-logo img { height: 22px; }
+    .os-logo strong { font-size: 16px; }
+    .os-gnb { position: absolute; left: 0; right: 0; top: 56px; background: #fff; border-bottom: 1px solid var(--os-line); padding: 0 20px; overflow-x: auto; gap: 20px; scrollbar-width: none; }
+    .os-gnb::-webkit-scrollbar { display: none; }
+    .os-gnb a { font-size: 14px; padding: 11px 0; }
+    .os-header { margin-bottom: 42px; }
+    .os-head-btns { margin-left: auto; }
+    .os-head-btns .os-btn { height: 32px; padding: 0 10px; font-size: 12px; border-radius: 6px; }
+    .os-shop { padding: 32px 0 56px; scroll-margin-top: 100px; }
+    .os-page-head { flex-direction: column; align-items: flex-start; gap: 6px; }
+    .os-page-head h2 { font-size: 26px; }
+    .os-page-head p { text-align: left; }
+    .os-maker { margin-bottom: 0; }
+    .os-maker button { font-size: 16px; padding-bottom: 12px; }
+    .os-layout { grid-template-columns: 1fr; gap: 0; }
+    .os-filter { position: sticky; top: 98px; z-index: 50; background: #fff; margin: 0 -20px; padding: 12px 20px; border-bottom: 1px solid var(--os-line); display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .os-fgroup { padding: 0; border: 0; }
+    .os-fgroup h3, .os-fnote, .os-fgroup.os-f-dc h3 { display: none; }
+    .os-f-type { grid-column: 1 / -1; }
+    .os-f-type .os-radios { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid var(--os-line-2); border-radius: 8px; overflow: hidden; }
+    .os-f-type .os-radio { justify-content: center; padding: 0; height: 38px; font-size: 14px; border-left: 1px solid var(--os-line-2); }
+    .os-f-type .os-radio:first-child { border-left: 0; }
+    .os-f-type .os-radio input { display: none; }
+    .os-f-type .os-radio:has(input:checked) { background: var(--os-text); }
+    .os-f-type .os-radio:has(input:checked) span { color: #fff; }
+    .os-select { height: 38px; font-size: 13px; }
+    .os-f-dc .os-radios { display: none; }
+    .os-f-dc .os-select-m { display: block !important; }
+    .os-list-head { margin: 16px 0 12px; flex-direction: column; align-items: flex-start; gap: 4px; }
+    .os-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+    .os-card { padding: 14px; border-radius: 12px; }
+    .os-card-img { height: 140px; }
+    .os-card-name { font-size: 15px; }
+    .os-caps { margin: 8px 0 10px; }
+    .os-cap { height: 24px; padding: 0 7px; font-size: 11px; }
+    .os-total-price { font-size: 18px; margin-bottom: 8px; }
+    .os-rows { padding: 10px; font-size: 12px; }
+    .os-row { line-height: 1.75; }
+    .os-row .tag { display: none; }
+    .os-card-btns { grid-template-columns: 1fr; }
+    .os-card-btns .os-btn-line { display: none; }
+
+    .os-pd-panel { inset: 0; border-radius: 0; }
+    .os-pd-top { height: 52px; padding: 0 16px; }
+    .os-pd-grid { grid-template-columns: 1fr; gap: 0; padding: 0 20px 120px; }
+    .os-pd-prod { grid-template-columns: 1fr; gap: 12px; padding: 16px 0 24px; }
+    .os-pd-prod-img { height: 220px; }
+    .os-pd-name { font-size: 22px; }
+    .os-pd-code { margin-bottom: 14px; }
+    .os-step { padding: 24px 0; }
+    .os-step h3 { font-size: 17px; }
+    .os-step h3 small { display: block; margin: 4px 0 0; }
+    .os-choice.c3 { grid-template-columns: 1fr; }
+    .os-choice.c4 { grid-template-columns: 1fr 1fr; }
+    .os-opt { padding: 14px; }
+    .os-opt.on { padding: 13px; }
+    .os-opt-t { font-size: 15px; }
+    .os-inst { grid-template-columns: repeat(3, 1fr); }
+    .os-sum { position: static; margin-top: 8px; padding: 20px; }
+    .os-sum-btns { display: none; }
+    .os-mbar { display: flex; position: absolute; left: 0; right: 0; bottom: 0; background: #fff; border-top: 1px solid var(--os-line); padding: 10px 16px calc(10px + env(safe-area-inset-bottom)); gap: 10px; align-items: center; box-shadow: 0 -4px 16px rgba(0,0,0,.06); }
+    .os-mbar-price { flex: 1; min-width: 0; }
+    .os-mbar-price span { display: block; font-size: 12px; color: var(--os-grey); }
+    .os-mbar-price strong { font-size: 20px; color: var(--os-pink); font-weight: 700; }
+    .os-mbar .os-btn { height: 48px; font-size: 15px; }
+    .os-mbar .os-btn-line { width: 48px; padding: 0; }
+}
+@media (max-width: 380px) {
+    .os-grid { grid-template-columns: 1fr; }
+    .os-head-btns .os-btn-line { display: none; }
+}
+.os-select-m { display: none !important; }
+.os-pre-box strong, .os-pre-box span { display: block; }
+.os-pre-box span { margin-top: 2px; }
+
+/* 필수 안내 강조 (10/15 팀장님) */
+.os-notice { background: #fff0f6; border: 1.5px solid var(--os-pink); border-radius: 12px; padding: 14px 18px; margin: 0 0 20px; }
+.os-notice p { display: flex; gap: 10px; align-items: flex-start; font-size: 15px; line-height: 1.55; color: var(--os-text); font-weight: 500; }
+.os-notice p + p { margin-top: 8px; }
+.os-notice i { flex: none; width: 20px; height: 20px; margin-top: 2px; border-radius: 50%; background: var(--os-pink); color: #fff; font-style: normal; font-size: 13px; font-weight: 800; display: flex; align-items: center; justify-content: center; }
+.os-notice b { color: var(--os-pink); font-weight: 800; }
+@media (max-width: 768px) { .os-notice { padding: 12px 14px; margin: 14px 0 16px; } .os-notice p { font-size: 14px; } }
+
     </style>
 
     <script>
@@ -1776,18 +2050,32 @@
     src="https://www.facebook.com/tr?id=1703870407072402&ev=PageView&noscript=1"
     /></noscript>
     </head>
-<body>
+<body class="os-body">
+<div class="os-util">
+<div class="os-inner">
+<span>LG U+ 공식인증 대리점 <b>더끌림컴퍼니</b> · 서울·경기 24개 매장 · 전국 택배 개통</span>
+<span><a href="#stores">매장 찾기</a><a href="#faq">자주 묻는 질문</a><a href="tel:070-4007-7776">상담 070-4007-7776</a></span>
+</div>
+</div>
+<header class="os-header">
+<div class="os-inner">
+<a href="./" class="os-logo"><img src="cert_mark.png" alt="LG유플러스 공식인증 대리점 U+핫딜센터"><strong>U+<i>핫딜</i>센터</strong></a>
+<nav class="os-gnb">
+<a href="#phones" class="on">휴대폰</a>
+<a href="earlybird/ipduo/">아이폰 듀오 사전예약</a>
+<a href="#internet">인터넷·IPTV</a>
+<a href="#delivery">택배 개통</a>
+<a href="#stores">매장 찾기</a>
+<a href="#faq">자주 묻는 질문</a>
+<a href="https://hotdealcenter.co.kr/" target="_blank">액세서리</a>
+</nav>
+<div class="os-head-btns">
+<a href="tel:070-4007-7776" class="os-btn os-btn-line">전화 상담</a>
+<a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="os-btn os-btn-kakao" onclick="fbq('trackCustom', 'KakaoClick');">카톡 상담</a>
+</div>
+</div>
+</header>
 
-    <header class="sticky-header">
-        <div class="header-logo">
-            <img src="cert_mark.png" alt="LG유플러스 공식인증 온라인 스토어 로고" class="logo-img">
-            <span class="logo-sub">| U+ 공식인증 온라인 스토어</span>
-        </div>
-        <div class="header-btns">
-            <a href="http://pf.kakao.com/_xlyGxin/chat" class="btn-top-kakao" target="_blank" onclick=\"fbq('trackCustom', 'KakaoClick');\">1:1 실시간 상담</a>
-            <a href="tel:070-4007-7776" class="btn-top-reg">전화 상담</a>
-        </div>
-    </header>
     <section class="ip18-hero">
         <a class="ip18-hero-link" href="earlybird/ipduo/">
             <picture class="ip18-photo">
@@ -1806,454 +2094,141 @@
             <a href="earlybird/ipduo/#apply" class="eb-btn">얼리버드 신청하기 →</a>
         </div>
     </div>
+<section id="phones" class="os-shop">
+<div class="os-inner">
+<div class="os-page-head">
+<h2>휴대폰</h2>
+<p>공시지원금은 LG U+ 공식 온라인샵 공시 금액을 그대로 반영합니다<br><span class="os-sync" id="osSync"><i></i>공시지원금 불러오는 중</span></p>
+</div>
+<div class="os-maker" role="tablist">
+<button type="button" class="on" data-maker="all">전체</button>
+<button type="button" data-maker="samsung">삼성</button>
+<button type="button" data-maker="apple">애플</button>
+</div>
+<div class="os-layout">
+<aside class="os-filter" aria-label="가격 조건">
+<div class="os-fgroup os-f-type">
+<h3>가입 유형</h3>
+<div class="os-radios">
+<label class="os-radio"><input type="radio" name="osType" value="1"><span>기기변경</span></label>
+<label class="os-radio"><input type="radio" name="osType" value="2" checked><span>번호이동</span></label>
+<label class="os-radio"><input type="radio" name="osType" value="3"><span>신규가입</span></label>
+</div>
+</div>
+<div class="os-fgroup os-f-plan">
+<h3>요금제</h3>
+<select class="os-select" id="osPlan" aria-label="요금제"></select>
+</div>
+<div class="os-fgroup os-f-dc">
+<h3>할인 유형</h3>
+<div class="os-radios">
+<label class="os-radio"><input type="radio" name="osDc" value="sub" checked><span>공시지원금</span></label>
+<label class="os-radio"><input type="radio" name="osDc" value="sel"><span>선택약정 25%</span></label>
+</div>
+<select class="os-select os-select-m" id="osDcM" aria-label="할인 유형">
+<option value="sub">공시지원금</option>
+<option value="sel">선택약정 25%</option>
+</select>
+</div>
+</aside>
+<div class="os-list">
+<div class="os-list-head">
+<span>총 <b id="osCount">0</b>개</span>
+<span class="os-cond" id="osCond"></span>
+</div>
+<div class="os-notice">
+<p><i>!</i><span>대리점 추가지원금은 <b>월 85,000원 이상 요금제</b>, <b>6개월 유지</b> 조건에 적용됩니다.</span></p>
+<p><i>!</i><span>월 납부금액은 <b>할부 24개월(연 5.9%) 기준</b>입니다. <b>상품을 누르면</b> 할부 개월·요금제를 바꿔 비교할 수 있습니다.</span></p>
+</div>
+<div class="os-grid" id="osGrid"></div>
+<ul class="os-disclaimer">
+<li>공시지원금: LG U+ 공식 온라인샵에 공시된 금액을 실시간으로 불러옵니다. 공시 변경 시 자동으로 바뀝니다.</li>
+<li>대리점 추가지원금: U+핫딜센터(더끌림컴퍼니) 자체 지원금으로, 공시지원금·선택약정 어느 쪽을 고르셔도 함께 적용됩니다.</li>
+<li>월 납부금액 = 휴대폰 할부금(연 5.9% 할부수수료 포함) + 요금제 월정액 − 선택약정 할인. 부가서비스·제휴카드·중고폰 반납 조건은 없습니다.</li>
+<li>재고·색상은 매장마다 다를 수 있어 상담 시 최종 확인해 드립니다.</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
 
-    <div class="quick-menu-wrap">
-        <div class="quick-menu-grid">
-            <a href="#foldable" class="quick-menu-item">
-                <div class="quick-menu-icon">🌟</div>
-                <span class="quick-menu-text">폴드8·플립8</span>
-            </a>
-            <a href="#phones" class="quick-menu-item">
-                <div class="quick-menu-icon">📱</div>
-                <span class="quick-menu-text">특가 단말기</span>
-            </a>
-            <a href="#internet" class="quick-menu-item">
-                <div class="quick-menu-icon">📺</div>
-                <span class="quick-menu-text">인터넷/TV</span>
-            </a>
-            <a href="#delivery" class="quick-menu-item">
-                <div class="quick-menu-icon">📦</div>
-                <span class="quick-menu-text">전국 택배</span>
-            </a>
-            <a href="#stores" class="quick-menu-item">
-                <div class="quick-menu-icon">🏬</div>
-                <span class="quick-menu-text">매장 찾기</span>
-            </a>
-            <a href="https://hotdealcenter.co.kr/" target="_blank" class="quick-menu-item">
-                <div class="quick-menu-icon">🎧</div>
-                <span class="quick-menu-text">악세사리 특가</span>
-            </a>
-        </div>
-    </div>
+<div class="os-pd" id="osPd" aria-hidden="true">
+<div class="os-pd-panel" role="dialog" aria-modal="true" aria-labelledby="osPdName">
+<div class="os-pd-top"><strong>견적 비교</strong><button type="button" class="os-pd-close" aria-label="닫기" data-close></button></div>
+<div class="os-pd-body">
+<div class="os-pd-grid">
+<div class="os-pd-main">
+<div class="os-pd-prod">
+<div class="os-pd-prod-img"><img id="osPdImg" alt=""></div>
+<div>
+<div class="os-badges" id="osPdBadges"></div>
+<h2 class="os-pd-name" id="osPdName"></h2>
+<p class="os-pd-code" id="osPdCode"></p>
+<p class="os-pd-label">용량 선택</p>
+<div class="os-caps" id="osPdCaps"></div>
+</div>
+</div>
 
-    <section id="phones" class="product-section">
-        <div class="price-switch-bar">
-            <div class="psb-pill">
-                <span class="psb-label">가격 조건</span>
-                <div class="pb-seg" data-key="type" role="group" aria-label="가입 유형">
-                    <button type="button" data-val="번호이동" aria-pressed="true">번호이동</button>
-                    <button type="button" data-val="기기변경" aria-pressed="false">기기변경</button>
-                </div>
-                <i class="psb-div" aria-hidden="true"></i>
-                <div class="pb-seg" data-key="plan" role="group" aria-label="요금제">
-                    <button type="button" data-val="85" aria-pressed="true">85요금제</button>
-                    <button type="button" data-val="115" aria-pressed="false">115요금제</button>
-                </div>
-            </div>
-        </div>
+<div class="os-step">
+<h3>가입 유형을 선택해 주세요</h3>
+<div class="os-choice c3" id="osPdType">
+<button type="button" class="os-opt" data-v="1"><span class="os-opt-t">기기변경</span><span class="os-opt-d">U+에서 쓰던 번호로 휴대폰만 바꿀게요</span></button>
+<button type="button" class="os-opt" data-v="2"><span class="os-opt-t">번호이동</span><span class="os-opt-d">쓰던 번호 그대로 U+로 옮길게요</span></button>
+<button type="button" class="os-opt" data-v="3"><span class="os-opt-t">신규가입</span><span class="os-opt-d">새로운 번호로 U+에 가입할게요</span></button>
+</div>
+</div>
 
-        <div class="price-basis">
-            <div class="pb-head">
-                <span class="pb-live"><i></i>실시간 시세</span>
-                <span class="pb-date" id="pbDate">오늘 시세 최종 확인</span>
-            </div>
-            <div class="pb-compare">
-                <div class="pb-compare-head">
-                    <strong>조건별 가격 비교</strong>
-                    <span>누르면 아래 모든 휴대폰 가격이 바로 바뀝니다</span>
-                </div>
-                <div class="pb-compare-segs">
-                    <div class="pb-seg pb-seg-lg" data-key="type" role="group" aria-label="가입 유형">
-                        <button type="button" data-val="번호이동" aria-pressed="true">번호이동<small>타 통신사 → LG U+</small></button>
-                        <button type="button" data-val="기기변경" aria-pressed="false">기기변경<small>LG U+ 그대로 사용</small></button>
-                    </div>
-                    <div class="pb-seg pb-seg-lg" data-key="plan" role="group" aria-label="요금제">
-                        <button type="button" data-val="85" aria-pressed="true">85요금제<small>월 85,000원</small></button>
-                        <button type="button" data-val="115" aria-pressed="false">115요금제<small>월 115,000원</small></button>
-                    </div>
-                </div>
-            </div>
-            <p class="pb-desc">
-                아래 표기된 모든 가격은 <b>LGU+ <span class="pb-type">번호이동</span> / <span class="pb-plan">85요금제</span> 6개월 유지</b> 조건입니다.
-                통신사 정책이 변경되면 즉시 반영하며, 이 외에 추가로 요구하는 조건은 없습니다.
-            </p>
-            <ul class="pb-chips">
-                <li>부가서비스 가입 없음</li>
-                <li>제휴카드 결합 없음</li>
-                <li>중고폰 반납 없음</li>
-                </ul>
-        </div>
-        <script>
-        (function(){
-            var el = document.getElementById('pbDate');
-            if(!el) return;
-            /* 접속자 시간대와 무관하게 한국 날짜 기준 */
-            var kst = new Date(Date.now() + (new Date().getTimezoneOffset() * 60000) + 9 * 3600000);
-            el.textContent = kst.getFullYear() + '년 ' + (kst.getMonth() + 1) + '월 ' + kst.getDate() + '일 시세 최종 확인';
-        })();
-        </script>
+<div class="os-step">
+<h3>요금제를 선택해 주세요<small>요금제마다 공시지원금이 달라집니다</small></h3>
+<div class="os-choice c4" id="osPdPlans"></div>
+<div class="os-plan-more"><select class="os-select" id="osPdPlanAll" aria-label="다른 요금제 고르기"></select></div>
+<p class="os-plan-note" id="osPdPlanNote"></p>
+</div>
 
-        <div class="category-wrap" id="ipduo">
-            <h2 class="category-title">LGU+ 공식 사전예약 <span class="text-lgu-pink">&lt;아이폰 듀오&gt;</span></h2>
+<div class="os-step">
+<h3>할인 방법을 선택해 주세요<small>둘 중 하나만 받을 수 있어요</small></h3>
+<div class="os-choice c2" id="osPdDc"></div>
+<div class="os-diff" id="osPdDiff"></div>
+</div>
 
-            <div class="product-grid grid-single">
-                <div class="product-card">
-                    <div class="preorder-badge">사전예약</div>
-                    <div class="product-img-wrap"><img src="ipduo.png" alt="아이폰 듀오 사전예약 스타 화이트 나이트 스카이 LG유플러스 공식인증 대리점" class="product-img" loading="lazy"></div>
-                    <div class="product-info-box">
-                        <h3 class="product-name">iPhone Duo</h3>
-                        <div class="capacity-tabs">
-                            <button type="button" class="cap-btn active" data-retail="미정" data-carrier="미정" data-agency="500,000" data-final="미정">256GB</button>
-                            <button type="button" class="cap-btn" data-retail="미정" data-carrier="미정" data-agency="500,000" data-final="미정">512GB</button>
-                            <button type="button" class="cap-btn" data-retail="미정" data-carrier="미정" data-agency="500,000" data-final="미정">1TB</button>
-                            <button type="button" class="cap-btn" data-retail="미정" data-carrier="미정" data-agency="500,000" data-final="미정">2TB</button>
-                        </div>
-                        <div class="price-details">
-                            <div class="price-row"><span>출고가</span><span class="value" data-f="retail">미정</span></div>
-                            <div class="price-row"><span>이통사 지원금</span><span class="value" data-f="carrier">미정</span></div>
-                            <div class="price-row"><span>대리점 지원금</span><span class="value" data-f="agency">- 500,000 원</span></div>
-                            <div class="price-row total"><span>할부원금</span><span class="value" data-f="final">미정</span></div>
-                        </div>
-                        <p class="price-condition has-terms">(LGU+ 통신사 이동 / 85요금제 6개월 유지 조건)</p>
-                        <ul class="deal-terms"><li>부가서비스 없음</li><li>카드결합 없음</li><li>중고반납 없음</li></ul>
-                        <p class="ip18-note">사전예약 <b>10월 16일(금) 밤 9시</b> 시작 · 10월 23일 출시<br>색상 스타 화이트 / 나이트 스카이</p>
-                        <a href="earlybird/ipduo/#apply" class="btn-product-voucher">얼리버드 사전예약 신청</a>
-                    </div>
-                </div>
-            </div>
+<div class="os-step">
+<h3 id="osPdInstTitle">휴대폰 할부를 몇 개월로 할까요?</h3>
+<div class="os-inst" id="osPdInst"></div>
+</div>
+</div>
 
-            <div class="ip18-foot">
-                <p>&#8251; 아이폰 듀오 출고가와 이통사 지원금은 LG U+ 발표 전이라 <b>미정</b>입니다. 대리점 지원금은 <b>번호이동 85요금제 50만원 · 115요금제 55만원</b>, 기기변경 85요금제 30만원 · 115요금제 35만원이며, 출고가가 나오면 할부원금을 바로 반영합니다. <a href="earlybird/ipduo/" style="color:#E6007E; font-weight:700;">사전예약 일정·가격·사양 자세히 보기</a></p>
-            </div>
-        </div>
-
-        <div class="category-wrap" id="ip18">
-            <h2 class="category-title">LGU+ 공식 휴대폰 특가 <span class="text-lgu-pink">&lt;아이폰18&gt;</span></h2>
-
-
-            <div class="product-grid">
-                <div class="product-card">
-                    <div class="product-img-wrap"><img src="ip18pro.png" alt="아이폰18 프로 가격 출고가 할부원금 번호이동 LG유플러스 공식인증 대리점" class="product-img" loading="lazy"></div>
-                    <div class="product-info-box">
-                        <h3 class="product-name">iPhone 18 Pro</h3>
-                        <div class="capacity-tabs">
-                            <button type="button" class="cap-btn active" data-retail="1,991,000" data-carrier="300,000" data-agency="450,000" data-final="1,241,000">256GB</button>
-                            <button type="button" class="cap-btn" data-retail="2,299,000" data-carrier="300,000" data-agency="450,000" data-final="1,549,000">512GB</button>
-                            <button type="button" class="cap-btn" data-retail="2,893,000" data-carrier="300,000" data-agency="450,000" data-final="2,143,000">1TB</button>
-                            <button type="button" class="cap-btn" data-retail="3,795,000" data-carrier="300,000" data-agency="450,000" data-final="3,045,000">2TB</button>
-                        </div>
-                        <div class="price-details">
-                            <div class="price-row"><span>출고가</span><span class="value" data-f="retail">1,991,000 원</span></div>
-                            <div class="price-row"><span>이통사 지원금</span><span class="value" data-f="carrier">- 300,000 원</span></div>
-                            <div class="price-row"><span>대리점 지원금</span><span class="value" data-f="agency">- 450,000 원</span></div>
-                            <div class="price-row total"><span>할부원금</span><span class="value" data-f="final">1,241,000 원</span></div>
-                        </div>
-                        <p class="price-condition has-terms">(LGU+ 통신사 이동 / 85요금제 6개월 유지 조건)</p>
-                        <ul class="deal-terms"><li>부가서비스 없음</li><li>카드결합 없음</li><li>중고반납 없음</li></ul>
-                        <p class="ip18-note">이통사 지원금 대신 <b>선택약정 25&#37; 요금할인</b> 선택 가능 (중복 불가)</p>
-                        <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="btn-product-voucher" onclick=\"fbq('trackCustom', 'KakaoClick');\">이 특가로 상담 받기</a>
-                    </div>
-                </div>
-                <div class="product-card">
-                    <div class="product-img-wrap"><img src="ip18pm.png" alt="아이폰18 프로맥스 가격 출고가 할부원금 번호이동 LG유플러스 공식인증 대리점" class="product-img" loading="lazy"></div>
-                    <div class="product-info-box">
-                        <h3 class="product-name">iPhone 18 Pro Max</h3>
-                        <div class="capacity-tabs">
-                            <button type="button" class="cap-btn active" data-retail="2,200,000" data-carrier="151,000" data-agency="450,000" data-final="1,599,000">256GB</button>
-                            <button type="button" class="cap-btn" data-retail="2,497,000" data-carrier="151,000" data-agency="450,000" data-final="1,896,000">512GB</button>
-                            <button type="button" class="cap-btn" data-retail="3,091,000" data-carrier="151,000" data-agency="450,000" data-final="2,490,000">1TB</button>
-                            <button type="button" class="cap-btn" data-retail="3,993,000" data-carrier="151,000" data-agency="450,000" data-final="3,392,000">2TB</button>
-                        </div>
-                        <div class="price-details">
-                            <div class="price-row"><span>출고가</span><span class="value" data-f="retail">2,200,000 원</span></div>
-                            <div class="price-row"><span>이통사 지원금</span><span class="value" data-f="carrier">- 151,000 원</span></div>
-                            <div class="price-row"><span>대리점 지원금</span><span class="value" data-f="agency">- 450,000 원</span></div>
-                            <div class="price-row total"><span>할부원금</span><span class="value" data-f="final">1,599,000 원</span></div>
-                        </div>
-                        <p class="price-condition has-terms">(LGU+ 통신사 이동 / 85요금제 6개월 유지 조건)</p>
-                        <ul class="deal-terms"><li>부가서비스 없음</li><li>카드결합 없음</li><li>중고반납 없음</li></ul>
-                        <p class="ip18-note">이통사 지원금 대신 <b>선택약정 25&#37; 요금할인</b> 선택 가능 (중복 불가)</p>
-                        <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="btn-product-voucher" onclick=\"fbq('trackCustom', 'KakaoClick');\">이 특가로 상담 받기</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="ip18-foot">
-                <p>&#8251; 아이폰18 표기 단가는 <b>LGU+ <span class="ip18-foot-type">통신사 이동</span> &middot; <span class="pb-plan">85요금제</span> 6개월 유지</b> 기준입니다. 이통사 지원금과 <b>선택약정 25&#37; 요금할인</b>은 중복 적용되지 않으므로, 상담 시 두 가지를 모두 계산해 유리한 쪽으로 안내해 드립니다.</p>
-            </div>
-        </div>
-
-        <div class="category-wrap" id="foldable">
-            <h2 class="category-title">LGU+ 공식 휴대폰 특가 <span class="text-samsung-blue">&lt;갤럭시 Z 폴드8·플립8&gt;</span></h2>
-            <div class="product-grid">
-
-                <div class="product-card">
-                    <div class="product-img-wrap"><img src="zflip8.png" alt="갤럭시 Z 플립8 가격 번호이동 기기변경 특가 유플러스 핫딜센터 더끌림컴퍼니" class="product-img"></div>
-                    <div class="product-info-box">
-                        <h3 class="product-name">갤럭시 Z 플립8</h3>
-                        <div class="capacity-tabs">
-                            <button type="button" class="cap-btn active" data-retail="1,683,000" data-carrier="500,000" data-agency="500,000" data-final="683,000">256GB</button>
-                            <button type="button" class="cap-btn" data-retail="1,936,000" data-carrier="500,000" data-agency="600,000" data-final="836,000">512GB</button>
-                        </div>
-                        <div class="price-details">
-                            <div class="price-row"><span>출고가</span><span class="value" data-f="retail">1,683,000 원</span></div>
-                            <div class="price-row"><span>이통사 지원금</span><span class="value" data-f="carrier">- 500,000 원</span></div>
-                            <div class="price-row"><span>대리점 지원금</span><span class="value" data-f="agency">- 500,000 원</span></div>
-                            <div class="price-row total"><span>할부원금</span><span class="value" data-f="final">683,000 원</span></div>
-                        </div>
-                        <p class="price-condition has-terms">(LGU+ 통신사 이동 / 85요금제 6개월 유지 조건)</p>
-                        <ul class="deal-terms"><li>부가서비스 없음</li><li>카드결합 없음</li><li>중고반납 없음</li></ul>
-                        <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="btn-product-voucher" onclick=\"fbq('trackCustom', 'KakaoClick');\">이 특가로 상담 받기</a>
-                    </div>
-                </div>
-
-                <div class="product-card">
-                    <div class="product-img-wrap"><img src="zfold8wide.png" alt="갤럭시 Z 폴드8 와이드 가격 출고가 번호이동 기기변경 특가 유플러스 핫딜센터" class="product-img"></div>
-                    <div class="product-info-box">
-                        <h3 class="product-name">갤럭시 Z 폴드8 와이드</h3>
-                        <div class="capacity-tabs">
-                            <button type="button" class="cap-btn active" data-retail="2,278,100" data-carrier="500,000" data-agency="600,000" data-final="1,178,100">256GB</button>
-                            <button type="button" class="cap-btn" data-retail="2,531,100" data-carrier="500,000" data-agency="450,000" data-final="1,581,100">512GB</button>
-                            <button type="button" class="cap-btn" data-retail="3,152,600" data-carrier="500,000" data-agency="350,000" data-final="2,302,600">1TB</button>
-                        </div>
-                        <div class="price-details">
-                            <div class="price-row"><span>출고가</span><span class="value" data-f="retail">2,278,100 원</span></div>
-                            <div class="price-row"><span>이통사 지원금</span><span class="value" data-f="carrier">- 500,000 원</span></div>
-                            <div class="price-row"><span>대리점 지원금</span><span class="value" data-f="agency">- 600,000 원</span></div>
-                            <div class="price-row total"><span>할부원금</span><span class="value" data-f="final">1,178,100 원</span></div>
-                        </div>
-                        <p class="price-condition has-terms">(LGU+ 통신사 이동 / 85요금제 6개월 유지 조건)</p>
-                        <ul class="deal-terms"><li>부가서비스 없음</li><li>카드결합 없음</li><li>중고반납 없음</li></ul>
-                        <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="btn-product-voucher" onclick=\"fbq('trackCustom', 'KakaoClick');\">이 특가로 상담 받기</a>
-                    </div>
-                </div>
-
-                <div class="product-card">
-                    <div class="product-img-wrap"><img src="zfold8ultra.png" alt="갤럭시 Z 폴드8 울트라 가격 출고가 번호이동 기기변경 특가 유플러스 핫딜센터" class="product-img"></div>
-                    <div class="product-info-box">
-                        <h3 class="product-name">갤럭시 Z 폴드8 울트라</h3>
-                        <div class="capacity-tabs">
-                            <button type="button" class="cap-btn active" data-retail="2,577,300" data-carrier="500,000" data-agency="500,000" data-final="1,577,300">256GB</button>
-                            <button type="button" class="cap-btn" data-retail="2,830,300" data-carrier="500,000" data-agency="600,000" data-final="1,730,300">512GB</button>
-                            <button type="button" class="cap-btn" data-retail="3,451,800" data-carrier="500,000" data-agency="350,000" data-final="2,601,800">1TB</button>
-                        </div>
-                        <div class="price-details">
-                            <div class="price-row"><span>출고가</span><span class="value" data-f="retail">2,577,300 원</span></div>
-                            <div class="price-row"><span>이통사 지원금</span><span class="value" data-f="carrier">- 500,000 원</span></div>
-                            <div class="price-row"><span>대리점 지원금</span><span class="value" data-f="agency">- 500,000 원</span></div>
-                            <div class="price-row total"><span>할부원금</span><span class="value" data-f="final">1,577,300 원</span></div>
-                        </div>
-                        <p class="price-condition has-terms">(LGU+ 통신사 이동 / 85요금제 6개월 유지 조건)</p>
-                        <ul class="deal-terms"><li>부가서비스 없음</li><li>카드결합 없음</li><li>중고반납 없음</li></ul>
-                        <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="btn-product-voucher" onclick=\"fbq('trackCustom', 'KakaoClick');\">이 특가로 상담 받기</a>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-        <div class="category-wrap">
-            <h2 class="category-title">LGU+ 공식 휴대폰 특가 <span class="text-samsung-blue">&lt;삼성&gt;</span></h2>
-            <div class="product-grid">
-
-<div class="product-card">
-                    <div class="openbox-premium-badge">
-                        <span class="icon">✨</span>
-                        <span>A급 <span class="highlight">단순개봉</span></span>
-                    </div>
-
-                    <div class="product-img-wrap"><img src="flip6.png" alt="갤럭시 Z플립6 휴대폰 성지 좌표 유플러스 공식대리점" class="product-img"></div>
-                    <div class="product-info-box">
-                        <h3 class="product-name">갤럭시 Z 플립6</h3>
-                        <div class="capacity-tabs single">
-                            <button type="button" class="cap-btn active" data-retail="1,485,000" data-carrier="500,000" data-agency="985,000" data-final="0">256GB</button>
-                        </div>
-                        <div class="price-details">
-                            <div class="price-row"><span>출고가</span><span class="value" data-f="retail">1,485,000 원</span></div>
-                            <div class="price-row"><span>이통사 지원금</span><span class="value" data-f="carrier">- 500,000 원</span></div>
-                            <div class="price-row"><span>대리점 지원금</span><span class="value" data-f="agency">- 985,000 원</span></div>
-                            <div class="price-row total"><span>할부원금</span><span class="value" data-f="final">0 원</span></div>
-                        </div>
-                        <p class="price-condition has-terms">(LGU+ 통신사 이동 / 85요금제 6개월 유지 조건 / 단순개봉 새상품)</p>
-                        <ul class="deal-terms"><li>부가서비스 없음</li><li>카드결합 없음</li><li>중고반납 없음</li></ul>
-                        <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="btn-product-voucher" onclick=\"fbq('trackCustom', 'KakaoClick');\">이 특가로 상담 받기</a>
-                    </div>
-                </div>
-
-                <div class="product-card">
-                    <div class="openbox-premium-badge">
-                        <span class="icon">✨</span>
-                        <span>A급 <span class="highlight">단순개봉</span></span>
-                    </div>
-
-                    <div class="product-img-wrap"><img src="fold7.png" alt="갤럭시 Z폴드7 단순개봉 가격 번호이동 유플러스 공식대리점" class="product-img"></div>
-                    <div class="product-info-box">
-                        <h3 class="product-name">갤럭시 Z 폴드7</h3>
-                        <div class="capacity-tabs single">
-                            <button type="button" class="cap-btn active" data-retail="2,379,300" data-carrier="500,000" data-agency="730,000" data-final="1,149,300">256GB</button>
-                        </div>
-                        <div class="price-details">
-                            <div class="price-row"><span>출고가</span><span class="value" data-f="retail">2,379,300 원</span></div>
-                            <div class="price-row"><span>이통사 지원금</span><span class="value" data-f="carrier">- 500,000 원</span></div>
-                            <div class="price-row"><span>대리점 지원금</span><span class="value" data-f="agency">- 730,000 원</span></div>
-                            <div class="price-row total"><span>할부원금</span><span class="value" data-f="final">1,149,300 원</span></div>
-                        </div>
-                        <p class="price-condition has-terms">(LGU+ 통신사 이동 / 85요금제 6개월 유지 조건 / 단순개봉 새상품)</p>
-                        <ul class="deal-terms"><li>부가서비스 없음</li><li>카드결합 없음</li><li>중고반납 없음</li></ul>
-                        <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="btn-product-voucher" onclick=\"fbq('trackCustom', 'KakaoClick');\">이 특가로 상담 받기</a>
-                    </div>
-                </div>
-
-
-                <div class="product-card">
-                    <div class="product-img-wrap"><img src="s25e.png" alt="갤럭시 S25 Edge 핸드폰 성지 스마트폰 가격비교" class="product-img"></div>
-                    <div class="product-info-box">
-                        <h3 class="product-name">갤럭시 S25 Edge</h3>
-                        <div class="capacity-tabs single">
-                            <button type="button" class="cap-btn active" data-retail="1,353,000" data-carrier="700,000" data-agency="653,000" data-final="0">256GB</button>
-                        </div>
-                        <div class="price-details">
-                            <div class="price-row"><span>출고가</span><span class="value" data-f="retail">1,353,000 원</span></div>
-                            <div class="price-row"><span>이통사 지원금</span><span class="value" data-f="carrier">- 700,000 원</span></div>
-                            <div class="price-row"><span>대리점 지원금</span><span class="value" data-f="agency">- 653,000 원</span></div>
-                            <div class="price-row total"><span>할부원금</span><span class="value" data-f="final">0 원</span></div>
-                        </div>
-                        <p class="price-condition has-terms">(LGU+ 통신사 이동 / 85요금제 6개월 유지 조건)</p>
-                        <ul class="deal-terms"><li>부가서비스 없음</li><li>카드결합 없음</li><li>중고반납 없음</li></ul>
-                        <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="btn-product-voucher" onclick=\"fbq('trackCustom', 'KakaoClick');\">이 특가로 상담 받기</a>
-                    </div>
-                </div>
-
-                <div class="product-card">
-                    <div class="product-img-wrap"><img src="s26.png" alt="갤럭시S26 가격 자급제 비교 번호이동 기기변경 유플러스 핫딜센터 삼성폰" class="product-img"></div>
-                    <div class="product-info-box">
-                        <h3 class="product-name">갤럭시 S26</h3>
-                        <div class="capacity-tabs">
-                            <button type="button" class="cap-btn active" data-retail="1,254,000" data-carrier="500,000" data-agency="754,000" data-final="0">256GB</button>
-                            <button type="button" class="cap-btn" data-retail="1,507,000" data-carrier="500,000" data-agency="640,000" data-final="367,000">512GB</button>
-                        </div>
-                        <div class="price-details">
-                            <div class="price-row"><span>출고가</span><span class="value" data-f="retail">1,254,000 원</span></div>
-                            <div class="price-row"><span>이통사 지원금</span><span class="value" data-f="carrier">- 500,000 원</span></div>
-                            <div class="price-row"><span>대리점 지원금</span><span class="value" data-f="agency">- 754,000 원</span></div>
-                            <div class="price-row total"><span>할부원금</span><span class="value" data-f="final">0 원</span></div>
-                        </div>
-                        <p class="price-condition has-terms">(LGU+ 통신사 이동 / 85요금제 6개월 유지 조건)</p>
-                        <ul class="deal-terms"><li>부가서비스 없음</li><li>카드결합 없음</li><li>중고반납 없음</li></ul>
-                        <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="btn-product-voucher" onclick=\"fbq('trackCustom', 'KakaoClick');\">이 특가로 상담 받기</a>
-                    </div>
-                </div>
-
-                <div class="product-card">
-                    <div class="product-img-wrap"><img src="s26p.png" alt="갤럭시S26 플러스 스펙 최신스마트폰 가격 핸드폰 싸게 파는 곳" class="product-img"></div>
-                    <div class="product-info-box">
-                        <h3 class="product-name">갤럭시 S26+</h3>
-                        <div class="capacity-tabs">
-                            <button type="button" class="cap-btn active" data-retail="1,452,000" data-carrier="500,000" data-agency="570,000" data-final="382,000">256GB</button>
-                            <button type="button" class="cap-btn" data-retail="1,705,000" data-carrier="500,000" data-agency="570,000" data-final="635,000">512GB</button>
-                        </div>
-                        <div class="price-details">
-                            <div class="price-row"><span>출고가</span><span class="value" data-f="retail">1,452,000 원</span></div>
-                            <div class="price-row"><span>이통사 지원금</span><span class="value" data-f="carrier">- 500,000 원</span></div>
-                            <div class="price-row"><span>대리점 지원금</span><span class="value" data-f="agency">- 570,000 원</span></div>
-                            <div class="price-row total"><span>할부원금</span><span class="value" data-f="final">382,000 원</span></div>
-                        </div>
-                        <p class="price-condition has-terms">(LGU+ 통신사 이동 / 85요금제 6개월 유지 조건)</p>
-                        <ul class="deal-terms"><li>부가서비스 없음</li><li>카드결합 없음</li><li>중고반납 없음</li></ul>
-                        <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="btn-product-voucher" onclick=\"fbq('trackCustom', 'KakaoClick');\">이 특가로 상담 받기</a>
-                    </div>
-                </div>
-
-                <div class="product-card">
-                    <div class="product-img-wrap"><img src="s26u.png" alt="갤럭시S26 울트라 색상 보조금 디자인 통신사이동 혜택" class="product-img"></div>
-                    <div class="product-info-box">
-                        <h3 class="product-name">갤럭시 S26 Ultra</h3>
-                        <div class="capacity-tabs">
-                            <button type="button" class="cap-btn active" data-retail="1,797,400" data-carrier="500,000" data-agency="570,000" data-final="727,400">256GB</button>
-                            <button type="button" class="cap-btn" data-retail="2,050,400" data-carrier="500,000" data-agency="570,000" data-final="980,400">512GB</button>
-                        </div>
-                        <div class="price-details">
-                            <div class="price-row"><span>출고가</span><span class="value" data-f="retail">1,797,400 원</span></div>
-                            <div class="price-row"><span>이통사 지원금</span><span class="value" data-f="carrier">- 500,000 원</span></div>
-                            <div class="price-row"><span>대리점 지원금</span><span class="value" data-f="agency">- 570,000 원</span></div>
-                            <div class="price-row total"><span>할부원금</span><span class="value" data-f="final">727,400 원</span></div>
-                        </div>
-                        <p class="price-condition has-terms">(LGU+ 통신사 이동 / 85요금제 6개월 유지 조건)</p>
-                        <ul class="deal-terms"><li>부가서비스 없음</li><li>카드결합 없음</li><li>중고반납 없음</li></ul>
-                        <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="btn-product-voucher" onclick=\"fbq('trackCustom', 'KakaoClick');\">이 특가로 상담 받기</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="category-wrap">
-            <h2 class="category-title">LGU+ 공식 휴대폰 특가 <span class="text-lgu-pink">&lt;아이폰&gt;</span></h2>
-
-            <div class="product-grid">
-                <div class="product-card">
-                    <div class="product-img-wrap"><img src="ip17.png" alt="아이폰17 512GB 출시일 가격 자급제 번호이동 성지 유플러스 공식인증대리점" class="product-img"></div>
-                    <div class="product-info-box">
-                        <h3 class="product-name">iPhone 17</h3>
-                        <div class="capacity-tabs">
-                            <button type="button" class="cap-btn active" data-retail="1,452,000" data-carrier="550,000" data-agency="450,000" data-final="452,000">256GB</button>
-                            <button type="button" class="cap-btn" data-retail="1,760,000" data-carrier="550,000" data-agency="450,000" data-final="760,000">512GB</button>
-                        </div>
-                        <div class="price-details">
-                            <div class="price-row"><span>출고가</span><span class="value" data-f="retail">1,452,000 원</span></div>
-                            <div class="price-row"><span>이통사 지원금</span><span class="value" data-f="carrier">- 550,000 원</span></div>
-                            <div class="price-row"><span>대리점 지원금</span><span class="value" data-f="agency">- 450,000 원</span></div>
-                            <div class="price-row total"><span>할부원금</span><span class="value" data-f="final">452,000 원</span></div>
-                        </div>
-                        <p class="price-condition has-terms">(LGU+ 통신사 이동 / 85요금제 6개월 유지 조건)</p>
-                        <ul class="deal-terms"><li>부가서비스 없음</li><li>카드결합 없음</li><li>중고반납 없음</li></ul>
-                        <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="btn-product-voucher" onclick=\"fbq('trackCustom', 'KakaoClick');\">이 특가로 상담 받기</a>
-                    </div>
-                </div>
-
-                <div class="product-card">
-                    <div class="product-img-wrap"><img src="17pr.png" alt="아이폰17 프로 색상 디자인 보조금 핸드폰 견적" class="product-img"></div>
-                    <div class="product-info-box">
-                        <h3 class="product-name">iPhone 17 Pro</h3>
-                        <div class="capacity-tabs">
-                            <button type="button" class="cap-btn sold" disabled>256GB 품절</button>
-                            <button type="button" class="cap-btn sold" disabled>512GB 품절</button>
-                            <button type="button" class="cap-btn active" data-retail="2,387,000" data-carrier="550,000" data-agency="450,000" data-final="1,387,000">1TB</button>
-                        </div>
-                        <div class="price-details">
-                            <div class="price-row"><span>출고가</span><span class="value" data-f="retail">2,387,000 원</span></div>
-                            <div class="price-row"><span>이통사 지원금</span><span class="value" data-f="carrier">- 550,000 원</span></div>
-                            <div class="price-row"><span>대리점 지원금</span><span class="value" data-f="agency">- 450,000 원</span></div>
-                            <div class="price-row total"><span>할부원금</span><span class="value" data-f="final">1,387,000 원</span></div>
-                        </div>
-                        <p class="price-condition has-terms">(LGU+ 통신사 이동 / 85요금제 6개월 유지 조건)</p>
-                        <ul class="deal-terms"><li>부가서비스 없음</li><li>카드결합 없음</li><li>중고반납 없음</li></ul>
-                        <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="btn-product-voucher" onclick=\"fbq('trackCustom', 'KakaoClick');\">이 특가로 상담 받기</a>
-                    </div>
-                </div>
-
-                <div class="product-card">
-                    <div class="product-img-wrap"><img src="17pm.png" alt="아이폰17 프로맥스 가격 기기변경 폰교체 번호이동 핸드폰 성지 시세표" class="product-img"></div>
-                    <div class="product-info-box">
-                        <h3 class="product-name">iPhone 17 Pro Max</h3>
-                        <div class="capacity-tabs">
-                            <button type="button" class="cap-btn sold" disabled>256GB 품절</button>
-                            <button type="button" class="cap-btn sold" disabled>512GB 품절</button>
-                        </div>
-                        <div class="price-details">
-                            <div class="price-row"><span>출고가</span><span class="value" data-f="retail">-</span></div>
-                            <div class="price-row"><span>이통사 지원금</span><span class="value" data-f="carrier">-</span></div>
-                            <div class="price-row"><span>대리점 지원금</span><span class="value" data-f="agency">-</span></div>
-                            <div class="price-row total"><span>할부원금</span><span class="value" data-f="final">품절</span></div>
-                        </div>
-                        <p class="price-condition has-terms">(LGU+ 통신사 이동 / 85요금제 6개월 유지 조건)</p>
-                        <ul class="deal-terms"><li>부가서비스 없음</li><li>카드결합 없음</li><li>중고반납 없음</li></ul>
-                        <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="btn-product-voucher" onclick=\"fbq('trackCustom', 'KakaoClick');\">이 특가로 상담 받기</a>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
+<aside class="os-sum" id="osSum">
+<div class="os-sum-head"><span>월 예상 납부금액</span><strong id="osSumTotal">-</strong></div>
+<div class="os-sum-sec">
+<h4><span id="osSumDevT">휴대폰</span><span id="osSumDevM">-</span></h4>
+<div class="os-sum-row"><span>출고가</span><b id="osSumRetail">-</b></div>
+<div class="os-sum-row"><span>공시지원금</span><b class="pink" id="osSumSub">-</b></div>
+<div class="os-sum-row"><span>대리점 추가지원금</span><b class="pink" id="osSumAg">-</b></div>
+<div class="os-sum-row"><span>할부원금</span><b class="strong" id="osSumPrin">-</b></div>
+<div class="os-sum-row"><span>할부수수료 (연 5.9%)</span><b id="osSumFee">-</b></div>
+</div>
+<div class="os-sum-sec">
+<h4><span>요금제</span><span id="osSumPlanM">-</span></h4>
+<div class="os-sum-row"><span id="osSumPlanN">-</span><b id="osSumPlanF">-</b></div>
+<div class="os-sum-row"><span>선택약정 할인 (24개월)</span><b class="pink" id="osSumSel">-</b></div>
+</div>
+<div class="os-sum-terms"><span>부가서비스 없음</span><span>제휴카드 없음</span><span>중고폰 반납 없음</span><span id="osSumKeep">요금제 6개월 유지</span></div>
+<p class="os-sum-src" id="osSumSrc"></p>
+<div class="os-sum-btns">
+<a href="tel:070-4007-7776" class="os-btn os-btn-line">전화 상담</a>
+<button type="button" class="os-btn os-btn-pink" data-quote>이 견적으로 카톡 상담</button>
+</div>
+</aside>
+</div>
+</div>
+<div class="os-mbar">
+<div class="os-mbar-price"><span>월 예상 납부금액</span><strong id="osMbarTotal">-</strong></div>
+<a href="tel:070-4007-7776" class="os-btn os-btn-line" aria-label="전화 상담">📞</a>
+<button type="button" class="os-btn os-btn-pink" data-quote>이 견적으로 카톡 상담</button>
+</div>
+</div>
+</div>
+<div class="os-copied" id="osCopied"></div>
 
     <div class="vip-banner-wrap">
         <a href="https://hotdealcenter.co.kr/" target="_blank" class="vip-banner">
@@ -2276,7 +2251,7 @@
                 <div class="delivery-feature">✓ 단말기 먼저 수령 후 개통 진행</div>
             </div>
 
-            <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="btn-delivery" onclick=\"fbq('trackCustom', 'KakaoClick');\">📦 전국 스마트폰 방문개통 및 택배 상담하기</a>
+            <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="btn-delivery" onclick="fbq('trackCustom', 'KakaoClick');">📦 전국 스마트폰 방문개통 및 택배 상담하기</a>
         </section>
     </div>
 
@@ -2293,7 +2268,7 @@
                         <p class="store-card-address"><span class="pin">📍</span> 서울특별시 관악구 남부순환로 1601</p>
                     </div>
                     <div class="store-card-btns">
-                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick=\"fbq('trackCustom', 'ReserveClick');\">매장 방문 예약</a>
+                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick="fbq('trackCustom', 'ReserveClick');">매장 방문 예약</a>
                     </div>
                 </div>
             </div>
@@ -2306,7 +2281,7 @@
                         <p class="store-card-address"><span class="pin">📍</span> 서울특별시 관악구 관악로 194</p>
                     </div>
                     <div class="store-card-btns">
-                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick=\"fbq('trackCustom', 'ReserveClick');\">매장 방문 예약</a>
+                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick="fbq('trackCustom', 'ReserveClick');">매장 방문 예약</a>
                     </div>
                 </div>
             </div>
@@ -2319,7 +2294,7 @@
                         <p class="store-card-address"><span class="pin">📍</span> 서울특별시 관악구 남부순환로 1952</p>
                     </div>
                     <div class="store-card-btns">
-                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick=\"fbq('trackCustom', 'ReserveClick');\">매장 방문 예약</a>
+                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick="fbq('trackCustom', 'ReserveClick');">매장 방문 예약</a>
                     </div>
                 </div>
             </div>
@@ -2332,7 +2307,7 @@
                         <p class="store-card-address"><span class="pin">📍</span> 서울특별시 동작구 동작대로 45</p>
                     </div>
                     <div class="store-card-btns">
-                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick=\"fbq('trackCustom', 'ReserveClick');\">매장 방문 예약</a>
+                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick="fbq('trackCustom', 'ReserveClick');">매장 방문 예약</a>
                     </div>
                 </div>
             </div>
@@ -2345,7 +2320,7 @@
                         <p class="store-card-address"><span class="pin">📍</span> 서울특별시 관악구 남현길 8</p>
                     </div>
                     <div class="store-card-btns">
-                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick=\"fbq('trackCustom', 'ReserveClick');\">매장 방문 예약</a>
+                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick="fbq('trackCustom', 'ReserveClick');">매장 방문 예약</a>
                     </div>
                 </div>
             </div>
@@ -2358,7 +2333,7 @@
                         <p class="store-card-address"><span class="pin">📍</span> 서울특별시 관악구 난곡로 194</p>
                     </div>
                     <div class="store-card-btns">
-                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick=\"fbq('trackCustom', 'ReserveClick');\">매장 방문 예약</a>
+                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick="fbq('trackCustom', 'ReserveClick');">매장 방문 예약</a>
                     </div>
                 </div>
             </div>
@@ -2371,7 +2346,7 @@
                         <p class="store-card-address"><span class="pin">📍</span> 서울특별시 금천구 디지털로 212</p>
                     </div>
                     <div class="store-card-btns">
-                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick=\"fbq('trackCustom', 'ReserveClick');\">매장 방문 예약</a>
+                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick="fbq('trackCustom', 'ReserveClick');">매장 방문 예약</a>
                     </div>
                 </div>
             </div>
@@ -2384,7 +2359,7 @@
                         <p class="store-card-address"><span class="pin">📍</span> 서울특별시 금천구 독산로87길 2</p>
                     </div>
                     <div class="store-card-btns">
-                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick=\"fbq('trackCustom', 'ReserveClick');\">매장 방문 예약</a>
+                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick="fbq('trackCustom', 'ReserveClick');">매장 방문 예약</a>
                     </div>
                 </div>
             </div>
@@ -2397,7 +2372,7 @@
                         <p class="store-card-address"><span class="pin">📍</span> 서울특별시 영등포구 당산로 136-1</p>
                     </div>
                     <div class="store-card-btns">
-                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick=\"fbq('trackCustom', 'ReserveClick');\">매장 방문 예약</a>
+                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick="fbq('trackCustom', 'ReserveClick');">매장 방문 예약</a>
                     </div>
                 </div>
             </div>
@@ -2410,7 +2385,7 @@
                         <p class="store-card-address"><span class="pin">📍</span> 서울특별시 영등포구 선유로 59</p>
                     </div>
                     <div class="store-card-btns">
-                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick=\"fbq('trackCustom', 'ReserveClick');\">매장 방문 예약</a>
+                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick="fbq('trackCustom', 'ReserveClick');">매장 방문 예약</a>
                     </div>
                 </div>
             </div>
@@ -2423,7 +2398,7 @@
                         <p class="store-card-address"><span class="pin">📍</span> 서울특별시 영등포구 도림로 135</p>
                     </div>
                     <div class="store-card-btns">
-                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick=\"fbq('trackCustom', 'ReserveClick');\">매장 방문 예약</a>
+                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick="fbq('trackCustom', 'ReserveClick');">매장 방문 예약</a>
                     </div>
                 </div>
             </div>
@@ -2436,7 +2411,7 @@
                         <p class="store-card-address"><span class="pin">📍</span> 서울특별시 영등포구 도림로 144</p>
                     </div>
                     <div class="store-card-btns">
-                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick=\"fbq('trackCustom', 'ReserveClick');\">매장 방문 예약</a>
+                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick="fbq('trackCustom', 'ReserveClick');">매장 방문 예약</a>
                     </div>
                 </div>
             </div>
@@ -2449,7 +2424,7 @@
                         <p class="store-card-address"><span class="pin">📍</span> 서울특별시 영등포구 디지털로54길 3 1층</p>
                     </div>
                     <div class="store-card-btns">
-                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick=\"fbq('trackCustom', 'ReserveClick');\">매장 방문 예약</a>
+                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick="fbq('trackCustom', 'ReserveClick');">매장 방문 예약</a>
                     </div>
                 </div>
             </div>
@@ -2462,7 +2437,7 @@
                         <p class="store-card-address"><span class="pin">📍</span> 서울특별시 강서구 화곡로 322</p>
                     </div>
                     <div class="store-card-btns">
-                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick=\"fbq('trackCustom', 'ReserveClick');\">매장 방문 예약</a>
+                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick="fbq('trackCustom', 'ReserveClick');">매장 방문 예약</a>
                     </div>
                 </div>
             </div>
@@ -2475,7 +2450,7 @@
                         <p class="store-card-address"><span class="pin">📍</span> 서울특별시 강서구 양천로 583</p>
                     </div>
                     <div class="store-card-btns">
-                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick=\"fbq('trackCustom', 'ReserveClick');\">매장 방문 예약</a>
+                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick="fbq('trackCustom', 'ReserveClick');">매장 방문 예약</a>
                     </div>
                 </div>
             </div>
@@ -2494,7 +2469,7 @@
                         <p class="store-card-address"><span class="pin">📍</span> 경기도 안양시 동안구 평촌대로223번길 49</p>
                     </div>
                     <div class="store-card-btns">
-                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick=\"fbq('trackCustom', 'ReserveClick');\">매장 방문 예약</a>
+                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick="fbq('trackCustom', 'ReserveClick');">매장 방문 예약</a>
                     </div>
                 </div>
             </div>
@@ -2507,7 +2482,7 @@
                         <p class="store-card-address"><span class="pin">📍</span> 경기도 안양시 동안구 동안로 120 평촌스포츠센터 105호</p>
                     </div>
                     <div class="store-card-btns">
-                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick=\"fbq('trackCustom', 'ReserveClick');\">매장 방문 예약</a>
+                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick="fbq('trackCustom', 'ReserveClick');">매장 방문 예약</a>
                     </div>
                 </div>
             </div>
@@ -2520,7 +2495,7 @@
                         <p class="store-card-address"><span class="pin">📍</span> 경기도 안양시 동안구 평촌대로 137-7</p>
                     </div>
                     <div class="store-card-btns">
-                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick=\"fbq('trackCustom', 'ReserveClick');\">매장 방문 예약</a>
+                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick="fbq('trackCustom', 'ReserveClick');">매장 방문 예약</a>
                     </div>
                 </div>
             </div>
@@ -2533,7 +2508,7 @@
                         <p class="store-card-address"><span class="pin">📍</span> 경기도 안양시 만안구 안양로292번길 8</p>
                     </div>
                     <div class="store-card-btns">
-                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick=\"fbq('trackCustom', 'ReserveClick');\">매장 방문 예약</a>
+                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick="fbq('trackCustom', 'ReserveClick');">매장 방문 예약</a>
                     </div>
                 </div>
             </div>
@@ -2546,7 +2521,7 @@
                         <p class="store-card-address"><span class="pin">📍</span> 경기도 안양시 동안구 관악대로 99</p>
                     </div>
                     <div class="store-card-btns">
-                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick=\"fbq('trackCustom', 'ReserveClick');\">매장 방문 예약</a>
+                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick="fbq('trackCustom', 'ReserveClick');">매장 방문 예약</a>
                     </div>
                 </div>
             </div>
@@ -2559,7 +2534,7 @@
                         <p class="store-card-address"><span class="pin">📍</span> 경기도 안양시 동안구 관악대로 341</p>
                     </div>
                     <div class="store-card-btns">
-                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick=\"fbq('trackCustom', 'ReserveClick');\">매장 방문 예약</a>
+                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick="fbq('trackCustom', 'ReserveClick');">매장 방문 예약</a>
                     </div>
                 </div>
             </div>
@@ -2572,7 +2547,7 @@
                         <p class="store-card-address"><span class="pin">📍</span> 경기도 안양시 동안구 경수대로 541</p>
                     </div>
                     <div class="store-card-btns">
-                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick=\"fbq('trackCustom', 'ReserveClick');\">매장 방문 예약</a>
+                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick="fbq('trackCustom', 'ReserveClick');">매장 방문 예약</a>
                     </div>
                 </div>
             </div>
@@ -2585,7 +2560,7 @@
                         <p class="store-card-address"><span class="pin">📍</span> 경기 수원시 팔달구 고매로 26</p>
                     </div>
                     <div class="store-card-btns">
-                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick=\"fbq('trackCustom', 'ReserveClick');\">매장 방문 예약</a>
+                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick="fbq('trackCustom', 'ReserveClick');">매장 방문 예약</a>
                     </div>
                 </div>
             </div>
@@ -2598,7 +2573,7 @@
                         <p class="store-card-address"><span class="pin">📍</span> 경기도 수원시 권선구 금곡로102번길 30 1층</p>
                     </div>
                     <div class="store-card-btns">
-                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick=\"fbq('trackCustom', 'ReserveClick');\">매장 방문 예약</a>
+                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick="fbq('trackCustom', 'ReserveClick');">매장 방문 예약</a>
                     </div>
                 </div>
             </div>
@@ -3060,7 +3035,7 @@
                 겪어보신 적 있으시죠?
             </h2>
             <p class="final-banner-desc">이제 그런 일 없게, 더끌림컴퍼니가 도와드리겠습니다.</p>
-            <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="final-banner-btn" onclick=\"fbq('trackCustom', 'KakaoClick');\">1:1 실시간 상담</a>
+            <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="final-banner-btn" onclick="fbq('trackCustom', 'KakaoClick');">1:1 실시간 상담</a>
         </div>
     </section>
 
@@ -3120,11 +3095,11 @@
 
     <div class="fab-container">
         <a href="tel:070-4007-7776" class="fab-btn fab-phone">📞</a>
-        <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="fab-btn fab-kakao" onclick=\"fbq('trackCustom', 'KakaoClick');\">💬</a>
+        <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="fab-btn fab-kakao" onclick="fbq('trackCustom', 'KakaoClick');">💬</a>
     </div>
 
     <div class="bottom-cta-bar">
-        <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="bottom-cta-btn btn-bar-kakao" onclick=\"fbq('trackCustom', 'KakaoClick');\">
+        <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" class="bottom-cta-btn btn-bar-kakao" onclick="fbq('trackCustom', 'KakaoClick');">
             <span style="font-size: 20px;">💬</span> 카카오톡 상담
         </a>
         <a href="tel:070-4007-7776" class="bottom-cta-btn btn-bar-phone">
@@ -3137,140 +3112,468 @@
         <span id="toastMsg"></span>
     </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            startRealtimeToast();
-            initFaqAccordion(); // FAQ 아코디언 초기화
-            initCapacityTabs(); // 용량(GB) 선택 탭 초기화
-            initPriceSwitch();  // 번호이동/기기변경 · 85/115요금제 전환
+<script>
+var OS_DATA={"models":[{"id":"duo","name":"iPhone Duo","maker":"apple","img":"ipduo.png","badges":[["pre","사전예약"]],"caps":[{"c":"256GB","code":null,"retail":0,"sold":0},{"c":"512GB","code":null,"retail":0,"sold":0},{"c":"1TB","code":null,"retail":0,"sold":0},{"c":"2TB","code":null,"retail":0,"sold":0}],"pre":true},{"id":"ip18pr","name":"iPhone 18 Pro","maker":"apple","img":"ip18pro.png","badges":[["new","NEW"]],"caps":[{"c":"256GB","code":"UIP18PR-256","retail":1991000,"sold":0},{"c":"512GB","code":"UIP18PR-512","retail":2299000,"sold":0},{"c":"1TB","code":"UIP18PR-1T","retail":2893000,"sold":0},{"c":"2TB","code":"UIP18PR-2T","retail":3795000,"sold":0}],"pre":false},{"id":"ip18pm","name":"iPhone 18 Pro Max","maker":"apple","img":"ip18pm.png","badges":[["new","NEW"]],"caps":[{"c":"256GB","code":"UIP18PM-256","retail":2200000,"sold":0},{"c":"512GB","code":"UIP18PM-512","retail":2497000,"sold":0},{"c":"1TB","code":"UIP18PM-1T","retail":3091000,"sold":0},{"c":"2TB","code":"UIP18PM-2T","retail":3993000,"sold":0}],"pre":false},{"id":"flip8","name":"갤럭시 Z 플립8","maker":"samsung","img":"zflip8.png","badges":[["new","NEW"]],"caps":[{"c":"256GB","code":"SM-F776N256","retail":1683000,"sold":0},{"c":"512GB","code":"SM-F776N512","retail":1936000,"sold":0}],"pre":false},{"id":"fold8w","name":"갤럭시 Z 폴드8 와이드","maker":"samsung","img":"zfold8wide.png","badges":[["new","NEW"]],"caps":[{"c":"256GB","code":"SM-F971N256","retail":2278100,"sold":0},{"c":"512GB","code":"SM-F971N512","retail":2531100,"sold":0},{"c":"1TB","code":"SM-F971N1TB","retail":3152600,"sold":0}],"pre":false},{"id":"fold8u","name":"갤럭시 Z 폴드8 울트라","maker":"samsung","img":"zfold8ultra.png","badges":[["new","NEW"]],"caps":[{"c":"256GB","code":"SM-F976N256","retail":2577300,"sold":0},{"c":"512GB","code":"SM-F976N512","retail":2830300,"sold":0},{"c":"1TB","code":"SM-F976N1TB","retail":3451800,"sold":0}],"pre":false},{"id":"flip6","name":"갤럭시 Z 플립6","maker":"samsung","img":"flip6.png","badges":[["hot","A급 단순개봉"]],"caps":[{"c":"256GB","code":"SM-F741N256","retail":1485000,"sold":0}],"pre":false},{"id":"fold7","name":"갤럭시 Z 폴드7","maker":"samsung","img":"fold7.png","badges":[["hot","A급 단순개봉"]],"caps":[{"c":"256GB","code":null,"retail":2379300,"sold":0}],"pre":false},{"id":"s25e","name":"갤럭시 S25 Edge","maker":"samsung","img":"s25e.png","badges":[],"caps":[{"c":"256GB","code":"SM-S937N256","retail":1353000,"sold":0}],"pre":false},{"id":"s26","name":"갤럭시 S26","maker":"samsung","img":"s26.png","badges":[],"caps":[{"c":"256GB","code":"SM-S942N256","retail":1254000,"sold":0},{"c":"512GB","code":"SM-S942N512","retail":1507000,"sold":0}],"pre":false},{"id":"s26p","name":"갤럭시 S26+","maker":"samsung","img":"s26p.png","badges":[],"caps":[{"c":"256GB","code":"SM-S947N256","retail":1452000,"sold":0},{"c":"512GB","code":"SM-S947N512","retail":1705000,"sold":0}],"pre":false},{"id":"s26u","name":"갤럭시 S26 Ultra","maker":"samsung","img":"s26u.png","badges":[],"caps":[{"c":"256GB","code":"SM-S948N256","retail":1797400,"sold":0},{"c":"512GB","code":"SM-S948N512","retail":2050400,"sold":0}],"pre":false},{"id":"ip17","name":"iPhone 17","maker":"apple","img":"ip17.png","badges":[],"caps":[{"c":"256GB","code":"UIP17-256-NP","retail":1452000,"sold":0},{"c":"512GB","code":"UIP17-512-NP","retail":1760000,"sold":0}],"pre":false},{"id":"ip17pr","name":"iPhone 17 Pro","maker":"apple","img":"17pr.png","badges":[],"caps":[{"c":"256GB","code":"UIP17PR-256","retail":1782000,"sold":1},{"c":"512GB","code":null,"retail":2090000,"sold":1},{"c":"1TB","code":null,"retail":2387000,"sold":0}],"pre":false},{"id":"ip17pm","name":"iPhone 17 Pro Max","maker":"apple","img":"17pm.png","badges":[],"caps":[{"c":"256GB","code":null,"retail":1980000,"sold":1},{"c":"512GB","code":null,"retail":2288000,"sold":1}],"pre":false}],"plans":[{"code":"LPZ1007250","name":"넷플릭스 플러스플랜130","fee":130000,"sel":32500,"grp":"premium","data":""},{"code":"LPZ1008098","name":"유튜브프리미엄 플러스플랜115","fee":115000,"sel":28750,"grp":"premium","data":""},{"code":"LPZ1007251","name":"넷플릭스 플러스플랜115","fee":115000,"sel":28750,"grp":"premium","data":""},{"code":"LPZ1007252","name":"넷플릭스 플러스플랜105","fee":105000,"sel":26250,"grp":"premium","data":""},{"code":"LPZ1006509","name":"플러스플랜95","fee":95000,"sel":23750,"grp":"basic","data":""},{"code":"LPZ1006510","name":"5G 데이터플랜 MAX","fee":85000,"sel":21250,"grp":"basic","data":""},{"code":"LPZ1006511","name":"5G 데이터플랜 150GB","fee":75000,"sel":18750,"grp":"basic","data":"다 쓰면 최대 5Mbps"},{"code":"LPZ1006512","name":"5G 데이터플랜 125GB","fee":70000,"sel":17500,"grp":"basic","data":"다 쓰면 최대 5Mbps"},{"code":"LPZ1006513","name":"5G 데이터플랜 95GB","fee":68000,"sel":17000,"grp":"basic","data":"다 쓰면 최대 3Mbps"},{"code":"LPZ1006514","name":"5G 데이터플랜 80GB","fee":66000,"sel":16500,"grp":"basic","data":"다 쓰면 최대 1Mbps"},{"code":"LPZ1006515","name":"5G 데이터플랜 50GB","fee":63000,"sel":15750,"grp":"basic","data":"다 쓰면 최대 1Mbps"},{"code":"LPZ1006516","name":"5G 데이터플랜 31GB","fee":61000,"sel":15250,"grp":"basic","data":"다 쓰면 최대 1Mbps"},{"code":"LPZ1006517","name":"5G 데이터플랜 24GB","fee":59000,"sel":14750,"grp":"basic","data":"다 쓰면 최대 1Mbps"},{"code":"LPZ1006518","name":"5G 데이터플랜 14GB","fee":55000,"sel":13750,"grp":"basic","data":"다 쓰면 최대 1Mbps"},{"code":"LPZ1006519","name":"5G 데이터플랜 9GB","fee":47000,"sel":11750,"grp":"basic","data":"다 쓰면 최대 400Kbps"},{"code":"LPZ1006520","name":"5G 데이터플랜 5GB","fee":37000,"sel":9250,"grp":"basic","data":"다 쓰면 최대 400Kbps"}],"ag":{"2":{"85":{"duo":{"256GB":500000,"512GB":500000,"1TB":500000,"2TB":500000},"ip18pr":{"256GB":450000,"512GB":450000,"1TB":450000,"2TB":450000},"ip18pm":{"256GB":450000,"512GB":450000,"1TB":450000,"2TB":450000},"flip8":{"256GB":500000,"512GB":600000},"fold8w":{"256GB":600000,"512GB":450000,"1TB":350000},"fold8u":{"256GB":500000,"512GB":600000,"1TB":350000},"flip6":{"256GB":985000},"fold7":{"256GB":730000},"s25e":{"256GB":653000},"s26":{"256GB":754000,"512GB":640000},"s26p":{"256GB":570000,"512GB":570000},"s26u":{"256GB":570000,"512GB":570000},"ip17":{"256GB":450000,"512GB":450000},"ip17pr":{"256GB":450000,"512GB":450000,"1TB":450000},"ip17pm":{"256GB":450000,"512GB":450000}},"115":{"duo":{"256GB":550000,"512GB":550000,"1TB":550000,"2TB":550000},"ip18pr":{"256GB":500000,"512GB":500000,"1TB":500000,"2TB":500000},"ip18pm":{"256GB":500000,"512GB":500000,"1TB":500000,"2TB":500000},"flip8":{"256GB":550000,"512GB":650000},"fold8w":{"256GB":650000,"512GB":500000,"1TB":400000},"fold8u":{"256GB":550000,"512GB":650000,"1TB":400000},"flip6":{"256GB":985000},"fold7":{"256GB":780000},"s25e":{"256GB":653000},"s26":{"256GB":754000,"512GB":690000},"s26p":{"256GB":620000,"512GB":620000},"s26u":{"256GB":620000,"512GB":620000},"ip17":{"256GB":500000,"512GB":500000},"ip17pr":{"256GB":500000,"512GB":500000,"1TB":500000},"ip17pm":{"256GB":500000,"512GB":500000}}},"1":{"85":{"duo":{"256GB":300000,"512GB":300000,"1TB":300000,"2TB":300000},"ip18pr":{"256GB":200000,"512GB":200000,"1TB":200000,"2TB":200000},"ip18pm":{"256GB":200000,"512GB":200000,"1TB":200000,"2TB":200000},"flip8":{"256GB":300000,"512GB":350000},"fold8w":{"256GB":300000,"512GB":200000,"1TB":150000},"fold8u":{"256GB":300000,"512GB":350000,"1TB":150000},"flip6":{"256GB":450000},"fold7":{"256GB":500000},"s25e":{"256GB":450000},"s26":{"256GB":380000,"512GB":380000},"s26p":{"256GB":320000,"512GB":320000},"s26u":{"256GB":320000,"512GB":320000},"ip17":{"256GB":200000,"512GB":200000},"ip17pr":{"256GB":200000,"512GB":200000,"1TB":200000},"ip17pm":{"256GB":200000,"512GB":200000}},"115":{"duo":{"256GB":350000,"512GB":350000,"1TB":350000,"2TB":350000},"ip18pr":{"256GB":250000,"512GB":250000,"1TB":250000,"2TB":250000},"ip18pm":{"256GB":250000,"512GB":250000,"1TB":250000,"2TB":250000},"flip8":{"256GB":350000,"512GB":400000},"fold8w":{"256GB":350000,"512GB":250000,"1TB":200000},"fold8u":{"256GB":350000,"512GB":400000,"1TB":200000},"flip6":{"256GB":500000},"fold7":{"256GB":550000},"s25e":{"256GB":550000},"s26":{"256GB":430000,"512GB":430000},"s26p":{"256GB":370000,"512GB":370000},"s26u":{"256GB":370000,"512GB":370000},"ip17":{"256GB":250000,"512GB":250000},"ip17pr":{"256GB":250000,"512GB":250000,"1TB":250000},"ip17pm":{"256GB":250000,"512GB":250000}}}},"fb":{"2":{"85":{"ip18pr":{"256GB":300000,"512GB":300000,"1TB":300000,"2TB":300000},"ip18pm":{"256GB":151000,"512GB":151000,"1TB":151000,"2TB":151000},"flip8":{"256GB":500000,"512GB":500000},"fold8w":{"256GB":500000,"512GB":500000,"1TB":500000},"fold8u":{"256GB":500000,"512GB":500000,"1TB":500000},"flip6":{"256GB":500000},"fold7":{"256GB":500000},"s25e":{"256GB":700000},"s26":{"256GB":500000,"512GB":500000},"s26p":{"256GB":500000,"512GB":500000},"s26u":{"256GB":500000,"512GB":500000},"ip17":{"256GB":550000,"512GB":550000},"ip17pr":{"256GB":550000,"512GB":550000,"1TB":550000},"ip17pm":{"256GB":151000,"512GB":151000}},"115":{"ip18pr":{"256GB":450000,"512GB":450000,"1TB":450000,"2TB":450000},"ip18pm":{"256GB":204000,"512GB":204000,"1TB":204000,"2TB":204000},"flip8":{"256GB":500000,"512GB":500000},"fold8w":{"256GB":500000,"512GB":500000,"1TB":500000},"fold8u":{"256GB":500000,"512GB":500000,"1TB":500000},"flip6":{"256GB":500000},"fold7":{"256GB":500000},"s25e":{"256GB":700000},"s26":{"256GB":500000,"512GB":500000},"s26p":{"256GB":500000,"512GB":500000},"s26u":{"256GB":500000,"512GB":500000},"ip17":{"256GB":550000,"512GB":550000},"ip17pr":{"256GB":550000,"512GB":550000,"1TB":550000},"ip17pm":{"256GB":201000,"512GB":201000}}},"1":{"85":{"ip18pr":{"256GB":300000,"512GB":300000,"1TB":300000,"2TB":300000},"ip18pm":{"256GB":151000,"512GB":151000,"1TB":151000,"2TB":151000},"flip8":{"256GB":500000,"512GB":500000},"fold8w":{"256GB":500000,"512GB":500000,"1TB":500000},"fold8u":{"256GB":500000,"512GB":500000,"1TB":500000},"flip6":{"256GB":500000},"fold7":{"256GB":500000},"s25e":{"256GB":700000},"s26":{"256GB":600000,"512GB":600000},"s26p":{"256GB":600000,"512GB":600000},"s26u":{"256GB":600000,"512GB":600000},"ip17":{"256GB":450000,"512GB":450000},"ip17pr":{"256GB":450000,"512GB":450000,"1TB":450000},"ip17pm":{"256GB":151000,"512GB":151000}},"115":{"ip18pr":{"256GB":450000,"512GB":450000,"1TB":450000,"2TB":450000},"ip18pm":{"256GB":204000,"512GB":204000,"1TB":204000,"2TB":204000},"flip8":{"256GB":500000,"512GB":500000},"fold8w":{"256GB":500000,"512GB":500000,"1TB":500000},"fold8u":{"256GB":500000,"512GB":500000,"1TB":500000},"flip6":{"256GB":500000},"fold7":{"256GB":500000},"s25e":{"256GB":700000},"s26":{"256GB":600000,"512GB":600000},"s26p":{"256GB":600000,"512GB":600000},"s26u":{"256GB":600000,"512GB":600000},"ip17":{"256GB":450000,"512GB":450000},"ip17pr":{"256GB":450000,"512GB":450000,"1TB":450000},"ip17pm":{"256GB":201000,"512GB":201000}}}},"snap":{"1":{"LPZ1006509":{"UIP18PR-256":400000,"UIP18PR-512":400000,"UIP18PR-1T":400000,"UIP18PR-2T":400000,"UIP18PM-256":168000,"UIP18PM-512":168000,"UIP18PM-1T":168000,"UIP18PM-2T":168000,"SM-F776N256":500000,"SM-F776N512":500000,"SM-F971N256":500000,"SM-F971N512":500000,"SM-F971N1TB":500000,"SM-F976N256":500000,"SM-F976N512":500000,"SM-F976N1TB":500000,"SM-F741N256":500000,"SM-S937N256":700000,"SM-S942N256":600000,"SM-S942N512":600000,"SM-S947N256":600000,"SM-S947N512":600000,"SM-S948N256":600000,"SM-S948N512":600000,"UIP17-256-NP":450000,"UIP17-512-NP":450000,"UIP17PR-256":450000},"LPZ1006510":{"UIP18PR-256":300000,"UIP18PR-512":300000,"UIP18PR-1T":300000,"UIP18PR-2T":300000,"UIP18PM-256":151000,"UIP18PM-512":151000,"UIP18PM-1T":151000,"UIP18PM-2T":151000,"SM-F776N256":500000,"SM-F776N512":500000,"SM-F971N256":500000,"SM-F971N512":500000,"SM-F971N1TB":500000,"SM-F976N256":500000,"SM-F976N512":500000,"SM-F976N1TB":500000,"SM-F741N256":500000,"SM-S937N256":700000,"SM-S942N256":600000,"SM-S942N512":600000,"SM-S947N256":600000,"SM-S947N512":600000,"SM-S948N256":600000,"SM-S948N512":600000,"UIP17-256-NP":450000,"UIP17-512-NP":450000,"UIP17PR-256":450000},"LPZ1006511":{"UIP18PR-256":267000,"UIP18PR-512":267000,"UIP18PR-1T":267000,"UIP18PR-2T":267000,"UIP18PM-256":133000,"UIP18PM-512":133000,"UIP18PM-1T":133000,"UIP18PM-2T":133000,"SM-F776N256":442000,"SM-F776N512":442000,"SM-F971N256":442000,"SM-F971N512":442000,"SM-F971N1TB":442000,"SM-F976N256":442000,"SM-F976N512":442000,"SM-F976N1TB":442000,"SM-F741N256":442000,"SM-S937N256":618000,"SM-S942N256":442000,"SM-S942N512":442000,"SM-S947N256":442000,"SM-S947N512":442000,"SM-S948N256":442000,"SM-S948N512":442000,"UIP17-256-NP":400000,"UIP17-512-NP":400000,"UIP17PR-256":400000},"LPZ1006512":{"UIP18PR-256":251000,"UIP18PR-512":251000,"UIP18PR-1T":251000,"UIP18PR-2T":251000,"UIP18PM-256":124000,"UIP18PM-512":124000,"UIP18PM-1T":124000,"UIP18PM-2T":124000,"SM-F776N256":414000,"SM-F776N512":414000,"SM-F971N256":414000,"SM-F971N512":414000,"SM-F971N1TB":414000,"SM-F976N256":414000,"SM-F976N512":414000,"SM-F976N1TB":414000,"SM-F741N256":414000,"SM-S937N256":577000,"SM-S942N256":414000,"SM-S942N512":414000,"SM-S947N256":414000,"SM-S947N512":414000,"SM-S948N256":414000,"SM-S948N512":414000,"UIP17-256-NP":375000,"UIP17-512-NP":375000,"UIP17PR-256":375000},"LPZ1006513":{"UIP18PR-256":244000,"UIP18PR-512":244000,"UIP18PR-1T":244000,"UIP18PR-2T":244000,"UIP18PM-256":121000,"UIP18PM-512":121000,"UIP18PM-1T":121000,"UIP18PM-2T":121000,"SM-F776N256":402000,"SM-F776N512":402000,"SM-F971N256":402000,"SM-F971N512":402000,"SM-F971N1TB":402000,"SM-F976N256":402000,"SM-F976N512":402000,"SM-F976N1TB":402000,"SM-F741N256":402000,"SM-S937N256":560000,"SM-S942N256":402000,"SM-S942N512":402000,"SM-S947N256":402000,"SM-S947N512":402000,"SM-S948N256":402000,"SM-S948N512":402000,"UIP17-256-NP":365000,"UIP17-512-NP":365000,"UIP17PR-256":365000},"LPZ1006514":{"UIP18PR-256":238000,"UIP18PR-512":238000,"UIP18PR-1T":238000,"UIP18PR-2T":238000,"UIP18PM-256":117000,"UIP18PM-512":117000,"UIP18PM-1T":117000,"UIP18PM-2T":117000,"SM-F776N256":390000,"SM-F776N512":390000,"SM-F971N256":390000,"SM-F971N512":390000,"SM-F971N1TB":390000,"SM-F976N256":390000,"SM-F976N512":390000,"SM-F976N1TB":390000,"SM-F741N256":390000,"SM-S937N256":544000,"SM-S942N256":390000,"SM-S942N512":390000,"SM-S947N256":390000,"SM-S947N512":390000,"SM-S948N256":390000,"SM-S948N512":390000,"UIP17-256-NP":355000,"UIP17-512-NP":355000,"UIP17PR-256":355000},"LPZ1006515":{"UIP18PR-256":228000,"UIP18PR-512":228000,"UIP18PR-1T":228000,"UIP18PR-2T":228000,"UIP18PM-256":112000,"UIP18PM-512":112000,"UIP18PM-1T":112000,"UIP18PM-2T":112000,"SM-F776N256":373000,"SM-F776N512":373000,"SM-F971N256":373000,"SM-F971N512":373000,"SM-F971N1TB":373000,"SM-F976N256":373000,"SM-F976N512":373000,"SM-F976N1TB":373000,"SM-F741N256":373000,"SM-S937N256":519000,"SM-S942N256":373000,"SM-S942N512":373000,"SM-S947N256":373000,"SM-S947N512":373000,"SM-S948N256":373000,"SM-S948N512":373000,"UIP17-256-NP":339000,"UIP17-512-NP":339000,"UIP17PR-256":339000},"LPZ1006516":{"UIP18PR-256":221000,"UIP18PR-512":221000,"UIP18PR-1T":221000,"UIP18PR-2T":221000,"UIP18PM-256":108000,"UIP18PM-512":108000,"UIP18PM-1T":108000,"UIP18PM-2T":108000,"SM-F776N256":361000,"SM-F776N512":361000,"SM-F971N256":361000,"SM-F971N512":361000,"SM-F971N1TB":361000,"SM-F976N256":361000,"SM-F976N512":361000,"SM-F976N1TB":361000,"SM-F741N256":361000,"SM-S937N256":503000,"SM-S942N256":361000,"SM-S942N512":361000,"SM-S947N256":361000,"SM-S947N512":361000,"SM-S948N256":361000,"SM-S948N512":361000,"UIP17-256-NP":329000,"UIP17-512-NP":329000,"UIP17PR-256":329000},"LPZ1006517":{"UIP18PR-256":215000,"UIP18PR-512":215000,"UIP18PR-1T":215000,"UIP18PR-2T":215000,"UIP18PM-256":105000,"UIP18PM-512":105000,"UIP18PM-1T":105000,"UIP18PM-2T":105000,"SM-F776N256":350000,"SM-F776N512":350000,"SM-F971N256":350000,"SM-F971N512":350000,"SM-F971N1TB":350000,"SM-F976N256":350000,"SM-F976N512":350000,"SM-F976N1TB":350000,"SM-F741N256":350000,"SM-S937N256":487000,"SM-S942N256":350000,"SM-S942N512":350000,"SM-S947N256":350000,"SM-S947N512":350000,"SM-S948N256":350000,"SM-S948N512":350000,"UIP17-256-NP":319000,"UIP17-512-NP":319000,"UIP17PR-256":319000},"LPZ1006518":{"UIP18PR-256":202000,"UIP18PR-512":202000,"UIP18PR-1T":202000,"UIP18PR-2T":202000,"UIP18PM-256":98000,"UIP18PM-512":98000,"UIP18PM-1T":98000,"UIP18PM-2T":98000,"SM-F776N256":326000,"SM-F776N512":326000,"SM-F971N256":326000,"SM-F971N512":326000,"SM-F971N1TB":326000,"SM-F976N256":326000,"SM-F976N512":326000,"SM-F976N1TB":326000,"SM-F741N256":326000,"SM-S937N256":454000,"SM-S942N256":326000,"SM-S942N512":326000,"SM-S947N256":326000,"SM-S947N512":326000,"SM-S948N256":326000,"SM-S948N512":326000,"UIP17-256-NP":299000,"UIP17-512-NP":299000,"UIP17PR-256":299000},"LPZ1006519":{"UIP18PR-256":175000,"UIP18PR-512":175000,"UIP18PR-1T":175000,"UIP18PR-2T":175000,"UIP18PM-256":84000,"UIP18PM-512":84000,"UIP18PM-1T":84000,"UIP18PM-2T":84000,"SM-F776N256":280000,"SM-F776N512":280000,"SM-F971N256":280000,"SM-F971N512":280000,"SM-F971N1TB":280000,"SM-F976N256":280000,"SM-F976N512":280000,"SM-F976N1TB":280000,"SM-F741N256":280000,"SM-S937N256":388000,"SM-S942N256":280000,"SM-S942N512":280000,"SM-S947N256":280000,"SM-S947N512":280000,"SM-S948N256":280000,"SM-S948N512":280000,"UIP17-256-NP":259000,"UIP17-512-NP":259000,"UIP17PR-256":259000},"LPZ1006520":{"UIP18PR-256":142000,"UIP18PR-512":142000,"UIP18PR-1T":142000,"UIP18PR-2T":142000,"UIP18PM-256":66000,"UIP18PM-512":66000,"UIP18PM-1T":66000,"UIP18PM-2T":66000,"SM-F776N256":222000,"SM-F776N512":222000,"SM-F971N256":222000,"SM-F971N512":222000,"SM-F971N1TB":222000,"SM-F976N256":222000,"SM-F976N512":222000,"SM-F976N1TB":222000,"SM-F741N256":222000,"SM-S937N256":305000,"SM-S942N256":222000,"SM-S942N512":222000,"SM-S947N256":222000,"SM-S947N512":222000,"SM-S948N256":222000,"SM-S948N512":222000,"UIP17-256-NP":208000,"UIP17-512-NP":208000,"UIP17PR-256":208000},"LPZ1007250":{"UIP18PR-256":450000,"UIP18PR-512":450000,"UIP18PR-1T":450000,"UIP18PR-2T":450000,"UIP18PM-256":230000,"UIP18PM-512":230000,"UIP18PM-1T":230000,"UIP18PM-2T":230000,"SM-F776N256":500000,"SM-F776N512":500000,"SM-F971N256":500000,"SM-F971N512":500000,"SM-F971N1TB":500000,"SM-F976N256":500000,"SM-F976N512":500000,"SM-F976N1TB":500000,"SM-F741N256":500000,"SM-S937N256":700000,"SM-S942N256":600000,"SM-S942N512":600000,"SM-S947N256":600000,"SM-S947N512":600000,"SM-S948N256":600000,"SM-S948N512":600000,"UIP17-256-NP":450000,"UIP17-512-NP":450000,"UIP17PR-256":450000},"LPZ1007251":{"UIP18PR-256":450000,"UIP18PR-512":450000,"UIP18PR-1T":450000,"UIP18PR-2T":450000,"UIP18PM-256":204000,"UIP18PM-512":204000,"UIP18PM-1T":204000,"UIP18PM-2T":204000,"SM-F776N256":500000,"SM-F776N512":500000,"SM-F971N256":500000,"SM-F971N512":500000,"SM-F971N1TB":500000,"SM-F976N256":500000,"SM-F976N512":500000,"SM-F976N1TB":500000,"SM-F741N256":500000,"SM-S937N256":700000,"SM-S942N256":600000,"SM-S942N512":600000,"SM-S947N256":600000,"SM-S947N512":600000,"SM-S948N256":600000,"SM-S948N512":600000,"UIP17-256-NP":450000,"UIP17-512-NP":450000,"UIP17PR-256":450000},"LPZ1007252":{"UIP18PR-256":450000,"UIP18PR-512":450000,"UIP18PR-1T":450000,"UIP18PR-2T":450000,"UIP18PM-256":186000,"UIP18PM-512":186000,"UIP18PM-1T":186000,"UIP18PM-2T":186000,"SM-F776N256":500000,"SM-F776N512":500000,"SM-F971N256":500000,"SM-F971N512":500000,"SM-F971N1TB":500000,"SM-F976N256":500000,"SM-F976N512":500000,"SM-F976N1TB":500000,"SM-F741N256":500000,"SM-S937N256":700000,"SM-S942N256":600000,"SM-S942N512":600000,"SM-S947N256":600000,"SM-S947N512":600000,"SM-S948N256":600000,"SM-S948N512":600000,"UIP17-256-NP":450000,"UIP17-512-NP":450000,"UIP17PR-256":450000},"LPZ1008098":{"UIP18PR-256":450000,"UIP18PR-512":450000,"UIP18PR-1T":450000,"UIP18PR-2T":450000,"UIP18PM-256":204000,"UIP18PM-512":204000,"UIP18PM-1T":204000,"UIP18PM-2T":204000,"SM-F776N256":500000,"SM-F776N512":500000,"SM-F971N256":500000,"SM-F971N512":500000,"SM-F971N1TB":500000,"SM-F976N256":500000,"SM-F976N512":500000,"SM-F976N1TB":500000,"SM-F741N256":500000,"SM-S937N256":700000,"SM-S942N256":600000,"SM-S942N512":600000,"SM-S947N256":600000,"SM-S947N512":600000,"SM-S948N256":600000,"SM-S948N512":600000,"UIP17-256-NP":450000,"UIP17-512-NP":450000,"UIP17PR-256":450000}},"2":{"LPZ1006509":{"UIP18PR-256":400000,"UIP18PR-512":400000,"UIP18PR-1T":400000,"UIP18PR-2T":400000,"UIP18PM-256":168000,"UIP18PM-512":168000,"UIP18PM-1T":168000,"UIP18PM-2T":168000,"SM-F776N256":500000,"SM-F776N512":500000,"SM-F971N256":500000,"SM-F971N512":500000,"SM-F971N1TB":500000,"SM-F976N256":500000,"SM-F976N512":500000,"SM-F976N1TB":500000,"SM-F741N256":500000,"SM-S937N256":700000,"SM-S942N256":500000,"SM-S942N512":500000,"SM-S947N256":500000,"SM-S947N512":500000,"SM-S948N256":500000,"SM-S948N512":500000,"UIP17-256-NP":550000,"UIP17-512-NP":550000,"UIP17PR-256":450000},"LPZ1006510":{"UIP18PR-256":300000,"UIP18PR-512":300000,"UIP18PR-1T":300000,"UIP18PR-2T":300000,"UIP18PM-256":151000,"UIP18PM-512":151000,"UIP18PM-1T":151000,"UIP18PM-2T":151000,"SM-F776N256":500000,"SM-F776N512":500000,"SM-F971N256":500000,"SM-F971N512":500000,"SM-F971N1TB":500000,"SM-F976N256":500000,"SM-F976N512":500000,"SM-F976N1TB":500000,"SM-F741N256":500000,"SM-S937N256":700000,"SM-S942N256":500000,"SM-S942N512":500000,"SM-S947N256":500000,"SM-S947N512":500000,"SM-S948N256":500000,"SM-S948N512":500000,"UIP17-256-NP":550000,"UIP17-512-NP":550000,"UIP17PR-256":550000},"LPZ1006511":{"UIP18PR-256":267000,"UIP18PR-512":267000,"UIP18PR-1T":267000,"UIP18PR-2T":267000,"UIP18PM-256":133000,"UIP18PM-512":133000,"UIP18PM-1T":133000,"UIP18PM-2T":133000,"SM-F776N256":442000,"SM-F776N512":442000,"SM-F971N256":442000,"SM-F971N512":442000,"SM-F971N1TB":442000,"SM-F976N256":442000,"SM-F976N512":442000,"SM-F976N1TB":442000,"SM-F741N256":442000,"SM-S937N256":618000,"SM-S942N256":442000,"SM-S942N512":442000,"SM-S947N256":442000,"SM-S947N512":442000,"SM-S948N256":442000,"SM-S948N512":442000,"UIP17-256-NP":488000,"UIP17-512-NP":488000,"UIP17PR-256":400000},"LPZ1006512":{"UIP18PR-256":251000,"UIP18PR-512":251000,"UIP18PR-1T":251000,"UIP18PR-2T":251000,"UIP18PM-256":124000,"UIP18PM-512":124000,"UIP18PM-1T":124000,"UIP18PM-2T":124000,"SM-F776N256":414000,"SM-F776N512":414000,"SM-F971N256":414000,"SM-F971N512":414000,"SM-F971N1TB":414000,"SM-F976N256":414000,"SM-F976N512":414000,"SM-F976N1TB":414000,"SM-F741N256":414000,"SM-S937N256":577000,"SM-S942N256":414000,"SM-S942N512":414000,"SM-S947N256":414000,"SM-S947N512":414000,"SM-S948N256":414000,"SM-S948N512":414000,"UIP17-256-NP":457000,"UIP17-512-NP":457000,"UIP17PR-256":375000},"LPZ1006513":{"UIP18PR-256":244000,"UIP18PR-512":244000,"UIP18PR-1T":244000,"UIP18PR-2T":244000,"UIP18PM-256":121000,"UIP18PM-512":121000,"UIP18PM-1T":121000,"UIP18PM-2T":121000,"SM-F776N256":402000,"SM-F776N512":402000,"SM-F971N256":402000,"SM-F971N512":402000,"SM-F971N1TB":402000,"SM-F976N256":402000,"SM-F976N512":402000,"SM-F976N1TB":402000,"SM-F741N256":402000,"SM-S937N256":560000,"SM-S942N256":402000,"SM-S942N512":402000,"SM-S947N256":402000,"SM-S947N512":402000,"SM-S948N256":402000,"SM-S948N512":402000,"UIP17-256-NP":444000,"UIP17-512-NP":444000,"UIP17PR-256":365000},"LPZ1006514":{"UIP18PR-256":238000,"UIP18PR-512":238000,"UIP18PR-1T":238000,"UIP18PR-2T":238000,"UIP18PM-256":117000,"UIP18PM-512":117000,"UIP18PM-1T":117000,"UIP18PM-2T":117000,"SM-F776N256":390000,"SM-F776N512":390000,"SM-F971N256":390000,"SM-F971N512":390000,"SM-F971N1TB":390000,"SM-F976N256":390000,"SM-F976N512":390000,"SM-F976N1TB":390000,"SM-F741N256":390000,"SM-S937N256":544000,"SM-S942N256":390000,"SM-S942N512":390000,"SM-S947N256":390000,"SM-S947N512":390000,"SM-S948N256":390000,"SM-S948N512":390000,"UIP17-256-NP":432000,"UIP17-512-NP":432000,"UIP17PR-256":355000},"LPZ1006515":{"UIP18PR-256":228000,"UIP18PR-512":228000,"UIP18PR-1T":228000,"UIP18PR-2T":228000,"UIP18PM-256":112000,"UIP18PM-512":112000,"UIP18PM-1T":112000,"UIP18PM-2T":112000,"SM-F776N256":373000,"SM-F776N512":373000,"SM-F971N256":373000,"SM-F971N512":373000,"SM-F971N1TB":373000,"SM-F976N256":373000,"SM-F976N512":373000,"SM-F976N1TB":373000,"SM-F741N256":373000,"SM-S937N256":519000,"SM-S942N256":373000,"SM-S942N512":373000,"SM-S947N256":373000,"SM-S947N512":373000,"SM-S948N256":373000,"SM-S948N512":373000,"UIP17-256-NP":413000,"UIP17-512-NP":413000,"UIP17PR-256":339000},"LPZ1006516":{"UIP18PR-256":221000,"UIP18PR-512":221000,"UIP18PR-1T":221000,"UIP18PR-2T":221000,"UIP18PM-256":108000,"UIP18PM-512":108000,"UIP18PM-1T":108000,"UIP18PM-2T":108000,"SM-F776N256":361000,"SM-F776N512":361000,"SM-F971N256":361000,"SM-F971N512":361000,"SM-F971N1TB":361000,"SM-F976N256":361000,"SM-F976N512":361000,"SM-F976N1TB":361000,"SM-F741N256":361000,"SM-S937N256":503000,"SM-S942N256":361000,"SM-S942N512":361000,"SM-S947N256":361000,"SM-S947N512":361000,"SM-S948N256":361000,"SM-S948N512":361000,"UIP17-256-NP":401000,"UIP17-512-NP":401000,"UIP17PR-256":401000},"LPZ1006517":{"UIP18PR-256":215000,"UIP18PR-512":215000,"UIP18PR-1T":215000,"UIP18PR-2T":215000,"UIP18PM-256":105000,"UIP18PM-512":105000,"UIP18PM-1T":105000,"UIP18PM-2T":105000,"SM-F776N256":350000,"SM-F776N512":350000,"SM-F971N256":350000,"SM-F971N512":350000,"SM-F971N1TB":350000,"SM-F976N256":350000,"SM-F976N512":350000,"SM-F976N1TB":350000,"SM-F741N256":350000,"SM-S937N256":487000,"SM-S942N256":350000,"SM-S942N512":350000,"SM-S947N256":350000,"SM-S947N512":350000,"SM-S948N256":350000,"SM-S948N512":350000,"UIP17-256-NP":389000,"UIP17-512-NP":389000,"UIP17PR-256":319000},"LPZ1006518":{"UIP18PR-256":202000,"UIP18PR-512":202000,"UIP18PR-1T":202000,"UIP18PR-2T":202000,"UIP18PM-256":98000,"UIP18PM-512":98000,"UIP18PM-1T":98000,"UIP18PM-2T":98000,"SM-F776N256":326000,"SM-F776N512":326000,"SM-F971N256":326000,"SM-F971N512":326000,"SM-F971N1TB":326000,"SM-F976N256":326000,"SM-F976N512":326000,"SM-F976N1TB":326000,"SM-F741N256":326000,"SM-S937N256":454000,"SM-S942N256":326000,"SM-S942N512":326000,"SM-S947N256":326000,"SM-S947N512":326000,"SM-S948N256":326000,"SM-S948N512":326000,"UIP17-256-NP":364000,"UIP17-512-NP":364000,"UIP17PR-256":299000},"LPZ1006519":{"UIP18PR-256":175000,"UIP18PR-512":175000,"UIP18PR-1T":175000,"UIP18PR-2T":175000,"UIP18PM-256":84000,"UIP18PM-512":84000,"UIP18PM-1T":84000,"UIP18PM-2T":84000,"SM-F776N256":280000,"SM-F776N512":280000,"SM-F971N256":280000,"SM-F971N512":280000,"SM-F971N1TB":280000,"SM-F976N256":280000,"SM-F976N512":280000,"SM-F976N1TB":280000,"SM-F741N256":280000,"SM-S937N256":388000,"SM-S942N256":280000,"SM-S942N512":280000,"SM-S947N256":280000,"SM-S947N512":280000,"SM-S948N256":280000,"SM-S948N512":280000,"UIP17-256-NP":314000,"UIP17-512-NP":314000,"UIP17PR-256":314000},"LPZ1006520":{"UIP18PR-256":142000,"UIP18PR-512":142000,"UIP18PR-1T":142000,"UIP18PR-2T":142000,"UIP18PM-256":66000,"UIP18PM-512":66000,"UIP18PM-1T":66000,"UIP18PM-2T":66000,"SM-F776N256":222000,"SM-F776N512":222000,"SM-F971N256":222000,"SM-F971N512":222000,"SM-F971N1TB":222000,"SM-F976N256":222000,"SM-F976N512":222000,"SM-F976N1TB":222000,"SM-F741N256":222000,"SM-S937N256":305000,"SM-S942N256":222000,"SM-S942N512":222000,"SM-S947N256":222000,"SM-S947N512":222000,"SM-S948N256":222000,"SM-S948N512":222000,"UIP17-256-NP":252000,"UIP17-512-NP":252000,"UIP17PR-256":208000},"LPZ1007250":{"UIP18PR-256":450000,"UIP18PR-512":450000,"UIP18PR-1T":450000,"UIP18PR-2T":450000,"UIP18PM-256":230000,"UIP18PM-512":230000,"UIP18PM-1T":230000,"UIP18PM-2T":230000,"SM-F776N256":500000,"SM-F776N512":500000,"SM-F971N256":500000,"SM-F971N512":500000,"SM-F971N1TB":500000,"SM-F976N256":500000,"SM-F976N512":500000,"SM-F976N1TB":500000,"SM-F741N256":500000,"SM-S937N256":700000,"SM-S942N256":500000,"SM-S942N512":500000,"SM-S947N256":500000,"SM-S947N512":500000,"SM-S948N256":500000,"SM-S948N512":500000,"UIP17-256-NP":550000,"UIP17-512-NP":550000,"UIP17PR-256":450000},"LPZ1007251":{"UIP18PR-256":450000,"UIP18PR-512":450000,"UIP18PR-1T":450000,"UIP18PR-2T":450000,"UIP18PM-256":204000,"UIP18PM-512":204000,"UIP18PM-1T":204000,"UIP18PM-2T":204000,"SM-F776N256":500000,"SM-F776N512":500000,"SM-F971N256":500000,"SM-F971N512":500000,"SM-F971N1TB":500000,"SM-F976N256":500000,"SM-F976N512":500000,"SM-F976N1TB":500000,"SM-F741N256":500000,"SM-S937N256":700000,"SM-S942N256":500000,"SM-S942N512":500000,"SM-S947N256":500000,"SM-S947N512":500000,"SM-S948N256":500000,"SM-S948N512":500000,"UIP17-256-NP":550000,"UIP17-512-NP":550000,"UIP17PR-256":450000},"LPZ1007252":{"UIP18PR-256":450000,"UIP18PR-512":450000,"UIP18PR-1T":450000,"UIP18PR-2T":450000,"UIP18PM-256":186000,"UIP18PM-512":186000,"UIP18PM-1T":186000,"UIP18PM-2T":186000,"SM-F776N256":500000,"SM-F776N512":500000,"SM-F971N256":500000,"SM-F971N512":500000,"SM-F971N1TB":500000,"SM-F976N256":500000,"SM-F976N512":500000,"SM-F976N1TB":500000,"SM-F741N256":500000,"SM-S937N256":700000,"SM-S942N256":500000,"SM-S942N512":500000,"SM-S947N256":500000,"SM-S947N512":500000,"SM-S948N256":500000,"SM-S948N512":500000,"UIP17-256-NP":550000,"UIP17-512-NP":550000,"UIP17PR-256":450000},"LPZ1008098":{"UIP18PR-256":450000,"UIP18PR-512":450000,"UIP18PR-1T":450000,"UIP18PR-2T":450000,"UIP18PM-256":204000,"UIP18PM-512":204000,"UIP18PM-1T":204000,"UIP18PM-2T":204000,"SM-F776N256":500000,"SM-F776N512":500000,"SM-F971N256":500000,"SM-F971N512":500000,"SM-F971N1TB":500000,"SM-F976N256":500000,"SM-F976N512":500000,"SM-F976N1TB":500000,"SM-F741N256":500000,"SM-S937N256":700000,"SM-S942N256":500000,"SM-S942N512":500000,"SM-S947N256":500000,"SM-S947N512":500000,"SM-S948N256":500000,"SM-S948N512":500000,"UIP17-256-NP":550000,"UIP17-512-NP":550000,"UIP17PR-256":450000}},"3":{"LPZ1006509":{"UIP18PR-256":400000,"UIP18PR-512":400000,"UIP18PR-1T":400000,"UIP18PR-2T":400000,"UIP18PM-256":168000,"UIP18PM-512":168000,"UIP18PM-1T":168000,"UIP18PM-2T":168000,"SM-F776N256":500000,"SM-F776N512":500000,"SM-F971N256":500000,"SM-F971N512":500000,"SM-F971N1TB":500000,"SM-F976N256":500000,"SM-F976N512":500000,"SM-F976N1TB":500000,"SM-F741N256":500000,"SM-S937N256":700000,"SM-S942N256":500000,"SM-S942N512":500000,"SM-S947N256":500000,"SM-S947N512":500000,"SM-S948N256":500000,"SM-S948N512":500000,"UIP17-256-NP":450000,"UIP17-512-NP":450000,"UIP17PR-256":450000},"LPZ1006510":{"UIP18PR-256":300000,"UIP18PR-512":300000,"UIP18PR-1T":300000,"UIP18PR-2T":300000,"UIP18PM-256":151000,"UIP18PM-512":151000,"UIP18PM-1T":151000,"UIP18PM-2T":151000,"SM-F776N256":500000,"SM-F776N512":500000,"SM-F971N256":500000,"SM-F971N512":500000,"SM-F971N1TB":500000,"SM-F976N256":500000,"SM-F976N512":500000,"SM-F976N1TB":500000,"SM-F741N256":500000,"SM-S937N256":700000,"SM-S942N256":500000,"SM-S942N512":500000,"SM-S947N256":500000,"SM-S947N512":500000,"SM-S948N256":500000,"SM-S948N512":500000,"UIP17-256-NP":450000,"UIP17-512-NP":450000,"UIP17PR-256":450000},"LPZ1006511":{"UIP18PR-256":267000,"UIP18PR-512":267000,"UIP18PR-1T":267000,"UIP18PR-2T":267000,"UIP18PM-256":133000,"UIP18PM-512":133000,"UIP18PM-1T":133000,"UIP18PM-2T":133000,"SM-F776N256":442000,"SM-F776N512":442000,"SM-F971N256":442000,"SM-F971N512":442000,"SM-F971N1TB":442000,"SM-F976N256":442000,"SM-F976N512":442000,"SM-F976N1TB":442000,"SM-F741N256":442000,"SM-S937N256":618000,"SM-S942N256":442000,"SM-S942N512":442000,"SM-S947N256":442000,"SM-S947N512":442000,"SM-S948N256":442000,"SM-S948N512":442000,"UIP17-256-NP":400000,"UIP17-512-NP":400000,"UIP17PR-256":400000},"LPZ1006512":{"UIP18PR-256":251000,"UIP18PR-512":251000,"UIP18PR-1T":251000,"UIP18PR-2T":251000,"UIP18PM-256":124000,"UIP18PM-512":124000,"UIP18PM-1T":124000,"UIP18PM-2T":124000,"SM-F776N256":414000,"SM-F776N512":414000,"SM-F971N256":414000,"SM-F971N512":414000,"SM-F971N1TB":414000,"SM-F976N256":414000,"SM-F976N512":414000,"SM-F976N1TB":414000,"SM-F741N256":414000,"SM-S937N256":577000,"SM-S942N256":414000,"SM-S942N512":414000,"SM-S947N256":414000,"SM-S947N512":414000,"SM-S948N256":414000,"SM-S948N512":414000,"UIP17-256-NP":375000,"UIP17-512-NP":375000,"UIP17PR-256":375000},"LPZ1006513":{"UIP18PR-256":244000,"UIP18PR-512":244000,"UIP18PR-1T":244000,"UIP18PR-2T":244000,"UIP18PM-256":121000,"UIP18PM-512":121000,"UIP18PM-1T":121000,"UIP18PM-2T":121000,"SM-F776N256":402000,"SM-F776N512":402000,"SM-F971N256":402000,"SM-F971N512":402000,"SM-F971N1TB":402000,"SM-F976N256":402000,"SM-F976N512":402000,"SM-F976N1TB":402000,"SM-F741N256":402000,"SM-S937N256":560000,"SM-S942N256":402000,"SM-S942N512":402000,"SM-S947N256":402000,"SM-S947N512":402000,"SM-S948N256":402000,"SM-S948N512":402000,"UIP17-256-NP":365000,"UIP17-512-NP":365000,"UIP17PR-256":365000},"LPZ1006514":{"UIP18PR-256":238000,"UIP18PR-512":238000,"UIP18PR-1T":238000,"UIP18PR-2T":238000,"UIP18PM-256":117000,"UIP18PM-512":117000,"UIP18PM-1T":117000,"UIP18PM-2T":117000,"SM-F776N256":390000,"SM-F776N512":390000,"SM-F971N256":390000,"SM-F971N512":390000,"SM-F971N1TB":390000,"SM-F976N256":390000,"SM-F976N512":390000,"SM-F976N1TB":390000,"SM-F741N256":390000,"SM-S937N256":544000,"SM-S942N256":390000,"SM-S942N512":390000,"SM-S947N256":390000,"SM-S947N512":390000,"SM-S948N256":390000,"SM-S948N512":390000,"UIP17-256-NP":355000,"UIP17-512-NP":355000,"UIP17PR-256":355000},"LPZ1006515":{"UIP18PR-256":228000,"UIP18PR-512":228000,"UIP18PR-1T":228000,"UIP18PR-2T":228000,"UIP18PM-256":112000,"UIP18PM-512":112000,"UIP18PM-1T":112000,"UIP18PM-2T":112000,"SM-F776N256":373000,"SM-F776N512":373000,"SM-F971N256":373000,"SM-F971N512":373000,"SM-F971N1TB":373000,"SM-F976N256":373000,"SM-F976N512":373000,"SM-F976N1TB":373000,"SM-F741N256":373000,"SM-S937N256":519000,"SM-S942N256":373000,"SM-S942N512":373000,"SM-S947N256":373000,"SM-S947N512":373000,"SM-S948N256":373000,"SM-S948N512":373000,"UIP17-256-NP":339000,"UIP17-512-NP":339000,"UIP17PR-256":339000},"LPZ1006516":{"UIP18PR-256":221000,"UIP18PR-512":221000,"UIP18PR-1T":221000,"UIP18PR-2T":221000,"UIP18PM-256":108000,"UIP18PM-512":108000,"UIP18PM-1T":108000,"UIP18PM-2T":108000,"SM-F776N256":361000,"SM-F776N512":361000,"SM-F971N256":361000,"SM-F971N512":361000,"SM-F971N1TB":361000,"SM-F976N256":361000,"SM-F976N512":361000,"SM-F976N1TB":361000,"SM-F741N256":361000,"SM-S937N256":503000,"SM-S942N256":361000,"SM-S942N512":361000,"SM-S947N256":361000,"SM-S947N512":361000,"SM-S948N256":361000,"SM-S948N512":361000,"UIP17-256-NP":329000,"UIP17-512-NP":329000,"UIP17PR-256":329000},"LPZ1006517":{"UIP18PR-256":215000,"UIP18PR-512":215000,"UIP18PR-1T":215000,"UIP18PR-2T":215000,"UIP18PM-256":105000,"UIP18PM-512":105000,"UIP18PM-1T":105000,"UIP18PM-2T":105000,"SM-F776N256":350000,"SM-F776N512":350000,"SM-F971N256":350000,"SM-F971N512":350000,"SM-F971N1TB":350000,"SM-F976N256":350000,"SM-F976N512":350000,"SM-F976N1TB":350000,"SM-F741N256":350000,"SM-S937N256":487000,"SM-S942N256":350000,"SM-S942N512":350000,"SM-S947N256":350000,"SM-S947N512":350000,"SM-S948N256":350000,"SM-S948N512":350000,"UIP17-256-NP":319000,"UIP17-512-NP":319000,"UIP17PR-256":319000},"LPZ1006518":{"UIP18PR-256":202000,"UIP18PR-512":202000,"UIP18PR-1T":202000,"UIP18PR-2T":202000,"UIP18PM-256":98000,"UIP18PM-512":98000,"UIP18PM-1T":98000,"UIP18PM-2T":98000,"SM-F776N256":326000,"SM-F776N512":326000,"SM-F971N256":326000,"SM-F971N512":326000,"SM-F971N1TB":326000,"SM-F976N256":326000,"SM-F976N512":326000,"SM-F976N1TB":326000,"SM-F741N256":326000,"SM-S937N256":454000,"SM-S942N256":326000,"SM-S942N512":326000,"SM-S947N256":326000,"SM-S947N512":326000,"SM-S948N256":326000,"SM-S948N512":326000,"UIP17-256-NP":299000,"UIP17-512-NP":299000,"UIP17PR-256":299000},"LPZ1006519":{"UIP18PR-256":175000,"UIP18PR-512":175000,"UIP18PR-1T":175000,"UIP18PR-2T":175000,"UIP18PM-256":84000,"UIP18PM-512":84000,"UIP18PM-1T":84000,"UIP18PM-2T":84000,"SM-F776N256":280000,"SM-F776N512":280000,"SM-F971N256":280000,"SM-F971N512":280000,"SM-F971N1TB":280000,"SM-F976N256":280000,"SM-F976N512":280000,"SM-F976N1TB":280000,"SM-F741N256":280000,"SM-S937N256":388000,"SM-S942N256":280000,"SM-S942N512":280000,"SM-S947N256":280000,"SM-S947N512":280000,"SM-S948N256":280000,"SM-S948N512":280000,"UIP17-256-NP":259000,"UIP17-512-NP":259000,"UIP17PR-256":259000},"LPZ1006520":{"UIP18PR-256":142000,"UIP18PR-512":142000,"UIP18PR-1T":142000,"UIP18PR-2T":142000,"UIP18PM-256":66000,"UIP18PM-512":66000,"UIP18PM-1T":66000,"UIP18PM-2T":66000,"SM-F776N256":222000,"SM-F776N512":222000,"SM-F971N256":222000,"SM-F971N512":222000,"SM-F971N1TB":222000,"SM-F976N256":222000,"SM-F976N512":222000,"SM-F976N1TB":222000,"SM-F741N256":222000,"SM-S937N256":305000,"SM-S942N256":222000,"SM-S942N512":222000,"SM-S947N256":222000,"SM-S947N512":222000,"SM-S948N256":222000,"SM-S948N512":222000,"UIP17-256-NP":208000,"UIP17-512-NP":208000,"UIP17PR-256":208000},"LPZ1007250":{"UIP18PR-256":450000,"UIP18PR-512":450000,"UIP18PR-1T":450000,"UIP18PR-2T":450000,"UIP18PM-256":230000,"UIP18PM-512":230000,"UIP18PM-1T":230000,"UIP18PM-2T":230000,"SM-F776N256":500000,"SM-F776N512":500000,"SM-F971N256":500000,"SM-F971N512":500000,"SM-F971N1TB":500000,"SM-F976N256":500000,"SM-F976N512":500000,"SM-F976N1TB":500000,"SM-F741N256":500000,"SM-S937N256":700000,"SM-S942N256":500000,"SM-S942N512":500000,"SM-S947N256":500000,"SM-S947N512":500000,"SM-S948N256":500000,"SM-S948N512":500000,"UIP17-256-NP":450000,"UIP17-512-NP":450000,"UIP17PR-256":450000},"LPZ1007251":{"UIP18PR-256":450000,"UIP18PR-512":450000,"UIP18PR-1T":450000,"UIP18PR-2T":450000,"UIP18PM-256":204000,"UIP18PM-512":204000,"UIP18PM-1T":204000,"UIP18PM-2T":204000,"SM-F776N256":500000,"SM-F776N512":500000,"SM-F971N256":500000,"SM-F971N512":500000,"SM-F971N1TB":500000,"SM-F976N256":500000,"SM-F976N512":500000,"SM-F976N1TB":500000,"SM-F741N256":500000,"SM-S937N256":700000,"SM-S942N256":500000,"SM-S942N512":500000,"SM-S947N256":500000,"SM-S947N512":500000,"SM-S948N256":500000,"SM-S948N512":500000,"UIP17-256-NP":450000,"UIP17-512-NP":450000,"UIP17PR-256":450000},"LPZ1007252":{"UIP18PR-256":450000,"UIP18PR-512":450000,"UIP18PR-1T":450000,"UIP18PR-2T":450000,"UIP18PM-256":186000,"UIP18PM-512":186000,"UIP18PM-1T":186000,"UIP18PM-2T":186000,"SM-F776N256":500000,"SM-F776N512":500000,"SM-F971N256":500000,"SM-F971N512":500000,"SM-F971N1TB":500000,"SM-F976N256":500000,"SM-F976N512":500000,"SM-F976N1TB":500000,"SM-F741N256":500000,"SM-S937N256":700000,"SM-S942N256":500000,"SM-S942N512":500000,"SM-S947N256":500000,"SM-S947N512":500000,"SM-S948N256":500000,"SM-S948N512":500000,"UIP17-256-NP":450000,"UIP17-512-NP":450000,"UIP17PR-256":450000},"LPZ1008098":{"UIP18PR-256":450000,"UIP18PR-512":450000,"UIP18PR-1T":450000,"UIP18PR-2T":450000,"UIP18PM-256":204000,"UIP18PM-512":204000,"UIP18PM-1T":204000,"UIP18PM-2T":204000,"SM-F776N256":500000,"SM-F776N512":500000,"SM-F971N256":500000,"SM-F971N512":500000,"SM-F971N1TB":500000,"SM-F976N256":500000,"SM-F976N512":500000,"SM-F976N1TB":500000,"SM-F741N256":500000,"SM-S937N256":700000,"SM-S942N256":500000,"SM-S942N512":500000,"SM-S947N256":500000,"SM-S947N512":500000,"SM-S948N256":500000,"SM-S948N512":500000,"UIP17-256-NP":450000,"UIP17-512-NP":450000,"UIP17PR-256":450000}}},"snapDate":"2026-10-15"};
+</script>
+<script>
+/* ===== 휴대폰 견적 비교 (2026-10-15 개편) =====
+   공시지원금: LG U+ 공식 온라인샵 API 실시간 → 실패 시 내장 스냅샷 → 기존 단가표 값
+   대리점 추가지원금: OS_DATA.ag (우리 정책, 85/115 구간) */
+(function () {
+    var D = window.OS_DATA;
+    if (!D) return;
+    var API = 'https://www.lguplus.com/uhdc/fo/prdv/mdlbsufu/v2/mdlb-sufu-list?onlnOrdrPsblEposDivsCd=Y&shwd=&sortOrd=00&urcWlcmAplyDivsCd=NONE&pageNo=1&rowSize=300';
+    var KAKAO = 'http://pf.kakao.com/_xlyGxin/chat';
+    var RATE = 0.059 / 12;
+    var TYPE_NM = { '1': '기기변경', '2': '번호이동', '3': '신규가입' };
+    var REC_PLANS = ['LPZ1006510', 'LPZ1008098', 'LPZ1007251', 'LPZ1006509'];
+    var INSTS = [0, 12, 24, 36, 48];
+
+    var planMap = {};
+    D.plans.forEach(function (p) { planMap[p.code] = p; });
+    var modelMap = {};
+    D.models.forEach(function (m) { modelMap[m.id] = m; });
+
+    var live = {};          // live['2|LPZ..'] = {code: amt}
+    var liveTime = null;
+    var pending = {};
+
+    var st = { type: '2', plan: 'LPZ1006510', dc: 'sub', maker: 'all', capSel: {} };
+    var pd = null;          // 모달 상태 {id, cap, type, plan, dc, n}
+
+    var $ = function (id) { return document.getElementById(id); };
+    var won = function (n) { return Math.round(n).toLocaleString('ko-KR'); };
+    var f10 = function (n) { return Math.floor(n / 10) * 10; };
+
+    /* ---------- 공시지원금 ---------- */
+    function ssGet(k) { try { return JSON.parse(sessionStorage.getItem(k)); } catch (e) { return null; } }
+    function ssSet(k, v) { try { sessionStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+
+    function fetchSubsidy(type, plan, cb) {
+        var key = type + '|' + plan;
+        if (live[key]) { cb && cb(); return; }
+        var cached = ssGet('osSub:' + key);
+        if (cached && Date.now() - cached.t < 30 * 60000) {
+            live[key] = cached.v; liveTime = liveTime || cached.t; setSync(); cb && cb(); return;
+        }
+        if (pending[key]) { pending[key].push(cb); return; }
+        pending[key] = [cb];
+        var url = API + '&urcHphnEntrPsblKdCd=' + type + '&urcMblPpCd=' + plan;
+        fetch(url, { credentials: 'omit' }).then(function (r) { return r.json(); }).then(function (j) {
+            var list = (j && j.dvicMdlbSufuDtoList) || [];
+            if (!list.length) throw new Error('empty');
+            var v = {};
+            list.forEach(function (x) { v[x.urcTrmMdlCd] = Number(x.basicPlanPuanSuptAmt) || 0; });
+            live[key] = v; liveTime = Date.now();
+            ssSet('osSub:' + key, { t: liveTime, v: v });
+            setSync();
+        }).catch(function () {
+            setSync(true);
+        }).then(function () {
+            var cbs = pending[key]; delete pending[key];
+            cbs.forEach(function (f) { f && f(); });
+        });
+    }
+
+    function setSync(failed) {
+        var el = $('osSync');
+        if (!el) return;
+        if (liveTime) {
+            var d = new Date(liveTime);
+            el.className = 'os-sync';
+            el.innerHTML = '<i></i>공시지원금 ' + (d.getMonth() + 1) + '월 ' + d.getDate() + '일 ' +
+                String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0') + ' 기준';
+        } else if (failed) {
+            var s = D.snapDate.split('-');
+            el.className = 'os-sync off';
+            el.innerHTML = '<i></i>공시지원금 ' + Number(s[1]) + '월 ' + Number(s[2]) + '일 기준';
+        }
+    }
+
+    function tierOf(plan) {
+        var fee = planMap[plan].fee;
+        return fee >= 115000 ? '115' : fee >= 85000 ? '85' : null;
+    }
+
+    function carrierAmt(m, cap, type, plan) {
+        var c = m.caps.filter(function (x) { return x.c === cap; })[0];
+        if (c && c.code) {
+            var lv = live[type + '|' + plan];
+            if (lv && lv[c.code] != null) return lv[c.code];
+            var sn = D.snap[type] && D.snap[type][plan];
+            if (sn && sn[c.code] != null) return sn[c.code];
+        }
+        var kd = type === '3' ? '1' : type;
+        var t = tierOf(plan) || '85';
+        var fb = D.fb[kd] && D.fb[kd][t] && D.fb[kd][t][m.id];
+        return fb && fb[cap] != null ? fb[cap] : 0;
+    }
+
+    function agencyAmt(m, cap, type, plan) {
+        var t = tierOf(plan);
+        if (!t) return 0;
+        var kd = type === '3' ? '1' : type;   // 신규가입은 기기변경 정책 적용
+        var a = D.ag[kd][t][m.id];
+        return a && a[cap] ? a[cap] : 0;
+    }
+
+    /* ---------- 계산 ---------- */
+    function inst(prin, n) {
+        if (!n || prin <= 0) return { m: 0, fee: 0 };
+        // 공식몰 예시와 동일: 월 할부금은 10원 미만 절사, 수수료는 절사 전 금액 기준 (2,231,500원·24개월 → 98,800 / 139,720)
+        var ex = prin * RATE / (1 - Math.pow(1 + RATE, -n));
+        return { m: f10(ex), fee: Math.max(0, f10(ex * n - prin)) };
+    }
+
+    function quote(m, cap, type, plan, dc, n) {
+        var c = m.caps.filter(function (x) { return x.c === cap; })[0];
+        var p = planMap[plan];
+        var retail = c.retail;
+        var sub = carrierAmt(m, cap, type, plan);
+        var ag = agencyAmt(m, cap, type, plan);
+        function one(kind) {
+            var prin = Math.max(0, retail - (kind === 'sub' ? sub : 0) - ag);
+            var i = inst(prin, n);
+            var sel = kind === 'sel' ? p.sel : 0;
+            var planM = p.fee - sel;
+            return {
+                kind: kind, prin: prin, devM: i.m, fee: i.fee, sel: sel, planM: planM,
+                total: i.m + planM,
+                cost24: prin + i.fee + planM * 24,
+                subUsed: kind === 'sub' ? Math.min(sub, retail) : 0,
+                agUsed: Math.min(ag, Math.max(0, retail - (kind === 'sub' ? sub : 0)))
+            };
+        }
+        var a = one('sub'), b = one('sel');
+        var best = b.cost24 < a.cost24 ? 'sel' : 'sub';
+        var pick = dc === 'auto' ? best : dc;
+        return { retail: retail, sub: sub, ag: ag, plan: p, s: a, l: b, best: best, pick: pick, r: pick === 'sub' ? a : b };
+    }
+
+    /* ---------- 카드 목록 ---------- */
+    function firstCap(m) {
+        if (st.capSel[m.id]) return st.capSel[m.id];
+        var c = m.caps.filter(function (x) { return !x.sold; })[0];
+        return c ? c.c : m.caps[0].c;
+    }
+
+    function badgeHtml(list) {
+        return list.map(function (b) { return '<span class="os-badge ' + b[0] + '">' + b[1] + '</span>'; }).join('');
+    }
+
+    function capsHtml(m, cur) {
+        return m.caps.map(function (c) {
+            return '<button type="button" class="os-cap' + (c.c === cur ? ' on' : '') + '" data-cap="' + c.c + '"' +
+                (c.sold ? ' disabled' : '') + '>' + c.c + (c.sold ? ' 품절' : '') + '</button>';
+        }).join('');
+    }
+
+    function cardHtml(m) {
+        var allSold = m.caps.every(function (c) { return c.sold; });
+        var cap = firstCap(m);
+        var h = '<article class="os-card' + (allSold ? ' is-soldout' : '') + '" data-id="' + m.id + '">';
+        var badges = m.badges.slice();
+        if (allSold) badges = [['out', '일시품절']];
+        var q = null;
+        if (!m.pre && !allSold) {
+            q = quote(m, cap, st.type, st.plan, st.dc, 24);
+            if (q.r.prin === 0) badges.push(['zero', '할부원금 0원']);
+        }
+        h += '<div class="os-badges">' + badgeHtml(badges) + '</div>';
+        h += '<div class="os-card-img"><img src="' + m.img + '" alt="' + m.name + ' LG유플러스 ' + TYPE_NM[st.type] + ' 가격" loading="lazy"></div>';
+        h += '<h3 class="os-card-name">' + m.name + '</h3>';
+        h += '<div class="os-caps">' + capsHtml(m, cap) + '</div>';
+
+        if (m.pre) {
+            h += '<div class="os-pre-box"><strong>사전예약 시 50만원 즉시 할인</strong>' +
+                '<span>10월 16일(금) 밤 9시 예약 시작 · 10월 23일(금) 출시</span>' +
+                '<span>출고가·공시지원금은 출시 공시 후 반영됩니다</span></div>';
+            h += '<div class="os-card-btns"><a class="os-btn os-btn-pink" href="earlybird/ipduo/#apply">사전예약 신청</a></div>';
+        } else if (allSold) {
+            h += '<div class="os-pre-box"><strong>현재 전 용량 품절</strong><span>입고 일정은 상담으로 안내해 드립니다</span></div>';
+            h += '<div class="os-card-btns"><a class="os-btn os-btn-line" href="' + KAKAO + '" target="_blank">입고 문의</a></div>';
+        } else {
+            var r = q.r;
+            h += '<div class="os-total"><div class="os-total-label">월 예상 납부금액 <em>' + (r.kind === 'sub' ? '공시지원금' : '선택약정') + ' · 24개월 할부</em></div>' +
+                '<div class="os-total-price">' + won(r.total) + '<small>원</small></div></div>';
+            h += '<div class="os-rows">' +
+                '<div class="os-row"><span>출고가</span><b><s>' + won(q.retail) + '원</s></b></div>' +
+                (r.kind === 'sub'
+                    ? '<div class="os-row"><span>공시지원금</span><b class="pink">-' + won(r.subUsed) + '원</b></div>'
+                    : '<div class="os-row"><span>선택약정 (월)</span><b class="pink">-' + won(r.sel) + '원</b></div>') +
+                '<div class="os-row"><span>대리점 추가지원금</span><b class="pink">' + (r.agUsed ? '-' + won(r.agUsed) + '원' : '<span class="tag">85,000원 이상 요금제</span>') + '</b></div>' +
+                '<div class="os-row sep"><span>할부원금</span><b>' + won(r.prin) + '원</b></div>' +
+                '<div class="os-row"><span>휴대폰 월 할부금</span><b>' + won(r.devM) + '원</b></div>' +
+                '<div class="os-row"><span>요금제 월 납부</span><b>' + won(r.planM) + '원</b></div>' +
+                '</div>';
+            h += '<div class="os-card-btns"><button type="button" class="os-btn os-btn-pinkline" data-open>견적 비교하기</button>' +
+                '<a class="os-btn os-btn-pink" href="' + KAKAO + '" target="_blank" data-kakao>카톡 상담</a></div>';
+        }
+        return h + '</article>';
+    }
+
+    function renderList() {
+        var list = D.models.filter(function (m) { return st.maker === 'all' || m.maker === st.maker; });
+        $('osGrid').innerHTML = list.map(cardHtml).join('');
+        $('osCount').textContent = list.length;
+        var p = planMap[st.plan];
+        var dcNm = { sub: '공시지원금', sel: '선택약정' }[st.dc];
+        $('osCond').innerHTML = '<em>' + TYPE_NM[st.type] + '</em> · <em>' + p.name + '</em> · <em>' + dcNm + '</em>';
+    }
+
+    function refreshList() {
+        renderList();
+        fetchSubsidy(st.type, st.plan, renderList);
+    }
+
+    /* ---------- 요금제 셀렉트 ---------- */
+    function planOptions(sel) {
+        var groups = { premium: '5G 프리미엄 팩', basic: '5G 요금제' };
+        var h = '';
+        ['premium', 'basic'].forEach(function (g) {
+            h += '<optgroup label="' + groups[g] + '">';
+            D.plans.filter(function (p) { return p.grp === g; }).forEach(function (p) {
+                h += '<option value="' + p.code + '"' + (p.code === sel ? ' selected' : '') + '>' + p.name + ' (월 ' + won(p.fee) + '원)</option>';
+            });
+            h += '</optgroup>';
+        });
+        return h;
+    }
+
+    /* ---------- 견적 비교 모달 ---------- */
+    function openPd(id) {
+        var m = modelMap[id];
+        pd = { id: id, cap: firstCap(m), type: st.type, plan: st.plan, dc: st.dc, n: 24 };
+        $('osPdImg').src = m.img;
+        $('osPdImg').alt = m.name;
+        $('osPdName').textContent = m.name;
+        $('osPdBadges').innerHTML = badgeHtml(m.badges);
+        $('osPdPlanAll').innerHTML = '<option value="">다른 요금제 고르기</option>' + planOptions('');
+        $('osPd').classList.add('open');
+        $('osPd').setAttribute('aria-hidden', 'false');
+        document.body.classList.add('os-lock');
+        renderPd();
+        fetchSubsidy(pd.type, pd.plan, renderPd);
+    }
+
+    function closePd() {
+        $('osPd').classList.remove('open');
+        $('osPd').setAttribute('aria-hidden', 'true');
+        document.body.classList.remove('os-lock');
+        pd = null;
+    }
+
+    function renderPd() {
+        if (!pd) return;
+        var m = modelMap[pd.id];
+        var q = quote(m, pd.cap, pd.type, pd.plan, pd.dc || 'auto', pd.n);
+        if (!pd.dc) pd.dc = q.best;
+        q = quote(m, pd.cap, pd.type, pd.plan, pd.dc, pd.n);
+        var r = q.r;
+        var c = m.caps.filter(function (x) { return x.c === pd.cap; })[0];
+
+        $('osPdCode').textContent = (c.code || '') + (c.code ? ' · ' : '') + '출고가 ' + won(q.retail) + '원';
+        $('osPdCaps').innerHTML = capsHtml(m, pd.cap);
+
+        [].forEach.call($('osPdType').children, function (b) { b.classList.toggle('on', b.dataset.v === pd.type); });
+
+        // 요금제: 추천 4개 + 선택한 다른 요금제
+        var plans = REC_PLANS.slice();
+        if (plans.indexOf(pd.plan) < 0) plans.push(pd.plan);
+        $('osPdPlans').className = 'os-choice ' + (plans.length > 4 ? 'c3' : 'c4');
+        $('osPdPlans').innerHTML = plans.map(function (code) {
+            var p = planMap[code];
+            var nm = p.grp === 'premium' ? p.name.replace(' 플러스플랜', ' ') : p.name.replace('5G 데이터플랜 ', '데이터플랜 ');
+            var sub = carrierAmt(m, pd.cap, pd.type, code);
+            return '<button type="button" class="os-opt' + (code === pd.plan ? ' on' : '') + '" data-v="' + code + '">' +
+                '<span class="os-opt-t">' + nm + '</span>' +
+                '<span class="os-opt-d">월 ' + won(p.fee) + '원</span>' +
+                '<span class="os-opt-v pink">공시 ' + won(sub) + '원</span></button>';
+        }).join('');
+        var tier = tierOf(pd.plan);
+        $('osPdPlanNote').innerHTML = tier
+            ? '대리점 추가지원금 <b>' + won(q.ag) + '원</b> 적용 · 요금제 6개월 유지 후 변경 가능'
+            : '이 요금제는 대리점 추가지원금이 없습니다. <b>월 85,000원 이상</b> 요금제부터 적용됩니다.';
+
+        // 할인 방법 비교
+        function dcBtn(o, title, desc) {
+            return '<button type="button" class="os-opt' + (pd.dc === o.kind ? ' on' : '') + '" data-v="' + o.kind + '">' +
+                (q.best === o.kind ? '<span class="best">더 저렴</span>' : '') +
+                '<span class="os-opt-t">' + title + '</span>' +
+                '<span class="os-opt-d">' + desc + '</span>' +
+                '<span class="os-dc-rows"><div><span>할부원금</span><b>' + won(o.prin) + '원</b></div>' +
+                '<div><span>요금제 월 납부</span><b>' + won(o.planM) + '원</b></div></span>' +
+                '<span class="os-opt-v' + (pd.dc === o.kind ? ' pink' : '') + '">월 ' + won(o.total) + '원</span></button>';
+        }
+        $('osPdDc').innerHTML =
+            dcBtn(q.s, '공시지원금', '휴대폰 값에서 ' + won(q.s.subUsed) + '원 한 번에 할인') +
+            dcBtn(q.l, '선택약정 25%', '요금제 월 ' + won(q.plan.sel) + '원씩 24개월 할인');
+        var gap = Math.abs(q.s.cost24 - q.l.cost24);
+        $('osPdDiff').innerHTML = gap < 10
+            ? '24개월 총 납부액이 같습니다.'
+            : '24개월 총 납부액 기준 <b>' + (q.best === 'sub' ? '공시지원금' : '선택약정') + '</b>이 <b>' + won(gap) + '원</b> 저렴합니다.';
+
+        // 할부 개월
+        $('osPdInst').innerHTML = INSTS.map(function (n) {
+            var i = inst(r.prin, n);
+            return '<button type="button" class="os-opt' + (n === pd.n ? ' on' : '') + '" data-v="' + n + '">' +
+                '<span class="os-opt-t">' + (n ? n + '개월' : '일시불') + '</span>' +
+                '<span class="os-opt-v">' + (n ? '월 ' + won(i.m) + '원' : won(r.prin) + '원') + '</span></button>';
+        }).join('');
+
+        // 요약
+        $('osSumTotal').innerHTML = won(r.total) + '<small>원</small>';
+        $('osMbarTotal').textContent = won(r.total) + '원';
+        $('osSumDevT').textContent = '휴대폰 ' + (pd.n ? pd.n + '개월 할부' : '일시불');
+        $('osSumDevM').textContent = pd.n ? '월 ' + won(r.devM) + '원' : '일시불 ' + won(r.prin) + '원';
+        $('osSumRetail').textContent = won(q.retail) + '원';
+        $('osSumSub').textContent = r.subUsed ? '-' + won(r.subUsed) + '원' : '선택약정 선택';
+        $('osSumAg').textContent = r.agUsed ? '-' + won(r.agUsed) + '원' : '0원';
+        $('osSumPrin').textContent = won(r.prin) + '원';
+        $('osSumFee').textContent = won(r.fee) + '원';
+        $('osSumPlanM').textContent = '월 ' + won(r.planM) + '원';
+        $('osSumPlanN').textContent = q.plan.name;
+        $('osSumPlanF').textContent = won(q.plan.fee) + '원';
+        $('osSumSel').textContent = r.sel ? '-' + won(r.sel) + '원' : '공시지원금 선택';
+        $('osSumKeep').style.display = tier ? '' : 'none';
+        var lv = live[pd.type + '|' + pd.plan];
+        $('osSumSrc').textContent = '공시지원금: LG U+ 공식 온라인샵 기준' +
+            (lv && liveTime ? ' (' + new Date(liveTime).toLocaleString('ko-KR', { month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' }) + ' 확인)' : ' (' + D.snapDate + ')');
+    }
+
+    function quoteText() {
+        var m = modelMap[pd.id];
+        var q = quote(m, pd.cap, pd.type, pd.plan, pd.dc, pd.n);
+        var r = q.r;
+        return [
+            '[U+핫딜센터 견적 문의]',
+            '모델: ' + m.name + ' ' + pd.cap,
+            '가입유형: ' + TYPE_NM[pd.type],
+            '요금제: ' + q.plan.name + ' (월 ' + won(q.plan.fee) + '원)',
+            '할인: ' + (pd.dc === 'sub' ? '공시지원금 ' + won(r.subUsed) + '원' : '선택약정 월 ' + won(r.sel) + '원'),
+            '대리점 추가지원금: ' + won(r.agUsed) + '원',
+            '할부원금: ' + won(r.prin) + '원 / ' + (pd.n ? pd.n + '개월 (월 ' + won(r.devM) + '원)' : '일시불'),
+            '월 예상 납부금액: ' + won(r.total) + '원'
+        ].join('\n');
+    }
+
+    function toast(msg) {
+        var t = $('osCopied');
+        t.textContent = msg;
+        t.classList.add('show');
+        clearTimeout(toast.tm);
+        toast.tm = setTimeout(function () { t.classList.remove('show'); }, 2600);
+    }
+
+    function sendQuote() {
+        var text = quoteText();
+        var go = function (ok) {
+            toast(ok ? '견적 내용이 복사됐어요. 카톡 채팅창에 붙여넣기 해주세요.' : '카톡 채팅창에 모델·요금제를 알려주세요.');
+            if (typeof fbq === 'function') fbq('trackCustom', 'KakaoClick');
+            setTimeout(function () { window.open(KAKAO, '_blank'); }, 400);
+        };
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(text).then(function () { go(true); }, function () { go(fallbackCopy(text)); });
+        } else go(fallbackCopy(text));
+    }
+
+    function fallbackCopy(text) {
+        var ta = document.createElement('textarea');
+        ta.value = text; ta.setAttribute('readonly', ''); ta.style.position = 'fixed'; ta.style.opacity = '0';
+        document.body.appendChild(ta); ta.select();
+        var ok = false;
+        try { ok = document.execCommand('copy'); } catch (e) {}
+        document.body.removeChild(ta);
+        return ok;
+    }
+
+    /* ---------- 이벤트 ---------- */
+    function syncFilter() {
+        document.querySelectorAll('input[name="osType"]').forEach(function (i) { i.checked = i.value === st.type; });
+        document.querySelectorAll('input[name="osDc"]').forEach(function (i) { i.checked = i.value === st.dc; });
+        $('osDcM').value = st.dc;
+        $('osPlan').value = st.plan;
+    }
+
+    function init() {
+        if (!$('osGrid')) return;
+        $('osPlan').innerHTML = planOptions(st.plan);
+
+        document.querySelectorAll('input[name="osType"]').forEach(function (i) {
+            i.addEventListener('change', function () { st.type = i.value; refreshList(); });
+        });
+        document.querySelectorAll('input[name="osDc"]').forEach(function (i) {
+            i.addEventListener('change', function () { st.dc = i.value; syncFilter(); renderList(); });
+        });
+        $('osDcM').addEventListener('change', function () { st.dc = this.value; syncFilter(); renderList(); });
+        $('osPlan').addEventListener('change', function () { st.plan = this.value; refreshList(); });
+
+        document.querySelectorAll('.os-maker button').forEach(function (b) {
+            b.addEventListener('click', function () {
+                st.maker = b.dataset.maker;
+                document.querySelectorAll('.os-maker button').forEach(function (x) { x.classList.toggle('on', x === b); });
+                renderList();
+            });
         });
 
-        // 용량 선택 시 해당 용량의 출고가·지원금·할부원금으로 교체
-        function initCapacityTabs() {
-            document.querySelectorAll('.product-card').forEach(card => {
-                const btns = card.querySelectorAll('.cap-btn');
-                if (btns.length < 2) return;
-
-                btns.forEach(btn => {
-                    btn.addEventListener('click', () => {
-                        btns.forEach(b => b.classList.remove('active'));
-                        btn.classList.add('active');
-
-                        renderCapRows(card, btn);
-                    });
-                });
-            });
-        }
-
-        // 선택한 용량 버튼의 출고가·지원금·할부원금을 카드에 표시
-        function renderCapRows(card, btn) {
-            const set = (field, text) => {
-                const el = card.querySelector('[data-f="' + field + '"]');
-                if (el) el.textContent = text;
-            };
-            /* 숫자면 "- 000 원", 아니면(미정·상담 문의 등) 값 그대로 */
-            const fmt = (v, prefix) => /^[\d,]+$/.test(v || '') ? prefix + v + ' 원' : (v || '');
-            set('retail', fmt(btn.dataset.retail, ''));
-            set('carrier', fmt(btn.dataset.carrier, '- '));
-            set('agency', fmt(btn.dataset.agency, '- '));
-            set('final', fmt(btn.dataset.final, ''));
-        }
-
-        /* ══ 가입 유형(번호이동/기기변경) · 요금제(85/115) 전환 ══
-           카드 가격의 기준표 — 상담단가표.html 홈페이지 탭 (2026-10-02, 통일 단가 +50,000) · [출고가, 이통사 지원금, 대리점 지원금, 할부원금]
-           단가가 바뀌면 이 표를 고치고, 번호이동 85요금제 값은 카드 HTML · JSON-LD · FAQ 문장에도 함께 반영할 것 */
-        const PRICE_TABLE = {
-            "번호이동|85": {"iPhone Duo":{"256GB":["미정","미정",500000,"미정"],"512GB":["미정","미정",500000,"미정"],"1TB":["미정","미정",500000,"미정"],"2TB":["미정","미정",500000,"미정"]},"iPhone 18 Pro":{"256GB":[1991000,300000,450000,1241000],"512GB":[2299000,300000,450000,1549000],"1TB":[2893000,300000,450000,2143000],"2TB":[3795000,300000,450000,3045000]},"iPhone 18 Pro Max":{"256GB":[2200000,151000,450000,1599000],"512GB":[2497000,151000,450000,1896000],"1TB":[3091000,151000,450000,2490000],"2TB":[3993000,151000,450000,3392000]},"갤럭시 S26":{"256GB":[1254000,500000,754000,0],"512GB":[1507000,500000,640000,367000]},"갤럭시 S26+":{"256GB":[1452000,500000,570000,382000],"512GB":[1705000,500000,570000,635000]},"갤럭시 S26 Ultra":{"256GB":[1797400,500000,570000,727400],"512GB":[2050400,500000,570000,980400]},"갤럭시 S25 Edge":{"256GB":[1353000,700000,653000,0]},"갤럭시 Z 플립6":{"256GB":[1485000,500000,985000,0]},"갤럭시 Z 폴드7":{"256GB":[2379300,500000,730000,1149300]},"iPhone 17":{"256GB":[1452000,550000,450000,452000],"512GB":[1760000,550000,450000,760000]},"iPhone 17 Pro":{"256GB":[1782000,550000,450000,782000],"512GB":[2090000,550000,450000,1090000],"1TB":[2387000,550000,450000,1387000]},"iPhone 17 Pro Max":{"256GB":[1980000,151000,450000,1379000],"512GB":[2288000,151000,450000,1687000]},"갤럭시 Z 플립8":{"256GB":[1683000,500000,500000,683000],"512GB":[1936000,500000,600000,836000]},"갤럭시 Z 폴드8 와이드":{"256GB":[2278100,500000,600000,1178100],"512GB":[2531100,500000,450000,1581100],"1TB":[3152600,500000,350000,2302600]},"갤럭시 Z 폴드8 울트라":{"256GB":[2577300,500000,500000,1577300],"512GB":[2830300,500000,600000,1730300],"1TB":[3451800,500000,350000,2601800]}},
-            "번호이동|115": {"iPhone Duo":{"256GB":["미정","미정",550000,"미정"],"512GB":["미정","미정",550000,"미정"],"1TB":["미정","미정",550000,"미정"],"2TB":["미정","미정",550000,"미정"]},"iPhone 18 Pro":{"256GB":[1991000,450000,500000,1041000],"512GB":[2299000,450000,500000,1349000],"1TB":[2893000,450000,500000,1943000],"2TB":[3795000,450000,500000,2845000]},"iPhone 18 Pro Max":{"256GB":[2200000,204000,500000,1496000],"512GB":[2497000,204000,500000,1793000],"1TB":[3091000,204000,500000,2387000],"2TB":[3993000,204000,500000,3289000]},"갤럭시 S26":{"256GB":[1254000,500000,754000,0],"512GB":[1507000,500000,690000,317000]},"갤럭시 S26+":{"256GB":[1452000,500000,620000,332000],"512GB":[1705000,500000,620000,585000]},"갤럭시 S26 Ultra":{"256GB":[1797400,500000,620000,677400],"512GB":[2050400,500000,620000,930400]},"갤럭시 S25 Edge":{"256GB":[1353000,700000,653000,0]},"갤럭시 Z 플립6":{"256GB":[1485000,500000,985000,0]},"갤럭시 Z 폴드7":{"256GB":[2379300,500000,780000,1099300]},"iPhone 17":{"256GB":[1452000,550000,500000,402000],"512GB":[1760000,550000,500000,710000]},"iPhone 17 Pro":{"256GB":[1782000,550000,500000,732000],"512GB":[2090000,550000,500000,1040000],"1TB":[2387000,550000,500000,1337000]},"iPhone 17 Pro Max":{"256GB":[1980000,201000,500000,1279000],"512GB":[2288000,201000,500000,1587000]},"갤럭시 Z 플립8":{"256GB":[1683000,500000,550000,633000],"512GB":[1936000,500000,650000,786000]},"갤럭시 Z 폴드8 와이드":{"256GB":[2278100,500000,650000,1128100],"512GB":[2531100,500000,500000,1531100],"1TB":[3152600,500000,400000,2252600]},"갤럭시 Z 폴드8 울트라":{"256GB":[2577300,500000,550000,1527300],"512GB":[2830300,500000,650000,1680300],"1TB":[3451800,500000,400000,2551800]}},
-            "기기변경|85": {"iPhone Duo":{"256GB":["미정","미정",300000,"미정"],"512GB":["미정","미정",300000,"미정"],"1TB":["미정","미정",300000,"미정"],"2TB":["미정","미정",300000,"미정"]},"iPhone 18 Pro":{"256GB":[1991000,300000,200000,1491000],"512GB":[2299000,300000,200000,1799000],"1TB":[2893000,300000,200000,2393000],"2TB":[3795000,300000,200000,3295000]},"iPhone 18 Pro Max":{"256GB":[2200000,151000,200000,1849000],"512GB":[2497000,151000,200000,2146000],"1TB":[3091000,151000,200000,2740000],"2TB":[3993000,151000,200000,3642000]},"갤럭시 S26":{"256GB":[1254000,600000,380000,274000],"512GB":[1507000,600000,380000,527000]},"갤럭시 S26+":{"256GB":[1452000,600000,320000,532000],"512GB":[1705000,600000,320000,785000]},"갤럭시 S26 Ultra":{"256GB":[1797400,600000,320000,877400],"512GB":[2050400,600000,320000,1130400]},"갤럭시 S25 Edge":{"256GB":[1353000,700000,450000,203000]},"갤럭시 Z 플립6":{"256GB":[1485000,500000,450000,535000]},"갤럭시 Z 폴드7":{"256GB":[2379300,500000,500000,1379300]},"iPhone 17":{"256GB":[1452000,450000,200000,802000],"512GB":[1760000,450000,200000,1110000]},"iPhone 17 Pro":{"256GB":[1782000,450000,200000,1132000],"512GB":[2090000,450000,200000,1440000],"1TB":[2387000,450000,200000,1737000]},"iPhone 17 Pro Max":{"256GB":[1980000,151000,200000,1629000],"512GB":[2288000,151000,200000,1937000]},"갤럭시 Z 플립8":{"256GB":[1683000,500000,300000,883000],"512GB":[1936000,500000,350000,1086000]},"갤럭시 Z 폴드8 와이드":{"256GB":[2278100,500000,300000,1478100],"512GB":[2531100,500000,200000,1831100],"1TB":[3152600,500000,150000,2502600]},"갤럭시 Z 폴드8 울트라":{"256GB":[2577300,500000,300000,1777300],"512GB":[2830300,500000,350000,1980300],"1TB":[3451800,500000,150000,2801800]}},
-            "기기변경|115": {"iPhone Duo":{"256GB":["미정","미정",350000,"미정"],"512GB":["미정","미정",350000,"미정"],"1TB":["미정","미정",350000,"미정"],"2TB":["미정","미정",350000,"미정"]},"iPhone 18 Pro":{"256GB":[1991000,450000,250000,1291000],"512GB":[2299000,450000,250000,1599000],"1TB":[2893000,450000,250000,2193000],"2TB":[3795000,450000,250000,3095000]},"iPhone 18 Pro Max":{"256GB":[2200000,204000,250000,1746000],"512GB":[2497000,204000,250000,2043000],"1TB":[3091000,204000,250000,2637000],"2TB":[3993000,204000,250000,3539000]},"갤럭시 S26":{"256GB":[1254000,600000,430000,224000],"512GB":[1507000,600000,430000,477000]},"갤럭시 S26+":{"256GB":[1452000,600000,370000,482000],"512GB":[1705000,600000,370000,735000]},"갤럭시 S26 Ultra":{"256GB":[1797400,600000,370000,827400],"512GB":[2050400,600000,370000,1080400]},"갤럭시 S25 Edge":{"256GB":[1353000,700000,550000,103000]},"갤럭시 Z 플립6":{"256GB":[1485000,500000,500000,485000]},"갤럭시 Z 폴드7":{"256GB":[2379300,500000,550000,1329300]},"iPhone 17":{"256GB":[1452000,450000,250000,752000],"512GB":[1760000,450000,250000,1060000]},"iPhone 17 Pro":{"256GB":[1782000,450000,250000,1082000],"512GB":[2090000,450000,250000,1390000],"1TB":[2387000,450000,250000,1687000]},"iPhone 17 Pro Max":{"256GB":[1980000,201000,250000,1529000],"512GB":[2288000,201000,250000,1837000]},"갤럭시 Z 플립8":{"256GB":[1683000,500000,350000,833000],"512GB":[1936000,500000,400000,1036000]},"갤럭시 Z 폴드8 와이드":{"256GB":[2278100,500000,350000,1428100],"512GB":[2531100,500000,250000,1781100],"1TB":[3152600,500000,200000,2452600]},"갤럭시 Z 폴드8 울트라":{"256GB":[2577300,500000,350000,1727300],"512GB":[2830300,500000,400000,1930300],"1TB":[3451800,500000,200000,2751800]}}
-        };
-        const priceState = { type: '번호이동', plan: '85' };
-
-        function initPriceSwitch() {
-            document.querySelectorAll('.pb-seg button').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const key = btn.closest('.pb-seg').dataset.key;
-                    if (priceState[key] === btn.dataset.val) return;
-                    priceState[key] = btn.dataset.val;
-                    applyPriceState(true);
-                });
-            });
-            // 위 선택 영역이 화면 위로 지나갔고 휴대폰 목록을 보는 중일 때만 상단 막대 표시
-            const bar = document.querySelector('.price-switch-bar');
-            const selector = document.querySelector('.pb-compare');
-            const list = document.getElementById('phones');
-            if (bar && selector && list && 'IntersectionObserver' in window) {
-                let selectorAbove = false, listSeen = false;
-                const update = () => bar.classList.toggle('is-on', selectorAbove && listSeen);
-                new IntersectionObserver(([e]) => {
-                    selectorAbove = !e.isIntersecting && e.boundingClientRect.top < 100;
-                    update();
-                }, { rootMargin: '-80px 0px 0px 0px' }).observe(selector);
-                new IntersectionObserver(([e]) => { listSeen = e.isIntersecting; update(); },
-                    { rootMargin: '-140px 0px -120px 0px' }).observe(list);
+        $('osGrid').addEventListener('click', function (e) {
+            var card = e.target.closest('.os-card');
+            if (!card) return;
+            var cap = e.target.closest('.os-cap');
+            if (cap) {
+                if (cap.disabled) return;
+                st.capSel[card.dataset.id] = cap.dataset.cap;
+                card.outerHTML = cardHtml(modelMap[card.dataset.id]);
+                return;
             }
-            applyPriceState(false);
-        }
+            if (e.target.closest('[data-kakao]')) {
+                if (typeof fbq === 'function') fbq('trackCustom', 'KakaoClick');
+                return;
+            }
+            if (e.target.closest('a')) return;
+            var m = modelMap[card.dataset.id];
+            if (m.pre || card.classList.contains('is-soldout')) return;
+            openPd(card.dataset.id);
+        });
 
-        function applyPriceState(flash) {
-            const { type, plan } = priceState;
-            const typeText = (type === '번호이동') ? '통신사 이동' : '기기변경';
-            const won = n => n.toLocaleString('ko-KR');
+        var pdEl = $('osPd');
+        pdEl.addEventListener('click', function (e) {
+            if (e.target === pdEl || e.target.closest('[data-close]')) { closePd(); return; }
+            if (e.target.closest('[data-quote]')) { sendQuote(); return; }
+            var cap = e.target.closest('#osPdCaps .os-cap');
+            if (cap && !cap.disabled) { pd.cap = cap.dataset.cap; renderPd(); return; }
+            var opt = e.target.closest('.os-opt');
+            if (!opt) return;
+            var box = opt.parentNode.id;
+            var v = opt.dataset.v;
+            if (box === 'osPdType') { pd.type = v; pd.dc = null; renderPd(); fetchSubsidy(pd.type, pd.plan, renderPd); }
+            else if (box === 'osPdPlans') { pd.plan = v; pd.dc = null; renderPd(); fetchSubsidy(pd.type, pd.plan, renderPd); }
+            else if (box === 'osPdDc') { pd.dc = v; renderPd(); }
+            else if (box === 'osPdInst') { pd.n = Number(v); renderPd(); }
+        });
+        $('osPdPlanAll').addEventListener('change', function () {
+            if (!this.value || !pd) return;
+            pd.plan = this.value; pd.dc = null; this.value = '';
+            renderPd(); fetchSubsidy(pd.type, pd.plan, renderPd);
+        });
+        document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && pd) closePd(); });
 
-            document.querySelectorAll('.pb-seg').forEach(seg => {
-                seg.querySelectorAll('button').forEach(b => {
-                    b.setAttribute('aria-pressed', b.dataset.val === priceState[seg.dataset.key] ? 'true' : 'false');
-                });
-            });
-            document.querySelectorAll('.pb-type').forEach(el => { el.textContent = type; });
-            document.querySelectorAll('.pb-plan').forEach(el => { el.textContent = plan + '요금제'; });
-            document.querySelectorAll('.ip18-foot-type').forEach(el => { el.textContent = typeText; });
+        refreshList();
+        // 다른 가입유형도 미리 받아두기 (모달 전환 시 바로 반영)
+        setTimeout(function () { fetchSubsidy('1', st.plan); fetchSubsidy('3', st.plan); }, 1500);
+    }
 
-            document.querySelectorAll('.product-card').forEach(card => {
-                const nameEl = card.querySelector('.product-name');
-                if (!nameEl) return;
-                const name = nameEl.textContent.trim();
-                const cardPlan = plan;
-                const rows = (PRICE_TABLE[type + '|' + cardPlan] || {})[name];
-                const base = (PRICE_TABLE['번호이동|' + cardPlan] || {})[name];
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+    else init();
+})();
+</script>
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            startRealtimeToast();
+            initFaqAccordion();
+        });
 
-                card.querySelectorAll('.cap-btn').forEach(btn => {
-                    if (btn.disabled) return;                  // 품절 용량은 그대로
-                    const cap = btn.textContent.trim();
-                    const row = rows && rows[cap];
-                    if (row) {
-                        btn.dataset.retail = won(row[0]); btn.dataset.carrier = won(row[1]);
-                        btn.dataset.agency = won(row[2]); btn.dataset.final = won(row[3]);
-                    } else {                                   // 단가표에 없는 조합 → 상담 안내
-                        if (base && base[cap]) btn.dataset.retail = won(base[cap][0]);
-                        btn.dataset.carrier = '-'; btn.dataset.agency = '-'; btn.dataset.final = '상담 문의';
-                    }
-                });
-                const active = card.querySelector('.cap-btn.active:not([disabled])') || card.querySelector('.cap-btn:not([disabled])');
-                if (active) {
-                    renderCapRows(card, active);
-                } else {                                   // 전 용량 품절
-                    ['retail', 'carrier', 'agency'].forEach(f => {
-                        const el = card.querySelector('[data-f="' + f + '"]');
-                        if (el) el.textContent = '-';
-                    });
-                    const fin = card.querySelector('[data-f="final"]');
-                    if (fin) fin.textContent = '품절';
-                }
-
-                const cond = card.querySelector('.price-condition');
-                if (cond) cond.textContent = cond.textContent.replace(/통신사 이동|기기변경/, typeText).replace(/\d+요금제/, cardPlan + '요금제');
-
-                if (flash) {
-                    const pd = card.querySelector('.price-details');
-                    if (pd) { pd.classList.remove('pb-flash'); void pd.offsetWidth; pd.classList.add('pb-flash'); }
-                }
-            });
-        }
-
-        // 더보기 버튼 (매장 노출)
-        function loadMoreStores(region, btn) {
+                function loadMoreStores(region, btn) {
             document.getElementById('storeGrid-' + region).classList.remove('collapsed');
             btn.style.display = 'none';
         }
