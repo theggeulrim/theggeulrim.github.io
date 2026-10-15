@@ -1376,6 +1376,12 @@
             transition: all 0.2s; box-shadow: 0 4px 10px rgba(0,0,0,0.05);
         }
         .btn-load-more:hover { border-color: #E6007E; color: #E6007E; }
+        .store-region { max-width: 1200px; margin: 0 auto; }
+        .store-region + .store-region { margin-top: 70px; }
+        .store-region-title { text-align: left; font-size: 24px; font-weight: 800; color: #111; margin: 0 0 20px; padding-left: 12px; border-left: 4px solid #E6007E; line-height: 1.2; }
+        .store-region-title span { font-size: 16px; font-weight: 700; color: #E6007E; margin-left: 4px; }
+        .store-region .btn-load-more { margin-top: 30px; }
+        .store-grid.collapsed .store-card-wrap:nth-child(n+5) { display: none; }
 
         /* 인터넷 & IPTV 가입 안내 섹션 */
         .internet-section { padding: 100px 20px; background-color: #fbfbfd; text-align: center; border-top: 1px solid #eaeaea; }
@@ -1514,6 +1520,7 @@
         .store-list { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 40px; white-space: nowrap; }
         .store-item { color: #cccccc; font-size: 12px; word-break: keep-all; text-wrap: balance; }
         .store-item strong { color: #ffffff; font-weight: 700; margin-right: 5px; }
+        .store-list-label { grid-column: 1 / -1; color: #ffffff; font-size: 13px; font-weight: 800; margin-top: 8px; }
         .footer-bottom { border-top: 1px solid #333333; padding-top: 20px; font-size: 11px; color: #777777; text-align: center; }
         .footer-warning { margin-bottom: 5px; }
 
@@ -1568,6 +1575,7 @@
         @media (max-width: 1024px) {
             .product-grid { grid-template-columns: repeat(2, 1fr); }
             .store-grid { grid-template-columns: repeat(3, 1fr); }
+            .store-grid.collapsed .store-card-wrap:nth-child(n+4) { display: none; }
         }
 
         /* ==============================================================
@@ -1672,6 +1680,11 @@
 
             .store-grid-section { padding: 50px 15px; }
             .store-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+            .store-grid.collapsed .store-card-wrap:nth-child(4) { display: flex; }
+            .store-region + .store-region { margin-top: 45px; }
+            .store-region-title { font-size: 19px; margin-bottom: 14px; }
+            .store-region-title span { font-size: 14px; }
+            .store-region .btn-load-more { margin-top: 20px; }
             .store-card-wrap { border-radius: 16px; }
             .store-card-content { padding: 16px 12px; gap: 10px; }
             .store-card-title { font-size: 15px; margin-bottom: 0; }
@@ -2269,7 +2282,301 @@
 
     <section id="stores" class="store-grid-section">
         <h2 class="section-title">가까운 <span class="text-lgu-pink">더끌림컴퍼니</span>를 방문해보세요</h2>
-        <div class="store-grid">
+        <div class="store-region">
+            <h3 class="store-region-title">서울 <span>15곳</span></h3>
+            <div class="store-grid collapsed" id="storeGrid-seoul">
+            <div class="store-card-wrap">
+                <img src="store16.jpeg" alt="신림점 - 서울 관악구 신림 휴대폰 성지 LG유플러스 공식인증대리점 갤럭시 Z 폴드8 플립8 아이폰17 기기변경 번호이동 매장" class="store-card-img" loading="lazy">
+                <div class="store-card-content">
+                    <div>
+                        <h3 class="store-card-title">신림점</h3>
+                        <p class="store-card-address"><span class="pin">📍</span> 서울특별시 관악구 남부순환로 1601</p>
+                    </div>
+                    <div class="store-card-btns">
+                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick=\"fbq('trackCustom', 'ReserveClick');\">매장 방문 예약</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="store-card-wrap">
+                <img src="store13.jpeg" alt="봉천사거리점 - 서울 관악구 봉천사거리 휴대폰 성지 LG유플러스 공식인증대리점 갤럭시 Z 폴드8 플립8 아이폰17 기기변경 번호이동 매장" class="store-card-img" loading="lazy">
+                <div class="store-card-content">
+                    <div>
+                        <h3 class="store-card-title">봉천사거리점</h3>
+                        <p class="store-card-address"><span class="pin">📍</span> 서울특별시 관악구 관악로 194</p>
+                    </div>
+                    <div class="store-card-btns">
+                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick=\"fbq('trackCustom', 'ReserveClick');\">매장 방문 예약</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="store-card-wrap">
+                <img src="store4.jpeg" alt="낙성대점 - 서울 관악구 낙성대 휴대폰 성지 LG유플러스 공식인증대리점 갤럭시 Z 폴드8 플립8 아이폰17 기기변경 번호이동 매장" class="store-card-img" loading="lazy">
+                <div class="store-card-content">
+                    <div>
+                        <h3 class="store-card-title">낙성대점</h3>
+                        <p class="store-card-address"><span class="pin">📍</span> 서울특별시 관악구 남부순환로 1952</p>
+                    </div>
+                    <div class="store-card-btns">
+                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick=\"fbq('trackCustom', 'ReserveClick');\">매장 방문 예약</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="store-card-wrap">
+                <img src="store15.jpeg" alt="사당점 - 서울 동작구 사당역 휴대폰 성지 LG유플러스 공식인증대리점 갤럭시 Z 폴드8 플립8 아이폰17 기기변경 번호이동 매장" class="store-card-img" loading="lazy">
+                <div class="store-card-content">
+                    <div>
+                        <h3 class="store-card-title">사당점</h3>
+                        <p class="store-card-address"><span class="pin">📍</span> 서울특별시 동작구 동작대로 45</p>
+                    </div>
+                    <div class="store-card-btns">
+                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick=\"fbq('trackCustom', 'ReserveClick');\">매장 방문 예약</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="store-card-wrap">
+                <img src="store7.jpeg" alt="남현점 - 서울 관악구 남현동 휴대폰 성지 LG유플러스 공식인증대리점 갤럭시 Z 폴드8 플립8 아이폰17 기기변경 번호이동 매장" class="store-card-img" loading="lazy">
+                <div class="store-card-content">
+                    <div>
+                        <h3 class="store-card-title">남현점</h3>
+                        <p class="store-card-address"><span class="pin">📍</span> 서울특별시 관악구 남현길 8</p>
+                    </div>
+                    <div class="store-card-btns">
+                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick=\"fbq('trackCustom', 'ReserveClick');\">매장 방문 예약</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="store-card-wrap">
+                <img src="store5.jpeg" alt="난곡점 - 서울 관악구 난곡 휴대폰 성지 LG유플러스 공식인증대리점 갤럭시 Z 폴드8 플립8 아이폰17 기기변경 번호이동 매장" class="store-card-img" loading="lazy">
+                <div class="store-card-content">
+                    <div>
+                        <h3 class="store-card-title">난곡점</h3>
+                        <p class="store-card-address"><span class="pin">📍</span> 서울특별시 관악구 난곡로 194</p>
+                    </div>
+                    <div class="store-card-btns">
+                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick=\"fbq('trackCustom', 'ReserveClick');\">매장 방문 예약</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="store-card-wrap">
+                <img src="store1.jpeg" alt="가산점 - 서울 금천구 가산디지털단지 휴대폰 성지 LG유플러스 공식인증대리점 갤럭시 Z 폴드8 플립8 아이폰17 기기변경 번호이동 매장" class="store-card-img" loading="lazy">
+                <div class="store-card-content">
+                    <div>
+                        <h3 class="store-card-title">가산점</h3>
+                        <p class="store-card-address"><span class="pin">📍</span> 서울특별시 금천구 디지털로 212</p>
+                    </div>
+                    <div class="store-card-btns">
+                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick=\"fbq('trackCustom', 'ReserveClick');\">매장 방문 예약</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="store-card-wrap">
+                <img src="store6.jpeg" alt="남문시장점 - 서울 금천구 독산동 남문시장 휴대폰 성지 LG유플러스 공식인증대리점 갤럭시 Z 폴드8 플립8 아이폰17 기기변경 번호이동 매장" class="store-card-img" loading="lazy">
+                <div class="store-card-content">
+                    <div>
+                        <h3 class="store-card-title">남문시장점</h3>
+                        <p class="store-card-address"><span class="pin">📍</span> 서울특별시 금천구 독산로87길 2</p>
+                    </div>
+                    <div class="store-card-btns">
+                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick=\"fbq('trackCustom', 'ReserveClick');\">매장 방문 예약</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="store-card-wrap">
+                <img src="store17.jpeg" alt="영등포구청점 - 서울 영등포구 영등포구청 휴대폰 성지 LG유플러스 공식인증대리점 갤럭시 Z 폴드8 플립8 아이폰17 기기변경 번호이동 매장" class="store-card-img" loading="lazy">
+                <div class="store-card-content">
+                    <div>
+                        <h3 class="store-card-title">영등포구청점</h3>
+                        <p class="store-card-address"><span class="pin">📍</span> 서울특별시 영등포구 당산로 136-1</p>
+                    </div>
+                    <div class="store-card-btns">
+                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick=\"fbq('trackCustom', 'ReserveClick');\">매장 방문 예약</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="store-card-wrap">
+                <img src="store11.jpeg" alt="문래힐스테이트점 - 서울 영등포구 문래동 문래 휴대폰 성지 LG유플러스 공식인증대리점 갤럭시 Z 폴드8 플립8 아이폰17 기기변경 번호이동 매장" class="store-card-img" loading="lazy">
+                <div class="store-card-content">
+                    <div>
+                        <h3 class="store-card-title">문래힐스테이트점</h3>
+                        <p class="store-card-address"><span class="pin">📍</span> 서울특별시 영등포구 선유로 59</p>
+                    </div>
+                    <div class="store-card-btns">
+                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick=\"fbq('trackCustom', 'ReserveClick');\">매장 방문 예약</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="store-card-wrap">
+                <img src="store8.jpeg" alt="대림9번출구점 - 서울 영등포구 대림역 휴대폰 성지 LG유플러스 공식인증대리점 갤럭시 Z 폴드8 플립8 아이폰17 기기변경 번호이동 매장" class="store-card-img" loading="lazy">
+                <div class="store-card-content">
+                    <div>
+                        <h3 class="store-card-title">대림9번출구점</h3>
+                        <p class="store-card-address"><span class="pin">📍</span> 서울특별시 영등포구 도림로 135</p>
+                    </div>
+                    <div class="store-card-btns">
+                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick=\"fbq('trackCustom', 'ReserveClick');\">매장 방문 예약</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="store-card-wrap">
+                <img src="store9.jpeg" alt="대림11번출구점 - 서울 영등포구 대림역 휴대폰 성지 LG유플러스 공식인증대리점 갤럭시 Z 폴드8 플립8 아이폰17 기기변경 번호이동 매장" class="store-card-img" loading="lazy">
+                <div class="store-card-content">
+                    <div>
+                        <h3 class="store-card-title">대림11번출구점</h3>
+                        <p class="store-card-address"><span class="pin">📍</span> 서울특별시 영등포구 도림로 144</p>
+                    </div>
+                    <div class="store-card-btns">
+                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick=\"fbq('trackCustom', 'ReserveClick');\">매장 방문 예약</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="store-card-wrap">
+                <img src="store10.jpeg" alt="대림삼거리점 - 서울 영등포구 대림삼거리 휴대폰 성지 LG유플러스 공식인증대리점 갤럭시 Z 폴드8 플립8 아이폰17 기기변경 번호이동 매장" class="store-card-img" loading="lazy">
+                <div class="store-card-content">
+                    <div>
+                        <h3 class="store-card-title">대림삼거리점</h3>
+                        <p class="store-card-address"><span class="pin">📍</span> 서울특별시 영등포구 디지털로54길 3 1층</p>
+                    </div>
+                    <div class="store-card-btns">
+                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick=\"fbq('trackCustom', 'ReserveClick');\">매장 방문 예약</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="store-card-wrap">
+                <img src="store2.jpeg" alt="강서구청점 - 서울 강서구 강서구청 휴대폰 성지 LG유플러스 공식인증대리점 갤럭시 Z 폴드8 플립8 아이폰17 기기변경 번호이동 매장" class="store-card-img" loading="lazy">
+                <div class="store-card-content">
+                    <div>
+                        <h3 class="store-card-title">강서구청점</h3>
+                        <p class="store-card-address"><span class="pin">📍</span> 서울특별시 강서구 화곡로 322</p>
+                    </div>
+                    <div class="store-card-btns">
+                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick=\"fbq('trackCustom', 'ReserveClick');\">매장 방문 예약</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="store-card-wrap">
+                <img src="store19.jpeg" alt="증미산점 - 서울 강서구 증미역 휴대폰 성지 LG유플러스 공식인증대리점 갤럭시 Z 폴드8 플립8 아이폰17 기기변경 번호이동 매장" class="store-card-img" loading="lazy">
+                <div class="store-card-content">
+                    <div>
+                        <h3 class="store-card-title">증미산점</h3>
+                        <p class="store-card-address"><span class="pin">📍</span> 서울특별시 강서구 양천로 583</p>
+                    </div>
+                    <div class="store-card-btns">
+                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick=\"fbq('trackCustom', 'ReserveClick');\">매장 방문 예약</a>
+                    </div>
+                </div>
+            </div>
+            </div>
+            <button class="btn-load-more" onclick="loadMoreStores('seoul', this)">서울 매장 15곳 전체 보기 ∨</button>
+        </div>
+
+        <div class="store-region">
+            <h3 class="store-region-title">경기 <span>9곳</span></h3>
+            <div class="store-grid collapsed" id="storeGrid-gg">
+            <div class="store-card-wrap">
+                <img src="store12.jpeg" alt="범계점 - 경기 안양시 동안구 범계역 휴대폰 성지 LG유플러스 공식인증대리점 갤럭시 Z 폴드8 플립8 아이폰17 기기변경 번호이동 매장" class="store-card-img" loading="lazy">
+                <div class="store-card-content">
+                    <div>
+                        <h3 class="store-card-title">범계점</h3>
+                        <p class="store-card-address"><span class="pin">📍</span> 경기도 안양시 동안구 평촌대로223번길 49</p>
+                    </div>
+                    <div class="store-card-btns">
+                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick=\"fbq('trackCustom', 'ReserveClick');\">매장 방문 예약</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="store-card-wrap">
+                <img src="store24.jpeg" alt="범계2호점 - 경기 안양시 동안구 범계역 평촌 휴대폰 성지 LG유플러스 공식인증대리점 갤럭시 Z 폴드8 플립8 아이폰17 기기변경 번호이동 매장" class="store-card-img" loading="lazy">
+                <div class="store-card-content">
+                    <div>
+                        <h3 class="store-card-title">범계2호점</h3>
+                        <p class="store-card-address"><span class="pin">📍</span> 경기도 안양시 동안구 동안로 120 평촌스포츠센터 105호</p>
+                    </div>
+                    <div class="store-card-btns">
+                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick=\"fbq('trackCustom', 'ReserveClick');\">매장 방문 예약</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="store-card-wrap">
+                <img src="store21.jpeg" alt="평촌학원가점 - 경기 안양시 동안구 평촌 학원가 휴대폰 성지 LG유플러스 공식인증대리점 갤럭시 Z 폴드8 플립8 아이폰17 기기변경 번호이동 매장" class="store-card-img" loading="lazy">
+                <div class="store-card-content">
+                    <div>
+                        <h3 class="store-card-title">평촌학원가점</h3>
+                        <p class="store-card-address"><span class="pin">📍</span> 경기도 안양시 동안구 평촌대로 137-7</p>
+                    </div>
+                    <div class="store-card-btns">
+                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick=\"fbq('trackCustom', 'ReserveClick');\">매장 방문 예약</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="store-card-wrap">
+                <img src="store18.jpeg" alt="안양일번가점 - 경기 안양시 만안구 안양일번가 휴대폰 성지 LG유플러스 공식인증대리점 갤럭시 Z 폴드8 플립8 아이폰17 기기변경 번호이동 매장" class="store-card-img" loading="lazy">
+                <div class="store-card-content">
+                    <div>
+                        <h3 class="store-card-title">안양일번가점</h3>
+                        <p class="store-card-address"><span class="pin">📍</span> 경기도 안양시 만안구 안양로292번길 8</p>
+                    </div>
+                    <div class="store-card-btns">
+                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick=\"fbq('trackCustom', 'ReserveClick');\">매장 방문 예약</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="store-card-wrap">
+                <img src="store14.jpeg" alt="비산이마트점 - 경기 안양시 동안구 비산동 휴대폰 성지 LG유플러스 공식인증대리점 갤럭시 Z 폴드8 플립8 아이폰17 기기변경 번호이동 매장" class="store-card-img" loading="lazy">
+                <div class="store-card-content">
+                    <div>
+                        <h3 class="store-card-title">비산이마트점</h3>
+                        <p class="store-card-address"><span class="pin">📍</span> 경기도 안양시 동안구 관악대로 99</p>
+                    </div>
+                    <div class="store-card-btns">
+                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick=\"fbq('trackCustom', 'ReserveClick');\">매장 방문 예약</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="store-card-wrap">
+                <img src="store3.jpeg" alt="관양시장점 - 경기 안양시 동안구 관양시장 휴대폰 성지 LG유플러스 공식인증대리점 갤럭시 Z 폴드8 플립8 아이폰17 기기변경 번호이동 매장" class="store-card-img" loading="lazy">
+                <div class="store-card-content">
+                    <div>
+                        <h3 class="store-card-title">관양시장점</h3>
+                        <p class="store-card-address"><span class="pin">📍</span> 경기도 안양시 동안구 관악대로 341</p>
+                    </div>
+                    <div class="store-card-btns">
+                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick=\"fbq('trackCustom', 'ReserveClick');\">매장 방문 예약</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="store-card-wrap">
+                <img src="store22.jpeg" alt="호계점 - 경기 안양시 동안구 호계 휴대폰 성지 LG유플러스 공식인증대리점 갤럭시 Z 폴드8 플립8 아이폰17 기기변경 번호이동 매장" class="store-card-img" loading="lazy">
+                <div class="store-card-content">
+                    <div>
+                        <h3 class="store-card-title">호계점</h3>
+                        <p class="store-card-address"><span class="pin">📍</span> 경기도 안양시 동안구 경수대로 541</p>
+                    </div>
+                    <div class="store-card-btns">
+                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick=\"fbq('trackCustom', 'ReserveClick');\">매장 방문 예약</a>
+                    </div>
+                </div>
+            </div>
+
             <div class="store-card-wrap">
                 <img src="store23.jpeg" alt="수원역점 - 경기 수원시 팔달구 수원역 휴대폰 성지 LG유플러스 공식인증대리점 갤럭시 Z 폴드8 플립8 아이폰17 기기변경 번호이동 매장" class="store-card-img" loading="lazy">
                 <div class="store-card-content">
@@ -2295,295 +2602,9 @@
                     </div>
                 </div>
             </div>
-
-            <div class="store-card-wrap">
-                <img src="store18.jpeg" alt="안양일번가점 - 경기 안양시 만안구 안양일번가 휴대폰 성지 LG유플러스 공식인증대리점 갤럭시 Z 폴드8 플립8 아이폰17 기기변경 번호이동 매장" class="store-card-img" loading="lazy">
-                <div class="store-card-content">
-                    <div>
-                        <h3 class="store-card-title">안양일번가점</h3>
-                        <p class="store-card-address"><span class="pin">📍</span> 경기도 안양시 만안구 안양로292번길 8</p>
-                    </div>
-                    <div class="store-card-btns">
-                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick=\"fbq('trackCustom', 'ReserveClick');\">매장 방문 예약</a>
-                    </div>
-                </div>
             </div>
-
-            <div class="store-card-wrap">
-                <img src="store12.jpeg" alt="범계점 - 경기 안양시 동안구 범계역 휴대폰 성지 LG유플러스 공식인증대리점 갤럭시 Z 폴드8 플립8 아이폰17 기기변경 번호이동 매장" class="store-card-img" loading="lazy">
-                <div class="store-card-content">
-                    <div>
-                        <h3 class="store-card-title">범계점</h3>
-                        <p class="store-card-address"><span class="pin">📍</span> 경기도 안양시 동안구 평촌대로223번길 49</p>
-                    </div>
-                    <div class="store-card-btns">
-                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick=\"fbq('trackCustom', 'ReserveClick');\">매장 방문 예약</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="store-card-wrap">
-                <img src="store2.jpeg" alt="강서구청점 - 서울 강서구 강서구청 휴대폰 성지 LG유플러스 공식인증대리점 갤럭시 Z 폴드8 플립8 아이폰17 기기변경 번호이동 매장" class="store-card-img" loading="lazy">
-                <div class="store-card-content">
-                    <div>
-                        <h3 class="store-card-title">강서구청점</h3>
-                        <p class="store-card-address"><span class="pin">📍</span> 서울특별시 강서구 화곡로 322</p>
-                    </div>
-                    <div class="store-card-btns">
-                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick=\"fbq('trackCustom', 'ReserveClick');\">매장 방문 예약</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="store-card-wrap">
-                <img src="store11.jpeg" alt="문래힐스테이트점 - 서울 영등포구 문래동 문래 휴대폰 성지 LG유플러스 공식인증대리점 갤럭시 Z 폴드8 플립8 아이폰17 기기변경 번호이동 매장" class="store-card-img" loading="lazy">
-                <div class="store-card-content">
-                    <div>
-                        <h3 class="store-card-title">문래힐스테이트점</h3>
-                        <p class="store-card-address"><span class="pin">📍</span> 서울특별시 영등포구 선유로 59</p>
-                    </div>
-                    <div class="store-card-btns">
-                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick=\"fbq('trackCustom', 'ReserveClick');\">매장 방문 예약</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="store-card-wrap">
-                <img src="store16.jpeg" alt="신림점 - 서울 관악구 신림 휴대폰 성지 LG유플러스 공식인증대리점 갤럭시 Z 폴드8 플립8 아이폰17 기기변경 번호이동 매장" class="store-card-img" loading="lazy">
-                <div class="store-card-content">
-                    <div>
-                        <h3 class="store-card-title">신림점</h3>
-                        <p class="store-card-address"><span class="pin">📍</span> 서울특별시 관악구 남부순환로 1601</p>
-                    </div>
-                    <div class="store-card-btns">
-                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick=\"fbq('trackCustom', 'ReserveClick');\">매장 방문 예약</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="store-card-wrap">
-                <img src="store15.jpeg" alt="사당점 - 서울 동작구 사당역 휴대폰 성지 LG유플러스 공식인증대리점 갤럭시 Z 폴드8 플립8 아이폰17 기기변경 번호이동 매장" class="store-card-img" loading="lazy">
-                <div class="store-card-content">
-                    <div>
-                        <h3 class="store-card-title">사당점</h3>
-                        <p class="store-card-address"><span class="pin">📍</span> 서울특별시 동작구 동작대로 45</p>
-                    </div>
-                    <div class="store-card-btns">
-                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick=\"fbq('trackCustom', 'ReserveClick');\">매장 방문 예약</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="store-card-wrap hidden">
-                <img src="store1.jpeg" alt="가산점 - 서울 금천구 가산디지털단지 휴대폰 성지 LG유플러스 공식인증대리점 갤럭시 Z 폴드8 플립8 아이폰17 기기변경 번호이동 매장" class="store-card-img" loading="lazy">
-                <div class="store-card-content">
-                    <div>
-                        <h3 class="store-card-title">가산점</h3>
-                        <p class="store-card-address"><span class="pin">📍</span> 서울특별시 금천구 디지털로 212</p>
-                    </div>
-                    <div class="store-card-btns">
-                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick=\"fbq('trackCustom', 'ReserveClick');\">매장 방문 예약</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="store-card-wrap hidden">
-                <img src="store3.jpeg" alt="관양시장점 - 경기 안양시 동안구 관양시장 휴대폰 성지 LG유플러스 공식인증대리점 갤럭시 Z 폴드8 플립8 아이폰17 기기변경 번호이동 매장" class="store-card-img" loading="lazy">
-                <div class="store-card-content">
-                    <div>
-                        <h3 class="store-card-title">관양시장점</h3>
-                        <p class="store-card-address"><span class="pin">📍</span> 경기도 안양시 동안구 관악대로 341</p>
-                    </div>
-                    <div class="store-card-btns">
-                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick=\"fbq('trackCustom', 'ReserveClick');\">매장 방문 예약</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="store-card-wrap hidden">
-                <img src="store4.jpeg" alt="낙성대점 - 서울 관악구 낙성대 휴대폰 성지 LG유플러스 공식인증대리점 갤럭시 Z 폴드8 플립8 아이폰17 기기변경 번호이동 매장" class="store-card-img" loading="lazy">
-                <div class="store-card-content">
-                    <div>
-                        <h3 class="store-card-title">낙성대점</h3>
-                        <p class="store-card-address"><span class="pin">📍</span> 서울특별시 관악구 남부순환로 1952</p>
-                    </div>
-                    <div class="store-card-btns">
-                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick=\"fbq('trackCustom', 'ReserveClick');\">매장 방문 예약</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="store-card-wrap hidden">
-                <img src="store5.jpeg" alt="난곡점 - 서울 관악구 난곡 휴대폰 성지 LG유플러스 공식인증대리점 갤럭시 Z 폴드8 플립8 아이폰17 기기변경 번호이동 매장" class="store-card-img" loading="lazy">
-                <div class="store-card-content">
-                    <div>
-                        <h3 class="store-card-title">난곡점</h3>
-                        <p class="store-card-address"><span class="pin">📍</span> 서울특별시 관악구 난곡로 194</p>
-                    </div>
-                    <div class="store-card-btns">
-                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick=\"fbq('trackCustom', 'ReserveClick');\">매장 방문 예약</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="store-card-wrap hidden">
-                <img src="store6.jpeg" alt="남문시장점 - 서울 금천구 독산동 남문시장 휴대폰 성지 LG유플러스 공식인증대리점 갤럭시 Z 폴드8 플립8 아이폰17 기기변경 번호이동 매장" class="store-card-img" loading="lazy">
-                <div class="store-card-content">
-                    <div>
-                        <h3 class="store-card-title">남문시장점</h3>
-                        <p class="store-card-address"><span class="pin">📍</span> 서울특별시 금천구 독산로87길 2</p>
-                    </div>
-                    <div class="store-card-btns">
-                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick=\"fbq('trackCustom', 'ReserveClick');\">매장 방문 예약</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="store-card-wrap hidden">
-                <img src="store7.jpeg" alt="남현점 - 서울 관악구 남현동 휴대폰 성지 LG유플러스 공식인증대리점 갤럭시 Z 폴드8 플립8 아이폰17 기기변경 번호이동 매장" class="store-card-img" loading="lazy">
-                <div class="store-card-content">
-                    <div>
-                        <h3 class="store-card-title">남현점</h3>
-                        <p class="store-card-address"><span class="pin">📍</span> 서울특별시 관악구 남현길 8</p>
-                    </div>
-                    <div class="store-card-btns">
-                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick=\"fbq('trackCustom', 'ReserveClick');\">매장 방문 예약</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="store-card-wrap hidden">
-                <img src="store8.jpeg" alt="대림9번출구점 - 서울 영등포구 대림역 휴대폰 성지 LG유플러스 공식인증대리점 갤럭시 Z 폴드8 플립8 아이폰17 기기변경 번호이동 매장" class="store-card-img" loading="lazy">
-                <div class="store-card-content">
-                    <div>
-                        <h3 class="store-card-title">대림9번출구점</h3>
-                        <p class="store-card-address"><span class="pin">📍</span> 서울특별시 영등포구 도림로 135</p>
-                    </div>
-                    <div class="store-card-btns">
-                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick=\"fbq('trackCustom', 'ReserveClick');\">매장 방문 예약</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="store-card-wrap hidden">
-                <img src="store9.jpeg" alt="대림11번출구점 - 서울 영등포구 대림역 휴대폰 성지 LG유플러스 공식인증대리점 갤럭시 Z 폴드8 플립8 아이폰17 기기변경 번호이동 매장" class="store-card-img" loading="lazy">
-                <div class="store-card-content">
-                    <div>
-                        <h3 class="store-card-title">대림11번출구점</h3>
-                        <p class="store-card-address"><span class="pin">📍</span> 서울특별시 영등포구 도림로 144</p>
-                    </div>
-                    <div class="store-card-btns">
-                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick=\"fbq('trackCustom', 'ReserveClick');\">매장 방문 예약</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="store-card-wrap hidden">
-                <img src="store10.jpeg" alt="대림삼거리점 - 서울 영등포구 대림삼거리 휴대폰 성지 LG유플러스 공식인증대리점 갤럭시 Z 폴드8 플립8 아이폰17 기기변경 번호이동 매장" class="store-card-img" loading="lazy">
-                <div class="store-card-content">
-                    <div>
-                        <h3 class="store-card-title">대림삼거리점</h3>
-                        <p class="store-card-address"><span class="pin">📍</span> 서울특별시 영등포구 디지털로54길 3 1층</p>
-                    </div>
-                    <div class="store-card-btns">
-                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick=\"fbq('trackCustom', 'ReserveClick');\">매장 방문 예약</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="store-card-wrap hidden">
-                <img src="store13.jpeg" alt="봉천사거리점 - 서울 관악구 봉천사거리 휴대폰 성지 LG유플러스 공식인증대리점 갤럭시 Z 폴드8 플립8 아이폰17 기기변경 번호이동 매장" class="store-card-img" loading="lazy">
-                <div class="store-card-content">
-                    <div>
-                        <h3 class="store-card-title">봉천사거리점</h3>
-                        <p class="store-card-address"><span class="pin">📍</span> 서울특별시 관악구 관악로 194</p>
-                    </div>
-                    <div class="store-card-btns">
-                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick=\"fbq('trackCustom', 'ReserveClick');\">매장 방문 예약</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="store-card-wrap hidden">
-                <img src="store14.jpeg" alt="비산이마트점 - 경기 안양시 동안구 비산동 휴대폰 성지 LG유플러스 공식인증대리점 갤럭시 Z 폴드8 플립8 아이폰17 기기변경 번호이동 매장" class="store-card-img" loading="lazy">
-                <div class="store-card-content">
-                    <div>
-                        <h3 class="store-card-title">비산이마트점</h3>
-                        <p class="store-card-address"><span class="pin">📍</span> 경기도 안양시 동안구 관악대로 99</p>
-                    </div>
-                    <div class="store-card-btns">
-                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick=\"fbq('trackCustom', 'ReserveClick');\">매장 방문 예약</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="store-card-wrap hidden">
-                <img src="store17.jpeg" alt="영등포구청점 - 서울 영등포구 영등포구청 휴대폰 성지 LG유플러스 공식인증대리점 갤럭시 Z 폴드8 플립8 아이폰17 기기변경 번호이동 매장" class="store-card-img" loading="lazy">
-                <div class="store-card-content">
-                    <div>
-                        <h3 class="store-card-title">영등포구청점</h3>
-                        <p class="store-card-address"><span class="pin">📍</span> 서울특별시 영등포구 당산로 136-1</p>
-                    </div>
-                    <div class="store-card-btns">
-                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick=\"fbq('trackCustom', 'ReserveClick');\">매장 방문 예약</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="store-card-wrap hidden">
-                <img src="store19.jpeg" alt="증미산점 - 서울 강서구 증미역 휴대폰 성지 LG유플러스 공식인증대리점 갤럭시 Z 폴드8 플립8 아이폰17 기기변경 번호이동 매장" class="store-card-img" loading="lazy">
-                <div class="store-card-content">
-                    <div>
-                        <h3 class="store-card-title">증미산점</h3>
-                        <p class="store-card-address"><span class="pin">📍</span> 서울특별시 강서구 양천로 583</p>
-                    </div>
-                    <div class="store-card-btns">
-                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick=\"fbq('trackCustom', 'ReserveClick');\">매장 방문 예약</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="store-card-wrap hidden">
-                <img src="store21.jpeg" alt="평촌학원가점 - 경기 안양시 동안구 평촌 학원가 휴대폰 성지 LG유플러스 공식인증대리점 갤럭시 Z 폴드8 플립8 아이폰17 기기변경 번호이동 매장" class="store-card-img" loading="lazy">
-                <div class="store-card-content">
-                    <div>
-                        <h3 class="store-card-title">평촌학원가점</h3>
-                        <p class="store-card-address"><span class="pin">📍</span> 경기도 안양시 동안구 평촌대로 137-7</p>
-                    </div>
-                    <div class="store-card-btns">
-                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick=\"fbq('trackCustom', 'ReserveClick');\">매장 방문 예약</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="store-card-wrap hidden">
-                <img src="store22.jpeg" alt="호계점 - 경기 안양시 동안구 호계 휴대폰 성지 LG유플러스 공식인증대리점 갤럭시 Z 폴드8 플립8 아이폰17 기기변경 번호이동 매장" class="store-card-img" loading="lazy">
-                <div class="store-card-content">
-                    <div>
-                        <h3 class="store-card-title">호계점</h3>
-                        <p class="store-card-address"><span class="pin">📍</span> 경기도 안양시 동안구 경수대로 541</p>
-                    </div>
-                    <div class="store-card-btns">
-                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick=\"fbq('trackCustom', 'ReserveClick');\">매장 방문 예약</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="store-card-wrap hidden">
-                <img src="store24.jpeg" alt="범계2호점 - 경기 안양시 동안구 범계역 평촌 휴대폰 성지 LG유플러스 공식인증대리점 갤럭시 Z 폴드8 플립8 아이폰17 기기변경 번호이동 매장" class="store-card-img" loading="lazy">
-                <div class="store-card-content">
-                    <div>
-                        <h3 class="store-card-title">범계2호점</h3>
-                        <p class="store-card-address"><span class="pin">📍</span> 경기도 안양시 동안구 동안로 120 평촌스포츠센터 105호</p>
-                    </div>
-                    <div class="store-card-btns">
-                        <a href="https://forms.gle/eigWXXKac2XHpJ538" target="_blank" class="btn-reserve" onclick=\"fbq('trackCustom', 'ReserveClick');\">매장 방문 예약</a>
-                    </div>
-                </div>
-            </div>
+            <button class="btn-load-more" onclick="loadMoreStores('gg', this)">경기 매장 9곳 전체 보기 ∨</button>
         </div>
-
-        <button id="loadMoreBtn" class="btn-load-more" onclick="loadMoreStores()">전체 24개 매장 보기 ∨</button>
     </section>
 
     <section id="internet" class="internet-section">
@@ -3060,29 +3081,31 @@
 
             <div class="store-list-wrap">
                 <div class="store-list">
-                    <div class="store-item"><strong>▶ 수원역점 :</strong> 경기 수원시 팔달구 고매로 26</div>
-                    <div class="store-item"><strong>▶ 남문시장점 :</strong> 서울특별시 금천구 독산로87길 2</div>
-                    <div class="store-item"><strong>▶ 남현점 :</strong> 서울특별시 관악구 남현길 8</div>
-                    <div class="store-item"><strong>▶ 문래힐스테이트점 :</strong> 서울특별시 영등포구 선유로 59</div>
-                    <div class="store-item"><strong>▶ 낙성대점 :</strong> 서울특별시 관악구 남부순환로 1952</div>
-                    <div class="store-item"><strong>▶ 가산점 :</strong> 서울특별시 금천구 디지털로 212</div>
-                    <div class="store-item"><strong>▶ 강서구청점 :</strong> 서울특별시 강서구 화곡로 322</div>
-                    <div class="store-item"><strong>▶ 난곡점 :</strong> 서울특별시 관악구 난곡로 194</div>
-                    <div class="store-item"><strong>▶ 증미산점 :</strong> 서울특별시 강서구 양천로 583</div>
-                    <div class="store-item"><strong>▶ 대림9번출구점 :</strong> 서울특별시 영등포구 도림로 135</div>
-                    <div class="store-item"><strong>▶ 대림삼거리점 :</strong> 서울특별시 영등포구 디지털로54길 3 1층</div>
-                    <div class="store-item"><strong>▶ 평촌학원가점 :</strong> 경기도 안양시 동안구 평촌대로 137-7</div>
-                    <div class="store-item"><strong>▶ 대림11번출구점 :</strong> 서울특별시 영등포구 도림로 144</div>
-                    <div class="store-item"><strong>▶ 안양일번가점 :</strong> 경기도 안양시 만안구 안양로292번길 8</div>
+                    <div class="store-list-label">서울</div>
                     <div class="store-item"><strong>▶ 신림점 :</strong> 서울특별시 관악구 남부순환로 1601</div>
+                    <div class="store-item"><strong>▶ 봉천사거리점 :</strong> 서울특별시 관악구 관악로 194</div>
+                    <div class="store-item"><strong>▶ 낙성대점 :</strong> 서울특별시 관악구 남부순환로 1952</div>
+                    <div class="store-item"><strong>▶ 사당점 :</strong> 서울특별시 동작구 동작대로 45</div>
+                    <div class="store-item"><strong>▶ 남현점 :</strong> 서울특별시 관악구 남현길 8</div>
+                    <div class="store-item"><strong>▶ 난곡점 :</strong> 서울특별시 관악구 난곡로 194</div>
+                    <div class="store-item"><strong>▶ 가산점 :</strong> 서울특별시 금천구 디지털로 212</div>
+                    <div class="store-item"><strong>▶ 남문시장점 :</strong> 서울특별시 금천구 독산로87길 2</div>
+                    <div class="store-item"><strong>▶ 영등포구청점 :</strong> 서울특별시 영등포구 당산로 136-1</div>
+                    <div class="store-item"><strong>▶ 문래힐스테이트점 :</strong> 서울특별시 영등포구 선유로 59</div>
+                    <div class="store-item"><strong>▶ 대림9번출구점 :</strong> 서울특별시 영등포구 도림로 135</div>
+                    <div class="store-item"><strong>▶ 대림11번출구점 :</strong> 서울특별시 영등포구 도림로 144</div>
+                    <div class="store-item"><strong>▶ 대림삼거리점 :</strong> 서울특별시 영등포구 디지털로54길 3 1층</div>
+                    <div class="store-item"><strong>▶ 강서구청점 :</strong> 서울특별시 강서구 화곡로 322</div>
+                    <div class="store-item"><strong>▶ 증미산점 :</strong> 서울특별시 강서구 양천로 583</div>
+                    <div class="store-list-label">경기</div>
                     <div class="store-item"><strong>▶ 범계점 :</strong> 경기도 안양시 동안구 평촌대로223번길 49</div>
                     <div class="store-item"><strong>▶ 범계2호점 :</strong> 경기도 안양시 동안구 동안로 120 평촌스포츠센터 105호</div>
-                    <div class="store-item"><strong>▶ 영등포구청점 :</strong> 서울특별시 영등포구 당산로 136-1</div>
+                    <div class="store-item"><strong>▶ 평촌학원가점 :</strong> 경기도 안양시 동안구 평촌대로 137-7</div>
+                    <div class="store-item"><strong>▶ 안양일번가점 :</strong> 경기도 안양시 만안구 안양로292번길 8</div>
                     <div class="store-item"><strong>▶ 비산이마트점 :</strong> 경기도 안양시 동안구 관악대로 99</div>
-                    <div class="store-item"><strong>▶ 봉천사거리점 :</strong> 서울특별시 관악구 관악로 194</div>
                     <div class="store-item"><strong>▶ 관양시장점 :</strong> 경기도 안양시 동안구 관악대로 341</div>
-                    <div class="store-item"><strong>▶ 사당점 :</strong> 서울특별시 동작구 동작대로 45</div>
                     <div class="store-item"><strong>▶ 호계점 :</strong> 경기도 안양시 동안구 경수대로 541</div>
+                    <div class="store-item"><strong>▶ 수원역점 :</strong> 경기 수원시 팔달구 고매로 26</div>
                     <div class="store-item"><strong>▶ 칠보마을점 :</strong> 경기도 수원시 권선구 금곡로102번길 30 1층</div>
                 </div>
 
@@ -3247,12 +3270,9 @@
         }
 
         // 더보기 버튼 (매장 노출)
-        function loadMoreStores() {
-            const hiddenStores = document.querySelectorAll('.store-card-wrap.hidden');
-            hiddenStores.forEach(store => {
-                store.style.display = 'flex';
-            });
-            document.getElementById('loadMoreBtn').style.display = 'none';
+        function loadMoreStores(region, btn) {
+            document.getElementById('storeGrid-' + region).classList.remove('collapsed');
+            btn.style.display = 'none';
         }
 
         // FAQ 아코디언 동작 스크립트
