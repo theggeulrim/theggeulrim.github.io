@@ -38,7 +38,8 @@ tbody tr:hover{background:var(--acc-soft)}
 td.ag{color:var(--acc);font-weight:700}
 td.fin{font-weight:800}
 td.cp{width:1%}
-.cpb{border:1px solid var(--line);background:#fff;border-radius:6px;padding:4px 9px;font-size:12px;cursor:pointer}
+.cpb{border:1px solid var(--line);background:#fff;border-radius:6px;padding:4px 9px;font-size:12px;cursor:pointer;white-space:nowrap}
+.cpb.qb{border-color:var(--acc);color:var(--acc);font-weight:700}
 .empty{color:var(--sub);padding:40px;text-align:center}
 #toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);background:var(--ink);color:#fff;padding:10px 16px;border-radius:8px;font-size:13px;opacity:0;transition:.2s;pointer-events:none;max-width:90vw;white-space:pre-line;text-align:center}
 #toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
@@ -64,7 +65,7 @@ td.cp{width:1%}
 <main>
   <p class="sheet-title" id="sheetTitle"></p>
   <div id="list"></div>
-  <p class="hint" style="margin-top:20px">줄을 누르면 그 용량 문구가 복사되고, 모델 이름 옆 버튼은 그 모델의 전 용량을 복사합니다. 기준: 2026-10-02</p>
+  <p class="hint" style="margin-top:20px">줄이나 견적서복사 버튼을 누르면 그 용량 견적서(24개월 할부 기준)가 복사되고, 모델 이름 옆 버튼은 그 모델의 전 용량을 복사합니다. 기준: 2026-10-02</p>
 </main>
 <div id="toast"></div>
 <script>
@@ -96,6 +97,44 @@ function toast(msg) {
 
 function sheet() { return DATA[st.ch+'|'+st.type+'|'+st.plan]; }
 
+// 견적서 문구: 홈페이지 견적 카톡 전송과 같은 계산 (24개월, 연 5.9%, 월 할부금 10원 미만 절사)
+const PLAN_NM = {'85': ['5G 데이터플랜 MAX', 85000], '115': ['플러스플랜115', 115000]};
+function quoteText(it) {
+  const n = 24, rate = 0.059 / 12, f10 = x => Math.floor(x / 10) * 10;
+  const ex = it.final > 0 ? it.final * rate / (1 - Math.pow(1 + rate, -n)) : 0;
+  const devM = f10(ex), fee = Math.max(0, f10(ex * n - it.final));
+  const [planNm, planFee] = PLAN_NM[st.plan];
+  return [
+    '[휴대폰 개통 견적]',
+    '24개월 할부 기준 · 할부이자(연 5.9%) 포함',
+    '',
+    '기종 : ' + it.model,
+    '용량 : ' + it.cap,
+    '가입유형 : ' + st.type,
+    '할인유형 : 공시지원금',
+    '',
+    '<6개월 유지 요금제>',
+    '요금제 : ' + planNm,
+    '월 요금 : ' + won(planFee) + '원',
+    '',
+    '<기기>',
+    '출고가 : ' + won(it.retail) + '원',
+    it.carrierLabel + ' : -' + won(it.carrier) + '원',
+    '대리점 지원금 : -' + won(it.agency) + '원',
+    '할부원금 : ' + won(it.final) + '원',
+    '할부개월 : 24개월',
+    '할부원금+이자 : ' + won(it.final + fee) + '원',
+    '',
+    '■ 기기 월 할부금 : ' + won(devM) + '원',
+    '■ 요금제 월 요금 : ' + won(planFee) + '원',
+    '────────────────',
+    '■ 월 납부금 : ' + won(devM + planFee) + '원',
+    '',
+    '*할부원금은 개통 후 언제든 완납할 수 있어요.',
+    '*6개월 후엔 요금제 변경이 가능해요. 바꾼 요금제에 따라 월 납부금이 달라져요.'
+  ].join('\n');
+}
+
 function render() {
   try { localStorage.setItem(KEY, JSON.stringify(st)); } catch(e) {}
   document.querySelectorAll('.seg').forEach(seg => seg.querySelectorAll('button').forEach(b => b.classList.toggle('on', b.dataset.v === st[seg.dataset.k])));
@@ -118,7 +157,7 @@ function render() {
         + '<table><thead><tr><th>용량</th><th class="hide-sm">출고가</th><th class="hide-sm">' + esc(m.rows[0][0].carrierLabel) + '</th><th>대리점 지원금</th><th>할부원금</th><th></th></tr></thead><tbody>';
       m.rows.forEach(([it, a, b]) => {
         html += '<tr data-one="' + a + '-' + b + '"><td>' + it.cap + '</td><td class="hide-sm">' + won(it.retail) + '</td><td class="hide-sm">-' + won(it.carrier)
-          + '</td><td class="ag">-' + won(it.agency) + '</td><td class="fin">' + won(it.final) + '원</td><td class="cp"><button class="cpb">복사</button></td></tr>';
+          + '</td><td class="ag">-' + won(it.agency) + '</td><td class="fin">' + won(it.final) + '원</td><td class="cp"><button class="cpb qb">견적서복사</button></td></tr>';
       });
       html += '</tbody></table></div>';
     });
@@ -135,7 +174,7 @@ document.addEventListener('click', e => {
   const many = e.target.closest('[data-many]');
   if (many) { const its = many.dataset.many.split(',').map(item); copy(its.map(i => i.text).join('\n\n'), its[0].model + ' 전 용량'); return; }
   const one = e.target.closest('[data-one]');
-  if (one) { const it = item(one.dataset.one); copy(it.text, it.model + ' ' + it.cap); }
+  if (one) { const it = item(one.dataset.one); copy(quoteText(it), it.model + ' ' + it.cap + ' 견적서'); }
 });
 document.getElementById('q').addEventListener('input', render);
 document.getElementById('copyAll').addEventListener('click', () => {
