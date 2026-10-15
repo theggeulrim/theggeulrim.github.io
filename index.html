@@ -1935,7 +1935,7 @@ body.os-lock .fab-container, body.os-lock .bottom-cta-bar, body.os-lock .realtim
 .os-dc-rows b { color: var(--os-text); }
 .os-diff { margin-top: 12px; font-size: 14px; background: var(--os-pink-bg); color: var(--os-text); border-radius: 10px; padding: 12px 14px; line-height: 1.6; }
 .os-diff b { color: var(--os-pink); }
-.os-inst { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
+.os-inst { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; }
 .os-inst .os-opt { text-align: center; padding: 12px 6px; }
 .os-inst .os-opt.on { padding: 11px 5px; }
 .os-inst .os-opt-t { font-size: 15px; }
@@ -3183,7 +3183,7 @@ var OS_DATA={"models":[{"id":"duo","name":"iPhone Duo","maker":"apple","img":"ip
     var RATE = 0.059 / 12;
     var TYPE_NM = { '1': '기기변경', '2': '번호이동', '3': '신규가입' };
     var REC_PLANS = ['LPZ1006510', 'LPZ1006509', 'LPZ1007251', 'LPZ1007250'];
-    var INSTS = [0, 12, 24, 36, 48];
+    var INSTS = [0, 12, 24, 30, 36, 48];
 
     // OTT 팩 종류가 많아 이름에서 OTT는 빼고 요금제명만 표기 (유튜브115는 넷플릭스115와 공시·요금 동일 → 하나만)
     D.plans = D.plans.filter(function (p) { return p.code !== 'LPZ1008098'; });
@@ -3288,7 +3288,7 @@ var OS_DATA={"models":[{"id":"duo","name":"iPhone Duo","maker":"apple","img":"ip
     function quote(m, cap, type, plan, dc, n, after) {
         var c = m.caps.filter(function (x) { return x.c === cap; })[0];
         var p = planMap[plan];
-        var p2 = after && planMap[after] && planMap[after].fee < p.fee ? planMap[after] : null;
+        var p2 = after && planMap[after] && planMap[after].fee < p.fee && planMap[after].fee >= 47000 ? planMap[after] : null;
         var retail = c.retail;
         var sub = carrierAmt(m, cap, type, plan);
         var ag = agencyAmt(m, cap, type, plan);
@@ -3468,7 +3468,7 @@ var OS_DATA={"models":[{"id":"duo","name":"iPhone Duo","maker":"apple","img":"ip
         var sel = $('osPdPlanAll');
         var cur = planMap[pd.plan];
         sel.innerHTML = '<option value="">' + (six ? '바꾸지 않고 계속 쓰기' : '7개월째부터 쓸 요금제 고르기') + '</option>' +
-            planOptions(pd.after, function (p) { return p.fee < cur.fee; });
+            planOptions(pd.after, function (p) { return p.fee < cur.fee && p.fee >= 47000; });
         sel.value = pd.after;
         var shortNm = function (p) { return p.name.replace('5G 데이터플랜 ', '데이터플랜 '); };
         $('osSixFlow').innerHTML =
@@ -3577,9 +3577,7 @@ var OS_DATA={"models":[{"id":"duo","name":"iPhone Duo","maker":"apple","img":"ip
             hr);
         if (six) L.push('■ 1~6개월 월 납부금 : ' + won(r.total) + '원', '■ 7개월째부터 월 납부금 : ' + won(r.total2) + '원');
         else L.push('■ 월 납부금 : ' + won(r.total) + '원');
-        L.push('', six
-            ? '*가입 요금제를 6개월 유지한 뒤 바꾸는 조건이에요. 6개월 전에 낮추면 지원금 차액이 청구될 수 있어요.'
-            : '*6개월 후엔 요금제 변경이 가능해요. 바꾼 요금제에 따라 월 납부금이 달라져요.');
+        L.push('', '*할부원금은 개통 후 언제든 완납할 수 있어요.', '*6개월 후엔 요금제 변경이 가능해요. 단, 월 47,000원 이상 요금제로만 바꿀 수 있어요.');
         return L.join('\n');
     }
 
