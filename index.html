@@ -1906,6 +1906,30 @@ body.os-lock .fab-container, body.os-lock .bottom-cta-bar, body.os-lock .realtim
 .os-plan-more { margin-top: 12px; }
 .os-plan-note { font-size: 13px; color: var(--os-grey); margin-top: 10px; line-height: 1.6; }
 .os-plan-note b { color: var(--os-pink); }
+.os-six { margin-top: 16px; border: 1px solid var(--os-line-2); border-radius: 14px; padding: 18px 18px 16px; background: var(--os-bg); }
+.os-six-head { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.os-six-head strong { font-size: 16px; font-weight: 700; }
+.os-six-tag { background: var(--os-text); color: #fff; font-size: 12px; font-weight: 700; padding: 3px 9px; border-radius: 10px; }
+.os-six-desc { font-size: 13px; color: var(--os-sub); line-height: 1.6; margin-top: 8px; }
+.os-six-desc b { color: var(--os-text); }
+.os-six-flow { display: grid; grid-template-columns: 1fr 28px 1fr; align-items: stretch; margin-top: 14px; }
+.os-six-step { background: #fff; border: 1px solid var(--os-line-2); border-radius: 10px; padding: 12px 14px; display: flex; flex-direction: column; gap: 2px; font-size: 13px; color: var(--os-grey); min-width: 0; }
+.os-six-step b { font-size: 15px; color: var(--os-text); font-weight: 700; }
+.os-six-step.on { border: 2px solid var(--os-pink); padding: 11px 13px; }
+.os-six-step.on b { color: var(--os-pink); }
+.os-six-step.empty { border-style: dashed; }
+.os-six-step.empty b { color: var(--os-grey-2); }
+.os-six-when { font-size: 12px; font-weight: 700; color: var(--os-sub); }
+.os-six-arrow { position: relative; }
+.os-six-arrow::after { content: ''; position: absolute; left: 50%; top: 50%; width: 8px; height: 8px; border-top: 2px solid var(--os-grey-2); border-right: 2px solid var(--os-grey-2); transform: translate(-70%, -50%) rotate(45deg); }
+.os-six .os-select { background-color: #fff; }
+.os-six-result { margin-top: 10px; font-size: 14px; background: var(--os-pink-bg); border-radius: 10px; padding: 12px 14px; line-height: 1.6; }
+.os-six-result b { color: var(--os-pink); }
+.os-six-warn { margin-top: 8px; font-size: 12px; color: var(--os-grey-2); }
+.os-sum.is-six .os-sum-head { border-bottom: 0; padding-bottom: 4px; }
+.os-sum-total2 { display: flex; justify-content: space-between; align-items: baseline; padding-bottom: 16px; border-bottom: 1px solid var(--os-text); font-size: 14px; color: var(--os-sub); }
+.os-sum-total2 b { font-size: 20px; color: var(--os-text); font-weight: 700; }
+@media (max-width: 480px) { .os-six-flow { grid-template-columns: 1fr 20px 1fr; } .os-six-step { padding: 10px; } .os-six-step.on { padding: 9px; } .os-six-head strong { font-size: 15px; } }
 .os-dc-rows { margin-top: 12px; padding-top: 12px; border-top: 1px dashed var(--os-line-2); font-size: 13px; color: var(--os-sub); }
 .os-dc-rows div { display: flex; justify-content: space-between; line-height: 1.9; }
 .os-dc-rows b { color: var(--os-text); }
@@ -2013,6 +2037,7 @@ body.os-lock .fab-container, body.os-lock .bottom-cta-bar, body.os-lock .realtim
     .os-mbar-price { flex: 1; min-width: 0; }
     .os-mbar-price span { display: block; font-size: 12px; color: var(--os-grey); }
     .os-mbar-price strong { font-size: 20px; color: var(--os-pink); font-weight: 700; }
+    .os-mbar-price strong small { display: block; font-size: 11px; color: var(--os-sub); font-weight: 600; white-space: nowrap; letter-spacing: -0.04em; }
     .os-mbar .os-btn { height: 48px; font-size: 15px; }
     .os-mbar .os-btn-line { width: 48px; padding: 0; }
 }
@@ -2118,6 +2143,7 @@ body.os-lock .fab-container, body.os-lock .bottom-cta-bar, body.os-lock .realtim
 <div class="os-fgroup os-f-plan">
 <h3>요금제</h3>
 <select class="os-select" id="osPlan" aria-label="요금제"></select>
+<p class="os-fnote">대리점 추가지원금은 <b>월 85,000원 이상</b> 요금제, 6개월 유지 조건에 적용됩니다.</p>
 </div>
 <div class="os-fgroup os-f-dc">
 <h3>할인 유형</h3>
@@ -2129,6 +2155,7 @@ body.os-lock .fab-container, body.os-lock .bottom-cta-bar, body.os-lock .realtim
 <option value="sub">공시지원금</option>
 <option value="sel">선택약정 25%</option>
 </select>
+<p class="os-fnote">월 납부금액은 할부 24개월(연 5.9%) 기준입니다. 상품을 누르면 할부 개월·요금제를 바꿔 비교할 수 있습니다.</p>
 </div>
 </aside>
 <div class="os-list">
@@ -2181,8 +2208,15 @@ body.os-lock .fab-container, body.os-lock .bottom-cta-bar, body.os-lock .realtim
 <div class="os-step">
 <h3>요금제를 선택해 주세요<small>요금제마다 공시지원금이 달라집니다</small></h3>
 <div class="os-choice c4" id="osPdPlans"></div>
-<div class="os-plan-more"><select class="os-select" id="osPdPlanAll" aria-label="다른 요금제 고르기"></select></div>
 <p class="os-plan-note" id="osPdPlanNote"></p>
+<div class="os-six">
+<div class="os-six-head"><span class="os-six-tag">식스플랜</span><strong>6개월만 쓰고 원하는 요금제로 바꿔도 지원금은 그대로</strong></div>
+<p class="os-six-desc">위 요금제로 개통해 <b>6개월(180일)</b>만 쓰시면, 7개월째부터 낮은 요금제로 바꿔도 받은 <b>공시지원금·대리점 추가지원금을 돌려내지 않습니다.</b></p>
+<div class="os-six-flow" id="osSixFlow"></div>
+<div class="os-plan-more"><select class="os-select" id="osPdPlanAll" aria-label="7개월째부터 쓸 요금제"></select></div>
+<p class="os-six-result" id="osSixResult"></p>
+<p class="os-six-warn">6개월 전에 요금제를 낮추면 지원금 차액이 청구될 수 있어요.</p>
+</div>
 </div>
 
 <div class="os-step">
@@ -2198,7 +2232,8 @@ body.os-lock .fab-container, body.os-lock .bottom-cta-bar, body.os-lock .realtim
 </div>
 
 <aside class="os-sum" id="osSum">
-<div class="os-sum-head"><span>월 예상 납부금액</span><strong id="osSumTotal">-</strong></div>
+<div class="os-sum-head"><span id="osSumHeadT">월 예상 납부금액</span><strong id="osSumTotal">-</strong></div>
+<div class="os-sum-total2" id="osSumTotal2" style="display:none"></div>
 <div class="os-sum-sec">
 <h4><span id="osSumDevT">휴대폰</span><span id="osSumDevM">-</span></h4>
 <div class="os-sum-row"><span>출고가</span><b id="osSumRetail">-</b></div>
@@ -2210,6 +2245,7 @@ body.os-lock .fab-container, body.os-lock .bottom-cta-bar, body.os-lock .realtim
 <div class="os-sum-sec">
 <h4><span>요금제</span><span id="osSumPlanM">-</span></h4>
 <div class="os-sum-row"><span id="osSumPlanN">-</span><b id="osSumPlanF">-</b></div>
+<div class="os-sum-row" id="osSumPlan2" style="display:none"><span id="osSumPlan2N">-</span><b id="osSumPlan2F">-</b></div>
 <div class="os-sum-row"><span>선택약정 할인 (24개월)</span><b class="pink" id="osSumSel">-</b></div>
 </div>
 <div class="os-sum-terms"><span>부가서비스 없음</span><span>제휴카드 없음</span><span>중고폰 반납 없음</span><span id="osSumKeep">요금제 6개월 유지</span></div>
@@ -2222,7 +2258,7 @@ body.os-lock .fab-container, body.os-lock .bottom-cta-bar, body.os-lock .realtim
 </div>
 </div>
 <div class="os-mbar">
-<div class="os-mbar-price"><span>월 예상 납부금액</span><strong id="osMbarTotal">-</strong></div>
+<div class="os-mbar-price"><span id="osMbarLabel">월 예상 납부금액</span><strong id="osMbarTotal">-</strong></div>
 <a href="tel:070-4007-7776" class="os-btn os-btn-line" aria-label="전화 상담">📞</a>
 <button type="button" class="os-btn os-btn-pink" data-quote>이 견적으로 카톡 상담</button>
 </div>
@@ -3225,9 +3261,11 @@ var OS_DATA={"models":[{"id":"duo","name":"iPhone Duo","maker":"apple","img":"ip
         return { m: f10(ex), fee: Math.max(0, f10(ex * n - prin)) };
     }
 
-    function quote(m, cap, type, plan, dc, n) {
+    // after: 식스플랜 — 가입 요금제(plan)를 6개월 쓰고 7개월째부터 바꿀 요금제. 지원금은 가입 요금제 기준 그대로
+    function quote(m, cap, type, plan, dc, n, after) {
         var c = m.caps.filter(function (x) { return x.c === cap; })[0];
         var p = planMap[plan];
+        var p2 = after && planMap[after] && planMap[after].fee < p.fee ? planMap[after] : null;
         var retail = c.retail;
         var sub = carrierAmt(m, cap, type, plan);
         var ag = agencyAmt(m, cap, type, plan);
@@ -3236,10 +3274,14 @@ var OS_DATA={"models":[{"id":"duo","name":"iPhone Duo","maker":"apple","img":"ip
             var i = inst(prin, n);
             var sel = kind === 'sel' ? p.sel : 0;
             var planM = p.fee - sel;
+            var sel2 = p2 ? (kind === 'sel' ? p2.sel : 0) : sel;
+            var planM2 = p2 ? p2.fee - sel2 : planM;
             return {
                 kind: kind, prin: prin, devM: i.m, fee: i.fee, sel: sel, planM: planM,
+                sel2: sel2, planM2: planM2,
                 total: i.m + planM,
-                cost24: prin + i.fee + planM * 24,
+                total2: i.m + planM2,
+                cost24: prin + i.fee + planM * 6 + planM2 * 18,
                 subUsed: kind === 'sub' ? Math.min(sub, retail) : 0,
                 agUsed: Math.min(ag, Math.max(0, retail - (kind === 'sub' ? sub : 0)))
             };
@@ -3247,7 +3289,7 @@ var OS_DATA={"models":[{"id":"duo","name":"iPhone Duo","maker":"apple","img":"ip
         var a = one('sub'), b = one('sel');
         var best = b.cost24 < a.cost24 ? 'sel' : 'sub';
         var pick = dc === 'auto' ? best : dc;
-        return { retail: retail, sub: sub, ag: ag, plan: p, s: a, l: b, best: best, pick: pick, r: pick === 'sub' ? a : b };
+        return { retail: retail, sub: sub, ag: ag, plan: p, plan2: p2, s: a, l: b, best: best, pick: pick, r: pick === 'sub' ? a : b };
     }
 
     /* ---------- 카드 목록 ---------- */
@@ -3327,12 +3369,14 @@ var OS_DATA={"models":[{"id":"duo","name":"iPhone Duo","maker":"apple","img":"ip
     }
 
     /* ---------- 요금제 셀렉트 ---------- */
-    function planOptions(sel) {
+    function planOptions(sel, ok) {
         var groups = { premium: '5G 프리미엄 팩', basic: '5G 요금제' };
         var h = '';
         ['premium', 'basic'].forEach(function (g) {
+            var list = D.plans.filter(function (p) { return p.grp === g && (!ok || ok(p)); });
+            if (!list.length) return;
             h += '<optgroup label="' + groups[g] + '">';
-            D.plans.filter(function (p) { return p.grp === g; }).forEach(function (p) {
+            list.forEach(function (p) {
                 h += '<option value="' + p.code + '"' + (p.code === sel ? ' selected' : '') + '>' + p.name + ' (월 ' + won(p.fee) + '원)</option>';
             });
             h += '</optgroup>';
@@ -3343,12 +3387,11 @@ var OS_DATA={"models":[{"id":"duo","name":"iPhone Duo","maker":"apple","img":"ip
     /* ---------- 견적 비교 모달 ---------- */
     function openPd(id) {
         var m = modelMap[id];
-        pd = { id: id, cap: firstCap(m), type: st.type, plan: st.plan, dc: st.dc, n: 24 };
+        pd = { id: id, cap: firstCap(m), type: st.type, plan: st.plan, dc: st.dc, n: 24, after: '' };
         $('osPdImg').src = m.img;
         $('osPdImg').alt = m.name;
         $('osPdName').textContent = m.name;
         $('osPdBadges').innerHTML = badgeHtml(m.badges);
-        $('osPdPlanAll').innerHTML = '<option value="">다른 요금제 고르기</option>' + planOptions('');
         $('osPd').classList.add('open');
         $('osPd').setAttribute('aria-hidden', 'false');
         document.body.classList.add('os-lock');
@@ -3366,9 +3409,11 @@ var OS_DATA={"models":[{"id":"duo","name":"iPhone Duo","maker":"apple","img":"ip
     function renderPd() {
         if (!pd) return;
         var m = modelMap[pd.id];
-        var q = quote(m, pd.cap, pd.type, pd.plan, pd.dc || 'auto', pd.n);
+        if (pd.after && !(planMap[pd.after].fee < planMap[pd.plan].fee)) pd.after = '';
+        var q = quote(m, pd.cap, pd.type, pd.plan, pd.dc || 'auto', pd.n, pd.after);
         if (!pd.dc) pd.dc = q.best;
-        q = quote(m, pd.cap, pd.type, pd.plan, pd.dc, pd.n);
+        q = quote(m, pd.cap, pd.type, pd.plan, pd.dc, pd.n, pd.after);
+        var six = !!q.plan2;
         var r = q.r;
         var c = m.caps.filter(function (x) { return x.c === pd.cap; })[0];
 
@@ -3394,6 +3439,25 @@ var OS_DATA={"models":[{"id":"duo","name":"iPhone Duo","maker":"apple","img":"ip
         $('osPdPlanNote').innerHTML = tier
             ? '대리점 추가지원금 <b>' + won(q.ag) + '원</b> 적용 · 요금제 6개월 유지 후 변경 가능'
             : '이 요금제는 대리점 추가지원금이 없습니다. <b>월 85,000원 이상</b> 요금제부터 적용됩니다.';
+
+        // 식스플랜: 6개월 뒤 바꿀 요금제
+        var sel = $('osPdPlanAll');
+        var cur = planMap[pd.plan];
+        sel.innerHTML = '<option value="">' + (six ? '바꾸지 않고 계속 쓰기' : '7개월째부터 쓸 요금제 고르기') + '</option>' +
+            planOptions(pd.after, function (p) { return p.fee < cur.fee; });
+        sel.value = pd.after;
+        var shortNm = function (p) { return p.name.replace('5G 데이터플랜 ', '데이터플랜 '); };
+        $('osSixFlow').innerHTML =
+            '<div class="os-six-step"><span class="os-six-when">1~6개월</span><b>' + shortNm(cur) + '</b><span>월 ' + won(cur.fee) + '원</span></div>' +
+            '<div class="os-six-arrow" aria-hidden="true"></div>' +
+            '<div class="os-six-step' + (six ? ' on' : ' empty') + '"><span class="os-six-when">7개월째부터</span>' +
+            (six ? '<b>' + shortNm(q.plan2) + '</b><span>월 ' + won(q.plan2.fee) + '원</span>' : '<b>원하는 요금제</b><span>아래에서 골라보세요</span>') + '</div>';
+        $('osSixResult').innerHTML = six
+            ? [r.subUsed ? '공시지원금 <b>' + won(r.subUsed) + '원</b>' : '', r.agUsed ? '대리점 추가지원금 <b>' + won(r.agUsed) + '원</b>' : '']
+                .filter(Boolean).join('·') + (r.subUsed || r.agUsed ? ' 그대로 · ' : '') +
+              '7개월째부터 월 납부금액 <b>' + won(r.total2) + '원</b> (' + won(r.total - r.total2) + '원 ↓)'
+            : '';
+        $('osSixResult').style.display = six ? '' : 'none';
 
         // 할인 방법 비교
         function dcBtn(o, title, desc) {
@@ -3423,7 +3487,12 @@ var OS_DATA={"models":[{"id":"duo","name":"iPhone Duo","maker":"apple","img":"ip
 
         // 요약
         $('osSumTotal').innerHTML = won(r.total) + '<small>원</small>';
-        $('osMbarTotal').textContent = won(r.total) + '원';
+        $('osSumTotal2').innerHTML = six ? '<span>7개월째부터</span><b>월 ' + won(r.total2) + '원</b>' : '';
+        $('osSumTotal2').style.display = six ? '' : 'none';
+        $('osSum').classList.toggle('is-six', six);
+        $('osSumHeadT').textContent = six ? '1~6개월 월 납부금액' : '월 예상 납부금액';
+        $('osMbarTotal').innerHTML = won(r.total) + '원' + (six ? '<small>7개월째부터 월 ' + won(r.total2) + '원</small>' : '');
+        $('osMbarLabel').textContent = six ? '1~6개월 월 납부' : '월 예상 납부금액';
         $('osSumDevT').textContent = '휴대폰 ' + (pd.n ? pd.n + '개월 할부' : '일시불');
         $('osSumDevM').textContent = pd.n ? '월 ' + won(r.devM) + '원' : '일시불 ' + won(r.prin) + '원';
         $('osSumRetail').textContent = won(q.retail) + '원';
@@ -3432,10 +3501,16 @@ var OS_DATA={"models":[{"id":"duo","name":"iPhone Duo","maker":"apple","img":"ip
         $('osSumPrin').textContent = won(r.prin) + '원';
         $('osSumFee').textContent = won(r.fee) + '원';
         $('osSumPlanM').textContent = '월 ' + won(r.planM) + '원';
-        $('osSumPlanN').textContent = q.plan.name;
+        $('osSumPlanN').textContent = (six ? '1~6개월 ' : '') + q.plan.name;
         $('osSumPlanF').textContent = won(q.plan.fee) + '원';
+        $('osSumPlan2').style.display = six ? '' : 'none';
+        if (six) {
+            $('osSumPlan2N').textContent = '7개월째부터 ' + q.plan2.name;
+            $('osSumPlan2F').textContent = won(q.plan2.fee) + '원';
+        }
         $('osSumSel').textContent = r.sel ? '-' + won(r.sel) + '원' : '공시지원금 선택';
         $('osSumKeep').style.display = tier ? '' : 'none';
+        $('osSumKeep').textContent = six ? '식스플랜 (6개월 뒤 요금제 변경)' : '요금제 6개월 유지';
         var lv = live[pd.type + '|' + pd.plan];
         $('osSumSrc').textContent = '공시지원금: LG U+ 공식 온라인샵 기준' +
             (lv && liveTime ? ' (' + new Date(liveTime).toLocaleString('ko-KR', { month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' }) + ' 확인)' : ' (' + D.snapDate + ')');
@@ -3443,18 +3518,19 @@ var OS_DATA={"models":[{"id":"duo","name":"iPhone Duo","maker":"apple","img":"ip
 
     function quoteText() {
         var m = modelMap[pd.id];
-        var q = quote(m, pd.cap, pd.type, pd.plan, pd.dc, pd.n);
+        var q = quote(m, pd.cap, pd.type, pd.plan, pd.dc, pd.n, pd.after);
         var r = q.r;
-        return [
+        var lines = [
             '[U+핫딜센터 견적 문의]',
             '모델: ' + m.name + ' ' + pd.cap,
             '가입유형: ' + TYPE_NM[pd.type],
-            '요금제: ' + q.plan.name + ' (월 ' + won(q.plan.fee) + '원)',
+            '요금제: ' + q.plan.name + ' (월 ' + won(q.plan.fee) + '원)' + (q.plan2 ? ' → 7개월째부터 ' + q.plan2.name + ' (월 ' + won(q.plan2.fee) + '원) [식스플랜]' : ''),
             '할인: ' + (pd.dc === 'sub' ? '공시지원금 ' + won(r.subUsed) + '원' : '선택약정 월 ' + won(r.sel) + '원'),
             '대리점 추가지원금: ' + won(r.agUsed) + '원',
             '할부원금: ' + won(r.prin) + '원 / ' + (pd.n ? pd.n + '개월 (월 ' + won(r.devM) + '원)' : '일시불'),
-            '월 예상 납부금액: ' + won(r.total) + '원'
-        ].join('\n');
+            '월 예상 납부금액: ' + (q.plan2 ? '1~6개월 ' + won(r.total) + '원 / 7개월째부터 ' + won(r.total2) + '원' : won(r.total) + '원')
+        ];
+        return lines.join('\n');
     }
 
     function toast(msg) {
@@ -3497,7 +3573,8 @@ var OS_DATA={"models":[{"id":"duo","name":"iPhone Duo","maker":"apple","img":"ip
 
     function init() {
         if (!$('osGrid')) return;
-        $('osPlan').innerHTML = planOptions(st.plan);
+        // 목록에는 대리점 추가지원금이 붙는 요금제만 (낮은 요금제는 견적 비교의 식스플랜으로 안내)
+        $('osPlan').innerHTML = planOptions(st.plan, function (p) { return p.fee >= 85000; });
 
         document.querySelectorAll('input[name="osType"]').forEach(function (i) {
             i.addEventListener('change', function () { st.type = i.value; refreshList(); });
@@ -3552,9 +3629,9 @@ var OS_DATA={"models":[{"id":"duo","name":"iPhone Duo","maker":"apple","img":"ip
             else if (box === 'osPdInst') { pd.n = Number(v); renderPd(); }
         });
         $('osPdPlanAll').addEventListener('change', function () {
-            if (!this.value || !pd) return;
-            pd.plan = this.value; pd.dc = null; this.value = '';
-            renderPd(); fetchSubsidy(pd.type, pd.plan, renderPd);
+            if (!pd) return;
+            pd.after = this.value;
+            renderPd();
         });
         document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && pd) closePd(); });
 
