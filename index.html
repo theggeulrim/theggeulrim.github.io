@@ -3162,9 +3162,12 @@ var OS_DATA={"models":[{"id":"duo","name":"iPhone Duo","maker":"apple","img":"ip
     var KAKAO = 'http://pf.kakao.com/_xlyGxin/chat';
     var RATE = 0.059 / 12;
     var TYPE_NM = { '1': '기기변경', '2': '번호이동', '3': '신규가입' };
-    var REC_PLANS = ['LPZ1006510', 'LPZ1008098', 'LPZ1007251', 'LPZ1006509'];
+    var REC_PLANS = ['LPZ1006510', 'LPZ1006509', 'LPZ1007251', 'LPZ1007250'];
     var INSTS = [0, 12, 24, 36, 48];
 
+    // OTT 팩 종류가 많아 이름에서 OTT는 빼고 요금제명만 표기 (유튜브115는 넷플릭스115와 공시·요금 동일 → 하나만)
+    D.plans = D.plans.filter(function (p) { return p.code !== 'LPZ1008098'; });
+    D.plans.forEach(function (p) { p.name = p.name.replace(/^(넷플릭스|유튜브프리미엄)\s+/, ''); });
     var planMap = {};
     D.plans.forEach(function (p) { planMap[p.code] = p; });
     var modelMap = {};
@@ -3370,18 +3373,9 @@ var OS_DATA={"models":[{"id":"duo","name":"iPhone Duo","maker":"apple","img":"ip
 
     /* ---------- 요금제 셀렉트 ---------- */
     function planOptions(sel, ok) {
-        var groups = { premium: '5G 프리미엄 팩', basic: '5G 요금제' };
-        var h = '';
-        ['premium', 'basic'].forEach(function (g) {
-            var list = D.plans.filter(function (p) { return p.grp === g && (!ok || ok(p)); });
-            if (!list.length) return;
-            h += '<optgroup label="' + groups[g] + '">';
-            list.forEach(function (p) {
-                h += '<option value="' + p.code + '"' + (p.code === sel ? ' selected' : '') + '>' + p.name + ' (월 ' + won(p.fee) + '원)</option>';
-            });
-            h += '</optgroup>';
-        });
-        return h;
+        return D.plans.filter(function (p) { return !ok || ok(p); }).map(function (p) {
+            return '<option value="' + p.code + '"' + (p.code === sel ? ' selected' : '') + '>' + p.name + ' (월 ' + won(p.fee) + '원)</option>';
+        }).join('');
     }
 
     /* ---------- 견적 비교 모달 ---------- */
@@ -3428,7 +3422,7 @@ var OS_DATA={"models":[{"id":"duo","name":"iPhone Duo","maker":"apple","img":"ip
         $('osPdPlans').className = 'os-choice ' + (plans.length > 4 ? 'c3' : 'c4');
         $('osPdPlans').innerHTML = plans.map(function (code) {
             var p = planMap[code];
-            var nm = p.grp === 'premium' ? p.name.replace(' 플러스플랜', ' ') : p.name.replace('5G 데이터플랜 ', '데이터플랜 ');
+            var nm = p.name.replace('5G 데이터플랜 ', '데이터플랜 ');
             var sub = carrierAmt(m, pd.cap, pd.type, code);
             return '<button type="button" class="os-opt' + (code === pd.plan ? ' on' : '') + '" data-v="' + code + '">' +
                 '<span class="os-opt-t">' + nm + '</span>' +
