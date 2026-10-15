@@ -1988,32 +1988,34 @@ body.os-lock .fab-container, body.os-lock .bottom-cta-bar, body.os-lock .realtim
     .os-maker { margin-bottom: 0; }
     .os-maker button { font-size: 16px; padding-bottom: 12px; }
     .os-layout { grid-template-columns: 1fr; gap: 0; }
-    .os-filter { position: sticky; top: 98px; z-index: 50; background: #fff; margin: 0 -20px; padding: 12px 20px; border-bottom: 1px solid var(--os-line); display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .os-filter { position: sticky; top: 98px; z-index: 50; background: #fff; margin: 0 -20px; padding: 8px 20px; border-bottom: 1px solid var(--os-line); display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
     .os-fgroup { padding: 0; border: 0; }
     .os-fgroup h3, .os-fnote, .os-fgroup.os-f-dc h3 { display: none; }
     .os-f-type { grid-column: 1 / -1; }
     .os-f-type .os-radios { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid var(--os-line-2); border-radius: 8px; overflow: hidden; }
-    .os-f-type .os-radio { justify-content: center; padding: 0; height: 38px; font-size: 14px; border-left: 1px solid var(--os-line-2); }
+    .os-f-type .os-radio { justify-content: center; padding: 0; height: 34px; font-size: 14px; border-left: 1px solid var(--os-line-2); }
     .os-f-type .os-radio:first-child { border-left: 0; }
     .os-f-type .os-radio input { display: none; }
     .os-f-type .os-radio:has(input:checked) { background: var(--os-text); }
     .os-f-type .os-radio:has(input:checked) span { color: #fff; }
-    .os-select { height: 38px; font-size: 13px; }
+    .os-select { height: 34px; font-size: 13px; }
     .os-f-dc .os-radios { display: none; }
     .os-f-dc .os-select-m { display: block !important; }
     .os-list-head { margin: 16px 0 12px; flex-direction: column; align-items: flex-start; gap: 4px; }
+    /* 모바일 카드: 왼쪽 사진 + 오른쪽 요약 가로형 (10/15 스크롤 축소) */
     .os-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
-    .os-card { padding: 14px; border-radius: 12px; }
-    .os-card-img { height: 140px; }
-    .os-card-name { font-size: 15px; }
-    .os-caps { margin: 8px 0 10px; }
-    .os-cap { height: 24px; padding: 0 7px; font-size: 11px; }
-    .os-total-price { font-size: 18px; margin-bottom: 8px; }
-    .os-rows { padding: 10px; font-size: 12px; }
-    .os-row { line-height: 1.75; }
-    .os-row .tag { display: none; }
-    .os-card-btns { grid-template-columns: 1fr; }
-    .os-card-btns .os-btn-line { display: none; }
+    .os-card { display: grid; grid-template-columns: 78px 1fr; grid-template-areas: "img name" "img caps" "img msum" "btns btns"; column-gap: 12px; align-items: start; padding: 12px 28px 12px 12px; border-radius: 12px; }
+    .os-badges { position: absolute; top: 10px; left: 10px; z-index: 1; max-width: 86px; min-height: 0; flex-wrap: wrap; }
+    .os-badges:empty { display: none; }
+    .os-badge { height: 20px; font-size: 11px; padding: 0 6px; }
+    .os-card-img { grid-area: img; height: 104px; margin: 0; align-self: center; }
+    .os-card-name { grid-area: name; font-size: 16px; line-height: 1.3; margin-top: 2px; }
+    .os-caps { grid-area: caps; margin: 6px 0 8px; }
+    .os-cap { height: 24px; padding: 0 8px; font-size: 11px; }
+    .os-total, .os-rows, .os-card-btns.m-hide { display: none; }
+    .os-card .os-msum { display: block; grid-area: msum; min-width: 0; }
+    .os-pre-box { grid-column: 1 / -1; margin-top: 10px; padding: 10px 12px; font-size: 12px; line-height: 1.6; }
+    .os-card-btns { grid-area: btns; grid-template-columns: 1fr; margin-top: 10px; }
 
     .os-pd-panel { inset: 0; border-radius: 0; }
     .os-pd-top { height: 52px; padding: 0 16px; }
@@ -2041,11 +2043,28 @@ body.os-lock .fab-container, body.os-lock .bottom-cta-bar, body.os-lock .realtim
     .os-mbar .os-btn { height: 48px; font-size: 15px; }
     .os-mbar .os-btn-line { width: 48px; padding: 0; }
 }
+@media (max-width: 640px) {
+    .os-grid { grid-template-columns: 1fr; gap: 8px; }
+}
 @media (max-width: 380px) {
-    .os-grid { grid-template-columns: 1fr; }
+    .os-card { grid-template-columns: 66px 1fr; column-gap: 10px; }
+    .os-card-img { height: 92px; }
     .os-head-btns .os-btn-line { display: none; }
 }
 .os-select-m { display: none !important; }
+.os-msum { display: none; }
+.os-msum-price { display: flex; align-items: baseline; gap: 4px; flex-wrap: wrap; }
+.os-msum-price span { font-size: 13px; color: var(--os-sub); font-weight: 600; }
+.os-msum-price strong { font-size: 20px; font-weight: 800; color: var(--os-text); letter-spacing: -0.03em; }
+.os-msum-price strong small { font-size: 13px; font-weight: 600; }
+.os-msum-price em { font-style: normal; font-size: 11px; color: var(--os-grey-2); }
+.os-msum-sub { font-size: 12px; color: var(--os-grey); margin-top: 1px; }
+.os-msum-dc { display: flex; flex-wrap: wrap; gap: 2px 10px; font-size: 12px; color: var(--os-sub); margin-top: 6px; padding-top: 6px; border-top: 1px dashed var(--os-line-2); }
+.os-msum-dc b { color: var(--os-pink); font-weight: 700; }
+.os-msum-prin { font-size: 12px; color: var(--os-sub); margin-top: 2px; }
+.os-msum-prin s { color: var(--os-grey-2); }
+.os-msum-prin b { color: var(--os-text); font-weight: 700; }
+.os-msum-go { position: absolute; right: 12px; top: 50%; width: 9px; height: 9px; border-top: 2px solid var(--os-grey-2); border-right: 2px solid var(--os-grey-2); transform: translateY(-50%) rotate(45deg); }
 .os-pre-box strong, .os-pre-box span { display: block; }
 .os-pre-box span { margin-top: 2px; }
 
@@ -3351,7 +3370,17 @@ var OS_DATA={"models":[{"id":"duo","name":"iPhone Duo","maker":"apple","img":"ip
                 '<div class="os-row"><span>휴대폰 월 할부금</span><b>' + won(r.devM) + '원</b></div>' +
                 '<div class="os-row"><span>요금제 월 납부</span><b>' + won(r.planM) + '원</b></div>' +
                 '</div>';
-            h += '<div class="os-card-btns"><button type="button" class="os-btn os-btn-pinkline" data-open>견적 비교하기</button>' +
+            // 모바일 전용 요약 (10/15 모바일 스크롤 축소)
+            h += '<div class="os-msum">' +
+                '<div class="os-msum-price"><span>월</span><strong>' + won(r.total) + '<small>원</small></strong><em>' + (r.kind === 'sub' ? '공시' : '선약') + '·24개월</em></div>' +
+                '<div class="os-msum-sub">기기 ' + won(r.devM) + ' + 요금 ' + won(r.planM) + '</div>' +
+                '<div class="os-msum-dc">' + (r.kind === 'sub'
+                    ? '<span>공시 <b>-' + won(r.subUsed) + '</b></span>'
+                    : '<span>선약 월 <b>-' + won(r.sel) + '</b></span>') +
+                (r.agUsed ? '<span>대리점 <b>-' + won(r.agUsed) + '</b></span>' : '<span>대리점 85,000원↑ 요금제</span>') + '</div>' +
+                '<div class="os-msum-prin">출고가 <s>' + won(q.retail) + '</s> → 할부원금 <b>' + won(r.prin) + '원</b></div><i class="os-msum-go" aria-hidden="true"></i>' +
+                '</div>';
+            h += '<div class="os-card-btns m-hide"><button type="button" class="os-btn os-btn-pinkline" data-open>견적 비교하기</button>' +
                 '<a class="os-btn os-btn-pink" href="' + KAKAO + '" target="_blank" data-kakao>카톡 상담</a></div>';
         }
         return h + '</article>';
