@@ -50,4 +50,4 @@ Disallow: /market/dealer/
 Disallow: /global/partners/
 Disallow: /staff2609/
 
-Sitemap: https://theggeulrim.github.io/sitemap.xml
+Sitemap: https://theggeulrim.com/sitemap.xml
