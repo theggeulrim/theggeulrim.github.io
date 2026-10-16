@@ -1986,10 +1986,31 @@ body.ap-lock { overflow: hidden; }
 body.ap-lock .fab-container, body.ap-lock .bottom-cta-bar { display: none !important; }
 
 /* 신뢰 스트립 */
-.st-trust { background: #181A1B; color: #fff; }
-.st-trust ul { list-style: none; margin: 0; padding: 18px 0; display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; text-align: center; }
-.st-trust b { display: block; font-size: 22px; font-weight: 800; letter-spacing: -0.03em; }
-.st-trust span { display: block; font-size: 13px; color: rgba(255,255,255,.7); margin-top: 2px; }
+.st-trust { background: #fff; border-bottom: 1px solid var(--os-line); }
+.st-trust ul { list-style: none; margin: 0; padding: 14px 0; display: flex; justify-content: center; flex-wrap: wrap; gap: 6px 28px; }
+.st-trust li { display: flex; align-items: center; gap: 6px; font-size: 14px; color: var(--os-sub); }
+.st-trust li i { font-style: normal; width: 18px; height: 18px; border-radius: 50%; background: #FCE4F1; color: var(--os-pink); font-size: 11px; font-weight: 800; display: inline-flex; align-items: center; justify-content: center; }
+.st-trust li b { color: var(--os-text); font-weight: 700; }
+/* 상품 카드: 할부원금 중심 + 버튼 하나 (10/16) */
+.os-total-label { justify-content: flex-start; gap: 6px; }
+.os-total-label em { margin-left: auto; }
+.os-off { font-style: normal; font-size: 12px; font-weight: 800; color: var(--os-pink); }
+.os-total-prin { text-align: right; font-size: 24px; font-weight: 800; color: var(--os-text); letter-spacing: -0.03em; margin-top: 2px; }
+.os-total-prin small { font-size: 14px; font-weight: 600; }
+.os-total-dc { text-align: right; font-size: 12px; color: var(--os-grey); margin-top: 2px; }
+.os-total-month { display: flex; justify-content: space-between; align-items: baseline; margin-top: 12px; padding: 10px 12px; background: var(--os-bg); border-radius: 10px; font-size: 13px; color: var(--os-sub); }
+.os-total-month em { font-style: normal; color: var(--os-grey-2); font-size: 12px; }
+.os-total-month b { font-size: 15px; color: var(--os-text); }
+.os-card-btns { grid-template-columns: 1fr !important; }
+.os-card-btns .os-btn { height: 44px !important; font-size: 15px !important; font-weight: 700; }
+/* 견적 모달: 안심 문구 + 버튼 하나 */
+.os-safe { list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 4px; }
+.os-safe li { font-size: 13px; color: var(--os-sub); padding-left: 20px; position: relative; }
+.os-safe li::before { content: '✓'; position: absolute; left: 2px; color: var(--os-pink); font-weight: 800; }
+.os-sum-btns { grid-template-columns: 1fr !important; }
+.os-sum-ask { text-align: center; font-size: 13px; color: var(--os-grey); margin-top: 10px; }
+.os-sum-ask button { background: none; border: 0; padding: 0; color: var(--os-sub); font: inherit; font-weight: 700; text-decoration: underline; cursor: pointer; }
+.os-mbar .os-btn-pink { flex: 0 0 auto; padding: 0 28px; }
 
 /* 공통 섹션 */
 .st-sec { padding: 80px 0; }
@@ -2163,8 +2184,8 @@ body.ap-lock .fab-container, body.ap-lock .bottom-cta-bar { display: none !impor
     .st-trust ul { display: flex; overflow-x: auto; scrollbar-width: none; padding: 14px 16px; gap: 22px; }
     .st-trust ul::-webkit-scrollbar { display: none; }
     .st-trust li { flex: none; }
-    .st-trust b { font-size: 15px; }
-    .st-trust span { font-size: 11px; }
+    .st-trust ul { justify-content: flex-start; gap: 18px; padding: 12px 16px; }
+    .st-trust li { font-size: 13px; white-space: nowrap; }
     .st-steps { grid-template-columns: 1fr; }
     .st-steps li { display: grid; grid-template-columns: 30px 1fr; column-gap: 12px; padding: 16px; }
     .st-steps li .st-n { grid-row: span 2; }
@@ -2214,7 +2235,7 @@ fbq('track', 'PageView');
 <a href="earlybird/ipduo/">아이폰 듀오 사전예약</a>
 <a href="#how">신청 방법</a>
 <a href="#stores">매장 찾기</a>
-<a href="#tips">꿀팁</a>
+<a href="#tips">구매 가이드</a>
 <a href="#faq">자주 묻는 질문</a>
 <a href="#my">접수내역</a>
 </nav>
@@ -2247,11 +2268,11 @@ fbq('track', 'PageView');
 <div class="st-trust">
 <div class="os-inner">
 <ul>
-<li><b>10년</b><span>휴대폰 판매</span></li>
-<li><b>연 2만 대</b><span>개통 실적</span></li>
-<li><b>24개</b><span>서울·경기 매장</span></li>
-<li><b>전국</b><span>택배 개통</span></li>
-<li><b>공식인증</b><span>LG U+ 대리점</span></li>
+<li><i>✓</i><span><b>LG U+ 공식인증</b> 대리점</span></li>
+<li><i>✓</i><span>휴대폰 판매 <b>10년</b></span></li>
+<li><i>✓</i><span>연 <b>2만 대</b> 개통</span></li>
+<li><i>✓</i><span>서울·경기 <b>24개</b> 매장</span></li>
+<li><i>✓</i><span><b>전국</b> 택배 개통</span></li>
 </ul>
 </div>
 </div>
@@ -2319,7 +2340,7 @@ fbq('track', 'PageView');
 
 <div class="os-pd" id="osPd" aria-hidden="true">
 <div class="os-pd-panel" role="dialog" aria-modal="true" aria-labelledby="osPdName">
-<div class="os-pd-top"><strong>견적 보고 신청하기</strong><button type="button" class="os-pd-close" aria-label="닫기" data-close></button></div>
+<div class="os-pd-top"><strong>견적 확인</strong><button type="button" class="os-pd-close" aria-label="닫기" data-close></button></div>
 <div class="os-pd-body">
 <div class="os-pd-grid">
 <div class="os-pd-main">
@@ -2389,16 +2410,16 @@ fbq('track', 'PageView');
 <div class="os-sum-terms"><span>부가서비스 없음</span><span>제휴카드 없음</span><span>중고폰 반납 없음</span><span id="osSumKeep">요금제 6개월 유지</span></div>
 <p class="os-sum-src" id="osSumSrc"></p>
 <div class="os-sum-check" id="osSumCheck"></div>
+<ul class="os-safe"><li>신청 비용 0원</li><li>공식 신청서 작성 전 언제든 무료 취소</li><li>담당 직원이 전화로 가격을 한 번 더 확인</li></ul>
 <div class="os-sum-btns">
-<button type="button" class="os-btn os-btn-line" data-quote>카톡으로 물어보기</button>
 <button type="button" class="os-btn os-btn-pink" data-apply>이 조건으로 신청하기</button>
 </div>
+<p class="os-sum-ask">궁금한 점이 있다면 <button type="button" data-quote>이 견적으로 카톡 문의</button></p>
 </aside>
 </div>
 </div>
 <div class="os-mbar">
 <div class="os-mbar-price"><span id="osMbarLabel">월 예상 납부금액</span><strong id="osMbarTotal">-</strong></div>
-<button type="button" class="os-btn os-btn-line os-mbar-kakao" data-quote aria-label="카톡으로 물어보기">카톡</button>
 <button type="button" class="os-btn os-btn-pink" data-apply>신청하기</button>
 </div>
 </div>
@@ -2501,8 +2522,8 @@ fbq('track', 'PageView');
 <section id="tips" class="st-sec st-tips">
 <div class="os-inner">
 <div class="st-head">
-<h2>이호진 팀장의 휴대폰 꿀팁</h2>
-<p>매장에서 매일 받는 질문 세 가지만 정리했어요.</p>
+<h2>가입 전에 알아두세요</h2>
+<p>가격을 비교할 때 가장 많이 헷갈리는 세 가지예요.</p>
 </div>
 <div class="st-tip-grid">
 <details class="st-tip"><summary><b>공시지원금 vs 선택약정, 뭐가 더 싸요?</b><span>2년 총비용으로 비교해야 정확해요</span></summary><div class="st-tip-body"><h4>기기 할인 = 공시지원금</h4><p>통신사가 휴대폰 값을 한 번에 깎아줘요. 할부원금이 내려가니 할부수수료도 같이 줄어요.</p><h4>요금 할인 = 선택약정 25%</h4><p>매달 요금의 25%를 24개월 동안 깎아줘요. 115,000원 요금제면 월 28,750원, 6개월 뒤 47,000원 요금제로 바꾸면 그때부턴 월 11,750원이에요.</p><h4>그래서 뭐가 싸요?</h4><p>공시지원금이 큰 최신 갤럭시는 대부분 기기 할인, 공시가 적은 아이폰 프로 맥스는 요금 할인이 싼 경우가 많아요. 휴대폰을 누르면 두 방식의 24개월 총 납부액 차이를 바로 보여드려요.</p></div></details>
@@ -2704,7 +2725,7 @@ fbq('track', 'PageView');
 <div class="final-content">
 <h2 class="final-banner-title">최저가라고 해서 갔더니<br>고가 요금제, 부가서비스, 카드 결합 등<br>겪어보신 적 있으시죠?</h2>
 <p class="final-banner-desc">LGU+더끌림컴퍼니는 조건을 숨기지 않습니다.</p>
-<a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" rel="noopener" class="final-banner-btn" data-kakao>카톡으로 물어보기</a>
+<a href="#phones" class="final-banner-btn">휴대폰 가격 보고 신청하기</a>
 </div>
 </section>
 
@@ -2769,7 +2790,7 @@ fbq('track', 'PageView');
 
 <div class="bottom-cta-bar">
 <a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" rel="noopener" class="bottom-cta-btn btn-bar-kakao" data-kakao><span style="font-size:20px">💬</span> 카톡 상담</a>
-<a href="#phones" class="bottom-cta-btn btn-bar-phone"><span style="font-size:20px">📱</span> 시세 보고 신청</a>
+<a href="#phones" class="bottom-cta-btn btn-bar-phone"><span style="font-size:20px">📱</span> 가격 보고 신청</a>
 </div>
 
 <div class="ap" id="apSheet" aria-hidden="true"></div>
@@ -2965,17 +2986,16 @@ var OS_DATA={"models":[{"id":"duo","name":"iPhone Duo","maker":"apple","img":"ip
             h += '<div class="os-card-btns"><a class="os-btn os-btn-line" href="' + KAKAO + '" target="_blank">입고 문의</a></div>';
         } else {
             var r = q.r;
-            h += '<div class="os-total"><div class="os-total-label">월 예상 납부금액 <em>' + (r.kind === 'sub' ? '공시지원금' : '선택약정') + ' · 24개월 할부</em></div>' +
-                '<div class="os-total-price">' + won(r.total) + '<small>원</small></div></div>';
-            h += '<div class="os-rows">' +
-                '<div class="os-row"><span>출고가</span><b><s>' + won(q.retail) + '원</s></b></div>' +
-                (r.kind === 'sub'
-                    ? '<div class="os-row"><span>공시지원금</span><b class="pink">-' + won(r.subUsed) + '원</b></div>'
-                    : '<div class="os-row"><span>선택약정 (월)</span><b class="pink">-' + won(r.sel) + '원</b></div>') +
-                '<div class="os-row"><span>대리점 추가지원금</span><b class="pink">' + (r.agUsed ? '-' + won(r.agUsed) + '원' : '<span class="tag">85,000원 이상 요금제</span>') + '</b></div>' +
-                '<div class="os-row sep"><span>할부원금</span><b>' + won(r.prin) + '원</b></div>' +
-                '<div class="os-row"><span>휴대폰 월 할부금</span><b>' + won(r.devM) + '원</b></div>' +
-                '<div class="os-row"><span>요금제 월 납부</span><b>' + won(r.planM) + '원</b></div>' +
+            var off = q.retail ? Math.round((q.retail - r.prin) / q.retail * 100) : 0;
+            var dcAmt = (r.kind === 'sub' ? r.subUsed : 0) + r.agUsed;
+            h += '<div class="os-total">' +
+                '<div class="os-total-label">할부원금' + (off > 0 ? ' <i class="os-off">' + off + '%↓</i>' : '') + '<em><s>' + won(q.retail) + '원</s></em></div>' +
+                '<div class="os-total-prin">' + won(r.prin) + '<small>원</small></div>' +
+                '<div class="os-total-dc">' + (r.kind === 'sub'
+                    ? '공시 -' + won(r.subUsed)
+                    : '선택약정 월 -' + won(r.sel)) +
+                (r.agUsed ? ' · 대리점 -' + won(r.agUsed) : ' · 대리점 지원금은 85,000원↑ 요금제') + '</div>' +
+                '<div class="os-total-month"><span>월 예상 <em>' + (r.kind === 'sub' ? '공시' : '선약') + '·24개월</em></span><b>' + won(r.total) + '원</b></div>' +
                 '</div>';
             // 모바일 전용 요약 (10/15 모바일 스크롤 축소)
             h += '<div class="os-msum">' +
@@ -2987,8 +3007,7 @@ var OS_DATA={"models":[{"id":"duo","name":"iPhone Duo","maker":"apple","img":"ip
                 (r.agUsed ? '<span>대리점 <b>-' + won(r.agUsed) + '</b></span>' : '<span>대리점 85,000원↑ 요금제</span>') + '</div>' +
                 '<div class="os-msum-prin">출고가 <s>' + won(q.retail) + '</s> → 할부원금 <b>' + won(r.prin) + '원</b></div><i class="os-msum-go" aria-hidden="true"></i>' +
                 '</div>';
-            h += '<div class="os-card-btns m-hide"><button type="button" class="os-btn os-btn-pinkline" data-open>견적 보고 신청하기</button>' +
-                '<a class="os-btn os-btn-pink" href="' + KAKAO + '" target="_blank" data-kakao>카톡 상담</a></div>';
+            h += '<div class="os-card-btns m-hide"><button type="button" class="os-btn os-btn-pink" data-open>신청하기</button></div>';
         }
         return h + '</article>';
     }
