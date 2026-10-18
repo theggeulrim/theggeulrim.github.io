@@ -2224,6 +2224,13 @@ body.ap-lock .fab-container, body.ap-lock .bottom-cta-bar { display: none !impor
     .ap-dates { grid-template-columns: repeat(3, 1fr); }
 }
 
+/* 10/18 견적 첫 화면 할인액, 하단 고정 필수 동의 */
+.os-pd-code .os-pd-dc { display: block; margin-top: 6px; font-size: 15px; color: var(--os-text, #111); }
+.os-pd-code .os-pd-dc b { color: var(--os-pink); font-weight: 700; }
+.ap-foot .ap-chk { margin: 0 0 10px; font-size: 14px; }
+.ap-foot .ap-chk.need { color: #E5352B; }
+.ap-foot .ap-chk.need input { border-color: #E5352B; box-shadow: 0 0 0 3px rgba(229,53,43,.18); }
+
 </style>
 <script>
 !function(f,b,e,v,n,t,s)
@@ -3089,6 +3096,7 @@ var OS_DATA={"models":[{"id":"duo","name":"iPhone Duo","maker":"apple","img":"ip
         document.body.classList.add('os-lock');
         renderPd();
         fetchSubsidy(pd.type, pd.plan, renderPd);
+        if (typeof fbq === 'function') fbq('trackCustom', 'QuoteOpen', { model: id });
     }
 
     function closePd() {
@@ -3109,7 +3117,10 @@ var OS_DATA={"models":[{"id":"duo","name":"iPhone Duo","maker":"apple","img":"ip
         var r = q.r;
         var c = m.caps.filter(function (x) { return x.c === pd.cap; })[0];
 
-        $('osPdCode').textContent = (c.code || '') + (c.code ? ' · ' : '') + '출고가 ' + won(q.retail) + '원';
+        // 광고에서 말한 할인액(공시+대리점)과 할부원금을 첫 화면에 바로 보이게 (10/18)
+        var dcSum = (r.subUsed || 0) + (r.agUsed || 0);
+        $('osPdCode').innerHTML = (c.code || '') + (c.code ? ' · ' : '') + '출고가 ' + won(q.retail) + '원' +
+            (dcSum ? '<span class="os-pd-dc"><b>' + won(dcSum) + '원 할인</b> → 할부원금 <b>' + won(r.prin) + '원</b></span>' : '');
         $('osPdCaps').innerHTML = capsHtml(m, pd.cap);
 
         [].forEach.call($('osPdType').children, function (b) { b.classList.toggle('on', b.dataset.v === pd.type); });
@@ -3184,7 +3195,7 @@ var OS_DATA={"models":[{"id":"duo","name":"iPhone Duo","maker":"apple","img":"ip
         $('osSum').classList.toggle('is-six', six);
         $('osSumHeadT').textContent = six ? '1~6개월 월 납부금액' : '월 예상 납부금액';
         $('osMbarTotal').innerHTML = won(r.total) + '원' + (six ? '<small>7개월째부터 월 ' + won(r.total2) + '원</small>' : '');
-        $('osMbarLabel').textContent = six ? '1~6개월 월 납부' : '월 예상 납부금액';
+        $('osMbarLabel').textContent = (dcSum ? won(dcSum) + '원 할인 · ' : '') + (six ? '1~6개월 월 납부' : '월 납부');
         $('osSumDevT').textContent = '휴대폰 ' + (pd.n ? pd.n + '개월 할부' : '일시불');
         $('osSumDevM').textContent = pd.n ? '월 ' + won(r.devM) + '원' : '일시불 ' + won(r.prin) + '원';
         $('osSumRetail').textContent = won(q.retail) + '원';
@@ -3447,6 +3458,8 @@ window.SITE_STORES=[{"name":"신림점","region":"서울","addr":"서울특별�
     function lsSet(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
     function toast(m) { if (window.OS_SHOP) window.OS_SHOP.toast(m); }
     function track(ev) { if (typeof fbq === 'function') fbq('trackCustom', ev); }
+    // 어느 단계에서 빠지는지 보려고 단계마다 한 번씩만 (10/18)
+    function step(ev) { if (!st || st.tk[ev]) return; st.tk[ev] = 1; if (typeof fbq === 'function') fbq('trackCustom', ev, { model: st.ctx.id }); }
     function curNm(v) { return (CARRIERS.filter(function (c) { return c[0] === v; })[0] || ['', ''])[1]; }
 
     function rpc(fn, body) {
@@ -3507,7 +3520,7 @@ window.SITE_STORES=[{"name":"신림점","region":"서울","addr":"서울특별�
     function typeOk() { return st.cur && !((st.cur === 'LGU' && st.ctx.type === '2') || (st.cur !== 'LGU' && st.ctx.type === '1')); }
 
     function vCur() {
-        st.step = 'cur';
+        st.step = 'cur'; step('ApplyStart');
         frame(ttl(),
             '<h3>지금 쓰는 통신사를 골라주세요</h3><p class="ap-sub">' + esc(st.ctx.name) + ' ' + st.ctx.cap + ' · ' + TYPE_NM[st.ctx.type] + ' 견적으로 ' + (st.ctx.pre ? '사전예약해요. 예약금·결제는 없어요.' : '신청해요.') + '</p>' +
             '<div class="ap-opts c2">' + CARRIERS.map(function (c) {
@@ -3526,7 +3539,7 @@ window.SITE_STORES=[{"name":"신림점","region":"서울","addr":"서울특별�
         }).join('') + '</select>';
     }
     function vMethod() {
-        st.step = 'method';
+        st.step = 'method'; step('ApplyMethod');
         var visit = st.method === 'visit';
         var s = STORES.filter(function (x) { return x.name === st.store; })[0];
         var ok = st.method === 'delivery' || (visit && st.store && st.date);
@@ -3552,7 +3565,7 @@ window.SITE_STORES=[{"name":"신림점","region":"서울","addr":"서울특별�
         return src ? '<div class="ap-acc"><div class="st-acc">' + src.innerHTML.replace(/ open(="")?>/g, '>') + '</div></div>' : '';
     }
     function vConfirm() {
-        st.step = 'confirm';
+        st.step = 'confirm'; step('ApplyConfirm');
         var c = st.ctx, n = c.n;
         var recv = st.method === 'visit' ? '매장 방문 · ' + esc(st.store) + ' · ' + dateNm(st.date) : '택배 (전국)';
         var cols = COLORS[c.id] || [];
@@ -3581,17 +3594,16 @@ window.SITE_STORES=[{"name":"신림점","region":"서울","addr":"서울특별�
                 : row('월 납부금액', '<b class="pink">' + won(c.total) + '원</b>')) +
             '<p class="ap-sub" style="padding-bottom:12px">최종 조건은 LG U+ 공식 신청서를 작성할 때 확정돼요.</p></div>' +
             '<h3 style="margin-top:28px;font-size:18px">유의사항</h3>' + noticeAcc() +
-            '<label class="ap-chk"><input type="checkbox" id="apAgree1"' + (st.a1 ? ' checked' : '') + '><span><em>[필수]</em> 유의사항을 모두 확인했어요</span></label>' +
-            '<label class="ap-chk"><input type="checkbox" id="apAgree2"' + (st.a2 ? ' checked' : '') + '><span><em>[필수]</em> 개인정보 제공 동의<small>상담·개통을 위해 이름·연락처·신청 내용을 주식회사 더끌림컴퍼니에 제공합니다. (보유: 상담 종료 후 3개월)</small></span></label>',
-            '<button type="button" class="os-btn os-btn-pink" data-ap="submit">' + (c.pre ? '확인했어요, 사전예약할게요' : '확인했어요, 신청할게요') + '</button>', 3, true);
+            '<p class="ap-sub">개인정보 제공: 상담·개통을 위해 이름·연락처·신청 내용을 주식회사 더끌림컴퍼니에 제공합니다. (보유: 상담 종료 후 3개월)</p>',
+            '<label class="ap-chk" id="apAgreeF"><input type="checkbox" id="apAgree"' + (st.a1 && st.a2 ? ' checked' : '') + '><span><em>[필수]</em> 유의사항 확인 및 개인정보 제공에 동의해요</span></label>' +
+            '<button type="button" class="os-btn os-btn-pink" data-ap="submit">' + (c.pre ? '사전예약 접수하기' : '신청 접수하기') + '</button>', 3, true);
         ['apName', 'apPhone', 'apColor'].forEach(function (id) {
             $(id).addEventListener('input', function () {
                 st.name = $('apName').value; st.phone = $('apPhone').value; st.color = $('apColor').value;
                 this.parentNode.classList.remove('err');
             });
         });
-        $('apAgree1').addEventListener('change', function () { st.a1 = this.checked; });
-        $('apAgree2').addEventListener('change', function () { st.a2 = this.checked; });
+        $('apAgree').addEventListener('change', function () { st.a1 = st.a2 = this.checked; $('apAgreeF').classList.remove('need'); });
     }
     function row(k, v) { return '<div class="ap-row"><span>' + k + '</span><b>' + v + '</b></div>'; }
     function dateNm(v) {
@@ -3640,11 +3652,12 @@ window.SITE_STORES=[{"name":"신림점","region":"서울","addr":"서울특별�
         var bad = false;
         if (!name) { $('apNameF').classList.add('err'); bad = true; }
         if (!/^01\d{8,9}$/.test(ph)) { $('apPhoneF').classList.add('err'); bad = true; }
-        if (bad) { el.querySelector('.ap-body').scrollTop = 0; return; }
-        if (!st.a1 || !st.a2) { toast('필수 항목에 동의해 주세요.'); return; }
+        if (bad) { step('SubmitBadInput'); el.querySelector('.ap-body').scrollTop = 0; return; }
+        if (!st.a1 || !st.a2) { step('SubmitNoAgree'); $('apAgreeF').classList.add('need'); toast('버튼 위 [필수] 동의를 체크해 주세요.'); return; }
         var btn = el.querySelector('[data-ap="submit"]');
         if (btn.disabled) return;
         btn.disabled = true; btn.textContent = '보내는 중…';
+        step('SubmitTry');
         var c = st.ctx, storeName = st.method === 'visit' ? st.store : ONLINE;
         loadStoreIds().then(function (ids) {
             var sid = ids[storeName];
@@ -3662,7 +3675,8 @@ window.SITE_STORES=[{"name":"신림점","region":"서울","addr":"서울특별�
             renderMy();
         }).catch(function (e) {
             var m = errMsg(e);
-            if (m && e.message !== 'store') { btn.disabled = false; btn.textContent = c.pre ? '확인했어요, 사전예약할게요' : '확인했어요, 신청할게요'; toast(m); return; }
+            step('SubmitFail');
+            if (m && e.message !== 'store') { btn.disabled = false; btn.textContent = c.pre ? '사전예약 접수하기' : '신청 접수하기'; toast(m); return; }
             // 접수 서버를 못 쓰면 카톡으로 (신청 내용은 복사)
             window.OS_SHOP.copy(appText(), function (ok) {
                 track('KakaoClick');
@@ -3761,7 +3775,7 @@ window.SITE_STORES=[{"name":"신림점","region":"서울","addr":"서울특별�
     window.SiteApply = {
         open: function (ctx) {
             if (!ctx) return;
-            st = { ctx: ctx, step: '', cur: '', method: preStore ? 'visit' : '', store: preStore, date: preStore ? days()[0].v : '', name: '', phone: '', color: '', a1: false, a2: false };
+            st = { ctx: ctx, step: '', cur: '', method: preStore ? 'visit' : '', store: preStore, date: preStore ? days()[0].v : '', name: '', phone: '', color: '', a1: false, a2: false, tk: {} };
             // 지금 견적의 가입 유형으로 통신사를 미리 짐작 (기기변경 → LG U+)
             if (ctx.type === '1') st.cur = 'LGU';
             show(); vCur();
