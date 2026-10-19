@@ -7,8 +7,8 @@
     var E = window.Engine, D = E.D, won = E.won;
     var $ = function (id) { return document.getElementById(id); };
     var esc = function (s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); };
-    var STATUS = ['신규', '연락완료', '방문예정', '개통완료', '취소'];
-    var ST_TAG = { '신규': 'b', '연락완료': '', '방문예정': 'y', '개통완료': 'g', '취소': 'r' };
+    var STATUS = ['신규', '연락완료', '방문예정', '서류작성', '배송시작', '개통완료', '취소'];
+    var ST_TAG = { '신규': 'b', '연락완료': '', '방문예정': 'y', '서류작성': '', '배송시작': 'y', '개통완료': 'g', '취소': 'r' };
     var CUR = { SKT: 'SKT', KT: 'KT', LGU: 'LG U+', MVNO: '알뜰폰' };
     var MODELS = D.models.filter(function (m) { return !m.pre && m.caps.some(function (c) { return c.retail > 0 && !c.sold; }); });
     var COLS = [['2', '85', '번호이동 85'], ['2', '115', '번호이동 115'], ['1', '85', '기기변경 85'], ['1', '115', '기기변경 115']];
