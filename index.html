@@ -2157,6 +2157,15 @@ body.ap-lock .fab-container, body.ap-lock .bottom-cta-bar { display: none !impor
 .ap-dates button small { display: block; font-size: 11px; font-weight: 500; color: var(--os-grey); }
 .ap-dates button.on { border: 2px solid var(--os-pink); color: var(--os-pink); }
 .ap-dates.ap-colors { grid-template-columns: repeat(2, 1fr) !important; margin-bottom: 8px; }
+/* 방문예약 기종 고르기 (10/19) */
+.ap-models { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-bottom: 8px; }
+.ap-model { display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 10px 4px; border: 1px solid var(--os-line-2); border-radius: 10px; background: #fff; font-family: inherit; font-size: 13px; font-weight: 700; color: var(--os-text); cursor: pointer; line-height: 1.3; text-align: center; }
+.ap-model img { width: 56px; height: 56px; object-fit: contain; }
+.ap-model small { display: block; font-size: 11px; font-weight: 600; color: var(--os-pink); }
+.ap-model.on { border: 2px solid var(--os-pink); padding: 9px 3px; }
+.ap-model-none { grid-column: 1 / -1; flex-direction: row; justify-content: center; padding: 14px; }
+.ap-model-none small { color: var(--os-grey); font-weight: 500; }
+.ap-model-none.on { padding: 13px; }
 .ap-box { margin-top: 18px; border: 1px solid var(--os-line); border-radius: 14px; padding: 4px 16px; }
 .ap-box h4 { font-size: 15px; font-weight: 800; padding: 12px 0 4px; }
 .ap-row { display: flex; justify-content: space-between; gap: 12px; font-size: 14px; color: var(--os-grey); padding: 7px 0; line-height: 1.5; }
@@ -2230,6 +2239,13 @@ body.ap-lock .fab-container, body.ap-lock .bottom-cta-bar { display: none !impor
 .ap-foot .ap-chk { margin: 0 0 10px; font-size: 14px; }
 .ap-foot .ap-chk.need { color: #E5352B; }
 .ap-foot .ap-chk.need input { border-color: #E5352B; box-shadow: 0 0 0 3px rgba(229,53,43,.18); }
+/* 견적 요약: 할부원금 강조, 월 납부는 요금제 영역 (10/19) */
+.os-sum-head { border-bottom: 0; padding-bottom: 4px; }
+.os-sum-headsub { margin: 0 0 14px; padding-bottom: 14px; border-bottom: 1px solid var(--os-text); font-size: 13px; color: var(--os-sub); }
+.os-sum-headsub b { color: var(--os-pink); font-weight: 700; }
+.os-sum-month { margin-top: 6px; padding-top: 10px; border-top: 1px dashed #ddd; }
+.os-sum-month b { font-size: 17px; }
+.os-sum-total2 { border-bottom: 0; padding-bottom: 0; }
 
 </style>
 <script>
@@ -2417,8 +2433,8 @@ fbq('track', 'PageView');
 </div>
 
 <aside class="os-sum" id="osSum">
-<div class="os-sum-head"><span id="osSumHeadT">월 예상 납부금액</span><strong id="osSumTotal">-</strong></div>
-<div class="os-sum-total2" id="osSumTotal2" style="display:none"></div>
+<div class="os-sum-head"><span id="osSumHeadT">할부원금</span><strong id="osSumTotal">-</strong></div>
+<p class="os-sum-headsub" id="osSumHeadSub"></p>
 <div class="os-sum-sec">
 <h4><span id="osSumDevT">휴대폰</span><span id="osSumDevM">-</span></h4>
 <div class="os-sum-row"><span>출고가</span><b id="osSumRetail">-</b></div>
@@ -2432,6 +2448,8 @@ fbq('track', 'PageView');
 <div class="os-sum-row"><span id="osSumPlanN">-</span><b id="osSumPlanF">-</b></div>
 <div class="os-sum-row" id="osSumPlan2" style="display:none"><span id="osSumPlan2N">-</span><b id="osSumPlan2F">-</b></div>
 <div class="os-sum-row"><span>선택약정 할인 (24개월)</span><b class="pink" id="osSumSel">-</b></div>
+<div class="os-sum-row os-sum-month"><span id="osSumMonthT">월 예상 납부금액</span><b id="osSumMonth">-</b></div>
+<div class="os-sum-total2" id="osSumTotal2" style="display:none"></div>
 </div>
 <div class="os-sum-terms"><span>부가서비스 없음</span><span>제휴카드 없음</span><span>중고폰 반납 없음</span><span id="osSumKeep">요금제 6개월 유지</span></div>
 <p class="os-sum-src" id="osSumSrc"></p>
@@ -2445,7 +2463,7 @@ fbq('track', 'PageView');
 </div>
 </div>
 <div class="os-mbar">
-<div class="os-mbar-price"><span id="osMbarLabel">월 예상 납부금액</span><strong id="osMbarTotal">-</strong></div>
+<div class="os-mbar-price"><span id="osMbarLabel">할부원금</span><strong id="osMbarTotal">-</strong></div>
 <button type="button" class="os-btn os-btn-pink" data-apply>신청하기</button>
 </div>
 </div>
@@ -3189,13 +3207,15 @@ var OS_DATA={"models":[{"id":"duo","name":"iPhone Duo","maker":"apple","img":"ip
         }).join('');
 
         // 요약
-        $('osSumTotal').innerHTML = won(r.total) + '<small>원</small>';
+        // 큰 숫자는 할부원금 (휴대폰 값), 월 납부는 요금제 영역에만 (10/19)
+        $('osSumTotal').innerHTML = won(r.prin) + '<small>원</small>';
+        $('osSumHeadSub').innerHTML = '출고가 ' + won(q.retail) + '원' + (dcSum ? ' − 할인 <b>' + won(dcSum) + '원</b>' : '') + ' · 일시불·할부 모두 가능';
+        $('osSumMonthT').textContent = six ? '1~6개월 월 납부금액' : '월 예상 납부금액';
+        $('osSumMonth').textContent = '월 ' + won(r.total) + '원';
         $('osSumTotal2').innerHTML = six ? '<span>7개월째부터</span><b>월 ' + won(r.total2) + '원</b>' : '';
         $('osSumTotal2').style.display = six ? '' : 'none';
-        $('osSum').classList.toggle('is-six', six);
-        $('osSumHeadT').textContent = six ? '1~6개월 월 납부금액' : '월 예상 납부금액';
-        $('osMbarTotal').innerHTML = won(r.total) + '원' + (six ? '<small>7개월째부터 월 ' + won(r.total2) + '원</small>' : '');
-        $('osMbarLabel').textContent = (dcSum ? won(dcSum) + '원 할인 · ' : '') + (six ? '1~6개월 월 납부' : '월 납부');
+        $('osMbarTotal').innerHTML = won(r.prin) + '원';
+        $('osMbarLabel').textContent = (dcSum ? won(dcSum) + '원 할인 · ' : '') + '할부원금';
         $('osSumDevT').textContent = '휴대폰 ' + (pd.n ? pd.n + '개월 할부' : '일시불');
         $('osSumDevM').textContent = pd.n ? '월 ' + won(r.devM) + '원' : '일시불 ' + won(r.prin) + '원';
         $('osSumRetail').textContent = won(q.retail) + '원';
@@ -3261,7 +3281,25 @@ var OS_DATA={"models":[{"id":"duo","name":"iPhone Duo","maker":"apple","img":"ip
             if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(function () { cb(true); }, function () { cb(fallbackCopy(text)); });
             else cb(fallbackCopy(text));
         },
-        close: function () { closePd(); }
+        close: function () { closePd(); },
+        // 매장 방문예약 시트용 (10/19): 고를 수 있는 기종, 기종별 견적
+        models: function () {
+            return D.models.filter(function (m) { return isPriced(m) && !m.caps.every(function (c) { return c.sold; }); }).map(function (m) {
+                return { id: m.id, name: m.name, img: m.img, pre: !!m.pre, caps: m.caps.filter(function (c) { return !c.sold; }).map(function (c) { return c.c; }), cap: firstCap(m) };
+            });
+        },
+        visitCtx: function (id, cap, type, cb) {
+            var m = modelMap[id];
+            if (!m) return;
+            var tmp = { id: id, cap: cap || firstCap(m), type: type, plan: st.plan, dc: 'sub', n: 24, after: '' };
+            fetchSubsidy(type, tmp.plan, function () {
+                tmp.dc = quote(m, tmp.cap, type, tmp.plan, 'auto', 24, '').pick;
+                var save = pd; pd = tmp;
+                var c = applyCtx();
+                pd = save;
+                cb(c);
+            });
+        }
     };
 
     function quoteText() {
@@ -3459,7 +3497,7 @@ window.SITE_STORES=[{"name":"신림점","region":"서울","addr":"서울특별�
     function toast(m) { if (window.OS_SHOP) window.OS_SHOP.toast(m); }
     function track(ev) { if (typeof fbq === 'function') fbq('trackCustom', ev); }
     // 어느 단계에서 빠지는지 보려고 단계마다 한 번씩만 (10/18)
-    function step(ev) { if (!st || st.tk[ev]) return; st.tk[ev] = 1; if (typeof fbq === 'function') fbq('trackCustom', ev, { model: st.ctx.id }); }
+    function step(ev) { if (!st || st.tk[ev]) return; st.tk[ev] = 1; if (typeof fbq === 'function') fbq('trackCustom', ev, { model: st.ctx ? st.ctx.id : '' }); }
     function curNm(v) { return (CARRIERS.filter(function (c) { return c[0] === v; })[0] || ['', ''])[1]; }
 
     function rpc(fn, body) {
@@ -3560,6 +3598,105 @@ window.SITE_STORES=[{"name":"신림점","region":"서울","addr":"서울특별�
         if (sel) sel.addEventListener('change', function () { st.store = this.value; vMethod(); });
     }
 
+    /* ---------- 매장 방문예약 (10/19) ----------
+       매장 카드 '방문 신청'·카톡 방문 예약(#visit) → ① 매장·방문일 → ② 통신사·기종(미정 가능) → ③ 이름·연락처·동의 → 접수 */
+    function UNDECIDED() {
+        return { id: '기종 미정', name: '매장에서 상담 후 결정', img: '', cap: '', type: typeOf(st.cur), plan: '', dc: 'sub', n: 24, retail: null, sub: null, ag: null, price: null, pre: '' };
+    }
+    function typeOf(cur) { return cur === 'LGU' ? '1' : '2'; }
+    function redraw() { if (st.step === 'v1') vV1(); else if (st.step === 'v2') vV2(); else if (st.step === 'method') vMethod(); }
+    function storeField() {
+        var s = STORES.filter(function (x) { return x.name === st.store; })[0];
+        return '<div class="ap-field"><label for="apStore">방문할 매장</label>' + storeSelect() +
+            '<button type="button" class="ap-geo" data-ap="geo">📍 가까운 매장 찾기</button>' +
+            (s ? '<p class="ap-sub">' + esc(s.addr) + '</p>' : '') + '</div>';
+    }
+    function vV1() {
+        st.step = 'v1'; step('VisitStart');
+        frame('매장 방문 예약',
+            '<h3>어느 매장에 언제 오시겠어요?</h3><p class="ap-sub">서울·경기 ' + STORES.length + '개 매장 · 실물 보고 그 자리에서 개통해요. 가격은 홈페이지와 같아요.</p>' +
+            storeField() +
+            '<div class="ap-field"><span class="ap-lbl">방문 예정일</span><div class="ap-dates">' + days().map(function (d) {
+                return '<button type="button" data-ap="date" data-v="' + d.v + '"' + (st.date === d.v ? ' class="on"' : '') + '>' + d.t + '<small>' + d.d + '</small></button>';
+            }).join('') + '</div><p class="ap-sub">방문 전에 담당 직원이 재고를 확인하고 연락드려요.</p></div>',
+            '<button type="button" class="os-btn os-btn-pink" data-ap="next"' + (st.store && st.date ? '' : ' disabled') + '>다음</button>', 1, false);
+        var sel = $('apStore');
+        if (sel) sel.addEventListener('change', function () { st.store = this.value; vV1(); });
+    }
+    function vV2() {
+        st.step = 'v2'; step('VisitModel');
+        var list = window.OS_SHOP ? window.OS_SHOP.models() : [];
+        var m = list.filter(function (x) { return x.id === st.vm; })[0];
+        var c = st.ctx, price = '';
+        if (st.vm === 'none') price = '<div class="ap-hint">매장에서 실물을 보고 기종과 가격을 같이 정해요.</div>';
+        else if (m && !st.cur) price = '<div class="ap-hint">지금 쓰는 통신사를 고르면 가격이 나와요.</div>';
+        else if (m && st.busy) price = '<div class="ap-hint">가격 계산 중…</div>';
+        else if (m && c) price = '<div class="ap-box">' + row('가입 유형', TYPE_NM[c.type]) + row('요금제', esc(c.planName) + ' · 월 ' + won(c.planFee) + '원') +
+            row('할부원금', won(c.price) + '원') + row(c.six ? '1~6개월 월 납부' : '월 납부금액', '<b class="pink">' + won(c.total) + '원</b>') +
+            '<p class="ap-sub" style="padding-bottom:12px">' + (c.dc === 'sub' ? '공시지원금' : '선택약정 25%') + ' · 24개월 할부 기준이에요. 요금제·할인 방법은 매장에서 바꿀 수 있어요.</p></div>';
+        frame('매장 방문 예약',
+            '<h3>지금 쓰는 통신사</h3>' +
+            '<div class="ap-opts c2">' + CARRIERS.map(function (x) {
+                return '<button type="button" class="ap-opt' + (st.cur === x[0] ? ' on' : '') + '" data-ap="vcur" data-v="' + x[0] + '">' + x[1] + '</button>';
+            }).join('') + '</div>' +
+            '<h3 style="margin-top:24px">보러 오실 기종</h3><p class="ap-sub">아직 못 정하셨으면 맨 아래 \'매장에서 정할게요\'를 눌러주세요.</p>' +
+            '<div class="ap-models">' + list.map(function (x) {
+                return '<button type="button" class="ap-model' + (st.vm === x.id ? ' on' : '') + '" data-ap="vm" data-v="' + x.id + '">' +
+                    (x.img ? '<img src="' + esc(x.img) + '" alt="" loading="lazy">' : '') + '<span>' + esc(x.name) + (x.pre ? '<small>사전예약</small>' : '') + '</span></button>';
+            }).join('') +
+            '<button type="button" class="ap-model ap-model-none' + (st.vm === 'none' ? ' on' : '') + '" data-ap="vm" data-v="none"><span>매장에서 정할게요<small>상담 후 결정</small></span></button></div>' +
+            (m && m.caps.length > 1 ? '<div class="ap-field"><span class="ap-lbl">용량</span><div class="ap-dates">' + m.caps.map(function (x) {
+                return '<button type="button" data-ap="vcap" data-v="' + esc(x) + '"' + (st.vcap === x ? ' class="on"' : '') + '>' + esc(x) + '</button>';
+            }).join('') + '</div></div>' : '') + price,
+            '<button type="button" class="os-btn os-btn-pink" data-ap="next"' + (vOk() ? '' : ' disabled') + '>다음</button>', 2, true);
+        if (m && st.vScroll) { var on = el.querySelector('.ap-model.on'); if (on) { var b = el.querySelector('.ap-body'); b.scrollTop = Math.max(0, on.offsetTop - 120); } }
+        st.vScroll = false;
+    }
+    function vOk() { return st.cur && (st.vm === 'none' || (st.vm && st.ctx && !st.busy)); }
+    function vPrice() {
+        st.ctx = null;
+        if (!st.vm || st.vm === 'none' || !st.cur) { st.vScroll = true; vV2(); return; }
+        var key = st.vm + st.vcap + st.cur;
+        st.busy = key; st.vScroll = true; vV2();
+        window.OS_SHOP.visitCtx(st.vm, st.vcap, typeOf(st.cur), function (c) {
+            if (!st || st.busy !== key) return;
+            st.busy = ''; st.ctx = c;
+            if (st.step === 'v2') { st.vScroll = true; vV2(); }
+        });
+    }
+    function vV3() {
+        st.step = 'v3'; step('VisitConfirm');
+        var c = st.ctx || UNDECIDED();
+        var cols = COLORS[c.id] || [];
+        var decided = st.vm !== 'none';
+        frame('방문 예약 확인',
+            '<h3>예약 정보를 확인해 주세요</h3><p class="ap-sub">이름과 연락처만 받아요. 생년월일·카드번호·신분증은 홈페이지에서 받지 않아요.</p>' +
+            '<div class="ap-field" id="apNameF"><label for="apName">이름</label><input id="apName" autocomplete="name" placeholder="홍길동" value="' + esc(st.name || '') + '"><p class="ap-err">이름을 입력해 주세요.</p></div>' +
+            '<div class="ap-field" id="apPhoneF"><label for="apPhone">휴대폰 번호</label><input id="apPhone" type="tel" inputmode="numeric" autocomplete="tel" placeholder="010-1234-5678" value="' + esc(st.phone || '') + '"><p class="ap-err">휴대폰 번호를 확인해 주세요.</p></div>' +
+            (decided ? '<div class="ap-field"><label for="apColor">희망 색상 (선택)</label>' +
+                (cols.length ? '<div class="ap-dates ap-colors">' + cols.map(function (x) {
+                    return '<button type="button" data-ap="color" data-v="' + esc(x) + '"' + (st.color === x ? ' class="on"' : '') + '>' + esc(x) + '</button>';
+                }).join('') + '</div>' : '') +
+                '<input id="apColor" placeholder="' + (cols.length ? '예: ' + cols.join(', ') : '예: 블랙, 아무 색이나') + '" value="' + esc(st.color || '') + '"></div>' : '') +
+            '<div class="ap-box"><h4>방문 예약</h4>' + row('매장', esc(st.store)) + row('방문일', dateNm(st.date)) +
+            row('통신사', curNm(st.cur) + ' → LG U+') + row('가입 유형', TYPE_NM[c.type]) +
+            row('기종', decided ? esc(c.name) + ' ' + esc(c.cap) : '매장에서 결정') +
+            (decided ? row('할부원금', won(c.price) + '원') + row('월 납부금액', '<b class="pink">' + won(c.total) + '원</b>') : '') +
+            '<p class="ap-sub" style="padding-bottom:12px">' + (decided ? esc(c.planName) + ' · 24개월 기준 예상 금액이에요. ' : '') + '최종 조건은 매장에서 LG U+ 공식 신청서를 작성할 때 확정돼요.</p></div>' +
+            '<h3 style="margin-top:28px;font-size:18px">유의사항</h3>' + noticeAcc() +
+            '<p class="ap-sub">개인정보 제공: 상담·개통을 위해 이름·연락처·예약 내용을 주식회사 더끌림컴퍼니에 제공합니다. (보유: 상담 종료 후 3개월)</p>',
+            '<label class="ap-chk" id="apAgreeF"><input type="checkbox" id="apAgree"' + (st.a1 && st.a2 ? ' checked' : '') + '><span><em>[필수]</em> 유의사항 확인 및 개인정보 제공에 동의해요</span></label>' +
+            '<button type="button" class="os-btn os-btn-pink" data-ap="submit">방문 예약하기</button>', 3, true);
+        ['apName', 'apPhone', 'apColor'].forEach(function (id) {
+            var f = $(id); if (!f) return;
+            f.addEventListener('input', function () {
+                st.name = $('apName').value; st.phone = $('apPhone').value; if ($('apColor')) st.color = $('apColor').value;
+                this.parentNode.classList.remove('err');
+            });
+        });
+        $('apAgree').addEventListener('change', function () { st.a1 = st.a2 = this.checked; $('apAgreeF').classList.remove('need'); });
+    }
+
     function noticeAcc() {
         var src = $('noticeAcc');
         return src ? '<div class="ap-acc"><div class="st-acc">' + src.innerHTML.replace(/ open(="")?>/g, '>') + '</div></div>' : '';
@@ -3614,13 +3751,13 @@ window.SITE_STORES=[{"name":"신림점","region":"서울","addr":"서울특별�
     function vDone(id, viaKakao) {
         st.step = 'done';
         var visit = st.method === 'visit';
-        var pre = st.ctx.pre;
-        frame(pre ? '사전예약 완료' : '신청 완료',
+        var pre = st.ctx && st.ctx.pre;
+        frame(st.mode === 'visit' ? '방문 예약 완료' : pre ? '사전예약 완료' : '신청 완료',
             '<div class="ap-done"><span class="ap-done-ic">✓</span>' +
             (viaKakao ? '<h3>카톡으로 신청을 마무리해 주세요</h3><p class="ap-sub">' + (viaKakao === 'copied' ? '신청 내용이 복사됐어요. 열린 카톡 채팅창에 붙여넣기만 하면 접수돼요.' : '열린 카톡 채팅창에 이름·연락처·원하는 모델을 보내주시면 접수돼요.') + '</p>'
-                : '<h3>' + (pre ? '사전예약이 접수됐어요' : '신청이 접수됐어요') + '</h3><span class="ap-done-id">접수번호 ' + esc(id) + '</span>') + '</div>' +
+                : '<h3>' + (st.mode === 'visit' ? '방문 예약이 접수됐어요' : pre ? '사전예약이 접수됐어요' : '신청이 접수됐어요') + '</h3><span class="ap-done-id">접수번호 ' + esc(id) + '</span>') + '</div>' +
             '<ol class="ap-next">' +
-            '<li class="on"><b>' + (pre ? '사전예약 접수' : '신청 접수') + '</b>' + (visit ? esc(st.store) + ' · ' + dateNm(st.date) + ' 방문' : '택배 개통') + '</li>' +
+            '<li class="on"><b>' + (st.mode === 'visit' ? '방문 예약 접수' : pre ? '사전예약 접수' : '신청 접수') + '</b>' + (visit ? esc(st.store) + ' · ' + dateNm(st.date) + ' 방문' : '택배 개통') + '</li>' +
             '<li><b>담당 직원 연락</b>영업시간(' + (visit ? '10:00~21:00' : '10:00~20:00') + ') 안에 접수 순서대로 전화드려요. 가격과 유의사항을 다시 확인해요.</li>' +
             '<li><b>LG U+ 공식 신청서 작성</b>조건이 확정되고 결제 방법(일시불·할부)을 등록해요.</li>' +
             '<li><b>' + (visit ? '매장 방문 · 개통' : '택배 수령 · 개통') + '</b>' + (pre ? pre + ' 후 사전예약 순서대로 개통해요.' : visit ? '방문하신 날 실물을 보고 개통해요.' : '휴대폰을 받은 뒤 개통해요.') + '</li>' +
@@ -3639,12 +3776,12 @@ window.SITE_STORES=[{"name":"신림점","region":"서울","addr":"서울특별�
     function fmtPhone(d) { return d.replace(/^(\d{3})(\d{3,4})(\d{4})$/, '$1-$2-$3'); }
 
     function appText() {
-        var c = st.ctx;
+        var c = st.ctx || UNDECIDED();
         return [c.pre ? '[LGU+더끌림컴퍼니 사전예약 신청서]' : '[LGU+더끌림컴퍼니 신청서]',
             '이름 : ' + st.name, '연락처 : ' + fmtPhone(digits(st.phone)),
             '현재 통신사 : ' + curNm(st.cur),
             '받는 방법 : ' + (st.method === 'visit' ? '매장 방문 (' + st.store + ', ' + dateNm(st.date) + ')' : '택배'),
-            st.color ? '희망 색상 : ' + st.color : '', '', c.quoteText].filter(function (x, i) { return x !== '' || i === 6; }).join('\n');
+            st.color ? '희망 색상 : ' + st.color : '', '', c.quoteText || '기종 : ' + c.name].filter(function (x, i) { return x !== '' || i === 6; }).join('\n');
     }
 
     function submit() {
@@ -3658,7 +3795,8 @@ window.SITE_STORES=[{"name":"신림점","region":"서울","addr":"서울특별�
         if (btn.disabled) return;
         btn.disabled = true; btn.textContent = '보내는 중…';
         step('SubmitTry');
-        var c = st.ctx, storeName = st.method === 'visit' ? st.store : ONLINE;
+        if (st.mode === 'visit') { st.name = $('apName').value; st.phone = $('apPhone').value; }
+        var c = st.ctx || UNDECIDED(), storeName = st.method === 'visit' ? st.store : ONLINE;
         loadStoreIds().then(function (ids) {
             var sid = ids[storeName];
             if (!sid) throw new Error('store');
@@ -3676,7 +3814,7 @@ window.SITE_STORES=[{"name":"신림점","region":"서울","addr":"서울특별�
         }).catch(function (e) {
             var m = errMsg(e);
             step('SubmitFail');
-            if (m && e.message !== 'store') { btn.disabled = false; btn.textContent = c.pre ? '사전예약 접수하기' : '신청 접수하기'; toast(m); return; }
+            if (m && e.message !== 'store') { btn.disabled = false; btn.textContent = st.mode === 'visit' ? '방문 예약하기' : c.pre ? '사전예약 접수하기' : '신청 접수하기'; toast(m); return; }
             // 접수 서버를 못 쓰면 카톡으로 (신청 내용은 복사)
             window.OS_SHOP.copy(appText(), function (ok) {
                 track('KakaoClick');
@@ -3699,7 +3837,7 @@ window.SITE_STORES=[{"name":"신림점","region":"서울","addr":"서울특별�
             STORES.sort(function (a, b) { return a.dist - b.dist; });
             st.store = STORES[0].name;
             toast('가장 가까운 매장: ' + st.store + ' (' + STORES[0].dist.toFixed(1) + 'km)');
-            vMethod();
+            redraw();
         }, function () { toast('위치 권한이 없어 목록에서 골라주세요.'); }, { timeout: 8000 });
     }
 
@@ -3709,19 +3847,22 @@ window.SITE_STORES=[{"name":"신림점","region":"서울","addr":"서울특별�
         if (!b) return;
         var a = b.dataset.ap, v = b.dataset.v;
         if (a === 'close') close();
-        else if (a === 'back') { if (st.step === 'method') vCur(); else if (st.step === 'confirm') vMethod(); }
+        else if (a === 'back') { if (st.step === 'method') vCur(); else if (st.step === 'confirm') vMethod(); else if (st.step === 'v2') vV1(); else if (st.step === 'v3') vV2(); }
         else if (a === 'cur') { st.cur = v; vCur(); }
         else if (a === 'retype') {
             b.disabled = true; b.textContent = '다시 계산하는 중…';
             window.OS_SHOP.retype(v, function (ctx) { st.ctx = ctx; vCur(); toast(TYPE_NM[v] + ' 가격으로 바꿨어요. 월 ' + won(ctx.total) + '원'); });
         }
-        else if (a === 'next') { if (b.disabled) return; if (st.step === 'cur') vMethod(); else if (st.step === 'method') vConfirm(); }
+        else if (a === 'next') { if (b.disabled) return; if (st.step === 'cur') vMethod(); else if (st.step === 'method') vConfirm(); else if (st.step === 'v1') vV2(); else if (st.step === 'v2') vV3(); }
+        else if (a === 'vcur') { st.cur = v; vPrice(); }
+        else if (a === 'vm') { st.vm = v; if (v !== 'none') { var mm = window.OS_SHOP.models().filter(function (x) { return x.id === v; })[0]; st.vcap = mm ? mm.cap : ''; } st.color = ''; vPrice(); }
+        else if (a === 'vcap') { st.vcap = v; vPrice(); }
         else if (a === 'method') { st.method = v; if (v === 'visit' && !st.date) st.date = days()[0].v; vMethod(); }
-        else if (a === 'date') { st.date = v; vMethod(); }
+        else if (a === 'date') { st.date = v; if (st.step === 'v1') vV1(); else vMethod(); }
         else if (a === 'color') { st.color = v; $('apColor').value = v; [].forEach.call(b.parentNode.children, function (x) { x.classList.toggle('on', x === b); }); }
         else if (a === 'geo') nearest();
         else if (a === 'submit') submit();
-        else if (a === 'resume') { resumeTo = ''; if (st.step === 'confirm') vConfirm(); else if (st.step === 'method') vMethod(); else if (st.step === 'cur') vCur(); else close(); }
+        else if (a === 'resume') { resumeTo = ''; if (st.step === 'v3') vV3(); else if (st.step === 'v2') vV2(); else if (st.step === 'v1') vV1(); else if (st.step === 'confirm') vConfirm(); else if (st.step === 'method') vMethod(); else if (st.step === 'cur') vCur(); else close(); }
         else if (a === 'my') { e.preventDefault(); close(true); location.hash = '#my'; var m = $('my'); if (m) m.scrollIntoView(); }
         else if (a === 'kakao') { window.open(KAKAO, '_blank'); }
     }
@@ -3735,7 +3876,7 @@ window.SITE_STORES=[{"name":"신림점","region":"서울","addr":"서울특별�
         el.classList.remove('open'); el.setAttribute('aria-hidden', 'true');
         document.body.classList.remove('ap-lock');
         if ((done || all) && window.OS_SHOP) window.OS_SHOP.close();
-        if (done) { st = null; preStore = ''; }
+        if (done || (st && st.mode === 'visit')) { if (done) preStore = ''; if (done || all) st = null; }
     }
 
     /* ---------- 접수내역 ---------- */
@@ -3781,7 +3922,16 @@ window.SITE_STORES=[{"name":"신림점","region":"서울","addr":"서울특별�
             show(); vCur();
         },
         notice: function () { resumeTo = el.classList.contains('open') && st && st.step !== 'done' ? st.step : ''; show(); vNotice(); },
-        pickStore: function (name) { preStore = name; }
+        pickStore: function (name) { preStore = name; },
+        // 매장 방문예약 바로 열기 (기종은 시트 안에서 고름)
+        visit: function (store) {
+            if (window.OS_SHOP) window.OS_SHOP.close();
+            if (!(st && st.mode === 'visit' && st.step !== 'done')) {
+                st = { mode: 'visit', ctx: null, step: '', cur: '', vm: '', vcap: '', busy: '', method: 'visit', store: '', date: days()[0].v, name: '', phone: '', color: '', a1: false, a2: false, tk: {} };
+            }
+            if (store && STORES.some(function (s) { return s.name === store; })) st.store = store;
+            show(); vV1();
+        }
     };
 
     document.addEventListener('DOMContentLoaded', function () {
@@ -3792,6 +3942,16 @@ window.SITE_STORES=[{"name":"신림점","region":"서울","addr":"서울특별�
         var my = $('myList');
         if (my) my.addEventListener('click', onMyClick);
         renderMy();
+        // 카톡 방문 예약 링크: theggeulrim.com/#visit (매장 지정은 #visit-매장이름)
+        function deepVisit() {
+            if (location.hash.indexOf('#visit') !== 0) return;
+            var name = '';
+            try { name = decodeURIComponent(location.hash.slice(7)); } catch (e) {}
+            history.replaceState(null, '', location.pathname + location.search);
+            window.SiteApply.visit(name);
+        }
+        window.addEventListener('hashchange', deepVisit);
+        setTimeout(deepVisit, 0);
     });
 })();
 </script>
@@ -3821,9 +3981,8 @@ window.SITE_STORES=[{"name":"신림점","region":"서울","addr":"서울특별�
 
         var v = e.target.closest('[data-visit]');
         if (v) {
-            if (window.SiteApply) window.SiteApply.pickStore(v.dataset.visit);
-            document.getElementById('phones').scrollIntoView();
-            if (window.OS_SHOP) window.OS_SHOP.toast(v.dataset.visit + ' 방문으로 신청할게요. 원하는 휴대폰을 누르고 \'이 조건으로 신청하기\'를 눌러주세요.');
+            // 10/19: 방문예약 시트를 바로 열고 기종은 그 안에서 고름
+            if (window.SiteApply) window.SiteApply.visit(v.dataset.visit);
         }
     });
 
