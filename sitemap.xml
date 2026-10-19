@@ -3,12 +3,12 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
     <url>
         <loc>https://theggeulrim.com/</loc>
-        <lastmod>2026-10-13</lastmod>
+        <lastmod>2026-10-19</lastmod>
         <changefreq>daily</changefreq>
         <priority>1.0</priority>
         <image:image>
             <image:loc>https://theggeulrim.com/ipduo_hero.png</image:loc>
-            <image:title>아이폰 듀오 사전예약 50만원 즉시 할인</image:title>
+            <image:title>아이폰 듀오 사전예약 통신사 이동 시 100만원 즉시 할인</image:title>
         </image:image>
         <image:image>
             <image:loc>https://theggeulrim.com/zfold8wide.png</image:loc>
@@ -25,7 +25,7 @@
     </url>
     <url>
         <loc>https://theggeulrim.com/earlybird/ipduo/</loc>
-        <lastmod>2026-10-13</lastmod>
+        <lastmod>2026-10-19</lastmod>
         <changefreq>daily</changefreq>
         <priority>0.9</priority>
         <image:image>
