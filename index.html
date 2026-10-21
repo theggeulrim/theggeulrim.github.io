@@ -3516,6 +3516,32 @@ window.SITE_STORES=[{"name":"신림점","region":"서울","addr":"서울특별�
     function step(ev) { if (!st || st.tk[ev]) return; st.tk[ev] = 1; if (typeof fbq === 'function') fbq('trackCustom', ev, { model: st.ctx ? st.ctx.id : '' }); }
     function curNm(v) { return (CARRIERS.filter(function (c) { return c[0] === v; })[0] || ['', ''])[1]; }
 
+    // 접수 경로 (10/21): 광고 링크의 utm 을 7일간 기억했다가 접수 때 apps.src 로 보냄 → 광고별 접수 수 구분
+    //   meta/1019_nocond = 메타 광고(utm_campaign), ref/검색·외부 사이트 주소, direct = 주소 직접·북마크
+    var SRC = 'theggeulrim.src', SRC_DAYS = 7;
+    (function () {
+        var q = {};
+        location.search.slice(1).split('&').forEach(function (kv) {
+            var i = kv.indexOf('='), k = i < 0 ? kv : kv.slice(0, i);
+            try { if (k) q[k] = decodeURIComponent((i < 0 ? '' : kv.slice(i + 1)).replace(/\+/g, ' ')); } catch (e) {}
+        });
+        var s = '';
+        if (q.utm_source) s = q.utm_source + '/' + (q.utm_campaign || '') + (q.utm_content ? '/' + q.utm_content : '');
+        else if (q.fbclid) s = 'meta/fbclid';
+        else {
+            var ref = '';
+            try { ref = document.referrer ? new URL(document.referrer).hostname : ''; } catch (e) {}
+            if (ref && ref !== location.hostname) s = 'ref/' + ref;
+        }
+        var old = lsGet(SRC, null);
+        if (s) lsSet(SRC, { s: s.slice(0, 120), t: Date.now() });
+        else if (!old || Date.now() - old.t > SRC_DAYS * 864e5) lsSet(SRC, { s: 'direct', t: Date.now() });
+    })();
+    function srcNow() {
+        var v = lsGet(SRC, null);
+        return v && Date.now() - v.t <= SRC_DAYS * 864e5 ? v.s : 'direct';
+    }
+
     function rpc(fn, body) {
         return fetch(SB + fn, {
             method: 'POST',
@@ -3819,7 +3845,7 @@ window.SITE_STORES=[{"name":"신림점","region":"서울","addr":"서울특별�
             return rpc('submit_app', { a: {
                 store_id: sid, model: c.id, cap: c.cap, color: (st.color || '').trim(), type: c.type, plan: c.plan, dc: c.dc, n: c.n,
                 retail: c.retail, sub: c.sub, ag: c.ag, price: c.price, fresh: true, method: st.method,
-                visit_date: st.method === 'visit' ? st.date : '', name: name, phone: fmtPhone(ph), cur: st.cur
+                visit_date: st.method === 'visit' ? st.date : '', name: name, phone: fmtPhone(ph), cur: st.cur, src: srcNow()
             } });
         }).then(function (r) {
             var row = Array.isArray(r) ? r[0] : r;
