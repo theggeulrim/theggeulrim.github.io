@@ -14,7 +14,7 @@
     var COLS = [['2', '85', '번호이동 85'], ['2', '115', '번호이동 115'], ['1', '85', '기기변경 85'], ['1', '115', '기기변경 115']];
 
     var S = DB.state, booted = false, busy = false;
-    var ui = { chan: 'online', status: '전체', store: '', period: '7', q: '', priceStore: '', draft: null, draftFor: '', conds: null, signup: false };
+    var ui = { chan: 'online', status: '전체', store: '', route: '', period: '7', q: '', priceStore: '', draft: null, draftFor: '', conds: null, signup: false };
 
     function photo(p) { return !p ? '' : /^(https?:|data:)/.test(p) ? p : '../' + p; }
     function me() { return DB.auth.dealerId ? DB.dealer(DB.auth.dealerId) : null; }
@@ -114,13 +114,14 @@
         return chanApps().filter(function (a) {
             if (ui.status !== '전체' && a.status !== ui.status) return false;
             if (ui.store && a.store_id !== ui.store) return false;
+            if (ui.route && route(a) !== ui.route) return false;
             if (since && new Date(a.created_at).getTime() < since) return false;
             if (q && (a.name + a.phone.replace(/-/g, '') + a.id).indexOf(q) < 0) return false;
             return true;
         }).sort(function (a, b) { return a.created_at < b.created_at ? 1 : -1; });
     }
     function vApps() {
-        var all = chanApps(), list = filteredApps(), vis = ui.chan === 'visit';
+        var all = chanApps().filter(function (a) { return !ui.route || route(a) === ui.route; }), list = filteredApps(), vis = ui.chan === 'visit';
         var cnt = { '전체': all.length };
         STATUS.forEach(function (s) { cnt[s] = all.filter(function (a) { return a.status === s; }).length; });
         var stores = myStores();
@@ -130,6 +131,7 @@
                 return '<button data-st="' + s + '" class="' + (ui.status === s ? 'on' : '') + '">' + s + '<em>' + cnt[s] + '</em></button>';
             }).join('') + '</div><div class="sp"></div>' +
             '<select class="sel" id="fStore"><option value="">전체 매장</option>' + stores.map(function (s) { return '<option value="' + s.id + '"' + (ui.store === s.id ? ' selected' : '') + '>' + esc(s.name) + '</option>'; }).join('') + '</select>' +
+            '<select class="sel" id="fRoute">' + [['', '전체 경로'], ['홈페이지', '홈페이지'], ['가격비교', '가격비교']].map(function (p) { return '<option value="' + p[0] + '"' + (ui.route === p[0] ? ' selected' : '') + '>' + p[1] + '</option>'; }).join('') + '</select>' +
             '<select class="sel" id="fPeriod">' + [['1', '오늘'], ['7', '최근 7일'], ['all', '전체 기간']].map(function (p) { return '<option value="' + p[0] + '"' + (ui.period === p[0] ? ' selected' : '') + '>' + p[1] + '</option>'; }).join('') + '</select>' +
             '<input class="in" id="fQ" placeholder="이름·번호·접수번호" value="' + esc(ui.q) + '" style="width:160px"></div>';
         h += '<div class="tw"><table><thead><tr><th>접수번호</th><th>신청 시각</th><th>매장명</th>' + (vis ? '<th>방문예정일</th>' : '') + '<th>고객명</th><th>휴대폰</th><th>현재 통신사</th><th>유형</th><th>할인유형</th><th>신청경로</th><th>기종</th><th>용량</th><th>색상</th><th class="num">할부원금</th><th>상태</th><th>메모</th></tr></thead><tbody>';
@@ -486,6 +488,7 @@
             render(); return;
         }
         if (t.id === 'fStore') { ui.store = t.value; render(); }
+        else if (t.id === 'fRoute') { ui.route = t.value; render(); }
         else if (t.id === 'fPeriod') { ui.period = t.value; render(); }
         else if (t.id === 'pStore') { ui.priceStore = t.value; ui.draftFor = ''; render(); }
         else if (t.id === 'cAll') document.querySelectorAll('.cTo').forEach(function (x) { x.checked = t.checked; });
