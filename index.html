@@ -2177,6 +2177,10 @@ body.ap-lock .fab-container, body.ap-lock .bottom-cta-bar { display: none !impor
 .ap-prod img { width: 56px; height: 64px; object-fit: contain; flex: none; }
 .ap-prod b { display: block; font-size: 16px; }
 .ap-prod span { font-size: 13px; color: var(--os-grey); }
+.ap-prod-pr { margin-top: 4px; font-size: 14px; font-weight: 700; }
+.ap-prod-pr em { font-style: normal; font-size: 18px; font-weight: 800; color: var(--os-pink, #E6007E); }
+.ap-prod-pr small { font-size: 12px; color: var(--os-grey); font-weight: 600; }
+.ap-prod-cd { margin: 0 0 12px; font-size: 12px; color: var(--os-grey); line-height: 1.45; }
 .ap-sep { border-top: 1px solid var(--os-line); margin: 4px 0; }
 .ap-acc { margin-top: 18px; }
 .ap-acc .st-acc { border-top: 1px solid var(--os-text); }
@@ -2980,11 +2984,23 @@ var OS_DATA={"models":[{"id":"duo","name":"iPhone Duo","maker":"apple","img":"ip
         return { m: f10(ex), fee: Math.max(0, f10(ex * n - prin)) };
     }
 
+    var _low = null;
+    function lowPlan() {
+        if (_low) return _low;
+        Object.keys(planMap).forEach(function (k) {
+            var x = planMap[k];
+            if (x.fee >= 47000 && (!_low || x.fee < _low.fee)) _low = x;
+        });
+        return _low;
+    }
+
     // after: 식스플랜 — 가입 요금제(plan)를 6개월 쓰고 7개월째부터 바꿀 요금제. 지원금은 가입 요금제 기준 그대로
     function quote(m, cap, type, plan, dc, n, after) {
         var c = m.caps.filter(function (x) { return x.c === cap; })[0];
         var p = planMap[plan];
         var p2 = after && planMap[after] && planMap[after].fee < p.fee && planMap[after].fee >= 47000 ? planMap[after] : null;
+        // 비교 기준: 7개월째 요금제를 안 골랐으면 조건(6개월 뒤 47,000원 이상)대로 가장 낮은 요금제로 바꾼다고 보고 비교 (10/23)
+        var pc = p2 || (p.fee > 47000 ? lowPlan() : null);
         var retail = c.retail;
         var sub = carrierAmt(m, cap, type, plan);
         var ag = agencyAmt(m, cap, type, plan);
@@ -2995,20 +3011,23 @@ var OS_DATA={"models":[{"id":"duo","name":"iPhone Duo","maker":"apple","img":"ip
             var planM = p.fee - sel;
             var sel2 = p2 ? (kind === 'sel' ? p2.sel : 0) : sel;
             var planM2 = p2 ? p2.fee - sel2 : planM;
+            var planMC = pc ? pc.fee - (kind === 'sel' ? pc.sel : 0) : planM;
             return {
                 kind: kind, prin: prin, devM: i.m, fee: i.fee, sel: sel, planM: planM,
                 sel2: sel2, planM2: planM2,
                 total: i.m + planM,
                 total2: i.m + planM2,
                 cost24: prin + i.fee + planM * 6 + planM2 * 18,
+                costC: prin + i.fee + planM * 6 + planMC * 18,
+                totalC: i.m + planMC,
                 subUsed: kind === 'sub' ? Math.min(sub, retail) : 0,
                 agUsed: Math.min(ag, Math.max(0, retail - (kind === 'sub' ? sub : 0)))
             };
         }
         var a = one('sub'), b = one('sel');
-        var best = b.cost24 < a.cost24 ? 'sel' : 'sub';
+        var best = b.costC < a.costC ? 'sel' : 'sub';
         var pick = dc === 'auto' ? best : dc;
-        return { retail: retail, sub: sub, ag: ag, plan: p, plan2: p2, s: a, l: b, best: best, pick: pick, r: pick === 'sub' ? a : b };
+        return { retail: retail, sub: sub, ag: ag, plan: p, plan2: p2, planC: pc, s: a, l: b, best: best, pick: pick, r: pick === 'sub' ? a : b };
     }
 
     /* ---------- 카드 목록 ---------- */
@@ -3138,10 +3157,15 @@ var OS_DATA={"models":[{"id":"duo","name":"iPhone Duo","maker":"apple","img":"ip
         document.body.classList.add('os-lock');
         renderPd();
         fetchSubsidy(pd.type, pd.plan, renderPd);
-        if (typeof fbq === 'function') fbq('trackCustom', 'QuoteOpen', { model: id });
+        // auto: 광고 링크(#apply-)로 들어와 자동으로 열린 경우 — 직접 누른 것과 구분 (10/23)
+        pd.t0 = Date.now(); pd.sc = 0; pd.auto = o.auto ? 1 : 0;
+        $('osPd').querySelector('.os-pd-body').scrollTop = 0;
+        if (typeof fbq === 'function') fbq('trackCustom', 'QuoteOpen', { model: id, auto: pd.auto });
     }
 
     function closePd() {
+        // 견적창을 얼마나 보고 어디까지 내렸는지 (이탈 원인 확인용, 10/23)
+        if (pd && pd.t0 && typeof fbq === 'function') fbq('trackCustom', 'QuoteClose', { model: pd.id, auto: pd.auto, sec: Math.round((Date.now() - pd.t0) / 1000), scroll: pd.sc });
         $('osPd').classList.remove('open');
         $('osPd').setAttribute('aria-hidden', 'true');
         document.body.classList.remove('os-lock');
@@ -3217,10 +3241,11 @@ var OS_DATA={"models":[{"id":"duo","name":"iPhone Duo","maker":"apple","img":"ip
         $('osPdDc').innerHTML =
             dcBtn(q.s, '공시지원금', '휴대폰 값에서 ' + won(q.s.subUsed) + '원 한 번에 할인') +
             dcBtn(q.l, '선택약정 25%', '요금제 월 ' + won(q.plan.sel) + '원씩 24개월 할인');
-        var gap = Math.abs(q.s.cost24 - q.l.cost24);
+        var gap = Math.abs(q.s.costC - q.l.costC);
+        var basis = q.planC && !six ? '7개월째부터 월 ' + won(q.planC.fee) + '원 요금제로 바꾸면 ' : '';
         $('osPdDiff').innerHTML = gap < 10
-            ? '24개월 총 납부액이 같습니다.'
-            : '24개월 총 납부액 기준 <b>' + (q.best === 'sub' ? '공시지원금' : '선택약정') + '</b>이 <b>' + won(gap) + '원</b> 저렴합니다.';
+            ? basis + '24개월 총 납부액이 같습니다.'
+            : basis + '24개월 총 납부액 기준 <b>' + (q.best === 'sub' ? '공시지원금' : '선택약정') + '</b>이 <b>' + won(gap) + '원</b> 저렴합니다.';
 
         // 할부 개월
         $('osPdInst').innerHTML = INSTS.map(function (n) {
@@ -3234,10 +3259,13 @@ var OS_DATA={"models":[{"id":"duo","name":"iPhone Duo","maker":"apple","img":"ip
         // 큰 숫자는 할부원금 (휴대폰 값), 월 납부는 요금제 영역에만 (10/19)
         $('osSumTotal').innerHTML = won(r.prin) + '<small>원</small>';
         $('osSumHeadSub').innerHTML = '출고가 ' + won(q.retail) + '원' + (dcSum ? ' − 할인 <b>' + won(dcSum) + '원</b>' : '') + ' · 일시불·할부 모두 가능';
-        $('osSumMonthT').textContent = six ? '1~6개월 월 납부금액' : '월 예상 납부금액';
+        // 7개월째 요금제를 안 골라도 47,000원 요금제로 바꿨을 때 월 금액을 같이 보여줌 (월 14만원대만 보고 나가는 것 방지, 10/23)
+        var low = !six && q.planC;
+        $('osSumMonthT').textContent = six || low ? '1~6개월 월 납부금액' : '월 예상 납부금액';
         $('osSumMonth').textContent = '월 ' + won(r.total) + '원';
-        $('osSumTotal2').innerHTML = six ? '<span>7개월째부터</span><b>월 ' + won(r.total2) + '원</b>' : '';
-        $('osSumTotal2').style.display = six ? '' : 'none';
+        $('osSumTotal2').innerHTML = six ? '<span>7개월째부터</span><b>월 ' + won(r.total2) + '원</b>'
+            : low ? '<span>7개월째부터 (월 ' + won(q.planC.fee) + '원 요금제로 바꾸면)</span><b>월 ' + won(r.totalC) + '원</b>' : '';
+        $('osSumTotal2').style.display = six || low ? '' : 'none';
         $('osMbarTotal').innerHTML = won(r.prin) + '원';
         $('osMbarLabel').textContent = (dcSum ? won(dcSum) + '원 할인 · ' : '') + '할부원금';
         $('osSumDevT').textContent = '휴대폰 ' + (pd.n ? pd.n + '개월 할부' : '일시불');
@@ -3470,6 +3498,11 @@ var OS_DATA={"models":[{"id":"duo","name":"iPhone Duo","maker":"apple","img":"ip
             renderPd();
         });
         document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && pd && !document.body.classList.contains('ap-lock')) closePd(); });
+        $('osPd').querySelector('.os-pd-body').addEventListener('scroll', function () {
+            if (!pd) return;
+            var h = this.scrollHeight - this.clientHeight;
+            pd.sc = Math.max(pd.sc || 0, h > 0 ? Math.round(this.scrollTop / h * 100) : 100);
+        }, { passive: true });
 
         refreshList();
         // 사전예약 바로 열기: 홈 배너·띠(#apply-duo), 사전예약 페이지(?pre=duo&cap=&type=&plan=#apply-duo)
@@ -3480,6 +3513,7 @@ var OS_DATA={"models":[{"id":"duo","name":"iPhone Duo","maker":"apple","img":"ip
             var q = {};
             location.search.replace(/[?&]([^=&]+)=([^&]*)/g, function (_, k, v) { q[k] = decodeURIComponent(v); });
             history.replaceState(null, '', location.pathname);
+            q.auto = 1;
             openPd(id, q);
         }
         window.addEventListener('hashchange', deepOpen);
@@ -3758,7 +3792,10 @@ window.SITE_STORES=[{"name":"신림점","region":"서울","addr":"서울특별�
         var cols = COLORS[c.id] || [];
         frame(c.pre ? '사전예약 정보 확인' : '신청 정보 확인',
             '<h3>신청 정보를 확인해 주세요</h3><p class="ap-sub">이름과 연락처만 받아요. 생년월일·카드번호·신분증은 홈페이지에서 받지 않아요.</p>' +
-            '<div class="ap-box"><div class="ap-prod">' + (c.img ? '<img src="' + esc(c.img) + '" alt="">' : '') + '<div><b>' + esc(c.name) + '</b><span>' + c.cap + ' · LG U+</span></div></div></div>' +
+            '<div class="ap-box"><div class="ap-prod">' + (c.img ? '<img src="' + esc(c.img) + '" alt="">' : '') + '<div><b>' + esc(c.name) + '</b><span>' + c.cap + ' · LG U+ ' + TYPE_NM[c.type] + '</span>' +
+            // 이름 쓰는 화면에서도 가격이 바로 보이게 (확인 화면 이탈 67%, 10/23)
+            '<p class="ap-prod-pr">할부원금 <em>' + won(c.price) + '원</em>' + (c.sub + c.ag ? ' <small>' + won(c.sub + c.ag) + '원 할인</small>' : '') + '</p></div></div>' +
+            (c.tier ? '<p class="ap-prod-cd">' + esc(c.planName) + ' 6개월(181일) 유지 후 월 47,000원 이상 요금제로 변경 가능</p>' : '') + '</div>' +
             '<div class="ap-field" id="apNameF"><label for="apName">이름</label><input id="apName" autocomplete="name" placeholder="홍길동" value="' + esc(st.name || '') + '"><p class="ap-err">이름을 입력해 주세요.</p></div>' +
             '<div class="ap-field" id="apPhoneF"><label for="apPhone">휴대폰 번호</label><input id="apPhone" type="tel" inputmode="numeric" autocomplete="tel" placeholder="010-1234-5678" value="' + esc(st.phone || '') + '"><p class="ap-err">휴대폰 번호를 확인해 주세요.</p></div>' +
             '<div class="ap-field"><label for="apColor">희망 색상 (선택)</label>' +
