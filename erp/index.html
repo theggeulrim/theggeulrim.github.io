@@ -245,7 +245,7 @@ function freshState(){
 // 권한은 서버(RLS)가 막음: 판매사는 본인 판매건·본인 급여 정보만, 팀 실적은 건수 계산용 항목만 받음
 const SB_URL='https://pqgkcrxmxmwxziqbafeb.supabase.co',SB_KEY='sb_publishable_1w8vfDBJTNh_6QheCX2_Bw_C9Lep6zR';
 const sb=window.supabase?window.supabase.createClient(SB_URL,SB_KEY,{auth:{storageKey:'ggr-erp-auth',persistSession:true,autoRefreshToken:true}}):null;
-let S=null,ses={},acct=null,boot='loading',base=null,busy=0,stale=false;
+let S=null,ses={},acct=null,boot='loading',base=null,busy=0,stale=false,REQ=[],lgMode='in',reqEdit=false;
 const J=o=>JSON.stringify(o);
 const ZERO_LEAD={moyo:{mnp:0,dev:0},hotdeal:{mnp:0,mnpId:0,dev:0,dev115:0},online:{mnp:0,dev:0}};
 function snap(){
@@ -276,7 +276,10 @@ async function load(){
   try{
     const own=await all(()=>sb.from('erp_sales').select('id,data').order('id'));
     next.sales=own.map(r=>r.data);
-    if(!acct.admin){
+    if(acct.admin){
+      const rq=await sb.from('erp_requests').select('user_id,name,want,email,created_at').eq('status','pending').order('created_at');if(rq.error)throw rq.error;
+      REQ=rq.data;
+    }else{
       const tm=await sb.rpc('erp_team_rows',{p_month:MONTH});if(tm.error)throw tm.error;
       const mine=new Set(next.sales.map(x=>x.id));
       for(const x of tm.data)if(!mine.has(x.id))next.sales.push({...x,_team:true,at:0});
@@ -298,8 +301,12 @@ function save(){
   if(acct.admin){
     const cf=Object.keys(now.cfg).filter(k=>now.cfg[k]!==base.cfg[k]).map(k=>({key:k,data:JSON.parse(now.cfg[k]),updated_at:new Date().toISOString()}));
     if(cf.length)ops.push(()=>sb.from('erp_config').upsert(cf));
-    for(const p of S.pay.people)if(base.people[p.id]&&now.people[p.id]!==base.people[p.id])
-      ops.push(()=>sb.from('erp_people').update({name:p.name,title:p.title||null,role:p.role,base:p.base,welfare:p.welfare}).eq('id',p.id));
+    S.pay.people.forEach((p,i)=>{
+      if(!base.people[p.id])ops.push(()=>sb.from('erp_people').insert({id:p.id,name:p.name,title:p.title||null,role:p.role,base:p.base,welfare:p.welfare,ord:Math.floor(Date.now()/1000)-1700000000+i}));
+      else if(now.people[p.id]!==base.people[p.id])ops.push(()=>sb.from('erp_people').update({name:p.name,title:p.title||null,role:p.role,base:p.base,welfare:p.welfare}).eq('id',p.id));
+    });
+    const gone=Object.keys(base.people).filter(id=>!(id in now.people));
+    if(gone.length)ops.push(()=>sb.from('erp_people').delete().in('id',gone));
   }
   const up=Object.keys(now.sales).filter(id=>now.sales[id]!==base.sales[id]).map(id=>{const x=JSON.parse(now.sales[id]);return {id,staff_id:x.staffId,sale_date:x.date,data:x};});
   const del=Object.keys(base.sales).filter(id=>!(id in now.sales));
@@ -334,9 +341,10 @@ function listen(){
   if(!sb||live)return;
   live=sb.channel('erp').on('postgres_changes',{event:'*',schema:'public',table:'erp_sales'},refresh)
     .on('postgres_changes',{event:'*',schema:'public',table:'erp_config'},refresh)
-    .on('postgres_changes',{event:'*',schema:'public',table:'erp_people'},refresh).subscribe();
+    .on('postgres_changes',{event:'*',schema:'public',table:'erp_people'},refresh)
+    .on('postgres_changes',{event:'*',schema:'public',table:'erp_requests'},refresh).subscribe();
 }
-document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&boot==='ready')refresh();});
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&(boot==='ready'||boot==='unlinked'))refresh();});
 // 직원은 아이디로 가입: 서버에는 erp.아이디@theggeulrim.com 로 저장 (메일 확인이 꺼져 있어 실제 메일은 안 감)
 // '@'가 들어간 값은 이메일 그대로 (관리자 계정)
 const ID_RE=/^[a-z0-9][a-z0-9_-]{2,19}$/;
@@ -347,14 +355,18 @@ async function signIn(signup){
   const msg=document.getElementById('lg_msg');const say=t=>{if(msg)msg.textContent=t;};
   if(!raw||pw.length<6){say('아이디와 비밀번호(6자 이상)를 넣으세요');return;}
   if(!raw.includes('@')&&!ID_RE.test(raw)){say('아이디는 영문 소문자·숫자·-·_ 3~20자로 넣으세요');return;}
+  const nm=((document.getElementById('lg_name')||{}).value||'').trim(),want=(document.getElementById('lg_want')||{}).value||'';
+  if(signup&&!nm){say('이름을 넣으세요');return;}
+  if(signup&&!want){say('원하는 권한을 고르세요');return;}
   const em=toLogin(raw);
-  say(signup?'계정 만드는 중…':'로그인 중…');
+  say(signup?'가입 신청 중…':'로그인 중…');
   const r=signup?await sb.auth.signUp({email:em,password:pw}):await sb.auth.signInWithPassword({email:em,password:pw});
   if(r.error){const m=r.error.message;say(/invalid login/i.test(m)?'아이디 또는 비밀번호가 맞지 않습니다':/already registered/i.test(m)?'이미 있는 아이디입니다. 로그인하거나 다른 아이디를 쓰세요':/invalid/i.test(m)&&/email/i.test(m)?'서버가 이 아이디 형식을 받지 않습니다. 관리자에게 알려주세요 ('+m+')':m);return;}
   if(signup&&!r.data.session){say('계정을 만들었습니다. 메일 확인 뒤 로그인하세요');return;}
+  if(signup){const q=await sb.rpc('erp_request',{p_name:nm,p_want:want});if(q.error){say('계정은 만들었지만 신청을 못 했습니다 · '+sbErr(q.error));return;}lgMode='in';}
   boot='loading';render();await load();listen();render();
 }
-async function signOut(){if(sb)await sb.auth.signOut();try{localStorage.removeItem(SKEY);}catch(e){}S=null;ses={};acct=null;base=null;boot='login';tab=null;open=null;entry=null;form=null;render();scrollTo(0,0);}
+async function signOut(){if(sb)await sb.auth.signOut();try{localStorage.removeItem(SKEY);}catch(e){}S=null;ses={};acct=null;base=null;REQ=[];reqEdit=false;boot='login';tab=null;open=null;entry=null;form=null;render();scrollTo(0,0);}
 
 const modelById=id=>S.policy.models.find(m=>m.id===id);
 const person=id=>S.pay.people.find(p=>p.id===id);
@@ -439,6 +451,7 @@ function render(){
   app.innerHTML=`<div class="wrap">
     <div class="top"><h1>더끌림 ERP</h1><button class="who" data-act="logout"><b>${ses.role==='admin'?'관리자':esc(pname(me))}</b> · ${acct.admin&&acct.pid?'바꾸기':'로그아웃'}</button></div>
     <div class="sub">${ses.role==='admin'?'온라인팀 실적·수수료·급여 관리':'온라인팀 · '+(me.role==='lead'?'팀장':'판매사')}</div>
+    ${ses.role==='admin'&&REQ.length&&tab!=='pay'?`<div class="demo"><span>가입 신청 ${REQ.length}건이 승인을 기다립니다.</span><button data-tab="pay">급여 탭에서 보기</button></div>`:''}
     ${S.demo?`<div class="demo"><span>지금 보이는 판매건은 화면 확인용 예시입니다.</span><button data-act="clearDemo">예시 지우기</button></div>`:''}
     ${body}
   </div>
@@ -452,21 +465,36 @@ function loginView(){
   if(boot==='loading')return wrap('<div class="sub">불러오는 중…</div>');
   if(boot==='offline')return wrap('<div class="sub" style="margin-bottom:14px">서버 연결 모듈을 불러오지 못했습니다. 인터넷 연결을 확인하고 새로고침하세요.</div>');
   if(boot==='error')return wrap(`<div class="sub" style="margin-bottom:14px">서버에서 불러오지 못했습니다</div><div class="card err">${esc(acct&&acct.msg)}</div><button class="btn" data-act="reloadMe">다시 시도</button>${out}`);
-  if(boot==='unlinked')return wrap(`<div class="sub" style="margin-bottom:14px">아직 직원으로 연결되지 않은 계정입니다</div>
-    <div class="card" style="font-size:15px;line-height:1.6">관리자에게 아래 아이디를 알려주고 연결을 요청하세요.<br><b>${esc(showId(acct&&acct.email))}</b></div>
-    <button class="btn" data-act="reloadMe">연결됐는지 다시 확인</button>${out}`);
+  if(boot==='unlinked'){
+    const q=acct&&acct.req,id=esc(showId(acct&&acct.email)),wl=w=>w==='admin'?'관리자':'판매사';
+    if(q&&q.status==='pending'&&!reqEdit)return wrap(`<div class="sub" style="margin-bottom:14px">가입 신청을 받았습니다 · 관리자 승인 대기</div>
+      <div class="card" style="font-size:15px;line-height:1.8">이름 <b>${esc(q.name)}</b><br>원하는 권한 <b>${wl(q.want)}</b><br>아이디 <b>${id}</b></div>
+      <p class="note">관리자가 승인하면 이 화면이 저절로 바뀝니다.</p>
+      <button class="btn" data-act="reloadMe">승인됐는지 다시 확인</button><button class="btn ghost" data-act="reqEdit">신청 내용 고치기</button>${out}`);
+    return wrap(`<div class="sub" style="margin-bottom:14px">${q&&q.status==='rejected'&&!reqEdit?'가입 신청이 거절됐습니다. 내용을 확인해 다시 신청할 수 있습니다':'이름과 원하는 권한을 적어 가입 신청하세요'}</div>
+      <div class="form card" style="display:grid;gap:10px">
+        <div style="font-size:13px;color:var(--tx2)">아이디 <b>${id}</b></div>
+        <input id="rq_name" type="text" maxlength="30" placeholder="이름 (예: 홍길동)" value="${esc(q?q.name:'')}">
+        <select id="rq_want"><option value="seller"${q&&q.want==='admin'?'':' selected'}>판매사 · 판매입력과 내 급여</option><option value="admin"${q&&q.want==='admin'?' selected':''}>관리자 · 정책·전체 실적·급여</option></select>
+        <button class="btn" data-act="applyReq" style="margin-top:4px">가입 신청</button>
+        <div id="rq_msg" class="err" style="min-height:16px"></div>
+      </div>${out}`);
+  }
   if(boot==='ready'){const me=person(acct.pid);return wrap(`<div class="sub" style="margin-bottom:14px">어느 화면으로 볼지 고르세요</div>
     <button class="opt" data-act="asAdmin"><div><b>관리자</b><span>정책 · 스팟 · 전체 실적 · 급여</span></div></button>
     ${me?`<button class="opt" data-act="asSeller" data-id="${me.id}"><div><b>${esc(pname(me))}</b><span>판매입력과 내 급여</span></div></button>`:''}${out}`);}
-  return wrap(`<div class="sub" style="margin-bottom:14px">아이디로 로그인하세요</div>
+  const up=lgMode==='up';
+  return wrap(`<div class="sub" style="margin-bottom:14px">${up?'처음이면 가입 신청하세요':'아이디로 로그인하세요'}</div>
     <form class="form card" id="lgform" style="display:grid;gap:10px">
       <input id="lg_id" type="text" autocomplete="username" autocapitalize="none" autocorrect="off" spellcheck="false" placeholder="아이디 (영문 소문자·숫자)">
-      <input id="lg_pw" type="password" autocomplete="current-password" placeholder="비밀번호 (6자 이상)">
-      <button class="btn" style="margin-top:4px">로그인</button>
+      <input id="lg_pw" type="password" autocomplete="${up?'new-password':'current-password'}" placeholder="비밀번호 (6자 이상)">
+      ${up?`<input id="lg_name" type="text" maxlength="30" placeholder="이름 (예: 홍길동)">
+      <select id="lg_want"><option value="">원하는 권한 고르기</option><option value="seller">판매사 · 판매입력과 내 급여</option><option value="admin">관리자 · 정책·전체 실적·급여</option></select>`:''}
+      <button class="btn" style="margin-top:4px">${up?'가입 신청':'로그인'}</button>
       <div id="lg_msg" class="err" style="min-height:16px"></div>
     </form>
-    <button class="btn ghost" data-act="signUp">처음이면 계정 만들기</button>
-    <p class="note">처음이면 쓰고 싶은 아이디와 비밀번호를 넣고 '처음이면 계정 만들기'를 누르세요. 관리자가 직원 이름에 연결해야 화면이 열립니다. 판매사는 본인 판매건과 본인 급여만 볼 수 있습니다.</p>`);
+    <button class="btn ghost" data-act="lgMode">${up?'이미 계정이 있으면 로그인':'처음이면 가입 신청'}</button>
+    <p class="note">${up?'쓰고 싶은 아이디·비밀번호와 이름, 원하는 권한을 넣고 신청하세요. 관리자가 승인하면 화면이 열립니다. 판매사는 본인 판매건과 본인 급여만 볼 수 있습니다.':'계정이 없으면 아래 \'처음이면 가입 신청\'을 누르세요.'}</p>`);
 }
 
 // ── 집계 ──
@@ -537,7 +565,7 @@ function dashView(){
     <div class="kpi"><div class="l">목표 달성률</div><div class="v">${(rows.length/total*100).toFixed(1)}%</div><div class="s">번이 ${fmt(mnp)} · 기변 ${fmt(rows.length-mnp)}</div></div>
     <div class="kpi"><div class="l">예상 수수료</div><div class="v">${short(fee)}</div><div class="s">정책 자동 계산</div></div>
     <div class="kpi"><div class="l">예상 순마진</div><div class="v ${margin<0?'neg':''}">${short(margin)}</div><div class="s">중고폰 더하고 광고비·지원금·대납 차감</div></div>
-    <div class="kpi big"><div class="l">예상 인건비 (온라인팀 3명)</div><div class="v">${short(labor)}</div><div class="s">기본급 + 수당 + 그레이드 · 인건비까지 뺀 마진 <b class="${margin-labor<0?'neg':'pos'}">${short(margin-labor)}</b></div></div>
+    <div class="kpi big"><div class="l">예상 인건비 (온라인팀 ${S.pay.people.length}명)</div><div class="v">${short(labor)}</div><div class="s">기본급 + 수당 + 그레이드 · 인건비까지 뺀 마진 <b class="${margin-labor<0?'neg':'pos'}">${short(margin-labor)}</b></div></div>
   </div>
   <h2>판매경로별 <small>이번 달</small></h2>
   <div class="card">${Object.keys(CH).map(k=>{const r=rows.filter(x=>x.channel===k);return `<div class="tg"><span><span class="tag ${k}">${CH[k]}</span> ${r.length}건</span><b class="${sum(r,x=>x.calc.margin)<0?'neg':''}" style="font-variant-numeric:tabular-nums">${short(sum(r,x=>x.calc.margin))}</b></div>`;}).join('')}</div>
@@ -650,27 +678,45 @@ function payView(){
   const rows=S.sales.filter(inMonth),P=S.pay;
   const inp=(path,v)=>`<input inputmode="numeric" data-pay="${path}" value="${fmt(v)}">`;
   let h=`<h2>이번 달 예상 급여 <small>${MONTH.slice(5)}월 · 오늘까지</small></h2>
-  <div class="tools"><button class="pri" data-act="dlPay">3명 급여 엑셀 다운로드</button></div>`;
+  <div class="tools"><button class="pri" data-act="dlPay">${P.people.length}명 급여 엑셀 다운로드</button></div>`;
+  if(REQ.length){
+    const free=P.people.filter(p=>!p.email);
+    h+=`<h2>가입 신청 <small>${REQ.length}건 · 승인해야 화면이 열림</small></h2>`+REQ.map(q=>{
+      const same=free.find(p=>p.name===q.name);
+      const def=q.want==='admin'?'admin':same?'pid:'+same.id:'new:staff';
+      const o=(v,l)=>`<option value="${v}"${v===def?' selected':''}>${l}</option>`;
+      return `<div class="card form"><div class="tg" style="padding-top:0"><b style="font-size:17px">${esc(q.name)}</b><span style="font-size:13px;color:var(--tx2)">원하는 권한 ${q.want==='admin'?'관리자':'판매사'} · 아이디 ${esc(showId(q.email))} · ${String(q.created_at||'').slice(5,10).replace('-','/')}</span></div>
+        <select id="dq_${q.user_id}" style="margin-top:8px">${o('new:staff','판매사로 승인 · 새 직원으로 추가')}${o('new:lead','팀장으로 승인 · 새 직원으로 추가')}${free.map(p=>o('pid:'+p.id,'판매사로 승인 · 기존 직원 '+pname(p)+'에 연결')).join('')}${o('admin','관리자로 승인')}</select>
+        <div style="display:flex;gap:8px;margin-top:8px"><button class="btn" style="margin:0" data-act="decide" data-ok="1" data-id="${q.user_id}">승인</button><button class="btn ghost" style="margin:0" data-act="decide" data-ok="" data-id="${q.user_id}">거절</button></div></div>`;}).join('')+
+      `<p class="note">새 직원으로 승인하면 기본급 0원으로 추가됩니다. 아래 급여표에서 기본급을 넣으세요.</p>`;
+  }
   h+=P.people.map(p=>{const mine=rows.filter(x=>x.staffId===p.id);return `<div class="card"><div class="tg" style="padding-top:0"><b style="font-size:17px">${esc(pname(p))}</b><span style="font-size:13px;color:var(--tx2)">본인 입력 ${mine.length}건 · 오늘 ${mine.filter(x=>x.date===TODAY).length}건</span></div>${payBox(p,rows)}</div>`;}).join('');
   h+=`<h2>급여표 <small>고치면 바로 반영</small></h2>
   <div class="card"><div class="sec" style="margin-top:0">기본급</div>
     ${P.people.map((p,i)=>`<div style="font-size:13px;font-weight:700;margin:10px 0 6px">${esc(pname(p))}</div><div class="pg c2"><div>기본급${inp(`people.${i}.base`,p.base)}</div><div>복지수당${inp(`people.${i}.welfare`,p.welfare)}</div></div>`).join('')}
-    <div class="sec">판매사 (방민정·최유진) · 온라인 전체 실적 건당</div>
+    <div class="sec">판매사 (${P.people.filter(p=>p.role!=='lead').map(p=>esc(p.name)).join('·')||'없음'}) · 온라인 전체 실적 건당</div>
     <div class="pg c2"><div>번호이동${inp('staff.mnp',P.staff.mnp)}</div><div>기기변경${inp('staff.dev',P.staff.dev)}</div></div>
-    <div class="sec">팀장 (이호진) · 판매경로별 건당</div>
+    <div class="sec">팀장 (${P.people.filter(p=>p.role==='lead').map(p=>esc(p.name)).join('·')||'없음'}) · 판매경로별 건당</div>
     <div class="pg"><div>모요 번이${inp('lead.moyo.mnp',P.lead.moyo.mnp)}</div><div>모요 기변${inp('lead.moyo.dev',P.lead.moyo.dev)}</div><div>핫딜 번이${inp('lead.hotdeal.mnp',P.lead.hotdeal.mnp)}</div><div>핫딜 번이 남부신분증${inp('lead.hotdeal.mnpId',P.lead.hotdeal.mnpId)}</div>
     <div>핫딜 기변${inp('lead.hotdeal.dev',P.lead.hotdeal.dev)}</div><div>핫딜 기변 115${inp('lead.hotdeal.dev115',P.lead.hotdeal.dev115)}</div><div>온라인플랫폼 번이${inp('lead.online.mnp',P.lead.online.mnp)}</div><div>온라인플랫폼 기변${inp('lead.online.dev',P.lead.online.dev)}</div></div>
-    <div class="sec">부가 판매 · 본인 입력건 건당 (3명 공통)</div>
+    <div class="sec">부가 판매 · 본인 입력건 건당 (전원 공통)</div>
     <div class="pg c3">${Object.entries(ADDON).map(([k,l])=>`<div>${l}${inp('addon.'+k,P.addon[k])}</div>`).join('')}</div>
     <div class="sec">온라인 전체 실적 그레이드 (정액)</div>
     <div class="pg c3">${P.grade.map((g,i)=>`<div>${inp(`grade.${i}.0`,g[0])}건 이상${inp(`grade.${i}.1`,g[1])}</div>`).join('')}</div>
     <div class="sec">번호이동 신분증 개통 · 남부 개통건만 (정액)</div>
     <div class="pg">${P.idTier.map((g,i)=>`<div>${inp(`idTier.${i}.0`,g[0])}건 이상${inp(`idTier.${i}.1`,g[1])}</div>`).join('')}</div>
   </div>
+  <h2>직원 추가 <small>추가하면 급여표·판매 담당자에 바로 나옴</small></h2>
+  <div class="card form" style="display:grid;gap:10px">
+    <div class="pg c2" style="margin:0"><div>이름<input id="np_name" style="text-align:left" type="text" maxlength="30" placeholder="예: 홍길동"></div><div>직함 (없으면 비움)<input id="np_title" style="text-align:left" type="text" maxlength="10" placeholder="예: 팀장"></div></div>
+    <div style="font-size:12px;color:var(--tx2);display:grid;gap:4px">급여 규칙<select id="np_role"><option value="staff">판매사 · 온라인 전체 실적 건당</option><option value="lead">팀장 · 판매경로별 건당</option></select></div>
+    <div class="pg c2" style="margin:0"><div>기본급<input id="np_base" inputmode="numeric" placeholder="0"></div><div>복지수당<input id="np_welfare" inputmode="numeric" placeholder="0"></div></div>
+    <button class="btn" data-act="addPerson" style="margin:0">직원 추가</button>
+  </div>
   <h2>직원 로그인 계정 <small>직원이 먼저 ERP에서 계정을 만든 뒤 연결</small></h2>
   <div class="card form">${P.people.map(p=>`<div style="font-size:13px;font-weight:700;margin:10px 0 6px">${esc(pname(p))} <span style="font-weight:500;color:var(--tx2)">${p.email?'연결됨 · '+esc(showId(p.email)):'연결 안 됨'}</span></div>
-    <div style="display:flex;gap:8px"><input id="lk_${p.id}" type="text" autocapitalize="none" autocorrect="off" spellcheck="false" placeholder="직원이 만든 아이디" value="${esc(showId(p.email))}"><button class="who" style="white-space:nowrap" data-act="linkUser" data-id="${p.id}">${p.email?'바꾸기':'연결'}</button></div>`).join('')}
-    <p class="note">아이디 칸을 비우고 누르면 연결이 풀립니다. 연결된 직원은 본인 판매건과 본인 급여만 볼 수 있습니다.</p></div>
+    <div style="display:flex;gap:8px"><input id="lk_${p.id}" type="text" autocapitalize="none" autocorrect="off" spellcheck="false" placeholder="직원이 만든 아이디" value="${esc(showId(p.email))}"><button class="who" style="white-space:nowrap" data-act="linkUser" data-id="${p.id}">${p.email?'바꾸기':'연결'}</button>${!p.email&&!S.sales.some(x=>x.staffId===p.id)?`<button class="who" style="white-space:nowrap" data-act="delPerson" data-id="${p.id}">직원 빼기</button>`:''}</div>`).join('')}
+    <p class="note">아이디 칸을 비우고 누르면 연결이 풀립니다. '직원 빼기'는 계정 연결과 판매건이 없는 직원에게만 보입니다. 연결된 직원은 본인 판매건과 본인 급여만 볼 수 있습니다.</p></div>
   <button class="btn ghost" data-act="resetPay">급여표를 처음 받은 값으로 되돌리기</button>
   <p class="note">그레이드·신분증 수당은 도달한 구간의 금액 하나만 받습니다(누적 아님). 보험·워치·인터넷 동판은 본인이 입력한 판매건만 셉니다.</p>`;
   return h;
@@ -995,7 +1041,28 @@ document.addEventListener('click',e=>{
   else if(a==='asSeller'){if(t.dataset.id!==acct.pid)return;ses={role:'seller',pid:acct.pid};saveSes();tab=null;form=null;entry=null;render();}
   else if(a==='logout'){if(acct.admin&&acct.pid){ses={};saveSes();open=null;entry=null;render();scrollTo(0,0);}else signOut();}
   else if(a==='signOut'){signOut();}
-  else if(a==='signUp'){signIn(true);}
+  else if(a==='lgMode'){lgMode=lgMode==='up'?'in':'up';render();}
+  else if(a==='reqEdit'){reqEdit=true;render();}
+  else if(a==='applyReq'){const nm=document.getElementById('rq_name').value.trim(),w=document.getElementById('rq_want').value,msg=document.getElementById('rq_msg');
+    if(!nm){msg.textContent='이름을 넣으세요';return;}
+    msg.textContent='신청 중…';
+    sb.rpc('erp_request',{p_name:nm,p_want:w}).then(({error})=>{if(error){msg.textContent=sbErr(error);return;}reqEdit=false;toast('가입 신청했습니다');boot='loading';render();load().then(()=>{listen();render();});});}
+  else if(a==='decide'){const uid=t.dataset.id,ok=!!t.dataset.ok,q=REQ.find(r=>r.user_id===uid);if(!q)return;
+    const v=(document.getElementById('dq_'+uid)||{}).value||'';
+    const arg=!ok?{p_uid:uid,p_ok:false}:v==='admin'?{p_uid:uid,p_ok:true,p_as:'admin'}:v.startsWith('pid:')?{p_uid:uid,p_ok:true,p_as:'seller',p_pid:v.slice(4)}:{p_uid:uid,p_ok:true,p_as:'seller',p_role:v==='new:lead'?'lead':'staff'};
+    const what=!ok?'거절':v==='admin'?'관리자로 승인':v.startsWith('pid:')?pname(person(v.slice(4)))+'에 연결해 승인':(v==='new:lead'?'팀장':'판매사')+' 새 직원으로 승인';
+    if(!confirm(q.name+' 님 신청을 '+what+'할까요?'))return;
+    t.disabled=true;
+    sb.rpc('erp_decide',arg).then(({error})=>{if(error){t.disabled=false;toast(sbErr(error));return;}toast(q.name+' · '+(ok?'승인':'거절')+' 완료');REQ=REQ.filter(r=>r.user_id!==uid);render();refresh();});}
+  else if(a==='addPerson'){const g=id=>document.getElementById(id).value.trim();
+    const p={id:'p'+Date.now().toString(36),name:g('np_name'),role:g('np_role')==='lead'?'lead':'staff',base:num(g('np_base')),welfare:num(g('np_welfare'))};
+    const ti=g('np_title');if(ti)p.title=ti;
+    if(!p.name){toast('이름을 넣으세요');return;}
+    if(S.pay.people.some(x=>x.name===p.name)&&!confirm('같은 이름의 직원이 이미 있습니다. 그래도 추가할까요?'))return;
+    S.pay.people.push(p);save();render();toast(pname(p)+' 추가했습니다');}
+  else if(a==='delPerson'){const p=person(t.dataset.id);if(!p||p.email||S.sales.some(x=>x.staffId===p.id))return;
+    if(!confirm(pname(p)+' 직원을 목록에서 뺄까요?'))return;
+    S.pay.people=S.pay.people.filter(x=>x.id!==p.id);save();render();toast('뺐습니다');}
   else if(a==='reloadMe'){boot='loading';render();load().then(()=>{listen();render();});}
   else if(a==='linkUser'){const id=t.dataset.id,em=(document.getElementById('lk_'+id)||{}).value||'';
     if(!em.trim()&&!confirm('이 직원의 로그인 연결을 해제할까요?'))return;
@@ -1034,7 +1101,7 @@ document.addEventListener('click',e=>{
   else if(a==='entryClear'){if(confirm('입력 중인 줄을 모두 비울까요? 이미 저장한 판매건은 그대로 둡니다.')){entry=null;render();}}
   else if(a==='entryPaste'){const ta=document.getElementById('e_paste');const n=importRows(ta.value.split(/\r?\n/).filter(l=>l.trim()).map(l=>l.split('\t')));if(n)ta.value='';}
   else if(a==='entrySave'){entrySave();}
-  else if(a==='resetPay'){if(confirm('급여표를 처음 받은 값으로 되돌릴까요?')){S.pay=clone(DEFAULT_PAY);save();render();toast('되돌렸습니다');}}
+  else if(a==='resetPay'){if(confirm('급여표를 처음 받은 값으로 되돌릴까요? 직원 목록과 새로 추가한 직원의 기본급은 그대로 둡니다.')){const d=clone(DEFAULT_PAY);d.people=S.pay.people.map(p=>{const o=d.people.find(x=>x.id===p.id);return o?{...p,base:o.base,welfare:o.welfare}:p;});S.pay=d;save();render();toast('되돌렸습니다');}}
 });
 document.addEventListener('input',e=>{if(e.target.dataset.b&&e.target.type!=='checkbox'&&e.target.tagName==='INPUT'&&e.target.type!=='date')entryField(e.target);});
 document.addEventListener('change',e=>{
@@ -1048,7 +1115,7 @@ document.addEventListener('change',e=>{
 });
 
 let wasPC=PC();addEventListener('resize',()=>{if(PC()!==wasPC){wasPC=PC();render();}});
-document.addEventListener('submit',e=>{if(e.target.id==='lgform'){e.preventDefault();signIn(false);}});
+document.addEventListener('submit',e=>{if(e.target.id==='lgform'){e.preventDefault();signIn(lgMode==='up');}});
 if(sb)sb.auth.onAuthStateChange(ev=>{if(ev==='SIGNED_OUT'&&boot==='ready'){S=null;ses={};acct=null;base=null;boot='login';render();}});
 render();load().then(()=>{listen();render();}).catch(e=>{boot='error';acct={msg:sbErr(e)};render();});
 })();
