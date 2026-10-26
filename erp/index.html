@@ -337,13 +337,20 @@ function listen(){
     .on('postgres_changes',{event:'*',schema:'public',table:'erp_people'},refresh).subscribe();
 }
 document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&boot==='ready')refresh();});
+// 직원은 아이디로 가입: 서버에는 erp.아이디@theggeulrim.com 로 저장 (메일 확인이 꺼져 있어 실제 메일은 안 감)
+// '@'가 들어간 값은 이메일 그대로 (관리자 계정)
+const ID_RE=/^[a-z0-9][a-z0-9_-]{2,19}$/;
+const toLogin=v=>{v=String(v||'').trim().toLowerCase();return !v||v.includes('@')?v:'erp.'+v+'@theggeulrim.com';};
+const showId=e=>{const m=/^erp\.(.+)@theggeulrim\.com$/.exec(e||'');return m?m[1]:(e||'');};
 async function signIn(signup){
-  const em=(document.getElementById('lg_email')||{}).value?.trim(),pw=(document.getElementById('lg_pw')||{}).value||'';
+  const raw=((document.getElementById('lg_id')||{}).value||'').trim().toLowerCase(),pw=(document.getElementById('lg_pw')||{}).value||'';
   const msg=document.getElementById('lg_msg');const say=t=>{if(msg)msg.textContent=t;};
-  if(!em||pw.length<6){say('이메일과 비밀번호(6자 이상)를 넣으세요');return;}
+  if(!raw||pw.length<6){say('아이디와 비밀번호(6자 이상)를 넣으세요');return;}
+  if(!raw.includes('@')&&!ID_RE.test(raw)){say('아이디는 영문 소문자·숫자·-·_ 3~20자로 넣으세요');return;}
+  const em=toLogin(raw);
   say(signup?'계정 만드는 중…':'로그인 중…');
   const r=signup?await sb.auth.signUp({email:em,password:pw}):await sb.auth.signInWithPassword({email:em,password:pw});
-  if(r.error){say(/invalid login/i.test(r.error.message)?'이메일 또는 비밀번호가 맞지 않습니다':/already registered/i.test(r.error.message)?'이미 있는 계정입니다. 로그인하세요':r.error.message);return;}
+  if(r.error){const m=r.error.message;say(/invalid login/i.test(m)?'아이디 또는 비밀번호가 맞지 않습니다':/already registered/i.test(m)?'이미 있는 아이디입니다. 로그인하거나 다른 아이디를 쓰세요':/invalid/i.test(m)&&/email/i.test(m)?'서버가 이 아이디 형식을 받지 않습니다. 관리자에게 알려주세요 ('+m+')':m);return;}
   if(signup&&!r.data.session){say('계정을 만들었습니다. 메일 확인 뒤 로그인하세요');return;}
   boot='loading';render();await load();listen();render();
 }
@@ -446,20 +453,20 @@ function loginView(){
   if(boot==='offline')return wrap('<div class="sub" style="margin-bottom:14px">서버 연결 모듈을 불러오지 못했습니다. 인터넷 연결을 확인하고 새로고침하세요.</div>');
   if(boot==='error')return wrap(`<div class="sub" style="margin-bottom:14px">서버에서 불러오지 못했습니다</div><div class="card err">${esc(acct&&acct.msg)}</div><button class="btn" data-act="reloadMe">다시 시도</button>${out}`);
   if(boot==='unlinked')return wrap(`<div class="sub" style="margin-bottom:14px">아직 직원으로 연결되지 않은 계정입니다</div>
-    <div class="card" style="font-size:15px;line-height:1.6">관리자에게 아래 이메일을 알려주고 연결을 요청하세요.<br><b>${esc(acct&&acct.email)}</b></div>
+    <div class="card" style="font-size:15px;line-height:1.6">관리자에게 아래 아이디를 알려주고 연결을 요청하세요.<br><b>${esc(showId(acct&&acct.email))}</b></div>
     <button class="btn" data-act="reloadMe">연결됐는지 다시 확인</button>${out}`);
   if(boot==='ready'){const me=person(acct.pid);return wrap(`<div class="sub" style="margin-bottom:14px">어느 화면으로 볼지 고르세요</div>
     <button class="opt" data-act="asAdmin"><div><b>관리자</b><span>정책 · 스팟 · 전체 실적 · 급여</span></div></button>
     ${me?`<button class="opt" data-act="asSeller" data-id="${me.id}"><div><b>${esc(pname(me))}</b><span>판매입력과 내 급여</span></div></button>`:''}${out}`);}
-  return wrap(`<div class="sub" style="margin-bottom:14px">회사 이메일로 로그인하세요</div>
+  return wrap(`<div class="sub" style="margin-bottom:14px">아이디로 로그인하세요</div>
     <form class="form card" id="lgform" style="display:grid;gap:10px">
-      <input id="lg_email" type="email" autocomplete="username" placeholder="이메일">
+      <input id="lg_id" type="text" autocomplete="username" autocapitalize="none" autocorrect="off" spellcheck="false" placeholder="아이디 (영문 소문자·숫자)">
       <input id="lg_pw" type="password" autocomplete="current-password" placeholder="비밀번호 (6자 이상)">
       <button class="btn" style="margin-top:4px">로그인</button>
       <div id="lg_msg" class="err" style="min-height:16px"></div>
     </form>
     <button class="btn ghost" data-act="signUp">처음이면 계정 만들기</button>
-    <p class="note">계정을 만든 뒤 관리자가 직원 이름에 연결해야 화면이 열립니다. 판매사는 본인 판매건과 본인 급여만 볼 수 있습니다.</p>`);
+    <p class="note">처음이면 쓰고 싶은 아이디와 비밀번호를 넣고 '처음이면 계정 만들기'를 누르세요. 관리자가 직원 이름에 연결해야 화면이 열립니다. 판매사는 본인 판매건과 본인 급여만 볼 수 있습니다.</p>`);
 }
 
 // ── 집계 ──
@@ -661,9 +668,9 @@ function payView(){
     <div class="pg">${P.idTier.map((g,i)=>`<div>${inp(`idTier.${i}.0`,g[0])}건 이상${inp(`idTier.${i}.1`,g[1])}</div>`).join('')}</div>
   </div>
   <h2>직원 로그인 계정 <small>직원이 먼저 ERP에서 계정을 만든 뒤 연결</small></h2>
-  <div class="card form">${P.people.map(p=>`<div style="font-size:13px;font-weight:700;margin:10px 0 6px">${esc(pname(p))} <span style="font-weight:500;color:var(--tx2)">${p.email?'연결됨 · '+esc(p.email):'연결 안 됨'}</span></div>
-    <div style="display:flex;gap:8px"><input id="lk_${p.id}" type="email" placeholder="직원이 만든 계정 이메일" value="${esc(p.email)}"><button class="who" style="white-space:nowrap" data-act="linkUser" data-id="${p.id}">${p.email?'바꾸기':'연결'}</button></div>`).join('')}
-    <p class="note">이메일 칸을 비우고 누르면 연결이 풀립니다. 연결된 직원은 본인 판매건과 본인 급여만 볼 수 있습니다.</p></div>
+  <div class="card form">${P.people.map(p=>`<div style="font-size:13px;font-weight:700;margin:10px 0 6px">${esc(pname(p))} <span style="font-weight:500;color:var(--tx2)">${p.email?'연결됨 · '+esc(showId(p.email)):'연결 안 됨'}</span></div>
+    <div style="display:flex;gap:8px"><input id="lk_${p.id}" type="text" autocapitalize="none" autocorrect="off" spellcheck="false" placeholder="직원이 만든 아이디" value="${esc(showId(p.email))}"><button class="who" style="white-space:nowrap" data-act="linkUser" data-id="${p.id}">${p.email?'바꾸기':'연결'}</button></div>`).join('')}
+    <p class="note">아이디 칸을 비우고 누르면 연결이 풀립니다. 연결된 직원은 본인 판매건과 본인 급여만 볼 수 있습니다.</p></div>
   <button class="btn ghost" data-act="resetPay">급여표를 처음 받은 값으로 되돌리기</button>
   <p class="note">그레이드·신분증 수당은 도달한 구간의 금액 하나만 받습니다(누적 아님). 보험·워치·인터넷 동판은 본인이 입력한 판매건만 셉니다.</p>`;
   return h;
@@ -992,7 +999,7 @@ document.addEventListener('click',e=>{
   else if(a==='reloadMe'){boot='loading';render();load().then(()=>{listen();render();});}
   else if(a==='linkUser'){const id=t.dataset.id,em=(document.getElementById('lk_'+id)||{}).value||'';
     if(!em.trim()&&!confirm('이 직원의 로그인 연결을 해제할까요?'))return;
-    sb.rpc('erp_link',{p_pid:id,p_email:em.trim()}).then(({data,error})=>{if(error){toast(sbErr(error));return;}toast(em.trim()?data+' 계정 연결 완료':data+' 연결 해제');refresh();});}
+    sb.rpc('erp_link',{p_pid:id,p_email:toLogin(em)}).then(({data,error})=>{if(error){toast(/그 이메일로/.test(error.message)?'그 아이디로 만든 계정이 없습니다. 직원이 먼저 ERP에서 계정을 만들어야 합니다':sbErr(error));return;}toast(em.trim()?data+' 계정 연결 완료':data+' 연결 해제');refresh();});}
   else if(a==='clearDemo'){if(confirm('예시 판매건을 모두 지우고 빈 상태로 시작할까요? 정책·급여표·스팟은 그대로 둡니다.')){S.sales=[];S.demo=false;save();render();toast('예시 판매건을 지웠습니다');}}
   else if(a==='saveSale'){
     const me=person(ses.pid);if(!me)return;
