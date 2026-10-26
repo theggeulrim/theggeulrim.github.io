@@ -223,6 +223,9 @@ const DEFAULT_PAY={
 const FEE_LABEL=FEE_LABEL_BASE;
 const TYPE={mnp:'번호이동',dev:'기기변경'};
 const CH={moyo:'모요',hotdeal:'핫딜',online:'온라인 플랫폼'};
+// 10/26 온라인 판매경로는 모요·핫딜 두 가지로 통일. '온라인 플랫폼'은 예전에 저장된 건 표시용으로만 남김
+const CH_SEL=['moyo','hotdeal'];
+const chKeys=()=>Object.keys(CH).filter(k=>CH_SEL.includes(k)||S.sales.some(x=>x.channel===k));
 const CH_COST={moyo:'모요 수수료',hotdeal:'광고비',online:'광고비'};
 const ADDON={ins:'보험',watch:'워치번들',net:'인터넷 동판'};
 const REGIONS=['남부','수원','강서'];
@@ -620,7 +623,7 @@ function dashView(){
     <div class="kpi big"><div class="l">예상 인건비 (온라인팀 ${S.pay.people.length}명)</div><div class="v">${short(labor)}</div><div class="s">기본급 + 수당 + 그레이드 · 인건비까지 뺀 마진 <b class="${margin-labor<0?'neg':'pos'}">${short(margin-labor)}</b></div></div>
   </div>
   <h2>판매경로별 <small>이번 달</small></h2>
-  <div class="card">${Object.keys(CH).map(k=>{const r=rows.filter(x=>x.channel===k);return `<div class="tg"><span><span class="tag ${k}">${CH[k]}</span> ${r.length}건</span><b class="${sum(r,x=>x.calc.margin)<0?'neg':''}" style="font-variant-numeric:tabular-nums">${short(sum(r,x=>x.calc.margin))}</b></div>`;}).join('')}</div>
+  <div class="card">${chKeys().map(k=>{const r=rows.filter(x=>x.channel===k);return `<div class="tg"><span><span class="tag ${k}">${CH[k]}</span> ${r.length}건</span><b class="${sum(r,x=>x.calc.margin)<0?'neg':''}" style="font-variant-numeric:tabular-nums">${short(sum(r,x=>x.calc.margin))}</b></div>`;}).join('')}</div>
   <h2>지역별 목표 달성 <small>개통 지역 기준</small></h2>
   <div class="card">${REGIONS.map(t=>{const n=rows.filter(x=>x.region===t).length,g=S.settings.target[t]||0;return barRow(t,g?n/g*100:0,`${n} / ${g}건`);}).join('')}</div>
   <h2>정액 수당 구간 <small>온라인팀 공통</small></h2>
@@ -640,7 +643,7 @@ function dashView(){
 function salesView(){
   const rows=S.sales.filter(x=>(filt.range==='today'?x.date===TODAY:inMonth(x))&&(filt.ch==='all'||x.channel===filt.ch)&&(filt.staff==='all'||x.staffId===filt.staff)).sort((a,b)=>b.date.localeCompare(a.date)||b.at-a.at);
   const chips=`<div class="chips">${[['month','이번 달'],['today','오늘']].map(([k,l])=>`<button class="${filt.range===k?'on':''}" data-filt="range" data-v="${k}">${l}</button>`).join('')}
-  <span style="width:6px;flex:none"></span>${[['all','전체 경로'],...Object.entries(CH)].map(([k,l])=>`<button class="${filt.ch===k?'on':''}" data-filt="ch" data-v="${k}">${l}</button>`).join('')}
+  <span style="width:6px;flex:none"></span>${[['all','전체 경로'],...chKeys().map(k=>[k,CH[k]])].map(([k,l])=>`<button class="${filt.ch===k?'on':''}" data-filt="ch" data-v="${k}">${l}</button>`).join('')}
   <span style="width:6px;flex:none"></span>${[['all','전체 직원'],...S.pay.people.map(p=>[p.id,p.name])].map(([k,l])=>`<button class="${filt.staff===k?'on':''}" data-filt="staff" data-v="${k}">${l}</button>`).join('')}</div>`;
   const head=`<h2>개통관리 <small>${rows.length}건 · 순마진 ${short(sum(rows,x=>x.calc.margin))}</small></h2>
   <div class="tools"><button class="pri" data-act="dlSales">보이는 판매건 엑셀 다운로드</button><button data-tab="entry">판매 등록 (여러 건)</button></div>${chips}`;
@@ -670,7 +673,7 @@ function policyView(){
     h+=`<div style="font-size:13px;font-weight:700;margin:14px 0 6px">${TYPE[t]}</div><div class="tscroll ptbl"><table class="tbl"><thead><tr><th>요금제</th><th class="r">월정액</th>${P.items.map(it=>`<th>${esc(it.l)}</th>`).join('')}</tr></thead><tbody>`+
       P.plans.map(p=>{const c=P.common[t][p.id];return `<tr><td><b>${esc(p.name)}</b></td><td class="r">${fmt(p.price)}</td>${P.items.map(it=>`<td>${inp(`common.${t}.${p.id}.${it.k}`,c[it.k])}</td>`).join('')}</tr>`;}).join('')+`</tbody></table></div>`;
   }
-  h+=`<div class="sec">건당 비용</div><div class="pg c3">${Object.keys(CH).map(k=>`<div>${CH[k]} ${CH_COST[k]}${inp('cost.'+k,P.cost[k])}</div>`).join('')}</div></div>
+  h+=`<div class="sec">건당 비용</div><div class="pg c3">${CH_SEL.map(k=>`<div>${CH[k]} ${CH_COST[k]}${inp('cost.'+k,P.cost[k])}</div>`).join('')}</div></div>
   <div class="card"><div class="sec" style="margin-top:0">요금제·수수료 항목 관리</div>
     <div style="font-size:13px;font-weight:700;margin:4px 0 6px">수수료 항목 <small style="font-weight:400;color:var(--tx3)">이름을 고치면 바로 저장 · 담당유통망은 모델별 값과 이어져 있어 삭제 안 됨</small></div>
     <div class="tscroll"><table class="tbl"><thead><tr><th>항목 이름</th><th></th></tr></thead><tbody>${P.items.map((it,i)=>`<tr><td>${it.k==='rep'?`<b>${esc(it.l)}</b>`:`<input data-item="${i}" value="${esc(it.l)}">`}</td><td class="r" style="width:70px">${it.k==='rep'?'':`<button class="del" data-act="delItem" data-i="${i}">삭제</button>`}</td></tr>`).join('')}
@@ -755,7 +758,7 @@ function payView(){
     <div class="pg c2"><div>번호이동${inp('staff.mnp',P.staff.mnp)}</div><div>기기변경${inp('staff.dev',P.staff.dev)}</div></div>
     <div class="sec">팀장 (${P.people.filter(p=>p.role==='lead').map(p=>esc(p.name)).join('·')||'없음'}) · 판매경로별 건당</div>
     <div class="pg"><div>모요 번이${inp('lead.moyo.mnp',P.lead.moyo.mnp)}</div><div>모요 기변${inp('lead.moyo.dev',P.lead.moyo.dev)}</div><div>핫딜 번이${inp('lead.hotdeal.mnp',P.lead.hotdeal.mnp)}</div><div>핫딜 번이 남부신분증${inp('lead.hotdeal.mnpId',P.lead.hotdeal.mnpId)}</div>
-    <div>핫딜 기변${inp('lead.hotdeal.dev',P.lead.hotdeal.dev)}</div><div>핫딜 기변 115${inp('lead.hotdeal.dev115',P.lead.hotdeal.dev115)}</div><div>온라인플랫폼 번이${inp('lead.online.mnp',P.lead.online.mnp)}</div><div>온라인플랫폼 기변${inp('lead.online.dev',P.lead.online.dev)}</div></div>
+    <div>핫딜 기변${inp('lead.hotdeal.dev',P.lead.hotdeal.dev)}</div><div>핫딜 기변 115${inp('lead.hotdeal.dev115',P.lead.hotdeal.dev115)}</div></div>
     <div class="sec">부가 판매 · 본인 입력건 건당 (전원 공통)</div>
     <div class="pg c3">${Object.entries(ADDON).map(([k,l])=>`<div>${l}${inp('addon.'+k,P.addon[k])}</div>`).join('')}</div>
     <div class="sec">온라인 전체 실적 그레이드 (정액)</div>
@@ -813,7 +816,7 @@ function inputView(me){
   <div class="form">
   <div class="step"><div class="t"><i>1</i>개통 정보</div>
     <label>개통일</label><input type="date" id="f_date" value="${form.date}">
-    <label>판매경로</label>${seg('channel',Object.entries(CH).map(([k,l])=>[k,k==='online'?'온라인':l]),form.channel)}
+    <label>판매경로</label>${seg('channel',CH_SEL.map(k=>[k,CH[k]]),form.channel)}
     <label>개통 지역</label>${seg('region',REGIONS.map(r=>[r,r]),form.region)}
     <label>가입 유형</label>${seg('type',Object.entries(TYPE),form.type)}
     ${form.type==='mnp'?`<label>신분증 개통</label>${seg('idOpen',[[0,'아니요'],[1,'신분증 개통']],form.idOpen?1:0)}`:''}
@@ -913,7 +916,7 @@ function entryView(me){
     return `<tr id="er${i}" class="${!isBlank(r)&&rowErr(r)?'bad':''}"><td class="r" style="color:var(--tx3)">${i+1}</td>
     ${admin?`<td><select data-b="${i}.staffId" style="width:86px">${opt([['','선택'],...S.pay.people.map(p=>[p.id,p.name])],r.staffId)}</select></td>`:''}
     <td><input type="date" data-b="${i}.date" value="${r.date}" style="width:136px"></td>
-    <td><select data-b="${i}.channel" style="width:82px">${opt(Object.entries(CH).map(([k,l])=>[k,k==='online'?'온라인':l]),r.channel)}</select></td>
+    <td><select data-b="${i}.channel" style="width:82px">${opt(CH_SEL.map(k=>[k,CH[k]]),r.channel)}</select></td>
     <td><select data-b="${i}.region" style="width:70px">${opt(REGIONS.map(x=>[x,x]),r.region)}</select></td>
     <td><select data-b="${i}.type" style="width:70px">${opt([['mnp','번이'],['dev','기변']],r.type)}</select></td>
     <td class="c"><input type="checkbox" data-b="${i}.idOpen" id="eid${i}" ${r.idOpen&&r.type==='mnp'?'checked':''} ${r.type!=='mnp'?'disabled':''}></td>
@@ -931,7 +934,7 @@ function entryView(me){
     <div class="sec" style="margin-top:0">엑셀에서 복사해 붙여넣기</div>
     <textarea class="paste" id="e_paste" placeholder="엑셀에서 아래 순서의 칸을 여러 줄 복사(Ctrl+C)해 여기에 붙여넣기(Ctrl+V) 하세요. 제목 줄은 있어도 됩니다."></textarea>
     <div class="colhelp">칸 순서: ${ENTRY_COLS.map(c=>`<b>${c}</b>`).join('')}<br>
-      판매경로는 모요·핫딜(홈페이지)·온라인, 가입유형은 번이·기변, 신분증·보험·워치·인터넷은 O 또는 빈칸으로 적습니다.${admin?'':' 담당자 칸은 비워도 본인으로 저장됩니다.'}</div>
+      판매경로는 모요·핫딜(홈페이지), 가입유형은 번이·기변, 신분증·보험·워치·인터넷은 O 또는 빈칸으로 적습니다.${admin?'':' 담당자 칸은 비워도 본인으로 저장됩니다.'}</div>
     <div class="tools" style="margin:0"><button class="pri" data-act="entryPaste">붙여넣은 내용 표에 넣기</button><label>엑셀 파일 올리기<input type="file" id="up_sales" accept=".xlsx,.xls,.csv"></label><button data-act="dlTemplate">등록 양식 엑셀 받기</button></div>
   </div>
   <div class="tools" style="margin-top:16px"><button data-act="entryAdd">빈 줄 5개 추가</button><button data-act="entryClear">입력 중인 줄 비우기</button><span class="sp"></span><span id="esum" style="font-size:14px">${entrySum(me)}</span><button class="pri" data-act="entrySave">표에 있는 판매건 저장</button></div>
@@ -995,7 +998,7 @@ function importRows(aoa){
     const r=newRow(me),errs=[];
     if(admin){const nm=String(c[0]||'').trim();const p=S.pay.people.find(p=>nm&&(p.name===nm||nm.includes(p.name)));if(p)r.staffId=p.id;else errs.push('담당자');}
     r.date=pDate(c[1])||(String(c[1]).trim()?'':TODAY);if(!r.date){errs.push('개통일');r.date=TODAY;}
-    const ch=String(c[2]);r.channel=/모요/.test(ch)?'moyo':/핫딜|홈페이지|홈피/.test(ch)?'hotdeal':/온라인|플랫폼/.test(ch)?'online':(ch.trim()?(errs.push('판매경로'),'moyo'):'moyo');
+    const ch=String(c[2]);r.channel=/모요/.test(ch)?'moyo':/핫딜|홈페이지|홈피/.test(ch)?'hotdeal':(ch.trim()?(errs.push('판매경로'),'moyo'):'moyo');
     const rg=REGIONS.find(x=>String(c[3]).includes(x));if(rg)r.region=rg;else errs.push('개통지역');
     const ty=String(c[4]);r.type=/기|dev/i.test(ty)?'dev':/번|이동|mnp/i.test(ty)?'mnp':(errs.push('가입유형'),'mnp');
     r.idOpen=r.type==='mnp'&&yes(c[5]);
@@ -1043,7 +1046,7 @@ function policyOut(){
   const common=[['가입유형','요금제','월정액',...P.items.map(it=>it.l)],...['mnp','dev'].flatMap(t=>P.plans.map(p=>[TYPE[t],p.name,p.price,...P.items.map(it=>(P.common[t][p.id]||{})[it.k]||0)]))];
   const models=[['구분','모델','용량','출고가','판매활성화 번이','판매활성화 기변','담당유통망 번이'],
     ...P.models.map(m=>[m.grp,m.model,m.cap,m.retail,m.act.mnp,m.act.dev,m.rep??repBase()])];
-  const cost=[['판매경로','건당 비용'],...Object.keys(CH).map(k=>[CH[k]+' '+CH_COST[k],P.cost[k]])];
+  const cost=[['판매경로','건당 비용'],...CH_SEL.map(k=>[CH[k]+' '+CH_COST[k],P.cost[k]])];
   xlsxOut('더끌림_정책서_'+TODAY,[['모델정책',models],['공통수수료',common],['건당비용',cost]]);
 }
 function readXlsx(file,fn){
