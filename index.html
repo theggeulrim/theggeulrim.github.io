@@ -938,26 +938,17 @@
 
 
         /* 퀵 메뉴 */
-        /* 메인 배너 — PC ipduo_hero.png(와이드) / 모바일 ipduo_square.png(정사각) (2026-10-13 아이폰 듀오 사전예약, 이전 ip18_hero/ip18_square 파일은 보관) 자동 전환, 원본 비율 그대로 표시 */
-        .ip18-hero { width: 100%; background-color: #010101; }
+        /* 메인 배너 — 3장 자동 전환(10/26 듀오 재고 부족으로 교체: 플립8·17 Pro·18 Pro). PC hero_*.png(2172x724) / 모바일 hero_*_sq.png(1254x1254), 소스 meta_ads/hero_1026/gen.py */
+        .ip18-hero { width: 100%; background-color: #f4f5f8; position: relative; overflow: hidden; }
         .ip18-hero-link, .ip18-photo { display: block; width: 100%; line-height: 0; text-decoration: none; }
         .ip18-photo img { width: 100%; height: auto; display: block; }
-
-        /* 히어로 아래 얼리버드 신청 띠 (아이폰 듀오) */
-        .eb-strip { background: #ffffff; border-bottom: 1px solid #eaeaea; padding: 22px 20px; }
-        .eb-strip-inner { max-width: 1000px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 14px 24px; flex-wrap: wrap; }
-        .eb-copy strong { display: block; font-size: 22px; font-weight: 800; letter-spacing: -0.8px; color: #111; word-break: keep-all; }
-        .eb-copy strong b { color: #E6007E; }
-        .eb-copy span { display: block; margin-top: 4px; font-size: 14px; color: #777; letter-spacing: -0.3px; word-break: keep-all; }
-        .eb-btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 56px; padding: 0 34px; border-radius: 14px; background: #E6007E; color: #fff; text-decoration: none; font-size: 17px; font-weight: 800; letter-spacing: -0.4px; box-shadow: 0 6px 18px rgba(230,0,126,0.3); transition: transform 0.2s, background-color 0.2s; flex-shrink: 0; }
-        .eb-btn:hover { background: #ff1a94; transform: translateY(-2px); }
-        @media (max-width: 768px) {
-            .eb-strip { padding: 18px 16px; }
-            .eb-strip-inner { flex-direction: column; align-items: stretch; text-align: center; }
-            .eb-copy strong { font-size: 19px; }
-            .eb-copy span { font-size: 13px; }
-            .eb-btn { width: 100%; height: 54px; font-size: 16px; }
-        }
+        .hero-slide { opacity: 0; visibility: hidden; pointer-events: none; transition: opacity 0.6s, visibility 0.6s; }
+        .hero-slide + .hero-slide { position: absolute; inset: 0; }
+        .hero-slide.on { opacity: 1; visibility: visible; pointer-events: auto; transition: opacity 0.6s; }
+        .hero-dots { position: absolute; left: 0; right: 0; bottom: 14px; display: flex; justify-content: center; gap: 8px; z-index: 2; }
+        .hero-dots button { width: 9px; height: 9px; padding: 0; border: 0; border-radius: 999px; background: rgba(22,24,29,0.22); cursor: pointer; transition: width 0.3s, background-color 0.3s; }
+        .hero-dots button.on { width: 26px; background: #E6007E; }
+        @media (max-width: 768px) { .hero-dots { bottom: 10px; } .hero-dots button { width: 8px; height: 8px; } .hero-dots button.on { width: 22px; } }
 
         .quick-menu-wrap { background-color: #ffffff; padding: 40px 20px; border-bottom: 1px solid #eaeaea; }
         .quick-menu-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 30px 40px; max-width: 1000px; margin: 0 auto; }
@@ -2295,24 +2286,47 @@ fbq('track', 'PageView');
 </div>
 </header>
 
-<section class="ip18-hero">
-<a class="ip18-hero-link" href="#apply-duo">
+<section class="ip18-hero" aria-roledescription="carousel" aria-label="이번 주 특가">
+<a class="ip18-hero-link hero-slide on" href="?cap=256&amp;type=2&amp;plan=LPZ1006510#apply-flip8">
 <picture class="ip18-photo">
-<source media="(max-width: 768px)" srcset="ipduo_square.png?v=1022c">
-<img src="ipduo_hero.png?v=1022c" alt="아이폰 듀오 통신사 이동 시 95만원 할인, 즉시 수령 가능 - 115요금제 6개월 사용 조건(공시지원금 45만원 + 대리점 지원금 50만원), 10월 23일(금) 출시 - LG유플러스 공식인증 대리점 LGU+더끌림컴퍼니">
+<source media="(max-width: 768px)" srcset="hero_flip8_sq.jpg?v=1026">
+<img src="hero_flip8.jpg?v=1026" alt="갤럭시 Z플립8 256GB 통신사 이동 시 102만원 할인, 할부원금 663,000원 - 5G 데이터플랜 MAX(월 85,000원) 6개월(181일) 사용 조건(공시지원금 50만원 + 대리점 지원금 52만원) - LG유플러스 공식인증 대리점 LGU+더끌림컴퍼니">
 </picture>
 </a>
+<a class="ip18-hero-link hero-slide" href="?cap=256&amp;type=2&amp;plan=LPZ1007251#apply-ip17pr">
+<picture class="ip18-photo">
+<source media="(max-width: 768px)" srcset="hero_ip17pr_sq.jpg?v=1026">
+<img src="hero_ip17pr.jpg?v=1026" alt="아이폰17 Pro 256GB 통신사 이동 시 105만원 할인, 할부원금 732,000원 - 넷플릭스 플러스플랜115(월 115,000원) 6개월(181일) 사용 조건(공시지원금 55만원 + 대리점 지원금 50만원) - LG유플러스 공식인증 대리점 LGU+더끌림컴퍼니">
+</picture>
+</a>
+<a class="ip18-hero-link hero-slide" href="?cap=256&amp;type=2&amp;plan=LPZ1007251#apply-ip18pr">
+<picture class="ip18-photo">
+<source media="(max-width: 768px)" srcset="hero_ip18pr_sq.jpg?v=1026">
+<img src="hero_ip18pr.jpg?v=1026" alt="아이폰18 Pro 256GB 통신사 이동 시 100만원 할인, 할부원금 991,000원 - 넷플릭스 플러스플랜115(월 115,000원) 6개월(181일) 사용 조건(공시지원금 45만원 + 대리점 지원금 55만원) - LG유플러스 공식인증 대리점 LGU+더끌림컴퍼니">
+</picture>
+</a>
+<div class="hero-dots"><button type="button" aria-label="1번째 배너" class="on"></button><button type="button" aria-label="2번째 배너"></button><button type="button" aria-label="3번째 배너"></button></div>
+<script>
+(function () {
+    var box = document.currentScript.parentNode, sl = box.querySelectorAll('.hero-slide'), dots = box.querySelectorAll('.hero-dots button'), cur = 0, t, x0 = null;
+    function go(i) {
+        cur = (i + sl.length) % sl.length;
+        for (var k = 0; k < sl.length; k++) { sl[k].classList.toggle('on', k === cur); dots[k].classList.toggle('on', k === cur); }
+    }
+    function play() { clearInterval(t); t = setInterval(function () { go(cur + 1); }, 4000); }
+    for (var k = 0; k < dots.length; k++) (function (k) { dots[k].addEventListener('click', function () { go(k); play(); }); })(k);
+    box.addEventListener('mouseenter', function () { clearInterval(t); });
+    box.addEventListener('mouseleave', play);
+    box.addEventListener('touchstart', function (e) { x0 = e.touches[0].clientX; clearInterval(t); }, { passive: true });
+    box.addEventListener('touchend', function (e) {
+        if (x0 !== null) { var dx = e.changedTouches[0].clientX - x0; if (Math.abs(dx) > 40) go(cur + (dx < 0 ? 1 : -1)); }
+        x0 = null; play();
+    }, { passive: true });
+    document.addEventListener('visibilitychange', function () { if (document.hidden) clearInterval(t); else play(); });
+    play();
+})();
+</script>
 </section>
-
-<div class="eb-strip">
-<div class="eb-strip-inner">
-<div class="eb-copy">
-<strong>아이폰 듀오 <b>95만원 할인</b> · <b>즉시 수령 가능</b></strong>
-<span>통신사 이동 시 · 10월 23일(금) 출시<br>※ 115요금제 6개월 사용 조건 (공시 45만 + 대리점 50만)</span>
-</div>
-<a href="#apply-duo" class="eb-btn">신청하기 →</a>
-</div>
-</div>
 
 <div class="st-trust">
 <div class="os-inner">
@@ -2545,36 +2559,36 @@ fbq('track', 'PageView');
 <div class="store-region">
 <h3 class="store-region-title">서울 <span>15곳</span></h3>
 <div class="store-grid collapsed" id="storeGrid-seoul">
-<div class="store-card-wrap"><img src="store16.jpeg" alt="LGU+더끌림컴퍼니 신림점 - 서울특별시 관악구 LG유플러스 공식인증 대리점 휴대폰 매장" class="store-card-img" loading="lazy"><div class="store-card-content"><div><h3 class="store-card-title">신림점</h3><p class="store-card-address"><span class="pin">📍</span> 서울특별시 관악구 남부순환로 1601</p></div><div class="store-card-btns"><button type="button" class="btn-reserve" data-visit="신림점">방문 신청</button><a class="st-map" href="https://map.naver.com/p/search/서울특별시%20관악구%20남부순환로%201601" target="_blank" rel="noopener">지도 보기</a></div></div></div>
-<div class="store-card-wrap"><img src="store13.jpeg" alt="LGU+더끌림컴퍼니 봉천사거리점 - 서울특별시 관악구 LG유플러스 공식인증 대리점 휴대폰 매장" class="store-card-img" loading="lazy"><div class="store-card-content"><div><h3 class="store-card-title">봉천사거리점</h3><p class="store-card-address"><span class="pin">📍</span> 서울특별시 관악구 관악로 194</p></div><div class="store-card-btns"><button type="button" class="btn-reserve" data-visit="봉천사거리점">방문 신청</button><a class="st-map" href="https://map.naver.com/p/search/서울특별시%20관악구%20관악로%20194" target="_blank" rel="noopener">지도 보기</a></div></div></div>
-<div class="store-card-wrap"><img src="store4.jpeg" alt="LGU+더끌림컴퍼니 낙성대점 - 서울특별시 관악구 LG유플러스 공식인증 대리점 휴대폰 매장" class="store-card-img" loading="lazy"><div class="store-card-content"><div><h3 class="store-card-title">낙성대점</h3><p class="store-card-address"><span class="pin">📍</span> 서울특별시 관악구 남부순환로 1952</p></div><div class="store-card-btns"><button type="button" class="btn-reserve" data-visit="낙성대점">방문 신청</button><a class="st-map" href="https://map.naver.com/p/search/서울특별시%20관악구%20남부순환로%201952" target="_blank" rel="noopener">지도 보기</a></div></div></div>
-<div class="store-card-wrap"><img src="store15.jpeg" alt="LGU+더끌림컴퍼니 사당점 - 서울특별시 동작구 LG유플러스 공식인증 대리점 휴대폰 매장" class="store-card-img" loading="lazy"><div class="store-card-content"><div><h3 class="store-card-title">사당점</h3><p class="store-card-address"><span class="pin">📍</span> 서울특별시 동작구 동작대로 45</p></div><div class="store-card-btns"><button type="button" class="btn-reserve" data-visit="사당점">방문 신청</button><a class="st-map" href="https://map.naver.com/p/search/서울특별시%20동작구%20동작대로%2045" target="_blank" rel="noopener">지도 보기</a></div></div></div>
-<div class="store-card-wrap"><img src="store7.jpeg" alt="LGU+더끌림컴퍼니 남현점 - 서울특별시 관악구 LG유플러스 공식인증 대리점 휴대폰 매장" class="store-card-img" loading="lazy"><div class="store-card-content"><div><h3 class="store-card-title">남현점</h3><p class="store-card-address"><span class="pin">📍</span> 서울특별시 관악구 남현길 8</p></div><div class="store-card-btns"><button type="button" class="btn-reserve" data-visit="남현점">방문 신청</button><a class="st-map" href="https://map.naver.com/p/search/서울특별시%20관악구%20남현길%208" target="_blank" rel="noopener">지도 보기</a></div></div></div>
-<div class="store-card-wrap"><img src="store5.jpeg" alt="LGU+더끌림컴퍼니 난곡점 - 서울특별시 관악구 LG유플러스 공식인증 대리점 휴대폰 매장" class="store-card-img" loading="lazy"><div class="store-card-content"><div><h3 class="store-card-title">난곡점</h3><p class="store-card-address"><span class="pin">📍</span> 서울특별시 관악구 난곡로 194</p></div><div class="store-card-btns"><button type="button" class="btn-reserve" data-visit="난곡점">방문 신청</button><a class="st-map" href="https://map.naver.com/p/search/서울특별시%20관악구%20난곡로%20194" target="_blank" rel="noopener">지도 보기</a></div></div></div>
-<div class="store-card-wrap"><img src="store1.jpeg" alt="LGU+더끌림컴퍼니 가산점 - 서울특별시 금천구 LG유플러스 공식인증 대리점 휴대폰 매장" class="store-card-img" loading="lazy"><div class="store-card-content"><div><h3 class="store-card-title">가산점</h3><p class="store-card-address"><span class="pin">📍</span> 서울특별시 금천구 디지털로 212</p></div><div class="store-card-btns"><button type="button" class="btn-reserve" data-visit="가산점">방문 신청</button><a class="st-map" href="https://map.naver.com/p/search/서울특별시%20금천구%20디지털로%20212" target="_blank" rel="noopener">지도 보기</a></div></div></div>
-<div class="store-card-wrap"><img src="store6.jpeg" alt="LGU+더끌림컴퍼니 남문시장점 - 서울특별시 금천구 LG유플러스 공식인증 대리점 휴대폰 매장" class="store-card-img" loading="lazy"><div class="store-card-content"><div><h3 class="store-card-title">남문시장점</h3><p class="store-card-address"><span class="pin">📍</span> 서울특별시 금천구 독산로87길 2</p></div><div class="store-card-btns"><button type="button" class="btn-reserve" data-visit="남문시장점">방문 신청</button><a class="st-map" href="https://map.naver.com/p/search/서울특별시%20금천구%20독산로87길%202" target="_blank" rel="noopener">지도 보기</a></div></div></div>
-<div class="store-card-wrap"><img src="store17.jpeg" alt="LGU+더끌림컴퍼니 영등포구청점 - 서울특별시 영등포구 LG유플러스 공식인증 대리점 휴대폰 매장" class="store-card-img" loading="lazy"><div class="store-card-content"><div><h3 class="store-card-title">영등포구청점</h3><p class="store-card-address"><span class="pin">📍</span> 서울특별시 영등포구 당산로 136-1</p></div><div class="store-card-btns"><button type="button" class="btn-reserve" data-visit="영등포구청점">방문 신청</button><a class="st-map" href="https://map.naver.com/p/search/서울특별시%20영등포구%20당산로%20136-1" target="_blank" rel="noopener">지도 보기</a></div></div></div>
-<div class="store-card-wrap"><img src="store11.jpeg" alt="LGU+더끌림컴퍼니 문래힐스테이트점 - 서울특별시 영등포구 LG유플러스 공식인증 대리점 휴대폰 매장" class="store-card-img" loading="lazy"><div class="store-card-content"><div><h3 class="store-card-title">문래힐스테이트점</h3><p class="store-card-address"><span class="pin">📍</span> 서울특별시 영등포구 선유로 59</p></div><div class="store-card-btns"><button type="button" class="btn-reserve" data-visit="문래힐스테이트점">방문 신청</button><a class="st-map" href="https://map.naver.com/p/search/서울특별시%20영등포구%20선유로%2059" target="_blank" rel="noopener">지도 보기</a></div></div></div>
-<div class="store-card-wrap"><img src="store8.jpeg" alt="LGU+더끌림컴퍼니 대림9번출구점 - 서울특별시 영등포구 LG유플러스 공식인증 대리점 휴대폰 매장" class="store-card-img" loading="lazy"><div class="store-card-content"><div><h3 class="store-card-title">대림9번출구점</h3><p class="store-card-address"><span class="pin">📍</span> 서울특별시 영등포구 도림로 135</p></div><div class="store-card-btns"><button type="button" class="btn-reserve" data-visit="대림9번출구점">방문 신청</button><a class="st-map" href="https://map.naver.com/p/search/서울특별시%20영등포구%20도림로%20135" target="_blank" rel="noopener">지도 보기</a></div></div></div>
-<div class="store-card-wrap"><img src="store9.jpeg" alt="LGU+더끌림컴퍼니 대림11번출구점 - 서울특별시 영등포구 LG유플러스 공식인증 대리점 휴대폰 매장" class="store-card-img" loading="lazy"><div class="store-card-content"><div><h3 class="store-card-title">대림11번출구점</h3><p class="store-card-address"><span class="pin">📍</span> 서울특별시 영등포구 도림로 144</p></div><div class="store-card-btns"><button type="button" class="btn-reserve" data-visit="대림11번출구점">방문 신청</button><a class="st-map" href="https://map.naver.com/p/search/서울특별시%20영등포구%20도림로%20144" target="_blank" rel="noopener">지도 보기</a></div></div></div>
-<div class="store-card-wrap"><img src="store10.jpeg" alt="LGU+더끌림컴퍼니 대림삼거리점 - 서울특별시 영등포구 LG유플러스 공식인증 대리점 휴대폰 매장" class="store-card-img" loading="lazy"><div class="store-card-content"><div><h3 class="store-card-title">대림삼거리점</h3><p class="store-card-address"><span class="pin">📍</span> 서울특별시 영등포구 디지털로54길 3 1층</p></div><div class="store-card-btns"><button type="button" class="btn-reserve" data-visit="대림삼거리점">방문 신청</button><a class="st-map" href="https://map.naver.com/p/search/서울특별시%20영등포구%20디지털로54길%203%201층" target="_blank" rel="noopener">지도 보기</a></div></div></div>
-<div class="store-card-wrap"><img src="store2.jpeg" alt="LGU+더끌림컴퍼니 강서구청점 - 서울특별시 강서구 LG유플러스 공식인증 대리점 휴대폰 매장" class="store-card-img" loading="lazy"><div class="store-card-content"><div><h3 class="store-card-title">강서구청점</h3><p class="store-card-address"><span class="pin">📍</span> 서울특별시 강서구 화곡로 322</p></div><div class="store-card-btns"><button type="button" class="btn-reserve" data-visit="강서구청점">방문 신청</button><a class="st-map" href="https://map.naver.com/p/search/서울특별시%20강서구%20화곡로%20322" target="_blank" rel="noopener">지도 보기</a></div></div></div>
-<div class="store-card-wrap"><img src="store19.jpeg" alt="LGU+더끌림컴퍼니 증미산점 - 서울특별시 강서구 LG유플러스 공식인증 대리점 휴대폰 매장" class="store-card-img" loading="lazy"><div class="store-card-content"><div><h3 class="store-card-title">증미산점</h3><p class="store-card-address"><span class="pin">📍</span> 서울특별시 강서구 양천로 583</p></div><div class="store-card-btns"><button type="button" class="btn-reserve" data-visit="증미산점">방문 신청</button><a class="st-map" href="https://map.naver.com/p/search/서울특별시%20강서구%20양천로%20583" target="_blank" rel="noopener">지도 보기</a></div></div></div>
+<div class="store-card-wrap"><img src="store16.jpeg" alt="LGU+더끌림컴퍼니 신림점 - 서울특별시 관악구 LG유플러스 공식인증 대리점 휴대폰 매장" class="store-card-img"><div class="store-card-content"><div><h3 class="store-card-title">신림점</h3><p class="store-card-address"><span class="pin">📍</span> 서울특별시 관악구 남부순환로 1601</p></div><div class="store-card-btns"><button type="button" class="btn-reserve" data-visit="신림점">방문 신청</button><a class="st-map" href="https://map.naver.com/p/search/서울특별시%20관악구%20남부순환로%201601" target="_blank" rel="noopener">지도 보기</a></div></div></div>
+<div class="store-card-wrap"><img src="store13.jpeg" alt="LGU+더끌림컴퍼니 봉천사거리점 - 서울특별시 관악구 LG유플러스 공식인증 대리점 휴대폰 매장" class="store-card-img"><div class="store-card-content"><div><h3 class="store-card-title">봉천사거리점</h3><p class="store-card-address"><span class="pin">📍</span> 서울특별시 관악구 관악로 194</p></div><div class="store-card-btns"><button type="button" class="btn-reserve" data-visit="봉천사거리점">방문 신청</button><a class="st-map" href="https://map.naver.com/p/search/서울특별시%20관악구%20관악로%20194" target="_blank" rel="noopener">지도 보기</a></div></div></div>
+<div class="store-card-wrap"><img src="store4.jpeg" alt="LGU+더끌림컴퍼니 낙성대점 - 서울특별시 관악구 LG유플러스 공식인증 대리점 휴대폰 매장" class="store-card-img"><div class="store-card-content"><div><h3 class="store-card-title">낙성대점</h3><p class="store-card-address"><span class="pin">📍</span> 서울특별시 관악구 남부순환로 1952</p></div><div class="store-card-btns"><button type="button" class="btn-reserve" data-visit="낙성대점">방문 신청</button><a class="st-map" href="https://map.naver.com/p/search/서울특별시%20관악구%20남부순환로%201952" target="_blank" rel="noopener">지도 보기</a></div></div></div>
+<div class="store-card-wrap"><img src="store15.jpeg" alt="LGU+더끌림컴퍼니 사당점 - 서울특별시 동작구 LG유플러스 공식인증 대리점 휴대폰 매장" class="store-card-img"><div class="store-card-content"><div><h3 class="store-card-title">사당점</h3><p class="store-card-address"><span class="pin">📍</span> 서울특별시 동작구 동작대로 45</p></div><div class="store-card-btns"><button type="button" class="btn-reserve" data-visit="사당점">방문 신청</button><a class="st-map" href="https://map.naver.com/p/search/서울특별시%20동작구%20동작대로%2045" target="_blank" rel="noopener">지도 보기</a></div></div></div>
+<div class="store-card-wrap"><img src="store7.jpeg" alt="LGU+더끌림컴퍼니 남현점 - 서울특별시 관악구 LG유플러스 공식인증 대리점 휴대폰 매장" class="store-card-img"><div class="store-card-content"><div><h3 class="store-card-title">남현점</h3><p class="store-card-address"><span class="pin">📍</span> 서울특별시 관악구 남현길 8</p></div><div class="store-card-btns"><button type="button" class="btn-reserve" data-visit="남현점">방문 신청</button><a class="st-map" href="https://map.naver.com/p/search/서울특별시%20관악구%20남현길%208" target="_blank" rel="noopener">지도 보기</a></div></div></div>
+<div class="store-card-wrap"><img src="store5.jpeg" alt="LGU+더끌림컴퍼니 난곡점 - 서울특별시 관악구 LG유플러스 공식인증 대리점 휴대폰 매장" class="store-card-img"><div class="store-card-content"><div><h3 class="store-card-title">난곡점</h3><p class="store-card-address"><span class="pin">📍</span> 서울특별시 관악구 난곡로 194</p></div><div class="store-card-btns"><button type="button" class="btn-reserve" data-visit="난곡점">방문 신청</button><a class="st-map" href="https://map.naver.com/p/search/서울특별시%20관악구%20난곡로%20194" target="_blank" rel="noopener">지도 보기</a></div></div></div>
+<div class="store-card-wrap"><img src="store1.jpeg" alt="LGU+더끌림컴퍼니 가산점 - 서울특별시 금천구 LG유플러스 공식인증 대리점 휴대폰 매장" class="store-card-img"><div class="store-card-content"><div><h3 class="store-card-title">가산점</h3><p class="store-card-address"><span class="pin">📍</span> 서울특별시 금천구 디지털로 212</p></div><div class="store-card-btns"><button type="button" class="btn-reserve" data-visit="가산점">방문 신청</button><a class="st-map" href="https://map.naver.com/p/search/서울특별시%20금천구%20디지털로%20212" target="_blank" rel="noopener">지도 보기</a></div></div></div>
+<div class="store-card-wrap"><img src="store6.jpeg" alt="LGU+더끌림컴퍼니 남문시장점 - 서울특별시 금천구 LG유플러스 공식인증 대리점 휴대폰 매장" class="store-card-img"><div class="store-card-content"><div><h3 class="store-card-title">남문시장점</h3><p class="store-card-address"><span class="pin">📍</span> 서울특별시 금천구 독산로87길 2</p></div><div class="store-card-btns"><button type="button" class="btn-reserve" data-visit="남문시장점">방문 신청</button><a class="st-map" href="https://map.naver.com/p/search/서울특별시%20금천구%20독산로87길%202" target="_blank" rel="noopener">지도 보기</a></div></div></div>
+<div class="store-card-wrap"><img src="store17.jpeg" alt="LGU+더끌림컴퍼니 영등포구청점 - 서울특별시 영등포구 LG유플러스 공식인증 대리점 휴대폰 매장" class="store-card-img"><div class="store-card-content"><div><h3 class="store-card-title">영등포구청점</h3><p class="store-card-address"><span class="pin">📍</span> 서울특별시 영등포구 당산로 136-1</p></div><div class="store-card-btns"><button type="button" class="btn-reserve" data-visit="영등포구청점">방문 신청</button><a class="st-map" href="https://map.naver.com/p/search/서울특별시%20영등포구%20당산로%20136-1" target="_blank" rel="noopener">지도 보기</a></div></div></div>
+<div class="store-card-wrap"><img src="store11.jpeg" alt="LGU+더끌림컴퍼니 문래힐스테이트점 - 서울특별시 영등포구 LG유플러스 공식인증 대리점 휴대폰 매장" class="store-card-img"><div class="store-card-content"><div><h3 class="store-card-title">문래힐스테이트점</h3><p class="store-card-address"><span class="pin">📍</span> 서울특별시 영등포구 선유로 59</p></div><div class="store-card-btns"><button type="button" class="btn-reserve" data-visit="문래힐스테이트점">방문 신청</button><a class="st-map" href="https://map.naver.com/p/search/서울특별시%20영등포구%20선유로%2059" target="_blank" rel="noopener">지도 보기</a></div></div></div>
+<div class="store-card-wrap"><img src="store8.jpeg" alt="LGU+더끌림컴퍼니 대림9번출구점 - 서울특별시 영등포구 LG유플러스 공식인증 대리점 휴대폰 매장" class="store-card-img"><div class="store-card-content"><div><h3 class="store-card-title">대림9번출구점</h3><p class="store-card-address"><span class="pin">📍</span> 서울특별시 영등포구 도림로 135</p></div><div class="store-card-btns"><button type="button" class="btn-reserve" data-visit="대림9번출구점">방문 신청</button><a class="st-map" href="https://map.naver.com/p/search/서울특별시%20영등포구%20도림로%20135" target="_blank" rel="noopener">지도 보기</a></div></div></div>
+<div class="store-card-wrap"><img src="store9.jpeg" alt="LGU+더끌림컴퍼니 대림11번출구점 - 서울특별시 영등포구 LG유플러스 공식인증 대리점 휴대폰 매장" class="store-card-img"><div class="store-card-content"><div><h3 class="store-card-title">대림11번출구점</h3><p class="store-card-address"><span class="pin">📍</span> 서울특별시 영등포구 도림로 144</p></div><div class="store-card-btns"><button type="button" class="btn-reserve" data-visit="대림11번출구점">방문 신청</button><a class="st-map" href="https://map.naver.com/p/search/서울특별시%20영등포구%20도림로%20144" target="_blank" rel="noopener">지도 보기</a></div></div></div>
+<div class="store-card-wrap"><img src="store10.jpeg" alt="LGU+더끌림컴퍼니 대림삼거리점 - 서울특별시 영등포구 LG유플러스 공식인증 대리점 휴대폰 매장" class="store-card-img"><div class="store-card-content"><div><h3 class="store-card-title">대림삼거리점</h3><p class="store-card-address"><span class="pin">📍</span> 서울특별시 영등포구 디지털로54길 3 1층</p></div><div class="store-card-btns"><button type="button" class="btn-reserve" data-visit="대림삼거리점">방문 신청</button><a class="st-map" href="https://map.naver.com/p/search/서울특별시%20영등포구%20디지털로54길%203%201층" target="_blank" rel="noopener">지도 보기</a></div></div></div>
+<div class="store-card-wrap"><img src="store2.jpeg" alt="LGU+더끌림컴퍼니 강서구청점 - 서울특별시 강서구 LG유플러스 공식인증 대리점 휴대폰 매장" class="store-card-img"><div class="store-card-content"><div><h3 class="store-card-title">강서구청점</h3><p class="store-card-address"><span class="pin">📍</span> 서울특별시 강서구 화곡로 322</p></div><div class="store-card-btns"><button type="button" class="btn-reserve" data-visit="강서구청점">방문 신청</button><a class="st-map" href="https://map.naver.com/p/search/서울특별시%20강서구%20화곡로%20322" target="_blank" rel="noopener">지도 보기</a></div></div></div>
+<div class="store-card-wrap"><img src="store19.jpeg" alt="LGU+더끌림컴퍼니 증미산점 - 서울특별시 강서구 LG유플러스 공식인증 대리점 휴대폰 매장" class="store-card-img"><div class="store-card-content"><div><h3 class="store-card-title">증미산점</h3><p class="store-card-address"><span class="pin">📍</span> 서울특별시 강서구 양천로 583</p></div><div class="store-card-btns"><button type="button" class="btn-reserve" data-visit="증미산점">방문 신청</button><a class="st-map" href="https://map.naver.com/p/search/서울특별시%20강서구%20양천로%20583" target="_blank" rel="noopener">지도 보기</a></div></div></div>
 </div>
 <button type="button" class="btn-load-more" data-more="seoul">서울 매장 15곳 전체 보기 ∨</button>
 </div>
 <div class="store-region">
 <h3 class="store-region-title">경기 <span>9곳</span></h3>
 <div class="store-grid collapsed" id="storeGrid-gg">
-<div class="store-card-wrap"><img src="store12.jpeg" alt="LGU+더끌림컴퍼니 범계점 - 경기도 안양시 동안구 LG유플러스 공식인증 대리점 휴대폰 매장" class="store-card-img" loading="lazy"><div class="store-card-content"><div><h3 class="store-card-title">범계점</h3><p class="store-card-address"><span class="pin">📍</span> 경기도 안양시 동안구 평촌대로223번길 49</p></div><div class="store-card-btns"><button type="button" class="btn-reserve" data-visit="범계점">방문 신청</button><a class="st-map" href="https://map.naver.com/p/search/경기도%20안양시%20동안구%20평촌대로223번길%2049" target="_blank" rel="noopener">지도 보기</a></div></div></div>
-<div class="store-card-wrap"><img src="store24.jpeg" alt="LGU+더끌림컴퍼니 범계2호점 - 경기도 안양시 동안구 LG유플러스 공식인증 대리점 휴대폰 매장" class="store-card-img" loading="lazy"><div class="store-card-content"><div><h3 class="store-card-title">범계2호점</h3><p class="store-card-address"><span class="pin">📍</span> 경기도 안양시 동안구 동안로 120 평촌스포츠센터 105호</p></div><div class="store-card-btns"><button type="button" class="btn-reserve" data-visit="범계2호점">방문 신청</button><a class="st-map" href="https://map.naver.com/p/search/경기도%20안양시%20동안구%20동안로%20120%20평촌스포츠센터%20105호" target="_blank" rel="noopener">지도 보기</a></div></div></div>
-<div class="store-card-wrap"><img src="store21.jpeg" alt="LGU+더끌림컴퍼니 평촌학원가점 - 경기도 안양시 동안구 LG유플러스 공식인증 대리점 휴대폰 매장" class="store-card-img" loading="lazy"><div class="store-card-content"><div><h3 class="store-card-title">평촌학원가점</h3><p class="store-card-address"><span class="pin">📍</span> 경기도 안양시 동안구 평촌대로 137-7</p></div><div class="store-card-btns"><button type="button" class="btn-reserve" data-visit="평촌학원가점">방문 신청</button><a class="st-map" href="https://map.naver.com/p/search/경기도%20안양시%20동안구%20평촌대로%20137-7" target="_blank" rel="noopener">지도 보기</a></div></div></div>
-<div class="store-card-wrap"><img src="store18.jpeg" alt="LGU+더끌림컴퍼니 안양일번가점 - 경기도 안양시 만안구 LG유플러스 공식인증 대리점 휴대폰 매장" class="store-card-img" loading="lazy"><div class="store-card-content"><div><h3 class="store-card-title">안양일번가점</h3><p class="store-card-address"><span class="pin">📍</span> 경기도 안양시 만안구 안양로292번길 8</p></div><div class="store-card-btns"><button type="button" class="btn-reserve" data-visit="안양일번가점">방문 신청</button><a class="st-map" href="https://map.naver.com/p/search/경기도%20안양시%20만안구%20안양로292번길%208" target="_blank" rel="noopener">지도 보기</a></div></div></div>
-<div class="store-card-wrap"><img src="store14.jpeg" alt="LGU+더끌림컴퍼니 비산이마트점 - 경기도 안양시 동안구 LG유플러스 공식인증 대리점 휴대폰 매장" class="store-card-img" loading="lazy"><div class="store-card-content"><div><h3 class="store-card-title">비산이마트점</h3><p class="store-card-address"><span class="pin">📍</span> 경기도 안양시 동안구 관악대로 99</p></div><div class="store-card-btns"><button type="button" class="btn-reserve" data-visit="비산이마트점">방문 신청</button><a class="st-map" href="https://map.naver.com/p/search/경기도%20안양시%20동안구%20관악대로%2099" target="_blank" rel="noopener">지도 보기</a></div></div></div>
-<div class="store-card-wrap"><img src="store3.jpeg" alt="LGU+더끌림컴퍼니 관양시장점 - 경기도 안양시 동안구 LG유플러스 공식인증 대리점 휴대폰 매장" class="store-card-img" loading="lazy"><div class="store-card-content"><div><h3 class="store-card-title">관양시장점</h3><p class="store-card-address"><span class="pin">📍</span> 경기도 안양시 동안구 관악대로 341</p></div><div class="store-card-btns"><button type="button" class="btn-reserve" data-visit="관양시장점">방문 신청</button><a class="st-map" href="https://map.naver.com/p/search/경기도%20안양시%20동안구%20관악대로%20341" target="_blank" rel="noopener">지도 보기</a></div></div></div>
-<div class="store-card-wrap"><img src="store22.jpeg" alt="LGU+더끌림컴퍼니 호계점 - 경기도 안양시 동안구 LG유플러스 공식인증 대리점 휴대폰 매장" class="store-card-img" loading="lazy"><div class="store-card-content"><div><h3 class="store-card-title">호계점</h3><p class="store-card-address"><span class="pin">📍</span> 경기도 안양시 동안구 경수대로 541</p></div><div class="store-card-btns"><button type="button" class="btn-reserve" data-visit="호계점">방문 신청</button><a class="st-map" href="https://map.naver.com/p/search/경기도%20안양시%20동안구%20경수대로%20541" target="_blank" rel="noopener">지도 보기</a></div></div></div>
-<div class="store-card-wrap"><img src="store23.jpeg" alt="LGU+더끌림컴퍼니 수원역점 - 경기도 수원시 팔달구 LG유플러스 공식인증 대리점 휴대폰 매장" class="store-card-img" loading="lazy"><div class="store-card-content"><div><h3 class="store-card-title">수원역점</h3><p class="store-card-address"><span class="pin">📍</span> 경기 수원시 팔달구 고매로 26</p></div><div class="store-card-btns"><button type="button" class="btn-reserve" data-visit="수원역점">방문 신청</button><a class="st-map" href="https://map.naver.com/p/search/경기%20수원시%20팔달구%20고매로%2026" target="_blank" rel="noopener">지도 보기</a></div></div></div>
-<div class="store-card-wrap"><img src="store20.jpeg" alt="LGU+더끌림컴퍼니 칠보마을점 - 경기도 수원시 권선구 LG유플러스 공식인증 대리점 휴대폰 매장" class="store-card-img" loading="lazy"><div class="store-card-content"><div><h3 class="store-card-title">칠보마을점</h3><p class="store-card-address"><span class="pin">📍</span> 경기도 수원시 권선구 금곡로102번길 30 1층</p></div><div class="store-card-btns"><button type="button" class="btn-reserve" data-visit="칠보마을점">방문 신청</button><a class="st-map" href="https://map.naver.com/p/search/경기도%20수원시%20권선구%20금곡로102번길%2030%201층" target="_blank" rel="noopener">지도 보기</a></div></div></div>
+<div class="store-card-wrap"><img src="store12.jpeg" alt="LGU+더끌림컴퍼니 범계점 - 경기도 안양시 동안구 LG유플러스 공식인증 대리점 휴대폰 매장" class="store-card-img"><div class="store-card-content"><div><h3 class="store-card-title">범계점</h3><p class="store-card-address"><span class="pin">📍</span> 경기도 안양시 동안구 평촌대로223번길 49</p></div><div class="store-card-btns"><button type="button" class="btn-reserve" data-visit="범계점">방문 신청</button><a class="st-map" href="https://map.naver.com/p/search/경기도%20안양시%20동안구%20평촌대로223번길%2049" target="_blank" rel="noopener">지도 보기</a></div></div></div>
+<div class="store-card-wrap"><img src="store24.jpeg" alt="LGU+더끌림컴퍼니 범계2호점 - 경기도 안양시 동안구 LG유플러스 공식인증 대리점 휴대폰 매장" class="store-card-img"><div class="store-card-content"><div><h3 class="store-card-title">범계2호점</h3><p class="store-card-address"><span class="pin">📍</span> 경기도 안양시 동안구 동안로 120 평촌스포츠센터 105호</p></div><div class="store-card-btns"><button type="button" class="btn-reserve" data-visit="범계2호점">방문 신청</button><a class="st-map" href="https://map.naver.com/p/search/경기도%20안양시%20동안구%20동안로%20120%20평촌스포츠센터%20105호" target="_blank" rel="noopener">지도 보기</a></div></div></div>
+<div class="store-card-wrap"><img src="store21.jpeg" alt="LGU+더끌림컴퍼니 평촌학원가점 - 경기도 안양시 동안구 LG유플러스 공식인증 대리점 휴대폰 매장" class="store-card-img"><div class="store-card-content"><div><h3 class="store-card-title">평촌학원가점</h3><p class="store-card-address"><span class="pin">📍</span> 경기도 안양시 동안구 평촌대로 137-7</p></div><div class="store-card-btns"><button type="button" class="btn-reserve" data-visit="평촌학원가점">방문 신청</button><a class="st-map" href="https://map.naver.com/p/search/경기도%20안양시%20동안구%20평촌대로%20137-7" target="_blank" rel="noopener">지도 보기</a></div></div></div>
+<div class="store-card-wrap"><img src="store18.jpeg" alt="LGU+더끌림컴퍼니 안양일번가점 - 경기도 안양시 만안구 LG유플러스 공식인증 대리점 휴대폰 매장" class="store-card-img"><div class="store-card-content"><div><h3 class="store-card-title">안양일번가점</h3><p class="store-card-address"><span class="pin">📍</span> 경기도 안양시 만안구 안양로292번길 8</p></div><div class="store-card-btns"><button type="button" class="btn-reserve" data-visit="안양일번가점">방문 신청</button><a class="st-map" href="https://map.naver.com/p/search/경기도%20안양시%20만안구%20안양로292번길%208" target="_blank" rel="noopener">지도 보기</a></div></div></div>
+<div class="store-card-wrap"><img src="store14.jpeg" alt="LGU+더끌림컴퍼니 비산이마트점 - 경기도 안양시 동안구 LG유플러스 공식인증 대리점 휴대폰 매장" class="store-card-img"><div class="store-card-content"><div><h3 class="store-card-title">비산이마트점</h3><p class="store-card-address"><span class="pin">📍</span> 경기도 안양시 동안구 관악대로 99</p></div><div class="store-card-btns"><button type="button" class="btn-reserve" data-visit="비산이마트점">방문 신청</button><a class="st-map" href="https://map.naver.com/p/search/경기도%20안양시%20동안구%20관악대로%2099" target="_blank" rel="noopener">지도 보기</a></div></div></div>
+<div class="store-card-wrap"><img src="store3.jpeg" alt="LGU+더끌림컴퍼니 관양시장점 - 경기도 안양시 동안구 LG유플러스 공식인증 대리점 휴대폰 매장" class="store-card-img"><div class="store-card-content"><div><h3 class="store-card-title">관양시장점</h3><p class="store-card-address"><span class="pin">📍</span> 경기도 안양시 동안구 관악대로 341</p></div><div class="store-card-btns"><button type="button" class="btn-reserve" data-visit="관양시장점">방문 신청</button><a class="st-map" href="https://map.naver.com/p/search/경기도%20안양시%20동안구%20관악대로%20341" target="_blank" rel="noopener">지도 보기</a></div></div></div>
+<div class="store-card-wrap"><img src="store22.jpeg" alt="LGU+더끌림컴퍼니 호계점 - 경기도 안양시 동안구 LG유플러스 공식인증 대리점 휴대폰 매장" class="store-card-img"><div class="store-card-content"><div><h3 class="store-card-title">호계점</h3><p class="store-card-address"><span class="pin">📍</span> 경기도 안양시 동안구 경수대로 541</p></div><div class="store-card-btns"><button type="button" class="btn-reserve" data-visit="호계점">방문 신청</button><a class="st-map" href="https://map.naver.com/p/search/경기도%20안양시%20동안구%20경수대로%20541" target="_blank" rel="noopener">지도 보기</a></div></div></div>
+<div class="store-card-wrap"><img src="store23.jpeg" alt="LGU+더끌림컴퍼니 수원역점 - 경기도 수원시 팔달구 LG유플러스 공식인증 대리점 휴대폰 매장" class="store-card-img"><div class="store-card-content"><div><h3 class="store-card-title">수원역점</h3><p class="store-card-address"><span class="pin">📍</span> 경기 수원시 팔달구 고매로 26</p></div><div class="store-card-btns"><button type="button" class="btn-reserve" data-visit="수원역점">방문 신청</button><a class="st-map" href="https://map.naver.com/p/search/경기%20수원시%20팔달구%20고매로%2026" target="_blank" rel="noopener">지도 보기</a></div></div></div>
+<div class="store-card-wrap"><img src="store20.jpeg" alt="LGU+더끌림컴퍼니 칠보마을점 - 경기도 수원시 권선구 LG유플러스 공식인증 대리점 휴대폰 매장" class="store-card-img"><div class="store-card-content"><div><h3 class="store-card-title">칠보마을점</h3><p class="store-card-address"><span class="pin">📍</span> 경기도 수원시 권선구 금곡로102번길 30 1층</p></div><div class="store-card-btns"><button type="button" class="btn-reserve" data-visit="칠보마을점">방문 신청</button><a class="st-map" href="https://map.naver.com/p/search/경기도%20수원시%20권선구%20금곡로102번길%2030%201층" target="_blank" rel="noopener">지도 보기</a></div></div></div>
 </div>
 <button type="button" class="btn-load-more" data-more="gg">경기 매장 9곳 전체 보기 ∨</button>
 </div>
@@ -2617,14 +2631,14 @@ fbq('track', 'PageView');
 <div class="trust-slider-wrap">
 <div class="trust-track-container">
 <div class="trust-slide-set">
-<div class="trust-card card-light"><div class="trust-card-text">요금제부터 단말기 가격까지,<br>정확하게 안내드립니다.</div><img src="info1.png" alt="공시지원금 선택약정할인 비교 안내" class="trust-icon" loading="lazy"></div>
-<div class="trust-card card-light"><div class="trust-card-text">숨겨진 조건 없이<br>혜택을 <span class="text-lgu-pink">정직하게</span> 제공합니다.</div><img src="info2.png" alt="카드·결합·부가서비스 조건 없는 휴대폰 가격" class="trust-icon" loading="lazy"></div>
-<div class="trust-card card-light"><div class="trust-card-text">본사와 동일한 서비스 품질,<br>믿을 수 있는 상담 시스템.</div><img src="info3.png" alt="LG유플러스 공식인증 대리점 상담" class="trust-icon" loading="lazy"></div>
+<div class="trust-card card-light"><div class="trust-card-text">요금제부터 단말기 가격까지,<br>정확하게 안내드립니다.</div><img src="info1.png" alt="공시지원금 선택약정할인 비교 안내" class="trust-icon"></div>
+<div class="trust-card card-light"><div class="trust-card-text">숨겨진 조건 없이<br>혜택을 <span class="text-lgu-pink">정직하게</span> 제공합니다.</div><img src="info2.png" alt="카드·결합·부가서비스 조건 없는 휴대폰 가격" class="trust-icon"></div>
+<div class="trust-card card-light"><div class="trust-card-text">본사와 동일한 서비스 품질,<br>믿을 수 있는 상담 시스템.</div><img src="info3.png" alt="LG유플러스 공식인증 대리점 상담" class="trust-icon"></div>
 </div>
 <div class="trust-slide-set mobile-clone">
-<div class="trust-card card-light"><div class="trust-card-text">요금제부터 단말기 가격까지,<br>정확하게 안내드립니다.</div><img src="info1.png" alt="" class="trust-icon" loading="lazy"></div>
-<div class="trust-card card-light"><div class="trust-card-text">숨겨진 조건 없이<br>혜택을 <span class="text-lgu-pink">정직하게</span> 제공합니다.</div><img src="info2.png" alt="" class="trust-icon" loading="lazy"></div>
-<div class="trust-card card-light"><div class="trust-card-text">본사와 동일한 서비스 품질,<br>믿을 수 있는 상담 시스템.</div><img src="info3.png" alt="" class="trust-icon" loading="lazy"></div>
+<div class="trust-card card-light"><div class="trust-card-text">요금제부터 단말기 가격까지,<br>정확하게 안내드립니다.</div><img src="info1.png" alt="" class="trust-icon"></div>
+<div class="trust-card card-light"><div class="trust-card-text">숨겨진 조건 없이<br>혜택을 <span class="text-lgu-pink">정직하게</span> 제공합니다.</div><img src="info2.png" alt="" class="trust-icon"></div>
+<div class="trust-card card-light"><div class="trust-card-text">본사와 동일한 서비스 품질,<br>믿을 수 있는 상담 시스템.</div><img src="info3.png" alt="" class="trust-icon"></div>
 </div>
 </div>
 </div>
@@ -2634,18 +2648,18 @@ fbq('track', 'PageView');
 <div class="review-slider-wrap">
 <div class="review-track-container">
 <div class="review-slide-set">
-<div class="review-card"><img src="review1.png" alt="LGU+더끌림컴퍼니 고객 후기 1" loading="lazy"></div>
-<div class="review-card"><img src="review2.png" alt="LGU+더끌림컴퍼니 고객 후기 2" loading="lazy"></div>
-<div class="review-card"><img src="review3.png" alt="LGU+더끌림컴퍼니 고객 후기 3" loading="lazy"></div>
-<div class="review-card"><img src="review4.png" alt="LGU+더끌림컴퍼니 고객 후기 4" loading="lazy"></div>
-<div class="review-card"><img src="review5.png" alt="LGU+더끌림컴퍼니 고객 후기 5" loading="lazy"></div>
+<div class="review-card"><img src="review1.png" alt="LGU+더끌림컴퍼니 고객 후기 1"></div>
+<div class="review-card"><img src="review2.png" alt="LGU+더끌림컴퍼니 고객 후기 2"></div>
+<div class="review-card"><img src="review3.png" alt="LGU+더끌림컴퍼니 고객 후기 3"></div>
+<div class="review-card"><img src="review4.png" alt="LGU+더끌림컴퍼니 고객 후기 4"></div>
+<div class="review-card"><img src="review5.png" alt="LGU+더끌림컴퍼니 고객 후기 5"></div>
 </div>
 <div class="review-slide-set">
-<div class="review-card"><img src="review1.png" alt="" loading="lazy"></div>
-<div class="review-card"><img src="review2.png" alt="" loading="lazy"></div>
-<div class="review-card"><img src="review3.png" alt="" loading="lazy"></div>
-<div class="review-card"><img src="review4.png" alt="" loading="lazy"></div>
-<div class="review-card"><img src="review5.png" alt="" loading="lazy"></div>
+<div class="review-card"><img src="review1.png" alt=""></div>
+<div class="review-card"><img src="review2.png" alt=""></div>
+<div class="review-card"><img src="review3.png" alt=""></div>
+<div class="review-card"><img src="review4.png" alt=""></div>
+<div class="review-card"><img src="review5.png" alt=""></div>
 </div>
 </div>
 </div>
@@ -3062,7 +3076,7 @@ var OS_DATA={"models":[{"id":"duo","name":"iPhone Duo","maker":"apple","img":"ip
             if (q.r.prin === 0) badges.push(['zero', '할부원금 0원']);
         }
         h += '<div class="os-badges">' + badgeHtml(badges) + '</div>';
-        h += '<div class="os-card-img"><img src="' + m.img + '" alt="' + m.name + ' LG유플러스 ' + TYPE_NM[st.type] + ' 가격" loading="lazy"></div>';
+        h += '<div class="os-card-img"><img src="' + m.img + '" alt="' + m.name + ' LG유플러스 ' + TYPE_NM[st.type] + ' 가격"></div>';
         h += '<h3 class="os-card-name">' + m.name + '</h3>';
         h += '<div class="os-caps">' + capsHtml(m, cap) + '</div>';
 
@@ -3725,7 +3739,7 @@ window.SITE_STORES=[{"name":"신림점","region":"서울","addr":"서울특별�
             '<h3 style="margin-top:24px">보러 오실 기종</h3><p class="ap-sub">아직 못 정하셨으면 맨 아래 \'매장에서 정할게요\'를 눌러주세요.</p>' +
             '<div class="ap-models">' + list.map(function (x) {
                 return '<button type="button" class="ap-model' + (st.vm === x.id ? ' on' : '') + '" data-ap="vm" data-v="' + x.id + '">' +
-                    (x.img ? '<img src="' + esc(x.img) + '" alt="" loading="lazy">' : '') + '<span>' + esc(x.name) + (x.pre ? '<small>사전예약</small>' : '') + '</span></button>';
+                    (x.img ? '<img src="' + esc(x.img) + '" alt="">' : '') + '<span>' + esc(x.name) + (x.pre ? '<small>사전예약</small>' : '') + '</span></button>';
             }).join('') +
             '<button type="button" class="ap-model ap-model-none' + (st.vm === 'none' ? ' on' : '') + '" data-ap="vm" data-v="none"><span>매장에서 정할게요<small>상담 후 결정</small></span></button></div>' +
             (m && m.caps.length > 1 ? '<div class="ap-field"><span class="ap-lbl">용량</span><div class="ap-dates">' + m.caps.map(function (x) {
