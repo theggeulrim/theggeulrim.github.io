@@ -1,0 +1,1050 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#f4f6fa">
+<title>더끌림 ERP</title>
+<style>
+:root{
+  --bg:#f4f6fa;--card:#fff;--soft:#f2f4f8;--line:#e8ebf0;--tx:#191f28;--tx2:#6b7684;--tx3:#a0a8b3;
+  --blue:#2b6ef2;--bluebg:#eaf1fe;--orange:#f08c00;--orangebg:#fff4e5;--green:#0f9d58;--greenbg:#e6f6ed;--red:#e5484d;--redbg:#fdecec;
+  --sh:0 1px 2px rgba(20,30,50,.04),0 4px 14px rgba(20,30,50,.05);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--bg);color:var(--tx);font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Pretendard","Noto Sans KR",sans-serif;-webkit-font-smoothing:antialiased}
+body{padding-bottom:calc(86px + env(safe-area-inset-bottom))}
+body.withbar{padding-bottom:calc(190px + env(safe-area-inset-bottom))}
+button,input,select{font:inherit;color:inherit}
+.wrap{max-width:560px;margin:0 auto;padding:18px 16px}
+.top{display:flex;justify-content:space-between;align-items:center}
+.top h1{font-size:24px;font-weight:800;letter-spacing:-.02em}
+.who{background:var(--card);box-shadow:var(--sh);border:0;border-radius:999px;padding:7px 12px;font-size:13px;font-weight:600;cursor:pointer;color:var(--tx2)}
+.who b{color:var(--blue)}
+.sub{color:var(--tx2);font-size:14px;margin-top:4px}
+.demo{margin-top:12px;background:var(--orangebg);color:#9a5a00;border-radius:12px;padding:10px 12px;font-size:13px;display:flex;justify-content:space-between;gap:8px;align-items:center}
+.demo button{background:#fff;border:1px solid #f3c98b;border-radius:8px;padding:5px 9px;font-size:12px;color:#9a5a00;white-space:nowrap;cursor:pointer}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.kpi{background:var(--card);border-radius:18px;padding:16px;box-shadow:var(--sh)}
+.kpi .l{color:var(--tx2);font-size:14px;font-weight:500}
+.kpi .v{font-size:26px;font-weight:800;margin:6px 0 2px;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.kpi .s{color:var(--tx3);font-size:13px}
+.kpi.big{grid-column:1/-1}
+.kpi.hero{grid-column:1/-1;background:var(--blue);color:#fff}
+.kpi.hero .l,.kpi.hero .s{color:rgba(255,255,255,.82)}
+.kpi.hero .v{font-size:34px}
+.neg{color:var(--red)!important}
+.pos{color:var(--green)}
+h2{font-size:18px;font-weight:700;margin:26px 0 10px;display:flex;justify-content:space-between;align-items:baseline;letter-spacing:-.01em}
+h2 small{font-size:13px;color:var(--tx2);font-weight:500}
+.card{background:var(--card);border-radius:18px;padding:14px 16px;margin-bottom:10px;box-shadow:var(--sh)}
+.bar{margin:4px 0 14px}
+.bar:last-child{margin-bottom:4px}
+.bar .r{display:flex;justify-content:space-between;font-size:15px;margin-bottom:7px;font-weight:600}
+.bar .r span:last-child{font-variant-numeric:tabular-nums}
+.bar .r em{font-style:normal;color:var(--tx2);font-size:13px;margin-left:6px;font-weight:500}
+.track{height:10px;background:var(--soft);border-radius:999px;overflow:hidden}
+.fill{height:100%;border-radius:999px;background:var(--blue)}
+.fill.warn{background:var(--orange)}
+.fill.ok{background:var(--green)}
+.hint{font-size:13px;color:var(--tx2);margin-top:6px}
+.hint b{color:var(--blue)}
+.list .it{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid var(--line);gap:10px;cursor:pointer}
+.list .it:last-child{border-bottom:0}
+.it .a{font-size:15px;font-weight:600}
+.it .b{font-size:12px;color:var(--tx2);margin-top:3px;line-height:1.45}
+.it .m{font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap;text-align:right}
+.it .m small{display:block;font-size:11px;color:var(--tx3);font-weight:500}
+.tag{display:inline-block;font-size:11px;font-weight:600;border-radius:6px;padding:1px 6px;margin-right:4px;background:var(--soft);color:var(--tx2)}
+.tag.moyo{background:#f1ecff;color:#6b45d6}.tag.hotdeal{background:var(--redbg);color:#c0392b}.tag.online{background:var(--bluebg);color:var(--blue)}
+.detail{background:var(--soft);border-radius:12px;padding:10px 12px;margin:0 0 10px;font-size:13px}
+.detail .row{display:flex;justify-content:space-between;padding:3px 0;color:var(--tx2);gap:10px}
+.detail .row b{color:var(--tx);font-weight:600;font-variant-numeric:tabular-nums;text-align:right}
+.detail .tot{border-top:1px solid var(--line);margin-top:6px;padding-top:6px;color:var(--tx);font-weight:700}
+.detail .del{margin-top:8px;background:#fff;border:1px solid #f5c2c3;color:var(--red);border-radius:8px;padding:5px 10px;font-size:12px;cursor:pointer}
+.chart{display:flex;align-items:flex-end;gap:3px;height:110px;padding-top:6px}
+.chart .c{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%}
+.chart .c i{display:block;width:100%;background:#c9dafc;border-radius:4px 4px 0 0;min-height:2px}
+.chart .c i.n{background:#f5b3b5}
+.chart .c i.t{background:var(--blue)}
+.chart .c span{font-size:9px;color:var(--tx3);margin-top:4px;height:11px}
+.pay .row{display:flex;justify-content:space-between;padding:7px 0;font-size:15px;color:var(--tx2)}
+.pay .row b{color:var(--tx);font-variant-numeric:tabular-nums}
+.pay .row.tot{border-top:1px solid var(--line);margin-top:4px;padding-top:11px;color:var(--tx);font-weight:700;font-size:16px}
+.pay .row.tot b{color:var(--blue);font-size:19px}
+.pay .row.dim b{color:var(--tx3);font-weight:500}
+/* 입력 */
+.step{background:var(--card);border-radius:18px;padding:16px;margin-bottom:12px;box-shadow:var(--sh)}
+.step .t{font-size:16px;font-weight:700;margin-bottom:4px;display:flex;align-items:center;gap:8px}
+.step .t i{font-style:normal;width:22px;height:22px;border-radius:50%;background:var(--blue);color:#fff;font-size:12px;display:inline-flex;align-items:center;justify-content:center}
+.form label{display:block;font-size:13px;color:var(--tx2);margin:14px 0 6px;font-weight:600}
+.form input,.form select{width:100%;background:var(--soft);border:1.5px solid transparent;border-radius:12px;padding:12px;font-size:16px}
+.form input:focus,.form select:focus{outline:0;border-color:var(--blue);background:#fff}
+.seg{display:flex;flex-wrap:wrap;gap:6px}
+.seg button{flex:1 1 0;min-width:0;border:1.5px solid var(--line);background:#fff;padding:11px 4px;border-radius:12px;font-size:15px;color:var(--tx2);cursor:pointer;font-weight:600}
+.seg button.on{border-color:var(--blue);background:var(--bluebg);color:var(--blue)}
+.chk{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.chk button{border:1.5px solid var(--line);background:#fff;border-radius:14px;padding:12px;text-align:left;cursor:pointer}
+.chk button b{display:block;font-size:15px}
+.chk button span{font-size:12px;color:var(--tx3)}
+.chk button.on{border-color:var(--green);background:var(--greenbg)}
+.chk button.on b::before{content:"✓ ";color:var(--green)}
+.inline{margin-top:8px}
+.calcd{margin-top:4px}
+.calcd .row{display:flex;justify-content:space-between;padding:4px 0;font-size:14px;color:var(--tx2)}
+.calcd .row b{color:var(--tx);font-weight:600;font-variant-numeric:tabular-nums}
+.calcd .row.minus b{color:var(--red)}
+.calcd .row.spot b{color:var(--green)}
+.calcd .row.tot{border-top:1px solid var(--line);margin-top:6px;padding-top:8px;font-weight:700;color:var(--tx)}
+.sbar{position:fixed;left:0;right:0;bottom:calc(62px + env(safe-area-inset-bottom));z-index:9;padding:0 12px 8px}
+.sbar .in{max-width:536px;margin:0 auto;background:#fff;border-radius:18px;box-shadow:0 6px 24px rgba(20,30,50,.14);padding:12px 12px 12px 16px;display:flex;align-items:center;gap:12px}
+.sbar .nums{flex:1;min-width:0}
+.sbar .nums .k{font-size:12px;color:var(--tx2)}
+.sbar .nums .v{font-size:22px;font-weight:800;color:var(--green);font-variant-numeric:tabular-nums}
+.sbar .nums .s{font-size:12px;color:var(--tx3)}
+.btn{display:block;width:100%;background:var(--blue);color:#fff;border:0;border-radius:14px;padding:15px;font-size:17px;font-weight:700;margin-top:14px;cursor:pointer}
+.btn.ghost{background:var(--card);color:var(--tx);box-shadow:var(--sh)}
+.sbar .btn{width:auto;margin:0;padding:14px 20px;white-space:nowrap}
+.toast{position:fixed;left:50%;top:18px;transform:translateX(-50%);background:var(--tx);color:#fff;padding:10px 18px;border-radius:999px;font-size:14px;font-weight:600;opacity:0;transition:opacity .2s;pointer-events:none;z-index:20}
+.toast.on{opacity:1}
+nav{position:fixed;left:0;right:0;bottom:0;background:rgba(255,255,255,.96);backdrop-filter:blur(12px);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom);z-index:10}
+nav .in{max-width:560px;margin:0 auto;display:flex}
+nav button{flex:1;border:0;background:none;padding:9px 0 10px;color:var(--tx3);font-size:11px;font-weight:600;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer}
+nav button.on{color:var(--blue)}
+nav svg{width:23px;height:23px;stroke:currentColor;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.pol .mh{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px}
+.pol .mh b{font-size:15px}
+.pol .mh span{font-size:12px;color:var(--tx3)}
+.pg{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.pg.c3{grid-template-columns:repeat(3,1fr)}
+.pg.c2{grid-template-columns:repeat(2,1fr)}
+.pg div{font-size:11px;color:var(--tx2)}
+.pg input{width:100%;background:var(--soft);border:1.5px solid transparent;border-radius:8px;padding:7px 6px;font-size:13px;text-align:right;font-variant-numeric:tabular-nums;margin-top:3px}
+.pg input:focus{border-color:var(--blue);outline:0;background:#fff}
+.pg input.chg{border-color:var(--orange)}
+.sec{font-size:13px;color:var(--tx2);margin:16px 0 8px;font-weight:700}
+.chips{display:flex;gap:6px;overflow-x:auto;margin-bottom:12px;padding-bottom:2px}
+.chips button{border:1px solid var(--line);background:#fff;border-radius:999px;padding:7px 13px;font-size:13px;color:var(--tx2);white-space:nowrap;cursor:pointer;font-weight:600}
+.chips button.on{background:var(--tx);color:#fff;border-color:var(--tx)}
+.login{min-height:100vh;display:flex;flex-direction:column;justify-content:center}
+.login .opt{background:var(--card);box-shadow:var(--sh);border-radius:18px;padding:18px;margin-top:10px;border:0;text-align:left;width:100%;cursor:pointer;display:flex;justify-content:space-between;align-items:center}
+.login .opt b{font-size:18px;display:block}
+.login .opt span{font-size:13px;color:var(--tx2)}
+.login .opt::after{content:"›";font-size:24px;color:var(--tx3)}
+.empty{color:var(--tx3);font-size:14px;text-align:center;padding:24px 0}
+.note{font-size:12px;color:var(--tx3);margin-top:8px;line-height:1.55}
+.tg{display:flex;justify-content:space-between;align-items:center;padding:6px 0;gap:10px}
+.sw{width:50px;height:30px;border-radius:999px;background:#d5dae1;border:0;position:relative;cursor:pointer;flex:none}
+.sw::after{content:"";position:absolute;top:3px;left:3px;width:24px;height:24px;border-radius:50%;background:#fff;transition:left .15s;box-shadow:0 1px 3px rgba(0,0,0,.2)}
+.sw.on{background:var(--green)}
+.sw.on::after{left:23px}
+.tier{display:flex;gap:6px;margin-top:8px;overflow-x:auto}
+.tier span{flex:none;font-size:11px;padding:4px 8px;border-radius:8px;background:var(--soft);color:var(--tx3);font-weight:600}
+.tier span.on{background:var(--greenbg);color:var(--green)}
+.tier span.next{background:var(--bluebg);color:var(--blue)}
+.tbl{width:100%;border-collapse:collapse;font-size:13px;font-variant-numeric:tabular-nums}
+.tbl th{position:sticky;top:0;z-index:1;background:#eef1f6;color:var(--tx2);font-weight:600;text-align:left;padding:9px 6px;white-space:nowrap;font-size:12px}
+.tbl td{border-bottom:1px solid var(--line);padding:5px 6px;white-space:nowrap;vertical-align:middle}
+.tbl .r{text-align:right}.tbl .c{text-align:center}
+.tbl tr.bad td{background:#fff5f5}
+.tbl tbody tr:hover td{background:#f8faff}
+.tbl input,.tbl select{background:var(--soft);border:1.5px solid transparent;border-radius:8px;padding:6px;font-size:13px;width:100%;min-width:0}
+.tbl input:focus,.tbl select:focus{outline:0;border-color:var(--blue);background:#fff}
+.tbl input[type=checkbox]{width:18px;height:18px;accent-color:var(--green);cursor:pointer}
+.tbl .del{margin:0;padding:4px 8px}
+.tscroll{overflow:auto;max-height:68vh;background:var(--card);border-radius:18px;box-shadow:var(--sh)}
+.tools{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 12px;align-items:center}
+.tools button,.tools label{border:1px solid var(--line);background:#fff;border-radius:10px;padding:9px 14px;font-size:14px;font-weight:600;cursor:pointer;color:var(--tx)}
+.tools button.pri{background:var(--blue);color:#fff;border-color:var(--blue)}
+.tools input[type=file]{display:none}
+.tools .sp{flex:1}
+textarea.paste{width:100%;min-height:96px;background:var(--soft);border:1.5px solid transparent;border-radius:12px;padding:10px;font:13px/1.5 ui-monospace,Menlo,monospace;resize:vertical}
+textarea.paste:focus{outline:0;border-color:var(--blue);background:#fff}
+.err{color:var(--red);font-size:12px;font-weight:600}
+.colhelp{font-size:12px;color:var(--tx2);line-height:1.7;margin:8px 0}
+.colhelp b{display:inline-block;background:var(--soft);border-radius:6px;padding:0 6px;margin:2px 2px 2px 0;font-weight:600;color:var(--tx)}
+.pconly{display:none}
+@media(min-width:1000px){
+  .pconly{display:block}
+  body,body.withbar{padding-bottom:30px;padding-left:220px}
+  nav{top:0;bottom:0;right:auto;width:220px;border-top:0;border-right:1px solid var(--line);background:#fff;backdrop-filter:none}
+  nav .in{flex-direction:column;padding:76px 12px 0;gap:2px}
+  nav button{flex:none;flex-direction:row;gap:12px;font-size:15px;padding:12px 14px;border-radius:12px;justify-content:flex-start;color:var(--tx2)}
+  nav button.on{background:var(--bluebg)}
+  nav svg{width:21px;height:21px}
+  .wrap{max-width:1240px;padding:28px 36px}
+  .wrap.login{max-width:480px}
+  body:has(.login){padding-left:0}
+  body:has(.login) nav{display:none}
+  .grid2{grid-template-columns:repeat(4,1fr)}
+  .kpi.big{grid-column:span 4}
+  .sbar{left:220px;bottom:0;padding-bottom:16px}
+  .form{max-width:640px}
+}
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.2/dist/umd/supabase.js"></script>
+</head>
+<body>
+<div id="app"></div>
+<div class="toast" id="toast"></div>
+<script>
+(function(){
+// 정책 원본: 상담단가표.html(채널별 대리점 지원금, 2026-10-26) + MNP마진계산기.html(수수료·판매활성화, CALCVER 2026-10-26)
+const POLICY_MODELS=[{"id":"m0","grp":"아이폰18","model":"아이폰 듀오","cap":"256GB","retail":3300000,"act":{"mnp":0,"dev":0},"sub":{"moyo":{"mnp":{"85":400000,"115":450000},"dev":{"85":100000,"115":150000}},"online":{"mnp":{"85":430000,"115":480000},"dev":{"85":130000,"115":180000}},"hotdeal":{"mnp":{"85":450000,"115":500000},"dev":{"85":150000,"115":200000}}}},{"id":"m1","grp":"아이폰18","model":"아이폰 듀오","cap":"512GB","retail":3597000,"act":{"mnp":0,"dev":0},"sub":{"moyo":{"mnp":{"85":400000,"115":450000},"dev":{"85":100000,"115":150000}},"online":{"mnp":{"85":430000,"115":480000},"dev":{"85":130000,"115":180000}},"hotdeal":{"mnp":{"85":450000,"115":500000},"dev":{"85":150000,"115":200000}}}},{"id":"m2","grp":"아이폰18","model":"아이폰 듀오","cap":"1TB","retail":4191000,"act":{"mnp":0,"dev":0},"sub":{"moyo":{"mnp":{"85":400000,"115":450000},"dev":{"85":100000,"115":150000}},"online":{"mnp":{"85":430000,"115":480000},"dev":{"85":130000,"115":180000}},"hotdeal":{"mnp":{"85":450000,"115":500000},"dev":{"85":150000,"115":200000}}}},{"id":"m3","grp":"아이폰18","model":"아이폰 듀오","cap":"2TB","retail":5093000,"act":{"mnp":0,"dev":0},"sub":{"moyo":{"mnp":{"85":400000,"115":450000},"dev":{"85":100000,"115":150000}},"online":{"mnp":{"85":430000,"115":480000},"dev":{"85":130000,"115":180000}},"hotdeal":{"mnp":{"85":450000,"115":500000},"dev":{"85":150000,"115":200000}}}},{"id":"m4","grp":"아이폰18","model":"아이폰18 PRO","cap":"256GB","retail":1991000,"act":{"mnp":33000,"dev":0},"sub":{"moyo":{"mnp":{"85":400000,"115":450000},"dev":{"85":100000,"115":200000}},"online":{"mnp":{"85":430000,"115":530000},"dev":{"85":180000,"115":230000}},"hotdeal":{"mnp":{"85":450000,"115":550000},"dev":{"85":200000,"115":250000}}},"rep":99000},{"id":"m5","grp":"아이폰18","model":"아이폰18 PRO","cap":"512GB","retail":2299000,"act":{"mnp":33000,"dev":0},"sub":{"moyo":{"mnp":{"85":400000,"115":450000},"dev":{"85":100000,"115":200000}},"online":{"mnp":{"85":430000,"115":530000},"dev":{"85":180000,"115":230000}},"hotdeal":{"mnp":{"85":450000,"115":550000},"dev":{"85":200000,"115":250000}}},"rep":99000},{"id":"m6","grp":"아이폰18","model":"아이폰18 PRO","cap":"1TB","retail":2893000,"act":{"mnp":33000,"dev":0},"sub":{"moyo":{"mnp":{"85":400000,"115":450000},"dev":{"85":100000,"115":200000}},"online":{"mnp":{"85":430000,"115":530000},"dev":{"85":180000,"115":230000}},"hotdeal":{"mnp":{"85":450000,"115":550000},"dev":{"85":200000,"115":250000}}},"rep":99000},{"id":"m7","grp":"아이폰18","model":"아이폰18 PRO","cap":"2TB","retail":3795000,"act":{"mnp":33000,"dev":0},"sub":{"moyo":{"mnp":{"85":400000,"115":450000},"dev":{"85":100000,"115":200000}},"online":{"mnp":{"85":430000,"115":530000},"dev":{"85":180000,"115":230000}},"hotdeal":{"mnp":{"85":450000,"115":550000},"dev":{"85":200000,"115":250000}}},"rep":99000},{"id":"m8","grp":"아이폰18","model":"아이폰18 PRO MAX","cap":"256GB","retail":2200000,"act":{"mnp":33000,"dev":0},"sub":{"moyo":{"mnp":{"85":400000,"115":450000},"dev":{"85":100000,"115":200000}},"online":{"mnp":{"85":480000,"115":480000},"dev":{"85":180000,"115":230000}},"hotdeal":{"mnp":{"85":500000,"115":500000},"dev":{"85":200000,"115":250000}}},"rep":99000},{"id":"m9","grp":"아이폰18","model":"아이폰18 PRO MAX","cap":"512GB","retail":2497000,"act":{"mnp":33000,"dev":0},"sub":{"moyo":{"mnp":{"85":400000,"115":450000},"dev":{"85":100000,"115":200000}},"online":{"mnp":{"85":480000,"115":480000},"dev":{"85":180000,"115":230000}},"hotdeal":{"mnp":{"85":500000,"115":500000},"dev":{"85":200000,"115":250000}}},"rep":99000},{"id":"m10","grp":"아이폰18","model":"아이폰18 PRO MAX","cap":"1TB","retail":3091000,"act":{"mnp":33000,"dev":0},"sub":{"moyo":{"mnp":{"85":400000,"115":450000},"dev":{"85":100000,"115":200000}},"online":{"mnp":{"85":480000,"115":480000},"dev":{"85":180000,"115":230000}},"hotdeal":{"mnp":{"85":500000,"115":500000},"dev":{"85":200000,"115":250000}}},"rep":99000},{"id":"m11","grp":"아이폰18","model":"아이폰18 PRO MAX","cap":"2TB","retail":3993000,"act":{"mnp":33000,"dev":0},"sub":{"moyo":{"mnp":{"85":400000,"115":450000},"dev":{"85":100000,"115":200000}},"online":{"mnp":{"85":480000,"115":480000},"dev":{"85":180000,"115":230000}},"hotdeal":{"mnp":{"85":500000,"115":500000},"dev":{"85":200000,"115":250000}}},"rep":99000},{"id":"m12","grp":"갤럭시","model":"갤럭시 S26","cap":"256GB","retail":1254000,"act":{"mnp":242000,"dev":242000},"sub":{"moyo":{"mnp":{"85":590000,"115":654000},"dev":{"85":280000,"115":380000}},"online":{"mnp":{"85":620000,"115":654000},"dev":{"85":360000,"115":410000}},"hotdeal":{"mnp":{"85":654000,"115":654000},"dev":{"85":380000,"115":430000}}}},{"id":"m13","grp":"갤럭시","model":"갤럭시 S26","cap":"512GB","retail":1507000,"act":{"mnp":242000,"dev":242000},"sub":{"moyo":{"mnp":{"85":590000,"115":640000},"dev":{"85":280000,"115":380000}},"online":{"mnp":{"85":620000,"115":670000},"dev":{"85":360000,"115":410000}},"hotdeal":{"mnp":{"85":640000,"115":690000},"dev":{"85":380000,"115":430000}}}},{"id":"m14","grp":"갤럭시","model":"갤럭시 S26+","cap":"256GB","retail":1452000,"act":{"mnp":176000,"dev":176000},"sub":{"moyo":{"mnp":{"85":520000,"115":570000},"dev":{"85":220000,"115":320000}},"online":{"mnp":{"85":550000,"115":600000},"dev":{"85":300000,"115":350000}},"hotdeal":{"mnp":{"85":570000,"115":620000},"dev":{"85":320000,"115":370000}}}},{"id":"m15","grp":"갤럭시","model":"갤럭시 S26+","cap":"512GB","retail":1705000,"act":{"mnp":176000,"dev":176000},"sub":{"moyo":{"mnp":{"85":520000,"115":570000},"dev":{"85":220000,"115":320000}},"online":{"mnp":{"85":550000,"115":600000},"dev":{"85":300000,"115":350000}},"hotdeal":{"mnp":{"85":570000,"115":620000},"dev":{"85":320000,"115":370000}}}},{"id":"m16","grp":"갤럭시","model":"갤럭시 S26 Ultra","cap":"256GB","retail":1797400,"act":{"mnp":176000,"dev":176000},"sub":{"moyo":{"mnp":{"85":520000,"115":570000},"dev":{"85":220000,"115":320000}},"online":{"mnp":{"85":550000,"115":600000},"dev":{"85":300000,"115":350000}},"hotdeal":{"mnp":{"85":570000,"115":620000},"dev":{"85":320000,"115":370000}}}},{"id":"m17","grp":"갤럭시","model":"갤럭시 S26 Ultra","cap":"512GB","retail":2050400,"act":{"mnp":176000,"dev":176000},"sub":{"moyo":{"mnp":{"85":520000,"115":570000},"dev":{"85":220000,"115":320000}},"online":{"mnp":{"85":550000,"115":600000},"dev":{"85":300000,"115":350000}},"hotdeal":{"mnp":{"85":570000,"115":620000},"dev":{"85":320000,"115":370000}}}},{"id":"m18","grp":"갤럭시","model":"갤럭시 S25 Edge","cap":"256GB","retail":1353000,"act":{"mnp":319000,"dev":407000},"sub":{"moyo":{"mnp":{"85":653000,"115":653000},"dev":{"85":400000,"115":500000}},"online":{"mnp":{"85":653000,"115":653000},"dev":{"85":430000,"115":530000}},"hotdeal":{"mnp":{"85":653000,"115":653000},"dev":{"85":450000,"115":550000}}}},{"id":"m19","grp":"아이폰","model":"아이폰17","cap":"256GB","retail":1452000,"act":{"mnp":44000,"dev":0},"sub":{"moyo":{"mnp":{"85":400000,"115":450000},"dev":{"85":100000,"115":200000}},"online":{"mnp":{"85":430000,"115":480000},"dev":{"85":180000,"115":230000}},"hotdeal":{"mnp":{"85":450000,"115":500000},"dev":{"85":200000,"115":250000}}}},{"id":"m20","grp":"아이폰","model":"아이폰17","cap":"512GB","retail":1760000,"act":{"mnp":44000,"dev":0},"sub":{"moyo":{"mnp":{"85":400000,"115":450000},"dev":{"85":100000,"115":200000}},"online":{"mnp":{"85":430000,"115":480000},"dev":{"85":180000,"115":230000}},"hotdeal":{"mnp":{"85":450000,"115":500000},"dev":{"85":200000,"115":250000}}}},{"id":"m21","grp":"아이폰","model":"아이폰17 Pro","cap":"256GB","retail":1782000,"act":{"mnp":44000,"dev":44000},"sub":{"moyo":{"mnp":{"85":400000,"115":450000},"dev":{"85":100000,"115":200000}},"online":{"mnp":{"85":430000,"115":480000},"dev":{"85":180000,"115":230000}},"hotdeal":{"mnp":{"85":450000,"115":500000},"dev":{"85":200000,"115":250000}}}},{"id":"m22","grp":"아이폰","model":"아이폰17 Pro","cap":"512GB","retail":2090000,"act":{"mnp":44000,"dev":44000},"sub":{"moyo":{"mnp":{"85":400000,"115":450000},"dev":{"85":100000,"115":200000}},"online":{"mnp":{"85":430000,"115":480000},"dev":{"85":180000,"115":230000}},"hotdeal":{"mnp":{"85":450000,"115":500000},"dev":{"85":200000,"115":250000}}}},{"id":"m23","grp":"아이폰","model":"아이폰17 Pro","cap":"1TB","retail":2387000,"act":{"mnp":44000,"dev":44000},"sub":{"moyo":{"mnp":{"85":400000,"115":450000},"dev":{"85":100000,"115":200000}},"online":{"mnp":{"85":430000,"115":480000},"dev":{"85":180000,"115":230000}},"hotdeal":{"mnp":{"85":450000,"115":500000},"dev":{"85":200000,"115":250000}}}},{"id":"m24","grp":"아이폰","model":"아이폰17 Pro Max","cap":"256GB","retail":1980000,"act":{"mnp":44000,"dev":0},"sub":{"moyo":{"mnp":{"85":400000,"115":450000},"dev":{"85":100000,"115":200000}},"online":{"mnp":{"85":430000,"115":480000},"dev":{"85":180000,"115":230000}},"hotdeal":{"mnp":{"85":450000,"115":500000},"dev":{"85":200000,"115":250000}}}},{"id":"m25","grp":"아이폰","model":"아이폰17 Pro Max","cap":"512GB","retail":2288000,"act":{"mnp":44000,"dev":0},"sub":{"moyo":{"mnp":{"85":400000,"115":450000},"dev":{"85":100000,"115":200000}},"online":{"mnp":{"85":430000,"115":480000},"dev":{"85":180000,"115":230000}},"hotdeal":{"mnp":{"85":450000,"115":500000},"dev":{"85":200000,"115":250000}}}},{"id":"m26","grp":"폴더블","model":"Z플립8","cap":"256GB","retail":1683000,"act":{"mnp":154000,"dev":154000},"sub":{"moyo":{"mnp":{"85":450000,"115":500000},"dev":{"85":200000,"115":300000}},"online":{"mnp":{"85":500000,"115":530000},"dev":{"85":280000,"115":330000}},"hotdeal":{"mnp":{"85":520000,"115":550000},"dev":{"85":300000,"115":350000}}}},{"id":"m27","grp":"폴더블","model":"Z플립8","cap":"512GB","retail":1936000,"act":{"mnp":319000,"dev":319000},"sub":{"moyo":{"mnp":{"85":550000,"115":600000},"dev":{"85":250000,"115":350000}},"online":{"mnp":{"85":600000,"115":630000},"dev":{"85":330000,"115":380000}},"hotdeal":{"mnp":{"85":620000,"115":650000},"dev":{"85":350000,"115":400000}}}},{"id":"m28","grp":"폴더블","model":"Z폴드8","cap":"256GB","retail":2278100,"act":{"mnp":297000,"dev":297000},"sub":{"moyo":{"mnp":{"85":550000,"115":600000},"dev":{"85":250000,"115":300000}},"online":{"mnp":{"85":580000,"115":630000},"dev":{"85":280000,"115":330000}},"hotdeal":{"mnp":{"85":600000,"115":650000},"dev":{"85":300000,"115":350000}}}},{"id":"m29","grp":"폴더블","model":"Z폴드8","cap":"512GB","retail":2531100,"act":{"mnp":77000,"dev":77000},"sub":{"moyo":{"mnp":{"85":400000,"115":450000},"dev":{"85":100000,"115":200000}},"online":{"mnp":{"85":430000,"115":480000},"dev":{"85":180000,"115":230000}},"hotdeal":{"mnp":{"85":450000,"115":500000},"dev":{"85":200000,"115":250000}}}},{"id":"m30","grp":"폴더블","model":"Z폴드8","cap":"1TB","retail":3152600,"act":{"mnp":0,"dev":0},"sub":{"moyo":{"mnp":{"85":300000,"115":350000},"dev":{"85":100000,"115":150000}},"online":{"mnp":{"85":330000,"115":380000},"dev":{"85":130000,"115":180000}},"hotdeal":{"mnp":{"85":350000,"115":400000},"dev":{"85":150000,"115":200000}}}},{"id":"m31","grp":"폴더블","model":"Z폴드8 울트라","cap":"256GB","retail":2577300,"act":{"mnp":154000,"dev":154000},"sub":{"moyo":{"mnp":{"85":450000,"115":500000},"dev":{"85":200000,"115":300000}},"online":{"mnp":{"85":510000,"115":530000},"dev":{"85":280000,"115":330000}},"hotdeal":{"mnp":{"85":530000,"115":550000},"dev":{"85":300000,"115":350000}}}},{"id":"m32","grp":"폴더블","model":"Z폴드8 울트라","cap":"512GB","retail":2830300,"act":{"mnp":319000,"dev":319000},"sub":{"moyo":{"mnp":{"85":550000,"115":600000},"dev":{"85":250000,"115":350000}},"online":{"mnp":{"85":610000,"115":630000},"dev":{"85":330000,"115":380000}},"hotdeal":{"mnp":{"85":630000,"115":650000},"dev":{"85":350000,"115":400000}}}},{"id":"m33","grp":"폴더블","model":"Z폴드8 울트라","cap":"1TB","retail":3451800,"act":{"mnp":0,"dev":0},"sub":{"moyo":{"mnp":{"85":300000,"115":350000},"dev":{"85":100000,"115":150000}},"online":{"mnp":{"85":330000,"115":380000},"dev":{"85":130000,"115":180000}},"hotdeal":{"mnp":{"85":350000,"115":400000},"dev":{"85":150000,"115":200000}}}}];
+const DEFAULT_COMMON={
+  mnp:{'85':{open:22000,planfee:121000,award:55000,volume:60000,hq:100000,rep:77000},
+       '115':{open:22000,planfee:152000,award:55000,volume:60000,hq:100000,rep:77000}},
+  dev:{'85':{open:22000,planfee:121000,award:16500,volume:20000,hq:0,rep:0},
+       '115':{open:22000,planfee:152000,award:16500,volume:20000,hq:0,rep:0}}
+};
+// 온라인팀 급여표 (2026-10-26 팀장님 전달)
+const DEFAULT_PAY={
+  people:[
+    {id:'p1',name:'방민정',role:'staff',base:2700000,welfare:0},
+    {id:'p2',name:'최유진',role:'staff',base:2600000,welfare:0},
+    {id:'p3',name:'이호진',role:'lead',title:'팀장',base:3200000,welfare:800000}],
+  staff:{mnp:1000,dev:200},
+  lead:{moyo:{mnp:1000,dev:200},hotdeal:{mnp:10000,mnpId:30000,dev:5000,dev115:10000},online:{mnp:0,dev:0}},
+  addon:{ins:3000,watch:20000,net:30000},
+  grade:[[400,300000],[450,400000],[500,700000]],
+  idTier:[[60,150000],[70,200000],[80,300000],[90,400000],[100,500000],[110,600000],[120,700000]]
+};
+const FEE_LABEL={open:'개통수수료',planfee:'요금제 수수료',award:'시상정책',volume:'판매량',hq:'본사유통망',rep:'담당유통망',act:'판매활성화'};
+const TYPE={mnp:'번호이동',dev:'기기변경'};
+const CH={moyo:'모요',hotdeal:'핫딜',online:'온라인 플랫폼'};
+const CH_COST={moyo:'모요 수수료',hotdeal:'광고비',online:'광고비'};
+const ADDON={ins:'보험',watch:'워치번들',net:'인터넷 동판'};
+const REGIONS=['남부','수원','강서'];
+const SKEY='ggr-erp-role';
+
+const clone=o=>JSON.parse(JSON.stringify(o));
+const fmt=n=>Math.round(n).toLocaleString('ko-KR');
+const won=n=>(n<0?'−':'')+fmt(Math.abs(n))+'원';
+const short=n=>{const a=Math.abs(n),s=n<0?'−':'';if(a>=1e8)return s+(a/1e8).toFixed(2)+'억';if(a>=1e4)return s+fmt(a/1e4)+'만';return s+fmt(a)+'원';};
+const pad=n=>String(n).padStart(2,'0');
+const ymd=d=>d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());
+const TODAY=ymd(new Date());
+const MONTH=TODAY.slice(0,7);
+const md=s=>Number(s.slice(5,7))+'/'+Number(s.slice(8));
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,7);
+const num=v=>Number(String(v).replace(/[^\d-]/g,''))||0;
+
+function freshState(){
+  return {v:3,demo:true,
+    policy:{common:clone(DEFAULT_COMMON),models:clone(POLICY_MODELS),cost:{moyo:88000,hotdeal:88000,online:88000}},
+    pay:clone(DEFAULT_PAY),
+    spots:[{id:'sp1',name:'예시) 아이폰18 PRO 번호이동 스팟',from:MONTH+'-24',to:MONTH+'-31',model:'아이폰18 PRO',type:'mnp',plan:'all',amt:50000}],
+    settings:{showMargin:true,target:{'남부':200,'수원':180,'강서':20}},
+    sales:[]};
+}
+// ── 저장소: Supabase (오늘폰 마켓과 같은 프로젝트, erp_* 테이블) ──
+// 화면 코드는 예전처럼 S를 고치고 save()를 부름 → save()가 바뀐 부분만 찾아 서버에 씀
+// 권한은 서버(RLS)가 막음: 판매사는 본인 판매건·본인 급여 정보만, 팀 실적은 건수 계산용 항목만 받음
+const SB_URL='https://pqgkcrxmxmwxziqbafeb.supabase.co',SB_KEY='sb_publishable_1w8vfDBJTNh_6QheCX2_Bw_C9Lep6zR';
+const sb=window.supabase?window.supabase.createClient(SB_URL,SB_KEY,{auth:{storageKey:'ggr-erp-auth',persistSession:true,autoRefreshToken:true}}):null;
+let S=null,ses={},acct=null,boot='loading',base=null,busy=0,stale=false;
+const J=o=>JSON.stringify(o);
+const ZERO_LEAD={moyo:{mnp:0,dev:0},hotdeal:{mnp:0,mnpId:0,dev:0,dev115:0},online:{mnp:0,dev:0}};
+function snap(){
+  const cfg={policy:J(S.policy),spots:J(S.spots),settings:J(S.settings),pay_common:J({addon:S.pay.addon,grade:S.pay.grade,idTier:S.pay.idTier}),pay_staff:J(S.pay.staff),pay_lead:J(S.pay.lead)};
+  const people={};for(const p of S.pay.people)people[p.id]=J([p.name,p.title||null,p.role,p.base,p.welfare]);
+  const sales={};for(const x of S.sales)if(!x._team)sales[x.id]=J(x);
+  return {cfg,people,sales};
+}
+async function all(q){const out=[];for(let f=0;;f+=1000){const {data,error}=await q().range(f,f+999);if(error)throw error;out.push(...data);if(data.length<1000)return out;}}
+function sbErr(e){const m=String(e&&e.message||e);return /row-level security|permission/i.test(m)?'권한이 없는 작업입니다':m;}
+async function load(){
+  if(!sb){boot='offline';return;}
+  const {data:{session}}=await sb.auth.getSession();
+  if(!session){boot='login';S=null;return;}
+  const me=await sb.rpc('erp_me');if(me.error){boot='error';acct={msg:sbErr(me.error)};return;}
+  acct=me.data;
+  if(!acct.admin&&!acct.pid){boot='unlinked';S=null;return;}
+  const fr=freshState();
+  const [cf,pp]=await Promise.all([sb.from('erp_config').select('key,data'),sb.from('erp_people').select('*').order('ord')]);
+  if(cf.error||pp.error){boot='error';acct.msg=sbErr(cf.error||pp.error);return;}
+  const c={};cf.data.forEach(r=>c[r.key]=r.data);
+  const pc=c.pay_common||{addon:fr.pay.addon,grade:fr.pay.grade,idTier:fr.pay.idTier};
+  const next={v:3,demo:false,
+    policy:c.policy||fr.policy,spots:c.spots||(acct.admin?fr.spots:[]),settings:c.settings||fr.settings,
+    pay:{people:pp.data.map(p=>({id:p.id,name:p.name,...(p.title?{title:p.title}:{}),role:p.role,base:p.base,welfare:p.welfare,email:p.email||''})),
+      staff:c.pay_staff||(acct.admin?fr.pay.staff:{mnp:0,dev:0}),lead:c.pay_lead||(acct.admin?fr.pay.lead:ZERO_LEAD),addon:pc.addon,grade:pc.grade,idTier:pc.idTier},
+    sales:[]};
+  try{
+    const own=await all(()=>sb.from('erp_sales').select('id,data').order('id'));
+    next.sales=own.map(r=>r.data);
+    if(!acct.admin){
+      const tm=await sb.rpc('erp_team_rows',{p_month:MONTH});if(tm.error)throw tm.error;
+      const mine=new Set(next.sales.map(x=>x.id));
+      for(const x of tm.data)if(!mine.has(x.id))next.sales.push({...x,_team:true,at:0});
+    }
+  }catch(e){boot='error';acct.msg=sbErr(e);return;}
+  S=next;
+  const firstRun=acct.admin&&['policy','spots','settings','pay_common','pay_staff','pay_lead'].some(k=>!c[k]);
+  if(firstRun){base={cfg:{},people:snap().people,sales:snap().sales};}else base=snap();
+  // 역할: 관리자이면서 직원 계정도 연결된 경우 고른 화면을 기억
+  let pick={};try{pick=JSON.parse(localStorage.getItem(SKEY))||{};}catch(e){}
+  if(acct.admin&&acct.pid)ses=pick.role==='admin'?{role:'admin'}:pick.role==='seller'?{role:'seller',pid:acct.pid}:{};
+  else ses=acct.admin?{role:'admin'}:{role:'seller',pid:acct.pid};
+  boot='ready';
+  if(firstRun)save();
+}
+function save(){
+  if(!S||!base)return;
+  const now=snap(),ops=[];
+  if(acct.admin){
+    const cf=Object.keys(now.cfg).filter(k=>now.cfg[k]!==base.cfg[k]).map(k=>({key:k,data:JSON.parse(now.cfg[k]),updated_at:new Date().toISOString()}));
+    if(cf.length)ops.push(()=>sb.from('erp_config').upsert(cf));
+    for(const p of S.pay.people)if(base.people[p.id]&&now.people[p.id]!==base.people[p.id])
+      ops.push(()=>sb.from('erp_people').update({name:p.name,title:p.title||null,role:p.role,base:p.base,welfare:p.welfare}).eq('id',p.id));
+  }
+  const up=Object.keys(now.sales).filter(id=>now.sales[id]!==base.sales[id]).map(id=>{const x=JSON.parse(now.sales[id]);return {id,staff_id:x.staffId,sale_date:x.date,data:x};});
+  const del=Object.keys(base.sales).filter(id=>!(id in now.sales));
+  for(let i=0;i<up.length;i+=500){const part=up.slice(i,i+500);ops.push(()=>sb.from('erp_sales').upsert(part));}
+  if(del.length)ops.push(()=>sb.from('erp_sales').delete().in('id',del));
+  base=now;
+  if(!ops.length)return;
+  busy++;
+  (async()=>{
+    let fail=null;
+    for(const op of ops){const {error}=await op();if(error){fail=error;break;}}
+    busy--;
+    if(fail){toast('서버 저장 실패 · '+sbErr(fail));stale=true;}
+    if(stale&&!busy)refresh();
+  })();
+}
+function saveSes(){try{localStorage.setItem(SKEY,JSON.stringify(ses.role?{role:ses.role}:{}));}catch(e){}}
+// 다른 기기에서 바뀐 내용 다시 받기. 입력 중이면 화면은 그대로 두고 데이터만 바꿈
+let refT;
+function refresh(){
+  if(busy){stale=true;return;}
+  stale=false;clearTimeout(refT);
+  refT=setTimeout(async()=>{
+    const keep=ses;await load();if(boot==='ready'&&keep.role&&!ses.role)ses=keep;
+    const a=document.activeElement;
+    if(a&&/^(INPUT|SELECT|TEXTAREA)$/.test(a.tagName)&&boot==='ready')return;
+    render();
+  },400);
+}
+let live=null;
+function listen(){
+  if(!sb||live)return;
+  live=sb.channel('erp').on('postgres_changes',{event:'*',schema:'public',table:'erp_sales'},refresh)
+    .on('postgres_changes',{event:'*',schema:'public',table:'erp_config'},refresh)
+    .on('postgres_changes',{event:'*',schema:'public',table:'erp_people'},refresh).subscribe();
+}
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'&&boot==='ready')refresh();});
+async function signIn(signup){
+  const em=(document.getElementById('lg_email')||{}).value?.trim(),pw=(document.getElementById('lg_pw')||{}).value||'';
+  const msg=document.getElementById('lg_msg');const say=t=>{if(msg)msg.textContent=t;};
+  if(!em||pw.length<6){say('이메일과 비밀번호(6자 이상)를 넣으세요');return;}
+  say(signup?'계정 만드는 중…':'로그인 중…');
+  const r=signup?await sb.auth.signUp({email:em,password:pw}):await sb.auth.signInWithPassword({email:em,password:pw});
+  if(r.error){say(/invalid login/i.test(r.error.message)?'이메일 또는 비밀번호가 맞지 않습니다':/already registered/i.test(r.error.message)?'이미 있는 계정입니다. 로그인하세요':r.error.message);return;}
+  if(signup&&!r.data.session){say('계정을 만들었습니다. 메일 확인 뒤 로그인하세요');return;}
+  boot='loading';render();await load();listen();render();
+}
+async function signOut(){if(sb)await sb.auth.signOut();try{localStorage.removeItem(SKEY);}catch(e){}S=null;ses={};acct=null;base=null;boot='login';tab=null;open=null;entry=null;form=null;render();scrollTo(0,0);}
+
+const modelById=id=>S.policy.models.find(m=>m.id===id);
+const person=id=>S.pay.people.find(p=>p.id===id);
+const pname=p=>p?p.name+(p.title?' '+p.title:''):'-';
+
+function spotsFor(date,m,type,plan){
+  return S.spots.filter(sp=>date>=sp.from&&date<=sp.to&&(sp.model==='all'||sp.model===m.model)&&(sp.type==='all'||sp.type===type)&&(sp.plan==='all'||sp.plan===plan));
+}
+// 회사 기준 건당 마진 — 저장할 때 그 시점 정책으로 고정
+function calc(x){
+  const m=modelById(x.modelId);if(!m)return null;
+  const c=S.policy.common[x.type][x.plan];
+  const items=[];
+  for(const k of ['open','planfee','award','volume','hq']) if(c[k]) items.push([FEE_LABEL[k],c[k]]);
+  const rep=x.type==='mnp'?(m.rep??c.rep):c.rep;
+  if(rep) items.push([FEE_LABEL.rep,rep]);
+  if(m.act[x.type]) items.push([FEE_LABEL.act,m.act[x.type]]);
+  spotsFor(x.date,m,x.type,x.plan).forEach(s=>items.push(['스팟 · '+s.name,s.amt,'spot']));
+  const fee=items.reduce((a,b)=>a+b[1],0);
+  const costs=[[CH_COST[x.channel],S.policy.cost[x.channel]],['대리점 지원금',m.sub[x.channel][x.type][x.plan]]];
+  if(x.payback&&x.paybackAmt>0) costs.push(['대납',x.paybackAmt]);
+  const cost=costs.reduce((a,b)=>a+b[1],0);
+  const used=x.usedReturn&&x.usedAmt>0?x.usedAmt:0;
+  return {items,fee,used,costs,cost,margin:fee+used-cost};
+}
+// 한 판매건이 그 사람 급여에 더하는 건당 수당
+function incFor(p,x){
+  const P=S.pay,out=[];
+  if(p.role==='staff') out.push(['온라인 전체 '+(x.type==='mnp'?'번이':'기변'),P.staff[x.type]]);
+  else{
+    if(x.channel==='moyo') out.push(['모요 '+(x.type==='mnp'?'번이':'기변'),P.lead.moyo[x.type]]);
+    else if(x.channel==='hotdeal'){
+      if(x.type==='mnp') out.push(x.region==='남부'&&x.idOpen?['핫딜 번이 (남부 신분증)',P.lead.hotdeal.mnpId]:['핫딜 번이',P.lead.hotdeal.mnp]);
+      else out.push(x.plan==='115'?['핫딜 기변 (115 이상)',P.lead.hotdeal.dev115]:['핫딜 기변',P.lead.hotdeal.dev]);
+    }else out.push(['온라인 플랫폼 '+(x.type==='mnp'?'번이':'기변'),P.lead.online[x.type]]);
+  }
+  if(x.staffId===p.id) for(const k of ['ins','watch','net']) if(x[k]) out.push([ADDON[k],P.addon[k]]);
+  return out.filter(i=>i[1]);
+}
+const incSum=(p,x)=>incFor(p,x).reduce((a,b)=>a+b[1],0);
+const tierOf=(n,t)=>t.reduce((a,[th,amt])=>n>=th?amt:a,0);
+const nextTier=(n,t)=>t.find(([th])=>n<th);
+const isIdSouth=x=>x.type==='mnp'&&x.region==='남부'&&x.idOpen;
+function payroll(p,rows){
+  let perCase=0,addon=0;
+  for(const x of rows) for(const [l,a] of incFor(p,x)) (Object.values(ADDON).includes(l)?addon+=a:perCase+=a);
+  const n=rows.length,idn=rows.filter(isIdSouth).length;
+  const grade=tierOf(n,S.pay.grade),idt=tierOf(idn,S.pay.idTier);
+  return {base:p.base,welfare:p.welfare,perCase,addon,grade,idt,n,idn,total:p.base+p.welfare+perCase+addon+grade+idt};
+}
+
+let toastT;
+function toast(t){const el=document.getElementById('toast');el.textContent=t;el.classList.add('on');clearTimeout(toastT);toastT=setTimeout(()=>el.classList.remove('on'),1700);}
+
+const ICON={
+  home:'<svg viewBox="0 0 24 24"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/></svg>',
+  plus:'<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg>',
+  list:'<svg viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>',
+  phone:'<svg viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="20" rx="2"/><path d="M11 18h2"/></svg>',
+  doc:'<svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h3"/></svg>',
+  bolt:'<svg viewBox="0 0 24 24"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></svg>',
+  grid:'<svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M3 15h18M9 4v16"/></svg>',
+  won:'<svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M7 9l1.5 6L10.5 10.5 12 15l1.5-4.5L15.5 15 17 9"/></svg>'
+};
+const ADMIN_TABS=[['dash','대시보드','home'],['sales','개통관리','phone'],['entry','판매 등록','grid'],['policy','정책서','doc'],['spot','스팟정책','bolt'],['pay','급여','won']];
+const SELLER_TABS=[['home','내 급여','home'],['input','판매입력','plus'],['entry','여러 건 등록','grid'],['mine','내 판매','list']];
+
+let tab,open=null,entry=null,filt={ch:'all',range:'month',staff:'all'},form=null,mineRange='month',polGrp=null,polCh='moyo';
+
+function render(){
+  const app=document.getElementById('app');
+  document.body.classList.remove('withbar');
+  if(boot!=='ready'||!ses.role){app.innerHTML=loginView();return;}
+  const tabs=ses.role==='admin'?ADMIN_TABS:SELLER_TABS;
+  if(!tab||!tabs.some(t=>t[0]===tab))tab=tabs[0][0];
+  const me=ses.role==='seller'?person(ses.pid):null;
+  if(ses.role==='seller'&&!me){boot='unlinked';render();return;}
+  let body='';
+  if(tab==='dash')body=dashView();else if(tab==='sales')body=salesView();else if(tab==='policy')body=policyView();
+  else if(tab==='spot')body=spotView();else if(tab==='pay')body=payView();
+  else if(tab==='home')body=homeView(me);else if(tab==='input')body=inputView(me);else if(tab==='mine')body=mineView(me);else if(tab==='entry')body=entryView(me);
+  app.innerHTML=`<div class="wrap">
+    <div class="top"><h1>더끌림 ERP</h1><button class="who" data-act="logout"><b>${ses.role==='admin'?'관리자':esc(pname(me))}</b> · ${acct.admin&&acct.pid?'바꾸기':'로그아웃'}</button></div>
+    <div class="sub">${ses.role==='admin'?'온라인팀 실적·수수료·급여 관리':'온라인팀 · '+(me.role==='lead'?'팀장':'판매사')}</div>
+    ${S.demo?`<div class="demo"><span>지금 보이는 판매건은 화면 확인용 예시입니다.</span><button data-act="clearDemo">예시 지우기</button></div>`:''}
+    ${body}
+  </div>
+  <nav><div class="in">${tabs.map(t=>`<button class="${t[0]===tab?'on':''}" data-tab="${t[0]}">${ICON[t[2]]}${t[1]}</button>`).join('')}</div></nav>`;
+  if(tab==='input'){document.body.classList.add('withbar');bindInput();}
+}
+
+function loginView(){
+  const wrap=b=>`<div class="wrap login"><h1 style="font-size:30px;letter-spacing:-.02em">더끌림 ERP</h1>${b}</div>`;
+  const out='<button class="btn ghost" data-act="signOut">로그아웃</button>';
+  if(boot==='loading')return wrap('<div class="sub">불러오는 중…</div>');
+  if(boot==='offline')return wrap('<div class="sub" style="margin-bottom:14px">서버 연결 모듈을 불러오지 못했습니다. 인터넷 연결을 확인하고 새로고침하세요.</div>');
+  if(boot==='error')return wrap(`<div class="sub" style="margin-bottom:14px">서버에서 불러오지 못했습니다</div><div class="card err">${esc(acct&&acct.msg)}</div><button class="btn" data-act="reloadMe">다시 시도</button>${out}`);
+  if(boot==='unlinked')return wrap(`<div class="sub" style="margin-bottom:14px">아직 직원으로 연결되지 않은 계정입니다</div>
+    <div class="card" style="font-size:15px;line-height:1.6">관리자에게 아래 이메일을 알려주고 연결을 요청하세요.<br><b>${esc(acct&&acct.email)}</b></div>
+    <button class="btn" data-act="reloadMe">연결됐는지 다시 확인</button>${out}`);
+  if(boot==='ready'){const me=person(acct.pid);return wrap(`<div class="sub" style="margin-bottom:14px">어느 화면으로 볼지 고르세요</div>
+    <button class="opt" data-act="asAdmin"><div><b>관리자</b><span>정책 · 스팟 · 전체 실적 · 급여</span></div></button>
+    ${me?`<button class="opt" data-act="asSeller" data-id="${me.id}"><div><b>${esc(pname(me))}</b><span>판매입력과 내 급여</span></div></button>`:''}${out}`);}
+  return wrap(`<div class="sub" style="margin-bottom:14px">회사 이메일로 로그인하세요</div>
+    <form class="form card" id="lgform" style="display:grid;gap:10px">
+      <input id="lg_email" type="email" autocomplete="username" placeholder="이메일">
+      <input id="lg_pw" type="password" autocomplete="current-password" placeholder="비밀번호 (6자 이상)">
+      <button class="btn" style="margin-top:4px">로그인</button>
+      <div id="lg_msg" class="err" style="min-height:16px"></div>
+    </form>
+    <button class="btn ghost" data-act="signUp">처음이면 계정 만들기</button>
+    <p class="note">계정을 만든 뒤 관리자가 직원 이름에 연결해야 화면이 열립니다. 판매사는 본인 판매건과 본인 급여만 볼 수 있습니다.</p>`);
+}
+
+// ── 집계 ──
+const inMonth=x=>x.date.slice(0,7)===MONTH;
+const sum=(a,f)=>a.reduce((s,x)=>s+f(x),0);
+function barRow(label,pct,extra){
+  const p=Math.max(0,Math.min(100,pct));
+  return `<div class="bar"><div class="r"><span>${label}${extra?`<em>${extra}</em>`:''}</span><span>${Math.round(pct)}%</span></div><div class="track"><div class="fill ${pct>=100?'ok':pct<70?'warn':''}" style="width:${p}%"></div></div></div>`;
+}
+function dailyChart(rows,valFn){
+  const day=Number(TODAY.slice(8)),vals=[];
+  for(let d=1;d<=day;d++){const ds=MONTH+'-'+pad(d);vals.push([d,sum(rows.filter(x=>x.date===ds),valFn)]);}
+  const max=Math.max(1,...vals.map(v=>Math.abs(v[1])));
+  return `<div class="chart">${vals.map(([d,v])=>`<div class="c" title="${d}일 ${won(v)}"><i class="${d===day?'t':v<0?'n':''}" style="height:${Math.abs(v)/max*100}%"></i><span>${d%5===0||d===1||d===day?d:''}</span></div>`).join('')}</div>`;
+}
+function tierCard(title,n,tiers,unit){
+  const cur=tierOf(n,tiers),nx=nextTier(n,tiers);
+  const goal=nx?nx[0]:tiers[tiers.length-1][0];
+  return `<div class="card"><div class="bar" style="margin:0"><div class="r"><span>${title}<em>${n}${unit}</em></span><span>${cur?'+'+short(cur):'미달'}</span></div>
+    <div class="track"><div class="fill ${cur?'ok':''}" style="width:${Math.min(100,n/goal*100)}%"></div></div></div>
+    <div class="hint">${nx?`<b>${nx[0]-n}${unit}</b> 더 하면 ${short(nx[1])}`:'최고 구간 달성'}</div>
+    <div class="tier">${tiers.map(([th,a])=>`<span class="${n>=th?'on':nx&&th===nx[0]?'next':''}">${th}${unit} ${short(a)}</span>`).join('')}</div></div>`;
+}
+function tags(x){
+  return `<span class="tag ${x.channel}">${CH[x.channel]}</span><span class="tag">${x.region}</span>${x.idOpen?'<span class="tag">신분증</span>':''}`;
+}
+function saleItem(x,viewer){
+  const m=modelById(x.modelId),c=x.calc;
+  const admin=ses.role==='admin';
+  const val=admin?c.margin:incSum(viewer,x);
+  const extras=[x.payback?'대납 '+short(x.paybackAmt):'',x.usedReturn?'중고폰 '+short(x.usedAmt):'',...['ins','watch','net'].filter(k=>x[k]).map(k=>ADDON[k])].filter(Boolean).join(' · ');
+  let h=`<div class="it" data-open="${x.id}"><div><div class="a">${esc(m?m.model+' '+m.cap:'삭제된 모델')}</div>
+    <div class="b">${tags(x)}${md(x.date)} · ${TYPE[x.type]} ${x.plan}${admin?' · '+esc(pname(person(x.staffId))):''}${extras?'<br>'+extras:''}</div></div>
+    <div class="m ${val<0?'neg':admin?'':'pos'}">${admin?won(val):'+'+won(val)}<small>${admin?'건당 마진':'내 수당'}</small></div></div>`;
+  if(open===x.id){
+    h+=`<div class="detail">`;
+    if(!admin){h+=incFor(viewer,x).map(i=>`<div class="row"><span>${esc(i[0])}</span><b>+${won(i[1])}</b></div>`).join('');}
+    if(admin||S.settings.showMargin){
+      if(!admin)h+=`<div class="row tot"><span>회사 기준 건당 마진</span><b class="${c.margin<0?'neg':''}">${won(c.margin)}</b></div>`;
+      else{
+        h+=c.items.map(i=>`<div class="row"><span>${esc(i[0])}</span><b>${won(i[1])}</b></div>`).join('');
+        h+=`<div class="row"><span>정책 수수료 합계</span><b>${won(c.fee)}</b></div>`;
+        if(c.used)h+=`<div class="row"><span>+ 중고폰 반납</span><b>${won(c.used)}</b></div>`;
+        h+=c.costs.map(i=>`<div class="row"><span>− ${esc(i[0])}</span><b>${won(-i[1])}</b></div>`).join('');
+        h+=`<div class="row tot"><span>건당 마진</span><b class="${c.margin<0?'neg':''}">${won(c.margin)}</b></div>`;
+      }
+    }
+    if(x.usedReturn&&!admin)h+=`<div class="row"><span>중고폰 반납 금액</span><b>${won(x.usedAmt)}</b></div>`;
+    if(x.memo)h+=`<div class="row"><span>메모</span><b>${esc(x.memo)}</b></div>`;
+    if(admin||x.staffId===viewer.id)h+=`<button class="del" data-act="delSale" data-id="${x.id}">이 판매건 삭제</button>`;
+    h+=`</div>`;
+  }
+  return h;
+}
+
+// ── 관리자 ──
+function dashView(){
+  const rows=S.sales.filter(inMonth);
+  const total=Object.values(S.settings.target).reduce((a,b)=>a+b,0);
+  const fee=sum(rows,x=>x.calc.fee),margin=sum(rows,x=>x.calc.margin);
+  const labor=sum(S.pay.people,p=>payroll(p,rows.filter(()=>true)).total);
+  const today=rows.filter(x=>x.date===TODAY);
+  const mnp=rows.filter(x=>x.type==='mnp').length;
+  const byModel={};rows.forEach(x=>{const m=modelById(x.modelId);const k=m?m.model:'-';byModel[k]=byModel[k]||{n:0,mg:0};byModel[k].n++;byModel[k].mg+=x.calc.margin;});
+  const top=Object.entries(byModel).sort((a,b)=>b[1].n-a[1].n).slice(0,6);
+  return `<div class="grid2">
+    <div class="kpi"><div class="l">이번 달 개통</div><div class="v">${fmt(rows.length)}건</div><div class="s">목표 ${fmt(total)}건</div></div>
+    <div class="kpi"><div class="l">목표 달성률</div><div class="v">${(rows.length/total*100).toFixed(1)}%</div><div class="s">번이 ${fmt(mnp)} · 기변 ${fmt(rows.length-mnp)}</div></div>
+    <div class="kpi"><div class="l">예상 수수료</div><div class="v">${short(fee)}</div><div class="s">정책 자동 계산</div></div>
+    <div class="kpi"><div class="l">예상 순마진</div><div class="v ${margin<0?'neg':''}">${short(margin)}</div><div class="s">중고폰 더하고 광고비·지원금·대납 차감</div></div>
+    <div class="kpi big"><div class="l">예상 인건비 (온라인팀 3명)</div><div class="v">${short(labor)}</div><div class="s">기본급 + 수당 + 그레이드 · 인건비까지 뺀 마진 <b class="${margin-labor<0?'neg':'pos'}">${short(margin-labor)}</b></div></div>
+  </div>
+  <h2>판매경로별 <small>이번 달</small></h2>
+  <div class="card">${Object.keys(CH).map(k=>{const r=rows.filter(x=>x.channel===k);return `<div class="tg"><span><span class="tag ${k}">${CH[k]}</span> ${r.length}건</span><b class="${sum(r,x=>x.calc.margin)<0?'neg':''}" style="font-variant-numeric:tabular-nums">${short(sum(r,x=>x.calc.margin))}</b></div>`;}).join('')}</div>
+  <h2>지역별 목표 달성 <small>개통 지역 기준</small></h2>
+  <div class="card">${REGIONS.map(t=>{const n=rows.filter(x=>x.region===t).length,g=S.settings.target[t]||0;return barRow(t,g?n/g*100:0,`${n} / ${g}건`);}).join('')}</div>
+  <h2>정액 수당 구간 <small>온라인팀 공통</small></h2>
+  ${tierCard('온라인 전체 실적',rows.length,S.pay.grade,'건')}
+  ${tierCard('남부 신분증 번호이동',rows.filter(isIdSouth).length,S.pay.idTier,'건')}
+  <h2>오늘 <small>${md(TODAY)}</small></h2>
+  <div class="grid2" style="margin-top:0">
+    <div class="kpi"><div class="l">오늘 개통</div><div class="v">${today.length}건</div></div>
+    <div class="kpi"><div class="l">오늘 순마진</div><div class="v ${sum(today,x=>x.calc.margin)<0?'neg':''}">${short(sum(today,x=>x.calc.margin))}</div></div>
+  </div>
+  <h2>일별 순마진 <small>파란 막대 = 오늘</small></h2>
+  <div class="card">${dailyChart(rows,x=>x.calc.margin)}</div>
+  <h2>모델별 판매 <small>건수 · 순마진</small></h2>
+  <div class="card list">${top.map(([k,v])=>`<div class="it" style="cursor:default"><div><div class="a">${esc(k)}</div><div class="b">${v.n}건 · 건당 평균 ${won(v.mg/v.n)}</div></div><div class="m ${v.mg<0?'neg':''}">${short(v.mg)}</div></div>`).join('')}</div>`;
+}
+
+function salesView(){
+  const rows=S.sales.filter(x=>(filt.range==='today'?x.date===TODAY:inMonth(x))&&(filt.ch==='all'||x.channel===filt.ch)&&(filt.staff==='all'||x.staffId===filt.staff)).sort((a,b)=>b.date.localeCompare(a.date)||b.at-a.at);
+  const chips=`<div class="chips">${[['month','이번 달'],['today','오늘']].map(([k,l])=>`<button class="${filt.range===k?'on':''}" data-filt="range" data-v="${k}">${l}</button>`).join('')}
+  <span style="width:6px;flex:none"></span>${[['all','전체 경로'],...Object.entries(CH)].map(([k,l])=>`<button class="${filt.ch===k?'on':''}" data-filt="ch" data-v="${k}">${l}</button>`).join('')}
+  <span style="width:6px;flex:none"></span>${[['all','전체 직원'],...S.pay.people.map(p=>[p.id,p.name])].map(([k,l])=>`<button class="${filt.staff===k?'on':''}" data-filt="staff" data-v="${k}">${l}</button>`).join('')}</div>`;
+  const head=`<h2>개통관리 <small>${rows.length}건 · 순마진 ${short(sum(rows,x=>x.calc.margin))}</small></h2>
+  <div class="tools"><button class="pri" data-act="dlSales">보이는 판매건 엑셀 다운로드</button><button data-tab="entry">판매 등록 (여러 건)</button></div>${chips}`;
+  if(PC()){
+    return head+`<div class="tscroll"><table class="tbl"><thead><tr><th>개통일</th><th>담당자</th><th>경로</th><th>지역</th><th>유형</th><th>요금제</th><th>모델</th><th class="r">대납</th><th class="r">중고폰</th><th>부가</th><th>메모</th><th class="r">정책 수수료</th><th class="r">차감</th><th class="r">건당 마진</th><th></th></tr></thead><tbody>
+    ${rows.map(x=>{const m=modelById(x.modelId),c=x.calc;return `<tr><td>${md(x.date)}</td><td>${esc(person(x.staffId)?.name||'-')}</td><td><span class="tag ${x.channel}">${CH[x.channel]}</span></td><td>${x.region}${x.idOpen?' · 신분증':''}</td><td>${TYPE[x.type]}</td><td>${x.plan}</td><td>${esc(m?m.model+' '+m.cap:'-')}</td>
+      <td class="r">${x.paybackAmt?fmt(x.paybackAmt):''}</td><td class="r">${x.usedAmt?fmt(x.usedAmt):''}</td><td>${['ins','watch','net'].filter(k=>x[k]).map(k=>ADDON[k]).join(', ')}</td><td>${esc(x.memo)}</td>
+      <td class="r">${fmt(c.fee+(c.used||0))}</td><td class="r">${fmt(-c.cost)}</td><td class="r ${c.margin<0?'neg':''}" style="font-weight:700">${fmt(c.margin)}</td><td><button class="del" data-act="delSale" data-id="${x.id}">삭제</button></td></tr>`;}).join('')||'<tr><td colspan="15" class="empty">판매건이 없습니다</td></tr>'}
+    </tbody></table></div><p class="note">정책 수수료에는 중고폰 반납 금액이 포함돼 있습니다. 마진은 입력한 날의 정책으로 고정됩니다.</p>`;
+  }
+  return head+`<div class="card list">${rows.length?rows.slice(0,80).map(x=>saleItem(x)).join(''):'<div class="empty">판매건이 없습니다</div>'}</div>
+  ${rows.length>80?`<p class="note">최근 80건만 보입니다. 전체는 PC 화면이나 엑셀 다운로드로 보세요.</p>`:''}
+  <p class="note">줄을 누르면 수수료 항목별 내역이 열립니다. 마진은 입력한 날의 정책으로 고정됩니다.</p>`;
+}
+
+function policyView(){
+  const P=S.policy;
+  const grps=[...new Set(P.models.map(m=>m.grp))];
+  if(!polGrp||!grps.includes(polGrp))polGrp=grps[0];
+  const inp=(path,v)=>`<input inputmode="numeric" data-pol="${path}" value="${fmt(v)}">`;
+  let h=`<h2>정책서 <small>단위 원 · 고치면 바로 저장</small></h2>
+  <div class="tools"><button class="pri" data-act="dlPolicy">정책 엑셀 내려받기</button><label>정책 엑셀 올리기<input type="file" id="up_policy" accept=".xlsx,.xls"></label></div>
+  <p class="note" style="margin:-4px 0 12px">PC에서는 엑셀로 내려받아 숫자를 고친 뒤 그대로 올리면 한 번에 바뀝니다. 모델명·용량 칸은 고치지 마세요.</p>
+  <div class="card"><div class="sec" style="margin-top:0">공통 수수료</div>`;
+  for(const t of ['mnp','dev'])for(const p of ['85','115']){
+    const c=P.common[t][p];
+    h+=`<div style="font-size:13px;font-weight:700;margin:12px 0 6px">${TYPE[t]} ${p}요금제</div><div class="pg c3">`+
+      ['open','planfee','award','volume','hq','rep'].map(k=>`<div>${FEE_LABEL[k]}${inp(`common.${t}.${p}.${k}`,c[k])}</div>`).join('')+`</div>`;
+  }
+  h+=`<div class="sec">건당 비용</div><div class="pg c3">${Object.keys(CH).map(k=>`<div>${CH[k]} ${CH_COST[k]}${inp('cost.'+k,P.cost[k])}</div>`).join('')}</div></div>
+  <div class="sec">모델별 정책</div>
+  <div class="chips">${grps.map(g=>`<button class="${g===polGrp?'on':''}" data-polgrp="${esc(g)}">${esc(g)}</button>`).join('')}</div>
+  <div class="chips">${Object.entries(CH).map(([k,l])=>`<button class="${k===polCh?'on':''}" data-polch="${k}">${l} 지원금</button>`).join('')}</div>`;
+  if(PC()){
+    h=h.replace(/<div class="chips">.*?data-polgrp.*?<\/div>/s,'');
+    h+=`<div class="tscroll"><table class="tbl"><thead><tr><th>모델</th><th>용량</th><th class="r">출고가</th><th>판매활성화 번이</th><th>판매활성화 기변</th><th>담당유통망 번이</th><th>${CH[polCh]} 번이85</th><th>번이115</th><th>기변85</th><th>기변115</th></tr></thead><tbody>`+
+    P.models.map((m,i)=>{const s=m.sub[polCh];return `<tr><td><b>${esc(m.model)}</b></td><td>${esc(m.cap)}</td><td class="r">${fmt(m.retail)}</td>
+      <td>${inp(`models.${i}.act.mnp`,m.act.mnp)}</td><td>${inp(`models.${i}.act.dev`,m.act.dev)}</td><td>${inp(`models.${i}.rep`,m.rep??P.common.mnp['85'].rep)}</td>
+      <td>${inp(`models.${i}.sub.${polCh}.mnp.85`,s.mnp['85'])}</td><td>${inp(`models.${i}.sub.${polCh}.mnp.115`,s.mnp['115'])}</td><td>${inp(`models.${i}.sub.${polCh}.dev.85`,s.dev['85'])}</td><td>${inp(`models.${i}.sub.${polCh}.dev.115`,s.dev['115'])}</td></tr>`;}).join('')+`</tbody></table></div>`;
+  }else P.models.filter(m=>m.grp===polGrp).forEach(m=>{
+    const i=P.models.indexOf(m),s=m.sub[polCh];
+    h+=`<div class="card pol"><div class="mh"><b>${esc(m.model)} ${esc(m.cap)}</b><span>출고가 ${fmt(m.retail)}</span></div>
+      <div class="pg c3"><div>판매활성화 번이${inp(`models.${i}.act.mnp`,m.act.mnp)}</div><div>판매활성화 기변${inp(`models.${i}.act.dev`,m.act.dev)}</div><div>담당유통망 번이${inp(`models.${i}.rep`,m.rep??P.common.mnp['85'].rep)}</div></div>
+      <div style="font-size:11px;color:var(--tx2);margin:10px 0 0;font-weight:600">${CH[polCh]} 대리점 지원금</div>
+      <div class="pg"><div>번이 85${inp(`models.${i}.sub.${polCh}.mnp.85`,s.mnp['85'])}</div><div>번이 115${inp(`models.${i}.sub.${polCh}.mnp.115`,s.mnp['115'])}</div><div>기변 85${inp(`models.${i}.sub.${polCh}.dev.85`,s.dev['85'])}</div><div>기변 115${inp(`models.${i}.sub.${polCh}.dev.115`,s.dev['115'])}</div></div></div>`;
+  });
+  h+=`<div class="card" style="margin-top:16px"><div class="sec" style="margin-top:0">지역 목표</div>
+    <div class="pg c3">${REGIONS.map(t=>`<div>${t} 월 목표 (건)<input inputmode="numeric" data-set="target.${t}" value="${S.settings.target[t]}"></div>`).join('')}</div>
+    <div class="tg" style="margin-top:12px"><span style="font-size:15px">판매사에게 회사 기준 건당 마진 보이기</span><button class="sw ${S.settings.showMargin?'on':''}" data-act="toggleMargin" aria-label="건당 마진 보이기"></button></div></div>
+    <button class="btn ghost" data-act="resetPolicy">정책을 상담단가표 원본값으로 되돌리기</button>
+    <p class="note">바꾼 정책은 이후 새로 입력하는 판매건부터 적용됩니다.</p>`;
+  return h;
+}
+
+function spotView(){
+  const names=[...new Set(S.policy.models.map(m=>m.model))];
+  const sorted=[...S.spots].sort((a,b)=>b.from.localeCompare(a.from));
+  return `<h2>스팟 정책 <small>개통일이 기간 안이면 자동 가산</small></h2>
+  <div class="card list">${sorted.length?sorted.map(s=>{const live=TODAY>=s.from&&TODAY<=s.to;return `<div class="it" style="cursor:default"><div><div class="a">${esc(s.name)}</div>
+    <div class="b">${md(s.from)}~${md(s.to)} · ${s.model==='all'?'전 모델':esc(s.model)} · ${s.type==='all'?'번이·기변':TYPE[s.type]} · ${s.plan==='all'?'전 요금제':s.plan+'요금제'}${live?' · <b class="pos">진행 중</b>':''}</div></div>
+    <div class="m pos">+${fmt(s.amt)}<small><button class="del" style="margin-top:4px;padding:2px 8px;font-size:11px" data-act="delSpot" data-id="${s.id}">삭제</button></small></div></div>`;}).join(''):'<div class="empty">등록된 스팟 정책이 없습니다</div>'}</div>
+  <h2>스팟 정책 등록</h2>
+  <div class="form step">
+    <label style="margin-top:0">정책 이름</label><input id="sp_name" placeholder="예: 주말 S26 번이 추가">
+    <div class="grid2" style="margin-top:0"><div><label>시작일</label><input type="date" id="sp_from" value="${TODAY}"></div><div><label>종료일</label><input type="date" id="sp_to" value="${TODAY}"></div></div>
+    <label>대상 모델</label><select id="sp_model"><option value="all">전 모델</option>${names.map(n=>`<option>${esc(n)}</option>`).join('')}</select>
+    <div class="grid2" style="margin-top:0"><div><label>가입 유형</label><select id="sp_type"><option value="all">번이·기변</option><option value="mnp">번호이동</option><option value="dev">기기변경</option></select></div>
+    <div><label>요금제</label><select id="sp_plan"><option value="all">전 요금제</option><option value="85">85</option><option value="115">115</option></select></div></div>
+    <label>건당 추가 금액 (원)</label><input id="sp_amt" inputmode="numeric" placeholder="50,000">
+    <button class="btn" data-act="addSpot">스팟 정책 등록</button>
+  </div>
+  <p class="note">이미 저장된 판매건에는 소급되지 않습니다.</p>`;
+}
+
+function payBox(p,rows){
+  const r=payroll(p,rows);
+  return `<div class="pay">
+    <div class="row"><span>기본급</span><b>${won(r.base)}</b></div>
+    ${r.welfare?`<div class="row"><span>복지수당</span><b>${won(r.welfare)}</b></div>`:''}
+    <div class="row"><span>${p.role==='lead'?'모요·핫딜 건당 수당':'온라인 전체 건당 수당'}</span><b>${won(r.perCase)}</b></div>
+    <div class="row"><span>부가 판매 (보험·워치·인터넷)</span><b>${won(r.addon)}</b></div>
+    <div class="row ${r.grade?'':'dim'}"><span>실적 그레이드 (${r.n}건)</span><b>${r.grade?won(r.grade):'미달'}</b></div>
+    <div class="row ${r.idt?'':'dim'}"><span>남부 신분증 번이 (${r.idn}건)</span><b>${r.idt?won(r.idt):'미달'}</b></div>
+    <div class="row tot"><span>예상 급여</span><b>${won(r.total)}</b></div></div>`;
+}
+function payView(){
+  const rows=S.sales.filter(inMonth),P=S.pay;
+  const inp=(path,v)=>`<input inputmode="numeric" data-pay="${path}" value="${fmt(v)}">`;
+  let h=`<h2>이번 달 예상 급여 <small>${MONTH.slice(5)}월 · 오늘까지</small></h2>
+  <div class="tools"><button class="pri" data-act="dlPay">3명 급여 엑셀 다운로드</button></div>`;
+  h+=P.people.map(p=>{const mine=rows.filter(x=>x.staffId===p.id);return `<div class="card"><div class="tg" style="padding-top:0"><b style="font-size:17px">${esc(pname(p))}</b><span style="font-size:13px;color:var(--tx2)">본인 입력 ${mine.length}건 · 오늘 ${mine.filter(x=>x.date===TODAY).length}건</span></div>${payBox(p,rows)}</div>`;}).join('');
+  h+=`<h2>급여표 <small>고치면 바로 반영</small></h2>
+  <div class="card"><div class="sec" style="margin-top:0">기본급</div>
+    ${P.people.map((p,i)=>`<div style="font-size:13px;font-weight:700;margin:10px 0 6px">${esc(pname(p))}</div><div class="pg c2"><div>기본급${inp(`people.${i}.base`,p.base)}</div><div>복지수당${inp(`people.${i}.welfare`,p.welfare)}</div></div>`).join('')}
+    <div class="sec">판매사 (방민정·최유진) · 온라인 전체 실적 건당</div>
+    <div class="pg c2"><div>번호이동${inp('staff.mnp',P.staff.mnp)}</div><div>기기변경${inp('staff.dev',P.staff.dev)}</div></div>
+    <div class="sec">팀장 (이호진) · 판매경로별 건당</div>
+    <div class="pg"><div>모요 번이${inp('lead.moyo.mnp',P.lead.moyo.mnp)}</div><div>모요 기변${inp('lead.moyo.dev',P.lead.moyo.dev)}</div><div>핫딜 번이${inp('lead.hotdeal.mnp',P.lead.hotdeal.mnp)}</div><div>핫딜 번이 남부신분증${inp('lead.hotdeal.mnpId',P.lead.hotdeal.mnpId)}</div>
+    <div>핫딜 기변${inp('lead.hotdeal.dev',P.lead.hotdeal.dev)}</div><div>핫딜 기변 115${inp('lead.hotdeal.dev115',P.lead.hotdeal.dev115)}</div><div>온라인플랫폼 번이${inp('lead.online.mnp',P.lead.online.mnp)}</div><div>온라인플랫폼 기변${inp('lead.online.dev',P.lead.online.dev)}</div></div>
+    <div class="sec">부가 판매 · 본인 입력건 건당 (3명 공통)</div>
+    <div class="pg c3">${Object.entries(ADDON).map(([k,l])=>`<div>${l}${inp('addon.'+k,P.addon[k])}</div>`).join('')}</div>
+    <div class="sec">온라인 전체 실적 그레이드 (정액)</div>
+    <div class="pg c3">${P.grade.map((g,i)=>`<div>${inp(`grade.${i}.0`,g[0])}건 이상${inp(`grade.${i}.1`,g[1])}</div>`).join('')}</div>
+    <div class="sec">번호이동 신분증 개통 · 남부 개통건만 (정액)</div>
+    <div class="pg">${P.idTier.map((g,i)=>`<div>${inp(`idTier.${i}.0`,g[0])}건 이상${inp(`idTier.${i}.1`,g[1])}</div>`).join('')}</div>
+  </div>
+  <h2>직원 로그인 계정 <small>직원이 먼저 ERP에서 계정을 만든 뒤 연결</small></h2>
+  <div class="card form">${P.people.map(p=>`<div style="font-size:13px;font-weight:700;margin:10px 0 6px">${esc(pname(p))} <span style="font-weight:500;color:var(--tx2)">${p.email?'연결됨 · '+esc(p.email):'연결 안 됨'}</span></div>
+    <div style="display:flex;gap:8px"><input id="lk_${p.id}" type="email" placeholder="직원이 만든 계정 이메일" value="${esc(p.email)}"><button class="who" style="white-space:nowrap" data-act="linkUser" data-id="${p.id}">${p.email?'바꾸기':'연결'}</button></div>`).join('')}
+    <p class="note">이메일 칸을 비우고 누르면 연결이 풀립니다. 연결된 직원은 본인 판매건과 본인 급여만 볼 수 있습니다.</p></div>
+  <button class="btn ghost" data-act="resetPay">급여표를 처음 받은 값으로 되돌리기</button>
+  <p class="note">그레이드·신분증 수당은 도달한 구간의 금액 하나만 받습니다(누적 아님). 보험·워치·인터넷 동판은 본인이 입력한 판매건만 셉니다.</p>`;
+  return h;
+}
+
+// ── 판매사 ──
+function homeView(me){
+  const rows=S.sales.filter(inMonth);
+  const today=rows.filter(x=>x.date===TODAY);
+  const r=payroll(me,rows);
+  const t=sum(today,x=>incSum(me,x));
+  const mineToday=today.filter(x=>x.staffId===me.id);
+  return `<div class="grid2">
+    <div class="kpi hero"><div class="l">이번 달 예상 급여</div><div class="v">${won(r.total)}</div><div class="s">기본급 ${short(r.base+r.welfare)} + 수당 ${short(r.total-r.base-r.welfare)}</div></div>
+    <div class="kpi"><div class="l">오늘 번 수당</div><div class="v pos">+${short(t)}</div><div class="s">팀 오늘 ${today.length}건</div></div>
+    <div class="kpi"><div class="l">내가 입력한 건</div><div class="v">${rows.filter(x=>x.staffId===me.id).length}건</div><div class="s">오늘 ${mineToday.length}건</div></div>
+  </div>
+  <h2>급여 내역 <small>오늘까지 실적 기준</small></h2>
+  <div class="card">${payBox(me,rows)}</div>
+  <h2>정액 수당까지 남은 건수</h2>
+  ${tierCard('온라인 전체 실적',r.n,S.pay.grade,'건')}
+  ${tierCard('남부 신분증 번호이동',r.idn,S.pay.idTier,'건')}
+  <h2>일별 수당 <small>파란 막대 = 오늘</small></h2>
+  <div class="card">${dailyChart(rows,x=>incSum(me,x))}</div>
+  <h2>오늘 내가 입력한 판매 <small>${mineToday.length}건</small></h2>
+  <div class="card list">${mineToday.length?mineToday.slice().reverse().map(x=>saleItem(x,me)).join(''):'<div class="empty">오늘 입력한 판매건이 없습니다</div>'}</div>
+  <button class="btn" data-tab="input">판매건 입력하기</button>`;
+}
+
+function newForm(){const f=S.policy.models[0];return {date:TODAY,channel:'moyo',region:'남부',idOpen:false,type:'mnp',plan:'85',model:f.model,modelId:f.id,payback:false,paybackAmt:0,usedReturn:false,usedAmt:0,ins:false,watch:false,net:false,memo:''};}
+const seg=(k,opts,cur)=>`<div class="seg" data-seg="${k}">${opts.map(([v,l])=>`<button class="${String(cur)===String(v)?'on':''}" data-v="${v}">${l}</button>`).join('')}</div>`;
+function inputView(me){
+  if(!form)form=newForm();
+  const names=[...new Set(S.policy.models.map(m=>m.model))];
+  const caps=S.policy.models.filter(m=>m.model===form.model);
+  return `<h2>판매건 입력 <small>1건씩</small></h2>
+  <div class="form">
+  <div class="step"><div class="t"><i>1</i>개통 정보</div>
+    <label>개통일</label><input type="date" id="f_date" value="${form.date}">
+    <label>판매경로</label>${seg('channel',Object.entries(CH).map(([k,l])=>[k,k==='online'?'온라인':l]),form.channel)}
+    <label>개통 지역</label>${seg('region',REGIONS.map(r=>[r,r]),form.region)}
+    <label>가입 유형</label>${seg('type',Object.entries(TYPE),form.type)}
+    ${form.type==='mnp'?`<label>신분증 개통</label>${seg('idOpen',[[0,'아니요'],[1,'신분증 개통']],form.idOpen?1:0)}`:''}
+  </div>
+  <div class="step"><div class="t"><i>2</i>기기·요금제</div>
+    <label>모델</label><select id="f_model">${names.map(n=>`<option ${n===form.model?'selected':''}>${esc(n)}</option>`).join('')}</select>
+    <label>용량</label>${seg('cap',caps.map(m=>[m.id,m.cap]),form.modelId)}
+    <label>요금제</label>${seg('plan',[['85','85요금제'],['115','115요금제']],form.plan)}
+  </div>
+  <div class="step"><div class="t"><i>3</i>대납 · 중고폰</div>
+    <label>대납</label>${seg('payback',[[0,'없음'],[1,'대납 있음']],form.payback?1:0)}
+    ${form.payback?`<div class="inline"><input id="f_pb" inputmode="numeric" placeholder="대납 금액 (원)" value="${form.paybackAmt?fmt(form.paybackAmt):''}"></div>`:''}
+    <label>중고폰 반납</label>${seg('usedReturn',[[0,'없음'],[1,'반납 있음']],form.usedReturn?1:0)}
+    ${form.usedReturn?`<div class="inline"><input id="f_used" inputmode="numeric" placeholder="반납 금액 (원)" value="${form.usedAmt?fmt(form.usedAmt):''}"></div>`:''}
+  </div>
+  <div class="step"><div class="t"><i>4</i>부가 판매</div>
+    <div class="chk">${Object.entries(ADDON).map(([k,l])=>`<button data-chk="${k}" class="${form[k]?'on':''}"><b>${l}</b><span>+${fmt(S.pay.addon[k])}원</span></button>`).join('')}</div>
+    <label>메모 (선택)</label><input id="f_memo" placeholder="고객 뒷번호 4자리, 특이사항" value="${esc(form.memo)}">
+  </div>
+  <div class="step"><div class="t">계산 내역</div><div class="calcd" id="calcBox">${calcBox(me)}</div></div>
+  </div>
+  <div class="sbar"><div class="in"><div class="nums" id="sbarNums">${sbarNums(me)}</div><button class="btn" data-act="saveSale">저장</button></div></div>`;
+}
+function draft(me){return {...form,staffId:me.id};}
+function sbarNums(me){
+  const x=draft(me),c=calc(x),inc=incSum(me,x);
+  return `<div class="k">이 건 내 수당</div><div class="v">+${won(inc)}</div>${S.settings.showMargin&&c?`<div class="s">회사 건당 마진 <span class="${c.margin<0?'neg':''}">${won(c.margin)}</span></div>`:''}`;
+}
+function calcBox(me){
+  const x=draft(me),c=calc(x);if(!c)return '';
+  let h=incFor(me,x).map(i=>`<div class="row spot"><span>내 수당 · ${esc(i[0])}</span><b>+${won(i[1])}</b></div>`).join('');
+  if(S.settings.showMargin){
+    h+=`<div class="row tot"><span>정책 수수료</span><b>${won(c.fee)}</b></div>`;
+    h+=c.items.filter(i=>i[2]).map(i=>`<div class="row spot"><span>${esc(i[0])}</span><b>+${won(i[1])}</b></div>`).join('');
+    if(c.used)h+=`<div class="row spot"><span>중고폰 반납</span><b>+${won(c.used)}</b></div>`;
+    h+=c.costs.map(i=>`<div class="row minus"><span>${esc(i[0])}</span><b>${won(-i[1])}</b></div>`).join('');
+    h+=`<div class="row tot"><span>회사 건당 마진</span><b class="${c.margin<0?'neg':''}">${won(c.margin)}</b></div>`;
+  }
+  return h;
+}
+function refreshCalc(me){const a=document.getElementById('calcBox'),b=document.getElementById('sbarNums');if(a)a.innerHTML=calcBox(me);if(b)b.innerHTML=sbarNums(me);}
+function bindInput(){
+  const me=person(ses.pid);
+  const d=document.getElementById('f_date');if(d)d.onchange=()=>{form.date=d.value||TODAY;refreshCalc(me);};
+  const mo=document.getElementById('f_model');if(mo)mo.onchange=()=>{form.model=mo.value;form.modelId=S.policy.models.find(m=>m.model===mo.value).id;render();};
+  const pb=document.getElementById('f_pb');if(pb)pb.oninput=()=>{form.paybackAmt=num(pb.value);refreshCalc(me);};
+  const us=document.getElementById('f_used');if(us)us.oninput=()=>{form.usedAmt=num(us.value);refreshCalc(me);};
+  const mm=document.getElementById('f_memo');if(mm)mm.oninput=()=>{form.memo=mm.value;};
+}
+
+function mineView(me){
+  const mine=S.sales.filter(x=>x.staffId===me.id&&(mineRange==='today'?x.date===TODAY:inMonth(x))).sort((a,b)=>b.date.localeCompare(a.date)||b.at-a.at);
+  const byDay={};mine.forEach(x=>{(byDay[x.date]=byDay[x.date]||[]).push(x);});
+  return `<h2>내가 입력한 판매 <small>${mine.length}건</small></h2>
+  <div class="tools"><button class="pri" data-act="dlMine">내 판매건 엑셀 다운로드</button></div>
+  <div class="chips">${[['month','이번 달'],['today','오늘']].map(([k,l])=>`<button class="${mineRange===k?'on':''}" data-mine="${k}">${l}</button>`).join('')}</div>
+  ${Object.keys(byDay).length?Object.entries(byDay).map(([d,r])=>`<div class="sec">${md(d)} · ${r.length}건 · 내 수당 <span class="pos">+${won(sum(r,x=>incSum(me,x)))}</span></div><div class="card list">${r.map(x=>saleItem(x,me)).join('')}</div>`).join(''):'<div class="card"><div class="empty">판매건이 없습니다</div></div>'}
+  <p class="note">여기 수당은 이 판매건으로 받는 건당 수당입니다. 다른 직원이 입력한 건에서 받는 온라인 전체 수당은 '내 급여'에 합산됩니다.</p>`;
+}
+
+// ── PC 등록·엑셀 ──
+function PC(){try{return matchMedia('(min-width:1000px)').matches;}catch(e){return false;}}
+const ENTRY_COLS=['담당자','개통일','판매경로','개통지역','가입유형','신분증개통','요금제','모델','용량','대납금액','중고폰반납금액','보험','워치번들','인터넷동판','메모'];
+function newRow(me){return {date:TODAY,staffId:me?me.id:'',channel:'moyo',region:'남부',type:'mnp',idOpen:false,plan:'85',model:'',modelId:'',paybackAmt:0,usedAmt:0,ins:false,watch:false,net:false,memo:'',err:''};}
+const isBlank=r=>!r.modelId&&!r.memo&&!r.paybackAmt&&!r.usedAmt&&!r.err;
+function rowErr(r){
+  if(r.err)return r.err;
+  if(!r.modelId)return '모델을 고르세요';
+  if(!r.staffId&&ses.role==='admin')return '담당자를 고르세요';
+  if(!/^\d{4}-\d{2}-\d{2}$/.test(r.date))return '개통일 확인';
+  return '';
+}
+const rowSale=r=>({date:r.date,staffId:ses.role==='seller'?ses.pid:r.staffId,channel:r.channel,region:r.region,idOpen:r.type==='mnp'&&r.idOpen,modelId:r.modelId,type:r.type,plan:r.plan,
+  payback:r.paybackAmt>0,paybackAmt:r.paybackAmt,usedReturn:r.usedAmt>0,usedAmt:r.usedAmt,ins:r.ins,watch:r.watch,net:r.net,memo:r.memo});
+function entryRes(r,me){
+  if(isBlank(r))return '<span style="color:var(--tx3)">-</span>';
+  const e=rowErr(r);if(e)return `<span class="err">${esc(e)}</span>`;
+  const x=rowSale(r),c=calc(x);
+  if(ses.role==='admin')return `<b class="${c.margin<0?'neg':''}">${won(c.margin)}</b>`;
+  return `<b class="pos">+${won(incSum(me,x))}</b>${S.settings.showMargin?`<br><small class="${c.margin<0?'neg':''}" style="color:var(--tx3)">마진 ${won(c.margin)}</small>`:''}`;
+}
+function entrySum(me){
+  const ok=entry.rows.filter(r=>!isBlank(r)&&!rowErr(r)),bad=entry.rows.filter(r=>!isBlank(r)&&rowErr(r));
+  const xs=ok.map(rowSale);
+  const val=ses.role==='admin'?`건당 마진 합계 <b class="${sum(xs,x=>calc(x).margin)<0?'neg':''}">${won(sum(xs,x=>calc(x).margin))}</b>`:`내 수당 합계 <b class="pos">+${won(sum(xs,x=>incSum(me,x)))}</b>`;
+  return `저장할 판매건 <b>${ok.length}건</b> · ${val}${bad.length?` · <span class="err">확인 필요 ${bad.length}줄</span>`:''}`;
+}
+function entryView(me){
+  const admin=ses.role==='admin';
+  if(!entry)entry={rows:Array.from({length:5},()=>newRow(me))};
+  const names=[...new Set(S.policy.models.map(m=>m.model))];
+  const opt=(arr,cur)=>arr.map(([v,l])=>`<option value="${esc(v)}" ${String(v)===String(cur)?'selected':''}>${esc(l)}</option>`).join('');
+  const amt=(i,k,v)=>`<input data-b="${i}.${k}" inputmode="numeric" value="${v?fmt(v):''}" placeholder="0" style="width:88px;text-align:right">`;
+  const rows=entry.rows.map((r,i)=>{
+    const caps=S.policy.models.filter(m=>m.model===r.model);
+    return `<tr id="er${i}" class="${!isBlank(r)&&rowErr(r)?'bad':''}"><td class="r" style="color:var(--tx3)">${i+1}</td>
+    ${admin?`<td><select data-b="${i}.staffId" style="width:86px">${opt([['','선택'],...S.pay.people.map(p=>[p.id,p.name])],r.staffId)}</select></td>`:''}
+    <td><input type="date" data-b="${i}.date" value="${r.date}" style="width:136px"></td>
+    <td><select data-b="${i}.channel" style="width:82px">${opt(Object.entries(CH).map(([k,l])=>[k,k==='online'?'온라인':l]),r.channel)}</select></td>
+    <td><select data-b="${i}.region" style="width:70px">${opt(REGIONS.map(x=>[x,x]),r.region)}</select></td>
+    <td><select data-b="${i}.type" style="width:70px">${opt([['mnp','번이'],['dev','기변']],r.type)}</select></td>
+    <td class="c"><input type="checkbox" data-b="${i}.idOpen" id="eid${i}" ${r.idOpen&&r.type==='mnp'?'checked':''} ${r.type!=='mnp'?'disabled':''}></td>
+    <td><select data-b="${i}.plan" style="width:64px">${opt([['85','85'],['115','115']],r.plan)}</select></td>
+    <td><select data-b="${i}.model" style="width:150px">${opt([['','모델 선택'],...names.map(n=>[n,n])],r.model)}</select></td>
+    <td><select data-b="${i}.modelId" id="ecap${i}" style="width:84px">${opt(caps.map(m=>[m.id,m.cap]),r.modelId)}</select></td>
+    <td>${amt(i,'paybackAmt',r.paybackAmt)}</td><td>${amt(i,'usedAmt',r.usedAmt)}</td>
+    ${['ins','watch','net'].map(k=>`<td class="c"><input type="checkbox" data-b="${i}.${k}" ${r[k]?'checked':''}></td>`).join('')}
+    <td><input data-b="${i}.memo" value="${esc(r.memo)}" style="width:150px"></td>
+    <td class="r" id="eres${i}" style="min-width:96px">${entryRes(r,me)}</td>
+    <td><button class="del" data-act="entryDel" data-i="${i}">빼기</button></td></tr>`;
+  }).join('');
+  return `<h2>${admin?'판매건 등록':'여러 건 한 번에 등록'} <small>PC에서 표로 입력 · 엑셀 붙여넣기</small></h2>
+  <div class="card">
+    <div class="sec" style="margin-top:0">엑셀에서 복사해 붙여넣기</div>
+    <textarea class="paste" id="e_paste" placeholder="엑셀에서 아래 순서의 칸을 여러 줄 복사(Ctrl+C)해 여기에 붙여넣기(Ctrl+V) 하세요. 제목 줄은 있어도 됩니다."></textarea>
+    <div class="colhelp">칸 순서: ${ENTRY_COLS.map(c=>`<b>${c}</b>`).join('')}<br>
+      판매경로는 모요·핫딜(홈페이지)·온라인, 가입유형은 번이·기변, 신분증·보험·워치·인터넷은 O 또는 빈칸으로 적습니다.${admin?'':' 담당자 칸은 비워도 본인으로 저장됩니다.'}</div>
+    <div class="tools" style="margin:0"><button class="pri" data-act="entryPaste">붙여넣은 내용 표에 넣기</button><label>엑셀 파일 올리기<input type="file" id="up_sales" accept=".xlsx,.xls,.csv"></label><button data-act="dlTemplate">등록 양식 엑셀 받기</button></div>
+  </div>
+  <div class="tools" style="margin-top:16px"><button data-act="entryAdd">빈 줄 5개 추가</button><button data-act="entryClear">입력 중인 줄 비우기</button><span class="sp"></span><span id="esum" style="font-size:14px">${entrySum(me)}</span><button class="pri" data-act="entrySave">표에 있는 판매건 저장</button></div>
+  <div class="tscroll"><table class="tbl"><thead><tr><th></th>${admin?'<th>담당자</th>':''}<th>개통일</th><th>판매경로</th><th>지역</th><th>유형</th><th>신분증</th><th>요금제</th><th>모델</th><th>용량</th><th>대납</th><th>중고폰 반납</th><th>보험</th><th>워치</th><th>인터넷</th><th>메모</th><th class="r">${admin?'건당 마진':'내 수당'}</th><th></th></tr></thead>
+  <tbody>${rows}</tbody></table></div>
+  <p class="note">줄마다 계산이 바로 나옵니다. 빨간 줄은 저장되지 않으니 고친 뒤 다시 저장하세요. 모바일에서는 '판매입력' 화면이 더 편합니다.</p>`;
+}
+function entryField(el){
+  const [i,f]=el.dataset.b.split('.');const r=entry.rows[Number(i)];if(!r)return;
+  const me=person(ses.pid);
+  if(el.type==='checkbox')r[f]=el.checked;
+  else if(f==='paybackAmt'||f==='usedAmt')r[f]=num(el.value);
+  else r[f]=el.value;
+  if(f==='model'){const caps=S.policy.models.filter(m=>m.model===r.model);r.modelId=caps[0]?caps[0].id:'';
+    const cs=document.getElementById('ecap'+i);if(cs)cs.innerHTML=caps.map(m=>`<option value="${m.id}">${esc(m.cap)}</option>`).join('');}
+  if(f==='type'){const cb=document.getElementById('eid'+i);if(r.type!=='mnp'){r.idOpen=false;if(cb){cb.checked=false;cb.disabled=true;}}else if(cb)cb.disabled=false;}
+  if(f==='model'||f==='modelId'||f==='staffId')r.err='';
+  const tr=document.getElementById('er'+i);if(tr)tr.className=!isBlank(r)&&rowErr(r)?'bad':'';
+  const rs=document.getElementById('eres'+i);if(rs)rs.innerHTML=entryRes(r,me);
+  const sm=document.getElementById('esum');if(sm)sm.innerHTML=entrySum(me);
+}
+function entrySave(){
+  const me=person(ses.pid);
+  const ok=entry.rows.filter(r=>!isBlank(r)&&!rowErr(r)),bad=entry.rows.filter(r=>!isBlank(r)&&rowErr(r));
+  if(!ok.length){toast(bad.length?'빨간 줄을 먼저 고치세요':'저장할 판매건이 없습니다');return;}
+  if(bad.length&&!confirm(`확인 필요한 ${bad.length}줄은 표에 남기고, ${ok.length}건만 저장할까요?`))return;
+  const now=Date.now();
+  ok.forEach((r,k)=>{const x={...rowSale(r),id:uid()+k,at:now+k};x.calc=calc(x);S.sales.push(x);});
+  save();
+  entry.rows=bad.length?bad:[];while(entry.rows.length<5)entry.rows.push(newRow(me));
+  render();toast(ok.length+'건 저장했습니다');
+}
+// 붙여넣기·엑셀 파일 → 표
+const yes=v=>/^(o|y|yes|1|true|있음|예|v|✓|ㅇ|●)$/i.test(String(v??'').trim());
+const normName=s=>String(s??'').toLowerCase().replace(/갤럭시|galaxy|\s/g,'').replace(/^z/,'').replace(/울트라/g,'ultra').replace(/플러스/g,'+').replace(/프로맥스/g,'promax').replace(/프로/g,'pro').replace(/맥스/g,'max').replace(/엣지/g,'edge');
+function pDate(v){
+  if(typeof v==='number'&&v>30000)return ymd(new Date(Math.round((v-25569)*864e5)));
+  const t=String(v??'').trim();let m=t.match(/(\d{4})\s*[-./년]\s*(\d{1,2})\s*[-./월]\s*(\d{1,2})/);
+  if(m)return m[1]+'-'+pad(m[2])+'-'+pad(m[3]);
+  m=t.match(/^(\d{1,2})\s*[-./월]\s*(\d{1,2})/);if(m)return TODAY.slice(0,4)+'-'+pad(m[1])+'-'+pad(m[2]);
+  return '';
+}
+function pModel(name,cap){
+  const n=normName(name);if(!n)return null;
+  const all=[...new Set(S.policy.models.map(m=>m.model))];
+  let nm=all.find(a=>normName(a)===n);
+  if(!nm){const c=all.filter(a=>n.includes(normName(a))).sort((a,b)=>normName(b).length-normName(a).length);nm=c[0];}
+  if(!nm)return null;
+  const caps=S.policy.models.filter(m=>m.model===nm);
+  const cn=String(cap??'').toUpperCase().replace(/\s|GB/g,'').replace(/^(\d)T$/,'$1TB');
+  if(!cn)return caps[0];
+  return caps.find(m=>m.cap.toUpperCase().replace(/\s|GB/g,'')===cn)||null;
+}
+function importRows(aoa){
+  const me=person(ses.pid),admin=ses.role==='admin';
+  const out=[];
+  for(const raw of aoa){
+    const c=raw.map(v=>typeof v==='string'?v.trim():v);
+    if(!c.some(v=>String(v).trim()))continue;
+    if(/담당|개통일/.test(String(c[0]))||/개통일/.test(String(c[1])))continue;
+    const r=newRow(me),errs=[];
+    if(admin){const nm=String(c[0]||'').trim();const p=S.pay.people.find(p=>nm&&(p.name===nm||nm.includes(p.name)));if(p)r.staffId=p.id;else errs.push('담당자');}
+    r.date=pDate(c[1])||(String(c[1]).trim()?'':TODAY);if(!r.date){errs.push('개통일');r.date=TODAY;}
+    const ch=String(c[2]);r.channel=/모요/.test(ch)?'moyo':/핫딜|홈페이지|홈피/.test(ch)?'hotdeal':/온라인|플랫폼/.test(ch)?'online':(ch.trim()?(errs.push('판매경로'),'moyo'):'moyo');
+    const rg=REGIONS.find(x=>String(c[3]).includes(x));if(rg)r.region=rg;else errs.push('개통지역');
+    const ty=String(c[4]);r.type=/기|dev/i.test(ty)?'dev':/번|이동|mnp/i.test(ty)?'mnp':(errs.push('가입유형'),'mnp');
+    r.idOpen=r.type==='mnp'&&yes(c[5]);
+    r.plan=/115/.test(String(c[6]))?'115':'85';
+    const m=pModel(c[7],c[8]);if(m){r.model=m.model;r.modelId=m.id;}else errs.push('모델·용량 "'+String(c[7]??'')+' '+String(c[8]??'')+'"');
+    r.paybackAmt=num(c[9]);r.usedAmt=num(c[10]);
+    r.ins=yes(c[11]);r.watch=yes(c[12]);r.net=yes(c[13]);r.memo=String(c[14]??'');
+    if(errs.length)r.err='확인: '+errs.join(', ');
+    out.push(r);
+  }
+  if(!out.length){toast('읽을 수 있는 줄이 없습니다');return 0;}
+  entry.rows=entry.rows.filter(r=>!isBlank(r)).concat(out);
+  render();
+  const bad=out.filter(r=>r.err).length;
+  toast(out.length+'줄 넣었습니다'+(bad?' · 확인 필요 '+bad+'줄':''));
+  return out.length;
+}
+// 엑셀 내보내기
+function dlBlob(blob,name){const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},500);}
+function xlsxOut(name,sheets){
+  if(!window.XLSX){
+    const csv='﻿'+sheets[0][1].map(r=>r.map(v=>{const s=String(v??'');return /[",\n]/.test(s)?'"'+s.replace(/"/g,'""')+'"':s;}).join(',')).join('\r\n');
+    dlBlob(new Blob([csv],{type:'text/csv;charset=utf-8'}),name+'.csv');toast('엑셀 모듈을 못 불러와 CSV로 받았습니다');return;
+  }
+  const wb=XLSX.utils.book_new();
+  for(const [n,a] of sheets){const ws=XLSX.utils.aoa_to_sheet(a);ws['!cols']=a[0].map(h=>({wch:Math.max(8,String(h).length*2+2)}));XLSX.utils.book_append_sheet(wb,ws,n);}
+  XLSX.writeFile(wb,name+'.xlsx');
+}
+function salesAoa(rows,me){
+  const admin=!me;
+  const head=[...ENTRY_COLS,...(admin?['정책 수수료','중고폰 반납(+)','광고비·모요 수수료','대리점 지원금','대납(−)','건당 마진']:['내 수당',...(S.settings.showMargin?['건당 마진']:[])])];
+  return [head,...rows.map(x=>{const m=modelById(x.modelId),c=x.calc||calc(x),o=v=>v?'O':'';
+    const base=[person(x.staffId)?.name||'',x.date,CH[x.channel],x.region,TYPE[x.type],o(x.idOpen),x.plan,m?m.model:'',m?m.cap:'',x.paybackAmt||0,x.usedAmt||0,o(x.ins),o(x.watch),o(x.net),x.memo||''];
+    if(admin)return [...base,c.fee,c.used||0,c.costs[0][1],c.costs[1][1],x.paybackAmt||0,c.margin];
+    return [...base,incSum(me,x),...(S.settings.showMargin?[c.margin]:[])];})];
+}
+function payAoa(people){
+  const rows=S.sales.filter(inMonth);
+  return [['이름','기본급','복지수당','건당 수당','부가 판매','실적 그레이드','남부 신분증 수당','예상 급여','온라인 전체 건수','남부 신분증 번이 건수'],
+    ...people.map(p=>{const r=payroll(p,rows);return [pname(p),r.base,r.welfare,r.perCase,r.addon,r.grade,r.idt,r.total,r.n,r.idn];})];
+}
+// 정책 엑셀
+const SUBCOLS=[];for(const ch of ['moyo','hotdeal','online'])for(const t of ['mnp','dev'])for(const p of ['85','115'])SUBCOLS.push([ch,t,p,CH[ch].replace(' 플랫폼','')+' '+(t==='mnp'?'번이':'기변')+p]);
+const COMMON_KEYS=['open','planfee','award','volume','hq','rep'];
+function policyOut(){
+  const P=S.policy;
+  const common=[['가입유형','요금제',...COMMON_KEYS.map(k=>FEE_LABEL[k])],...['mnp','dev'].flatMap(t=>['85','115'].map(p=>[TYPE[t],p,...COMMON_KEYS.map(k=>P.common[t][p][k])]))];
+  const models=[['구분','모델','용량','출고가','판매활성화 번이','판매활성화 기변','담당유통망 번이',...SUBCOLS.map(s=>s[3]+' 지원금')],
+    ...P.models.map(m=>[m.grp,m.model,m.cap,m.retail,m.act.mnp,m.act.dev,m.rep??P.common.mnp['85'].rep,...SUBCOLS.map(([ch,t,p])=>m.sub[ch][t][p])])];
+  const cost=[['판매경로','건당 비용'],...Object.keys(CH).map(k=>[CH[k]+' '+CH_COST[k],P.cost[k]])];
+  xlsxOut('더끌림_정책서_'+TODAY,[['모델정책',models],['공통수수료',common],['건당비용',cost]]);
+}
+function readXlsx(file,fn){
+  if(!window.XLSX){toast('엑셀 모듈을 불러오지 못했습니다. 인터넷 연결을 확인하세요');return;}
+  const fr=new FileReader();fr.onload=()=>{try{fn(XLSX.read(new Uint8Array(fr.result),{type:'array'}));}catch(e){toast('엑셀 파일을 읽지 못했습니다');}};fr.readAsArrayBuffer(file);
+}
+function policyIn(wb){
+  const P=S.policy,get=n=>wb.Sheets[n]?XLSX.utils.sheet_to_json(wb.Sheets[n],{header:1,raw:true,defval:''}):null;
+  let nm=0,miss=[],nc=0;
+  const mr=get('모델정책');
+  if(mr)for(const row of mr.slice(1)){
+    if(!String(row[1]).trim())continue;
+    const m=P.models.find(m=>m.model===String(row[1]).trim()&&m.cap===String(row[2]).trim());
+    if(!m){miss.push(row[1]+' '+row[2]);continue;}
+    m.act.mnp=num(row[4]);m.act.dev=num(row[5]);
+    const rp=num(row[6]);if(m.rep!=null||rp!==P.common.mnp['85'].rep)m.rep=rp;
+    SUBCOLS.forEach(([ch,t,p],k)=>{m.sub[ch][t][p]=num(row[7+k]);});nm++;
+  }
+  const cr=get('공통수수료');
+  if(cr)for(const row of cr.slice(1)){
+    const t=String(row[0]).includes('번호')?'mnp':String(row[0]).includes('기기')?'dev':null,p=String(row[1]).includes('115')?'115':String(row[1]).includes('85')?'85':null;
+    if(!t||!p)continue;COMMON_KEYS.forEach((k,j)=>{P.common[t][p][k]=num(row[2+j]);});nc++;
+  }
+  const kr=get('건당비용');
+  if(kr)for(const row of kr.slice(1)){const k=Object.keys(CH).find(k=>String(row[0]).startsWith(CH[k]));if(k)P.cost[k]=num(row[1]);}
+  if(!mr&&!cr){toast('정책서 양식이 아닙니다. 먼저 "정책 엑셀 내려받기"로 받은 파일을 고쳐서 올리세요');return;}
+  save();render();
+  toast(`모델 ${nm}개 · 공통 ${nc}줄 반영${miss.length?' · 못 찾은 모델 '+miss.length+'개':''}`);
+  if(miss.length)setTimeout(()=>alert('정책서에 없는 모델이라 건너뛴 줄:\n'+miss.join('\n')+'\n\n모델명·용량은 내려받은 그대로 두세요.'),50);
+}
+
+// ── 이벤트 ──
+function setPath(root,path,v){const p=path.split('.');let o=root;for(let i=0;i<p.length-1;i++)o=o[p[i]];o[p[p.length-1]]=v;}
+document.addEventListener('click',e=>{
+  const t=e.target.closest('[data-tab],[data-act],[data-open],[data-filt],[data-seg] button,[data-chk],[data-polgrp],[data-polch],[data-mine]');if(!t)return;
+  if(t.dataset.tab){tab=t.dataset.tab;open=null;render();scrollTo(0,0);return;}
+  if(t.dataset.filt){filt[t.dataset.filt]=t.dataset.v;open=null;render();return;}
+  if(t.dataset.mine){mineRange=t.dataset.mine;open=null;render();return;}
+  if(t.dataset.polgrp){polGrp=t.dataset.polgrp;render();return;}
+  if(t.dataset.polch){polCh=t.dataset.polch;render();return;}
+  if(t.dataset.chk){form[t.dataset.chk]=!form[t.dataset.chk];render();return;}
+  if(t.dataset.open&&!e.target.closest('[data-act]')){open=open===t.dataset.open?null:t.dataset.open;render();return;}
+  const sg=t.closest('[data-seg]');
+  if(sg&&!t.dataset.act){const k=sg.dataset.seg,v=t.dataset.v;
+    if(k==='cap')form.modelId=v;
+    else if(['idOpen','payback','usedReturn'].includes(k)){form[k]=v==='1';if(k==='payback'&&!form.payback)form.paybackAmt=0;if(k==='usedReturn'&&!form.usedReturn)form.usedAmt=0;}
+    else{form[k]=v;if(k==='type'&&v==='dev')form.idOpen=false;}
+    render();return;}
+  const a=t.dataset.act;
+  if(a==='asAdmin'){if(!acct.admin)return;ses={role:'admin'};saveSes();tab=null;entry=null;render();}
+  else if(a==='asSeller'){if(t.dataset.id!==acct.pid)return;ses={role:'seller',pid:acct.pid};saveSes();tab=null;form=null;entry=null;render();}
+  else if(a==='logout'){if(acct.admin&&acct.pid){ses={};saveSes();open=null;entry=null;render();scrollTo(0,0);}else signOut();}
+  else if(a==='signOut'){signOut();}
+  else if(a==='signUp'){signIn(true);}
+  else if(a==='reloadMe'){boot='loading';render();load().then(()=>{listen();render();});}
+  else if(a==='linkUser'){const id=t.dataset.id,em=(document.getElementById('lk_'+id)||{}).value||'';
+    if(!em.trim()&&!confirm('이 직원의 로그인 연결을 해제할까요?'))return;
+    sb.rpc('erp_link',{p_pid:id,p_email:em.trim()}).then(({data,error})=>{if(error){toast(sbErr(error));return;}toast(em.trim()?data+' 계정 연결 완료':data+' 연결 해제');refresh();});}
+  else if(a==='clearDemo'){if(confirm('예시 판매건을 모두 지우고 빈 상태로 시작할까요? 정책·급여표·스팟은 그대로 둡니다.')){S.sales=[];S.demo=false;save();render();toast('예시 판매건을 지웠습니다');}}
+  else if(a==='saveSale'){
+    const me=person(ses.pid);if(!me)return;
+    if(form.payback&&!form.paybackAmt){toast('대납 금액을 입력하세요');return;}
+    if(form.usedReturn&&!form.usedAmt){toast('중고폰 반납 금액을 입력하세요');return;}
+    const x={...draft(me),id:uid(),at:Date.now()};delete x.model;
+    if(x.type!=='mnp')x.idOpen=false;
+    x.calc=calc(x);S.sales.push(x);save();
+    toast('저장했습니다 · 내 수당 +'+won(incSum(me,x)));
+    form={...newForm(),date:form.date,channel:form.channel,region:form.region,type:form.type,plan:form.plan};render();scrollTo(0,0);
+  }
+  else if(a==='delSale'){if(confirm('이 판매건을 삭제할까요?')){S.sales=S.sales.filter(x=>x.id!==t.dataset.id);open=null;save();render();toast('삭제했습니다');}}
+  else if(a==='addSpot'){
+    const g=id=>document.getElementById(id).value;
+    const sp={id:uid(),name:g('sp_name').trim(),from:g('sp_from'),to:g('sp_to'),model:g('sp_model'),type:g('sp_type'),plan:g('sp_plan'),amt:num(g('sp_amt'))};
+    if(!sp.name||!sp.amt||!sp.from||!sp.to){toast('이름·기간·금액을 입력하세요');return;}
+    if(sp.to<sp.from){toast('종료일이 시작일보다 빠릅니다');return;}
+    S.spots.push(sp);save();render();toast('스팟 정책을 등록했습니다');
+  }
+  else if(a==='delSpot'){if(confirm('이 스팟 정책을 삭제할까요? 이미 저장된 판매건 마진은 바뀌지 않습니다.')){S.spots=S.spots.filter(s=>s.id!==t.dataset.id);save();render();}}
+  else if(a==='toggleMargin'){S.settings.showMargin=!S.settings.showMargin;save();render();}
+  else if(a==='resetPolicy'){if(confirm('공통 수수료·모델별 정책을 원본값으로 되돌릴까요? 저장된 판매건 마진은 바뀌지 않습니다.')){S.policy={common:clone(DEFAULT_COMMON),models:clone(POLICY_MODELS),cost:{moyo:88000,hotdeal:88000,online:88000}};save();render();toast('원본값으로 되돌렸습니다');}}
+  else if(a==='dlSales'){const rows=S.sales.filter(x=>(filt.range==='today'?x.date===TODAY:inMonth(x))&&(filt.ch==='all'||x.channel===filt.ch)&&(filt.staff==='all'||x.staffId===filt.staff)).sort((a,b)=>a.date.localeCompare(b.date)||a.at-b.at);
+    xlsxOut('더끌림_판매건_'+(filt.range==='today'?TODAY:MONTH),[['판매건',salesAoa(rows,null)],['급여',payAoa(S.pay.people)]]);}
+  else if(a==='dlMine'){const me=person(ses.pid);const rows=S.sales.filter(x=>x.staffId===me.id&&(mineRange==='today'?x.date===TODAY:inMonth(x))).sort((a,b)=>a.date.localeCompare(b.date)||a.at-b.at);
+    xlsxOut('내판매건_'+me.name+'_'+(mineRange==='today'?TODAY:MONTH),[['내 판매',salesAoa(rows,me)],['내 급여',payAoa([me])]]);}
+  else if(a==='dlPay'){xlsxOut('온라인팀_급여_'+MONTH,[['급여',payAoa(S.pay.people)]]);}
+  else if(a==='dlPolicy'){policyOut();}
+  else if(a==='dlTemplate'){xlsxOut('판매건_등록양식',[['판매건',[ENTRY_COLS,[person(ses.pid)?.name||'방민정',TODAY,'모요','남부','번이','O','85','아이폰18 PRO','256GB','50000','','O','','','뒷번호 1234']]]]);}
+  else if(a==='entryAdd'){const me=person(ses.pid);for(let i=0;i<5;i++)entry.rows.push(newRow(me));render();}
+  else if(a==='entryDel'){entry.rows.splice(Number(t.dataset.i),1);if(!entry.rows.length)entry.rows.push(newRow(person(ses.pid)));render();}
+  else if(a==='entryClear'){if(confirm('입력 중인 줄을 모두 비울까요? 이미 저장한 판매건은 그대로 둡니다.')){entry=null;render();}}
+  else if(a==='entryPaste'){const ta=document.getElementById('e_paste');const n=importRows(ta.value.split(/\r?\n/).filter(l=>l.trim()).map(l=>l.split('\t')));if(n)ta.value='';}
+  else if(a==='entrySave'){entrySave();}
+  else if(a==='resetPay'){if(confirm('급여표를 처음 받은 값으로 되돌릴까요?')){S.pay=clone(DEFAULT_PAY);save();render();toast('되돌렸습니다');}}
+});
+document.addEventListener('input',e=>{if(e.target.dataset.b&&e.target.type!=='checkbox'&&e.target.tagName==='INPUT'&&e.target.type!=='date')entryField(e.target);});
+document.addEventListener('change',e=>{
+  const el=e.target,v=num(el.value);
+  if(el.dataset.b){entryField(el);return;}
+  if(el.id==='up_policy'&&el.files[0]){readXlsx(el.files[0],policyIn);el.value='';return;}
+  if(el.id==='up_sales'&&el.files[0]){readXlsx(el.files[0],wb=>{const ws=wb.Sheets[wb.SheetNames[0]];importRows(XLSX.utils.sheet_to_json(ws,{header:1,raw:true,defval:''}));});el.value='';return;}
+  if(el.dataset.pol){setPath(S.policy,el.dataset.pol,v);el.value=fmt(v);el.classList.add('chg');save();toast('정책 저장');}
+  else if(el.dataset.pay){setPath(S.pay,el.dataset.pay,v);save();render();toast('급여표 저장');}
+  else if(el.dataset.set){S.settings.target[el.dataset.set.split('.')[1]]=v;save();toast('목표 저장');}
+});
+
+let wasPC=PC();addEventListener('resize',()=>{if(PC()!==wasPC){wasPC=PC();render();}});
+document.addEventListener('submit',e=>{if(e.target.id==='lgform'){e.preventDefault();signIn(false);}});
+if(sb)sb.auth.onAuthStateChange(ev=>{if(ev==='SIGNED_OUT'&&boot==='ready'){S=null;ses={};acct=null;base=null;boot='login';render();}});
+render();load().then(()=>{listen();render();}).catch(e=>{boot='error';acct={msg:sbErr(e)};render();});
+})();
+</script>
+</body>
+</html>
