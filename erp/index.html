@@ -400,7 +400,8 @@ function calc(x){
   if(m.act[x.type]) items.push([FEE_LABEL.act,m.act[x.type]]);
   spotsFor(x.date,m,x.type,x.plan).forEach(s=>items.push(['스팟 · '+s.name,s.amt,'spot']));
   const fee=items.reduce((a,b)=>a+b[1],0);
-  const costs=[[CH_COST[x.channel],S.policy.cost[x.channel]],['대리점 지원금',m.sub[x.channel][x.type][x.plan]]];
+  // 10/26 팀장님 지시: 대리점 지원금은 마진에서 빼지 않고, 건마다 입력한 대납 금액만 차감
+  const costs=[[CH_COST[x.channel],S.policy.cost[x.channel]]];
   if(x.payback&&x.paybackAmt>0) costs.push(['대납',x.paybackAmt]);
   const cost=costs.reduce((a,b)=>a+b[1],0);
   const used=x.usedReturn&&x.usedAmt>0?x.usedAmt:0;
@@ -578,7 +579,7 @@ function dashView(){
     <div class="kpi"><div class="l">이번 달 개통</div><div class="v">${fmt(rows.length)}건</div><div class="s">목표 ${fmt(total)}건</div></div>
     <div class="kpi"><div class="l">목표 달성률</div><div class="v">${(rows.length/total*100).toFixed(1)}%</div><div class="s">번이 ${fmt(mnp)} · 기변 ${fmt(rows.length-mnp)}</div></div>
     <div class="kpi"><div class="l">예상 수수료</div><div class="v">${short(fee)}</div><div class="s">정책 자동 계산</div></div>
-    <div class="kpi"><div class="l">예상 순마진</div><div class="v ${margin<0?'neg':''}">${short(margin)}</div><div class="s">중고폰 더하고 광고비·지원금·대납 차감</div></div>
+    <div class="kpi"><div class="l">예상 순마진</div><div class="v ${margin<0?'neg':''}">${short(margin)}</div><div class="s">중고폰 더하고 광고비·대납 차감</div></div>
     <div class="kpi big"><div class="l">예상 인건비 (온라인팀 ${S.pay.people.length}명)</div><div class="v">${short(labor)}</div><div class="s">기본급 + 수당 + 그레이드 · 인건비까지 뺀 마진 <b class="${margin-labor<0?'neg':'pos'}">${short(margin-labor)}</b></div></div>
   </div>
   <h2>판매경로별 <small>이번 달</small></h2>
@@ -634,6 +635,7 @@ function policyView(){
   }
   h+=`<div class="sec">건당 비용</div><div class="pg c3">${Object.keys(CH).map(k=>`<div>${CH[k]} ${CH_COST[k]}${inp('cost.'+k,P.cost[k])}</div>`).join('')}</div></div>
   <div class="sec">모델별 정책</div>
+  <p class="note" style="margin:-4px 0 10px">대리점 지원금은 참고용입니다. 마진에는 넣지 않고, 판매 등록 때 입력한 대납 금액만 뺍니다.</p>
   <div class="chips">${grps.map(g=>`<button class="${g===polGrp?'on':''}" data-polgrp="${esc(g)}">${esc(g)}</button>`).join('')}</div>
   <div class="chips">${Object.entries(CH).map(([k,l])=>`<button class="${k===polCh?'on':''}" data-polch="${k}">${l} 지원금</button>`).join('')}</div>`;
   if(PC()){
@@ -985,7 +987,7 @@ function salesAoa(rows,me){
   const head=[...ENTRY_COLS,...(admin?['정책 수수료','중고폰 반납(+)','광고비·모요 수수료','대리점 지원금','대납(−)','건당 마진']:['내 수당',...(S.settings.showMargin?['건당 마진']:[])])];
   return [head,...rows.map(x=>{const m=modelById(x.modelId),c=x.calc||calc(x),o=v=>v?'O':'';
     const base=[person(x.staffId)?.name||'',x.date,CH[x.channel],x.region,TYPE[x.type],o(x.idOpen),x.plan,m?m.model:'',m?m.cap:'',x.paybackAmt||0,x.usedAmt||0,o(x.ins),o(x.watch),o(x.net),x.memo||''];
-    if(admin)return [...base,c.fee,c.used||0,c.costs[0][1],c.costs[1][1],x.paybackAmt||0,c.margin];
+    if(admin)return [...base,c.fee,c.used||0,c.costs[0][1],(c.costs.find(i=>i[0]==='대리점 지원금')||[0,0])[1],x.paybackAmt||0,c.margin];
     return [...base,incSum(me,x),...(S.settings.showMargin?[c.margin]:[])];})];
 }
 function payAoa(people){
