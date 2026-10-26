@@ -449,7 +449,7 @@ const ICON={
 const ADMIN_TABS=[['dash','대시보드','home'],['sales','개통관리','phone'],['entry','판매 등록','grid'],['policy','정책서','doc'],['spot','스팟정책','bolt'],['pay','급여','won']];
 const SELLER_TABS=[['home','내 급여','home'],['input','판매입력','plus'],['entry','여러 건 등록','grid'],['mine','내 판매','list']];
 
-let tab,open=null,entry=null,filt={ch:'all',range:'month',staff:'all'},form=null,mineRange='month',polGrp=null,polCh='moyo';
+let tab,open=null,entry=null,filt={ch:'all',range:'month',staff:'all'},form=null,mineRange='month',polGrp=null;
 
 function render(){
   const app=document.getElementById('app');
@@ -634,22 +634,18 @@ function policyView(){
       ['open','planfee','award','volume','hq','rep'].map(k=>`<div>${FEE_LABEL[k]}${inp(`common.${t}.${p}.${k}`,c[k])}</div>`).join('')+`</div>`;
   }
   h+=`<div class="sec">건당 비용</div><div class="pg c3">${Object.keys(CH).map(k=>`<div>${CH[k]} ${CH_COST[k]}${inp('cost.'+k,P.cost[k])}</div>`).join('')}</div></div>
-  <div class="sec">모델별 정책</div>
-  <p class="note" style="margin:-4px 0 10px">대리점 지원금은 참고용입니다. 마진에는 넣지 않고, 판매 등록 때 입력한 대납 금액만 뺍니다.</p>
-  <div class="chips">${grps.map(g=>`<button class="${g===polGrp?'on':''}" data-polgrp="${esc(g)}">${esc(g)}</button>`).join('')}</div>
-  <div class="chips">${Object.entries(CH).map(([k,l])=>`<button class="${k===polCh?'on':''}" data-polch="${k}">${l} 지원금</button>`).join('')}</div>`;
+  <div class="sec">모델별 판매활성화</div>
+  <p class="note" style="margin:-4px 0 10px">수수료에 더해지는 금액입니다. 대리점 지원금은 받지 않고, 판매 등록 때 입력한 대납 금액만 마진에서 뺍니다.</p>
+  <div class="chips">${grps.map(g=>`<button class="${g===polGrp?'on':''}" data-polgrp="${esc(g)}">${esc(g)}</button>`).join('')}</div>`;
   if(PC()){
     h=h.replace(/<div class="chips">.*?data-polgrp.*?<\/div>/s,'');
-    h+=`<div class="tscroll"><table class="tbl"><thead><tr><th>모델</th><th>용량</th><th class="r">출고가</th><th>판매활성화 번이</th><th>판매활성화 기변</th><th>담당유통망 번이</th><th>${CH[polCh]} 번이85</th><th>번이115</th><th>기변85</th><th>기변115</th></tr></thead><tbody>`+
-    P.models.map((m,i)=>{const s=m.sub[polCh];return `<tr><td><b>${esc(m.model)}</b></td><td>${esc(m.cap)}</td><td class="r">${fmt(m.retail)}</td>
-      <td>${inp(`models.${i}.act.mnp`,m.act.mnp)}</td><td>${inp(`models.${i}.act.dev`,m.act.dev)}</td><td>${inp(`models.${i}.rep`,m.rep??P.common.mnp['85'].rep)}</td>
-      <td>${inp(`models.${i}.sub.${polCh}.mnp.85`,s.mnp['85'])}</td><td>${inp(`models.${i}.sub.${polCh}.mnp.115`,s.mnp['115'])}</td><td>${inp(`models.${i}.sub.${polCh}.dev.85`,s.dev['85'])}</td><td>${inp(`models.${i}.sub.${polCh}.dev.115`,s.dev['115'])}</td></tr>`;}).join('')+`</tbody></table></div>`;
+    h+=`<div class="tscroll"><table class="tbl"><thead><tr><th>모델</th><th>용량</th><th class="r">출고가</th><th>판매활성화 번이</th><th>판매활성화 기변</th><th>담당유통망 번이</th></tr></thead><tbody>`+
+    P.models.map((m,i)=>`<tr><td><b>${esc(m.model)}</b></td><td>${esc(m.cap)}</td><td class="r">${fmt(m.retail)}</td>
+      <td>${inp(`models.${i}.act.mnp`,m.act.mnp)}</td><td>${inp(`models.${i}.act.dev`,m.act.dev)}</td><td>${inp(`models.${i}.rep`,m.rep??P.common.mnp['85'].rep)}</td></tr>`).join('')+`</tbody></table></div>`;
   }else P.models.filter(m=>m.grp===polGrp).forEach(m=>{
-    const i=P.models.indexOf(m),s=m.sub[polCh];
+    const i=P.models.indexOf(m);
     h+=`<div class="card pol"><div class="mh"><b>${esc(m.model)} ${esc(m.cap)}</b><span>출고가 ${fmt(m.retail)}</span></div>
-      <div class="pg c3"><div>판매활성화 번이${inp(`models.${i}.act.mnp`,m.act.mnp)}</div><div>판매활성화 기변${inp(`models.${i}.act.dev`,m.act.dev)}</div><div>담당유통망 번이${inp(`models.${i}.rep`,m.rep??P.common.mnp['85'].rep)}</div></div>
-      <div style="font-size:11px;color:var(--tx2);margin:10px 0 0;font-weight:600">${CH[polCh]} 대리점 지원금</div>
-      <div class="pg"><div>번이 85${inp(`models.${i}.sub.${polCh}.mnp.85`,s.mnp['85'])}</div><div>번이 115${inp(`models.${i}.sub.${polCh}.mnp.115`,s.mnp['115'])}</div><div>기변 85${inp(`models.${i}.sub.${polCh}.dev.85`,s.dev['85'])}</div><div>기변 115${inp(`models.${i}.sub.${polCh}.dev.115`,s.dev['115'])}</div></div></div>`;
+      <div class="pg c3"><div>판매활성화 번이${inp(`models.${i}.act.mnp`,m.act.mnp)}</div><div>판매활성화 기변${inp(`models.${i}.act.dev`,m.act.dev)}</div><div>담당유통망 번이${inp(`models.${i}.rep`,m.rep??P.common.mnp['85'].rep)}</div></div></div>`;
   });
   h+=`<div class="card" style="margin-top:16px"><div class="sec" style="margin-top:0">지역 목표</div>
     <div class="pg c3">${REGIONS.map(t=>`<div>${t} 월 목표 (건)<input inputmode="numeric" data-set="target.${t}" value="${S.settings.target[t]}"></div>`).join('')}</div>
@@ -996,13 +992,12 @@ function payAoa(people){
     ...people.map(p=>{const r=payroll(p,rows);return [pname(p),r.base,r.welfare,r.perCase,r.addon,r.grade,r.idt,r.total,r.n,r.idn];})];
 }
 // 정책 엑셀
-const SUBCOLS=[];for(const ch of ['moyo','hotdeal','online'])for(const t of ['mnp','dev'])for(const p of ['85','115'])SUBCOLS.push([ch,t,p,CH[ch].replace(' 플랫폼','')+' '+(t==='mnp'?'번이':'기변')+p]);
 const COMMON_KEYS=['open','planfee','award','volume','hq','rep'];
 function policyOut(){
   const P=S.policy;
   const common=[['가입유형','요금제',...COMMON_KEYS.map(k=>FEE_LABEL[k])],...['mnp','dev'].flatMap(t=>['85','115'].map(p=>[TYPE[t],p,...COMMON_KEYS.map(k=>P.common[t][p][k])]))];
-  const models=[['구분','모델','용량','출고가','판매활성화 번이','판매활성화 기변','담당유통망 번이',...SUBCOLS.map(s=>s[3]+' 지원금')],
-    ...P.models.map(m=>[m.grp,m.model,m.cap,m.retail,m.act.mnp,m.act.dev,m.rep??P.common.mnp['85'].rep,...SUBCOLS.map(([ch,t,p])=>m.sub[ch][t][p])])];
+  const models=[['구분','모델','용량','출고가','판매활성화 번이','판매활성화 기변','담당유통망 번이'],
+    ...P.models.map(m=>[m.grp,m.model,m.cap,m.retail,m.act.mnp,m.act.dev,m.rep??P.common.mnp['85'].rep])];
   const cost=[['판매경로','건당 비용'],...Object.keys(CH).map(k=>[CH[k]+' '+CH_COST[k],P.cost[k]])];
   xlsxOut('더끌림_정책서_'+TODAY,[['모델정책',models],['공통수수료',common],['건당비용',cost]]);
 }
@@ -1020,7 +1015,7 @@ function policyIn(wb){
     if(!m){miss.push(row[1]+' '+row[2]);continue;}
     m.act.mnp=num(row[4]);m.act.dev=num(row[5]);
     const rp=num(row[6]);if(m.rep!=null||rp!==P.common.mnp['85'].rep)m.rep=rp;
-    SUBCOLS.forEach(([ch,t,p],k)=>{m.sub[ch][t][p]=num(row[7+k]);});nm++;
+    nm++;
   }
   const cr=get('공통수수료');
   if(cr)for(const row of cr.slice(1)){
@@ -1043,7 +1038,6 @@ document.addEventListener('click',e=>{
   if(t.dataset.filt){filt[t.dataset.filt]=t.dataset.v;open=null;render();return;}
   if(t.dataset.mine){mineRange=t.dataset.mine;open=null;render();return;}
   if(t.dataset.polgrp){polGrp=t.dataset.polgrp;render();return;}
-  if(t.dataset.polch){polCh=t.dataset.polch;render();return;}
   if(t.dataset.chk){form[t.dataset.chk]=!form[t.dataset.chk];render();return;}
   if(t.dataset.open&&!e.target.closest('[data-act]')){open=open===t.dataset.open?null:t.dataset.open;render();return;}
   const sg=t.closest('[data-seg]');
@@ -1104,7 +1098,7 @@ document.addEventListener('click',e=>{
   }
   else if(a==='delSpot'){if(confirm('이 스팟 정책을 삭제할까요? 이미 저장된 판매건 마진은 바뀌지 않습니다.')){S.spots=S.spots.filter(s=>s.id!==t.dataset.id);save();render();}}
   else if(a==='toggleMargin'){S.settings.showMargin=!S.settings.showMargin;save();render();}
-  else if(a==='resetPolicy'){if(confirm('공통 수수료·모델별 정책을 원본값으로 되돌릴까요? 저장된 판매건 마진은 바뀌지 않습니다.')){S.policy={common:clone(DEFAULT_COMMON),models:clone(POLICY_MODELS),cost:{moyo:88000,hotdeal:88000,online:88000}};save();render();toast('원본값으로 되돌렸습니다');}}
+  else if(a==='resetPolicy'){if(confirm('공통 수수료·모델별 판매활성화를 원본값으로 되돌릴까요? 저장된 판매건 마진은 바뀌지 않습니다.')){S.policy={common:clone(DEFAULT_COMMON),models:clone(POLICY_MODELS),cost:{moyo:88000,hotdeal:88000,online:88000}};save();render();toast('원본값으로 되돌렸습니다');}}
   else if(a==='dlSales'){const rows=S.sales.filter(x=>(filt.range==='today'?x.date===TODAY:inMonth(x))&&(filt.ch==='all'||x.channel===filt.ch)&&(filt.staff==='all'||x.staffId===filt.staff)).sort((a,b)=>a.date.localeCompare(b.date)||a.at-b.at);
     xlsxOut('더끌림_판매건_'+(filt.range==='today'?TODAY:MONTH),[['판매건',salesAoa(rows,null)],['급여',payAoa(S.pay.people)]]);}
   else if(a==='dlMine'){const me=person(ses.pid);const rows=S.sales.filter(x=>x.staffId===me.id&&(mineRange==='today'?x.date===TODAY:inMonth(x))).sort((a,b)=>a.date.localeCompare(b.date)||a.at-b.at);
