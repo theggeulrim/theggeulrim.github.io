@@ -489,20 +489,21 @@ const ICON={
 const ADMIN_TABS=[['dash','대시보드','home'],['sales','개통관리','phone'],['entry','판매 등록','grid'],['policy','정책서','doc'],['spot','스팟정책','bolt'],['pay','급여','won']];
 const SELLER_TABS=[['home','내 급여','home'],['input','판매입력','plus'],['entry','여러 건 등록','grid'],['mine','내 판매','list']];
 
-let tab,open=null,entry=null,filt={ch:'all',range:'month',staff:'all'},form=null,mineRange='month',polGrp=null;
+let edit=null,tab,open=null,entry=null,filt={ch:'all',range:'month',staff:'all'},form=null,mineRange='month',polGrp=null;
 
 function render(){
   const app=document.getElementById('app');
   document.body.classList.remove('withbar');
   if(boot!=='ready'||!ses.role){app.innerHTML=loginView();return;}
   const tabs=ses.role==='admin'?ADMIN_TABS:SELLER_TABS;
-  if(!tab||!tabs.some(t=>t[0]===tab))tab=tabs[0][0];
+  if(tab==='edit'&&!(edit&&S.sales.some(x=>x.id===edit.id))){if(edit){form=edit.keep;tab=edit.back;edit=null;}else tab=null;}
+  if(tab!=='edit'&&(!tab||!tabs.some(t=>t[0]===tab)))tab=tabs[0][0];
   const me=ses.role==='seller'?person(ses.pid):null;
   if(ses.role==='seller'&&!me){boot='unlinked';render();return;}
   let body='';
   if(tab==='dash')body=dashView();else if(tab==='sales')body=salesView();else if(tab==='policy')body=policyView();
   else if(tab==='spot')body=spotView();else if(tab==='pay')body=payView();
-  else if(tab==='home')body=homeView(me);else if(tab==='input')body=inputView(me);else if(tab==='mine')body=mineView(me);else if(tab==='entry')body=entryView(me);
+  else if(tab==='home')body=homeView(me);else if(tab==='input')body=inputView(me);else if(tab==='edit')body=inputView(person(form.staffId),true);else if(tab==='mine')body=mineView(me);else if(tab==='entry')body=entryView(me);
   app.innerHTML=`<div class="wrap">
     <div class="top"><h1>더끌림 ERP</h1><button class="who" data-act="logout"><b>${ses.role==='admin'?'관리자':esc(pname(me))}</b> · ${acct.admin&&acct.pid?'바꾸기':'로그아웃'}</button></div>
     <div class="sub">${ses.role==='admin'?'온라인팀 실적·수수료·급여 관리':'온라인팀 · '+(me.role==='lead'?'팀장':'판매사')}</div>
@@ -510,8 +511,8 @@ function render(){
     ${S.demo?`<div class="demo"><span>지금 보이는 판매건은 화면 확인용 예시입니다.</span><button data-act="clearDemo">예시 지우기</button></div>`:''}
     ${body}
   </div>
-  <nav><div class="in">${tabs.map(t=>`<button class="${t[0]===tab?'on':''}" data-tab="${t[0]}">${ICON[t[2]]}${t[1]}</button>`).join('')}</div></nav>`;
-  if(tab==='input'){document.body.classList.add('withbar');bindInput();}
+  <nav><div class="in">${tabs.map(t=>`<button class="${t[0]===tab||tab==='edit'&&t[0]===edit.back?'on':''}" data-tab="${t[0]}">${ICON[t[2]]}${t[1]}</button>`).join('')}</div></nav>`;
+  if(tab==='input'||tab==='edit'){document.body.classList.add('withbar');bindInput();}
 }
 
 function loginView(){
@@ -599,7 +600,7 @@ function saleItem(x,viewer){
     }
     if(x.usedReturn&&!admin)h+=`<div class="row"><span>중고폰 반납 금액</span><b>${won(x.usedAmt)}</b></div>`;
     if(x.memo)h+=`<div class="row"><span>메모</span><b>${esc(x.memo)}</b></div>`;
-    if(admin||x.staffId===viewer.id)h+=`<button class="del" data-act="delSale" data-id="${x.id}">이 판매건 삭제</button>`;
+    if(admin||x.staffId===viewer.id)h+=`<div style="display:flex;gap:8px"><button class="del" style="color:var(--blue);border-color:var(--blue)" data-act="editSale" data-id="${x.id}">이 판매건 수정</button><button class="del" data-act="delSale" data-id="${x.id}">이 판매건 삭제</button></div>`;
     h+=`</div>`;
   }
   return h;
@@ -651,7 +652,7 @@ function salesView(){
     return head+`<div class="tscroll"><table class="tbl"><thead><tr><th>개통일</th><th>담당자</th><th>경로</th><th>지역</th><th>유형</th><th>요금제</th><th>모델</th><th class="r">대납</th><th class="r">중고폰</th><th>부가</th><th>메모</th><th class="r">정책 수수료</th><th class="r">차감</th><th class="r">건당 마진</th><th></th></tr></thead><tbody>
     ${rows.map(x=>{const m=modelById(x.modelId),c=x.calc;return `<tr><td>${md(x.date)}</td><td>${esc(person(x.staffId)?.name||'-')}</td><td><span class="tag ${x.channel}">${CH[x.channel]}</span></td><td>${x.region}${x.idOpen?' · 신분증':''}</td><td>${TYPE[x.type]}</td><td>${esc(planName(x.plan))}</td><td>${esc(m?m.model+' '+m.cap:'-')}</td>
       <td class="r">${x.paybackAmt?fmt(x.paybackAmt):''}</td><td class="r">${x.usedAmt?fmt(x.usedAmt):''}</td><td>${['ins','watch','net'].filter(k=>x[k]).map(k=>ADDON[k]).join(', ')}</td><td>${esc(x.memo)}</td>
-      <td class="r">${fmt(c.fee+(c.used||0))}</td><td class="r">${fmt(-c.cost)}</td><td class="r ${c.margin<0?'neg':''}" style="font-weight:700">${fmt(c.margin)}</td><td><button class="del" data-act="delSale" data-id="${x.id}">삭제</button></td></tr>`;}).join('')||'<tr><td colspan="15" class="empty">판매건이 없습니다</td></tr>'}
+      <td class="r">${fmt(c.fee+(c.used||0))}</td><td class="r">${fmt(-c.cost)}</td><td class="r ${c.margin<0?'neg':''}" style="font-weight:700">${fmt(c.margin)}</td><td style="white-space:nowrap"><button class="del" style="color:var(--blue);border-color:var(--blue)" data-act="editSale" data-id="${x.id}">수정</button> <button class="del" data-act="delSale" data-id="${x.id}">삭제</button></td></tr>`;}).join('')||'<tr><td colspan="15" class="empty">판매건이 없습니다</td></tr>'}
     </tbody></table></div><p class="note">정책 수수료에는 중고폰 반납 금액이 포함돼 있습니다. 마진은 입력한 날의 정책으로 고정됩니다.</p>`;
   }
   return head+`<div class="card list">${rows.length?rows.slice(0,80).map(x=>saleItem(x)).join(''):'<div class="empty">판매건이 없습니다</div>'}</div>
@@ -808,13 +809,15 @@ function homeView(me){
 
 function newForm(){const f=S.policy.models[0];return {date:TODAY,channel:'moyo',region:'남부',idOpen:false,type:'mnp',plan:defPlan(),model:f.model,modelId:f.id,payback:false,paybackAmt:0,usedReturn:false,usedAmt:0,ins:false,watch:false,net:false,memo:''};}
 const seg=(k,opts,cur)=>`<div class="seg" data-seg="${k}">${opts.map(([v,l])=>`<button class="${String(cur)===String(v)?'on':''}" data-v="${v}">${l}</button>`).join('')}</div>`;
-function inputView(me){
+function inputView(me,isEdit){
   if(!form)form=newForm();
   const names=[...new Set(S.policy.models.map(m=>m.model))];
   const caps=S.policy.models.filter(m=>m.model===form.model);
-  return `<h2>판매건 입력 <small>1건씩</small></h2>
+  return `<h2>${isEdit?'판매건 수정 <small>고친 뒤 저장</small>':'판매건 입력 <small>1건씩</small>'}</h2>
+  ${isEdit?`<p class="note" style="margin:-4px 0 12px">저장하면 이 건의 수수료·마진이 <b>지금 정책</b>으로 다시 계산됩니다.</p>`:''}
   <div class="form">
   <div class="step"><div class="t"><i>1</i>개통 정보</div>
+    ${isEdit&&ses.role==='admin'?`<label>담당자</label><select id="f_staff">${S.pay.people.map(p=>`<option value="${p.id}" ${p.id===form.staffId?'selected':''}>${esc(pname(p))}</option>`).join('')}</select>`:''}
     <label>개통일</label><input type="date" id="f_date" value="${form.date}">
     <label>판매경로</label>${seg('channel',CH_SEL.map(k=>[k,CH[k]]),form.channel)}
     <label>개통 지역</label>${seg('region',REGIONS.map(r=>[r,r]),form.region)}
@@ -838,7 +841,7 @@ function inputView(me){
   </div>
   <div class="step"><div class="t">계산 내역</div><div class="calcd" id="calcBox">${calcBox(me)}</div></div>
   </div>
-  <div class="sbar"><div class="in"><div class="nums" id="sbarNums">${sbarNums(me)}</div><button class="btn" data-act="saveSale">저장</button></div></div>`;
+  <div class="sbar"><div class="in"><div class="nums" id="sbarNums">${sbarNums(me)}</div>${isEdit?`<button class="btn ghost" style="width:auto;padding:0 16px" data-act="cancelEdit">취소</button><button class="btn" data-act="updSale">수정 저장</button>`:`<button class="btn" data-act="saveSale">저장</button>`}</div></div>`;
 }
 function draft(me){return {...form,staffId:me.id};}
 function sbarNums(me){
@@ -859,7 +862,8 @@ function calcBox(me){
 }
 function refreshCalc(me){const a=document.getElementById('calcBox'),b=document.getElementById('sbarNums');if(a)a.innerHTML=calcBox(me);if(b)b.innerHTML=sbarNums(me);}
 function bindInput(){
-  const me=person(ses.pid);
+  const me=person(tab==='edit'?form.staffId:ses.pid);
+  const fs=document.getElementById('f_staff');if(fs)fs.onchange=()=>{form.staffId=fs.value;render();};
   const d=document.getElementById('f_date');if(d)d.onchange=()=>{form.date=d.value||TODAY;refreshCalc(me);};
   const fp=document.getElementById('f_plan');if(fp)fp.onchange=()=>{form.plan=fp.value;render();};
   const mo=document.getElementById('f_model');if(mo)mo.onchange=()=>{form.model=mo.value;form.modelId=S.policy.models.find(m=>m.model===mo.value).id;render();};
@@ -1083,7 +1087,7 @@ function policyIn(wb){
 function setPath(root,path,v){const p=path.split('.');let o=root;for(let i=0;i<p.length-1;i++)o=o[p[i]];o[p[p.length-1]]=v;}
 document.addEventListener('click',e=>{
   const t=e.target.closest('[data-tab],[data-act],[data-open],[data-filt],[data-seg] button,[data-chk],[data-polgrp],[data-polch],[data-mine]');if(!t)return;
-  if(t.dataset.tab){tab=t.dataset.tab;open=null;render();scrollTo(0,0);return;}
+  if(t.dataset.tab){if(edit){form=edit.keep;edit=null;}tab=t.dataset.tab;open=null;render();scrollTo(0,0);return;}
   if(t.dataset.filt){filt[t.dataset.filt]=t.dataset.v;open=null;render();return;}
   if(t.dataset.mine){mineRange=t.dataset.mine;open=null;render();return;}
   if(t.dataset.polgrp){polGrp=t.dataset.polgrp;render();return;}
@@ -1136,6 +1140,26 @@ document.addEventListener('click',e=>{
     x.calc=calc(x);S.sales.push(x);save();
     toast('저장했습니다 · 내 수당 +'+won(incSum(me,x)));
     form={...newForm(),date:form.date,channel:form.channel,region:form.region,type:form.type,plan:form.plan};render();scrollTo(0,0);
+  }
+  else if(a==='editSale'){const x=S.sales.find(y=>y.id===t.dataset.id);if(!x||x._team)return;
+    if(ses.role!=='admin'&&x.staffId!==ses.pid)return;
+    const m=modelById(x.modelId);
+    edit={id:x.id,back:tab==='edit'?edit.back:tab,keep:edit?edit.keep:form};
+    form={...newForm(),...clone(x),model:m?m.model:'',payback:!!x.paybackAmt,usedReturn:!!x.usedAmt};delete form.calc;
+    if(!m){const f=S.policy.models[0];form.model=f.model;form.modelId=f.id;toast('이 건의 모델이 정책서에 없어 첫 모델로 바꿔 보여줍니다. 모델을 다시 고르세요');}
+    tab='edit';open=null;render();scrollTo(0,0);}
+  else if(a==='cancelEdit'){if(edit){form=edit.keep;tab=edit.back;edit=null;}render();scrollTo(0,0);}
+  else if(a==='updSale'){
+    if(!edit)return;const i=S.sales.findIndex(y=>y.id===edit.id);if(i<0)return;
+    if(ses.role!=='admin'&&S.sales[i].staffId!==ses.pid)return;
+    if(form.payback&&!form.paybackAmt){toast('대납 금액을 입력하세요');return;}
+    if(form.usedReturn&&!form.usedAmt){toast('중고폰 반납 금액을 입력하세요');return;}
+    const x={...form,id:edit.id,at:S.sales[i].at,editedAt:Date.now()};delete x.model;
+    if(ses.role!=='admin')x.staffId=ses.pid;
+    if(x.type!=='mnp')x.idOpen=false;
+    if(!x.payback)x.paybackAmt=0;if(!x.usedReturn)x.usedAmt=0;
+    x.calc=calc(x);S.sales[i]=x;save();
+    form=edit.keep;tab=edit.back;edit=null;render();scrollTo(0,0);toast('수정했습니다');
   }
   else if(a==='delSale'){if(confirm('이 판매건을 삭제할까요?')){S.sales=S.sales.filter(x=>x.id!==t.dataset.id);open=null;save();render();toast('삭제했습니다');}}
   else if(a==='addSpot'){
