@@ -155,6 +155,27 @@ nav svg{width:23px;height:23px;stroke:currentColor;fill:none;stroke-width:1.9;st
 .tbl .del{margin:0;padding:4px 8px}
 .ptbl input{width:96px;text-align:right}.ptbl td:first-child{min-width:130px}.tbl input.chg{border-color:var(--orange)}
 .tscroll{overflow:auto;max-height:68vh;background:var(--card);border-radius:18px;box-shadow:var(--sh)}
+.prog .ph{display:flex;justify-content:space-between;align-items:flex-end;gap:10px}
+.prog .l{color:var(--tx2);font-size:14px;font-weight:600}.prog .l small{font-weight:500;color:var(--tx3);margin-left:4px}
+.prog .v{font-size:26px;font-weight:800;margin-top:4px;font-variant-numeric:tabular-nums}.prog .v small{font-size:14px;color:var(--tx2);font-weight:500}
+.prog .pct{font-size:24px;font-weight:800;font-variant-numeric:tabular-nums}
+.ptrack{position:relative;height:14px;background:var(--soft);border-radius:999px;margin:12px 0 8px}
+.ptrack .fill{border-radius:999px}
+.ptrack i{position:absolute;top:-5px;bottom:-5px;width:2px;margin-left:-1px;background:var(--tx);border-radius:2px}
+.prog .pl{display:flex;justify-content:space-between;flex-wrap:wrap;gap:4px 12px;font-size:13px;color:var(--tx2)}
+.prog .pr3{display:grid;grid-template-columns:repeat(3,1fr);gap:0 14px;margin-top:14px}
+.prog .pr3 .bar .r{font-size:13px}.prog .pr3 .track{height:7px}
+.pdbtn{display:block;width:100%;margin-top:10px;background:var(--soft);border:0;border-radius:10px;padding:10px;font-size:14px;font-weight:600;color:var(--blue);cursor:pointer}
+.pdet{margin-top:6px}.pdet .sec small{font-weight:500;color:var(--tx3);margin-left:4px}
+.pdet .row{font-size:14px;padding:4px 0}.pdet .tbl{font-size:12px}
+.seltools{margin-top:-4px}
+.tools button.warnb{color:var(--red);border-color:#f5c2c3}
+.tools button:disabled{opacity:.4;cursor:default}
+.tbl tr.on td{background:var(--bluebg)}
+.tbl input[data-sel]{width:17px;height:17px;accent-color:var(--blue);cursor:pointer}
+.it .ck{width:20px;height:20px;flex:none;accent-color:var(--blue);margin:0}
+.it .ck+div{flex:1;min-width:0}
+.list .it.on{background:var(--bluebg)}
 .tools{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 12px;align-items:center}
 .tools button,.tools label{border:1px solid var(--line);background:#fff;border-radius:10px;padding:9px 14px;font-size:14px;font-weight:600;cursor:pointer;color:var(--tx)}
 .tools button.pri{background:var(--blue);color:#fff;border-color:var(--blue)}
@@ -254,8 +275,20 @@ function fixPolicy(pol){
   for(const t of ['mnp','dev']){
     pol.common[t]=pol.common[t]||{};
     for(const p of pol.plans){const c=pol.common[t][p.id]||(pol.common[t][p.id]={});for(const it of pol.items)if(c[it.k]==null){c[it.k]=0;ch=true;}}
+    // 10/27 팀장님 지시: 요금제 수수료 말고는 전 요금제 같은 금액(번이·기변은 따로). 요금제마다 다르면 가장 많이 쓴 금액(0원 제외)으로 맞춤
+    for(const it of pol.items){
+      if(it.k==='planfee')continue;
+      const v=uniVal(pol,t,it.k);
+      for(const p of pol.plans){const c=pol.common[t][p.id];if(c[it.k]!==v){c[it.k]=v;ch=true;}}
+    }
   }
   return ch;
+}
+function uniVal(pol,t,k){
+  const cnt=new Map();
+  for(const p of pol.plans){const v=Number((pol.common[t][p.id]||{})[k])||0;if(v)cnt.set(v,(cnt.get(v)||0)+1);}
+  let best=0,bn=0;for(const [v,n] of cnt)if(n>bn){best=v;bn=n;}
+  return best;
 }
 const planOf=id=>S.policy.plans.find(p=>p.id===id);
 const planName=id=>{const p=planOf(id);return p?p.name:id+'요금제';};
@@ -577,12 +610,12 @@ function tierCard(title,n,tiers,unit){
 function tags(x){
   return `<span class="tag ${x.channel}">${CH[x.channel]}</span><span class="tag">${x.region}</span>${x.idOpen?'<span class="tag">신분증</span>':''}`;
 }
-function saleItem(x,viewer){
+function saleItem(x,viewer,ck){
   const m=modelById(x.modelId),c=x.calc;
   const admin=ses.role==='admin';
   const val=admin?c.margin:incSum(viewer,x);
   const extras=[x.payback?'대납 '+short(x.paybackAmt):'',x.usedReturn?'중고폰 '+short(x.usedAmt):'',...['ins','watch','net'].filter(k=>x[k]).map(k=>ADDON[k])].filter(Boolean).join(' · ');
-  let h=`<div class="it" data-open="${x.id}"><div><div class="a">${esc(m?m.model+' '+m.cap:'삭제된 모델')}</div>
+  let h=`<div class="it${ck&&sel.has(x.id)?' on':''}" data-open="${x.id}">${ck?`<input type="checkbox" class="ck" data-sel="${x.id}"${sel.has(x.id)?' checked':''} aria-label="선택">`:''}<div><div class="a">${esc(m?m.model+' '+m.cap:'삭제된 모델')}</div>
     <div class="b">${tags(x)}${md(x.date)} · ${TYPE[x.type]} ${esc(planName(x.plan))}${admin?' · '+esc(pname(person(x.staffId))):''}${extras?'<br>'+extras:''}</div></div>
     <div class="m ${val<0?'neg':admin?'':'pos'}">${admin?won(val):'+'+won(val)}<small>${admin?'건당 마진':'내 수당'}</small></div></div>`;
   if(open===x.id){
@@ -641,21 +674,41 @@ function dashView(){
   <div class="card list">${top.map(([k,v])=>`<div class="it" style="cursor:default"><div><div class="a">${esc(k)}</div><div class="b">${v.n}건 · 건당 평균 ${won(v.mg/v.n)}</div></div><div class="m ${v.mg<0?'neg':''}">${short(v.mg)}</div></div>`).join('')}</div>`;
 }
 
+// 개통관리 필터에 걸린 판매건 (최근 순)
+const visSales=()=>S.sales.filter(x=>(filt.range==='today'?x.date===TODAY:inMonth(x))&&(filt.ch==='all'||x.channel===filt.ch)&&(filt.staff==='all'||x.staffId===filt.staff)).sort((a,b)=>b.date.localeCompare(a.date)||b.at-a.at);
+// 이번 달 목표 대비 진척 — 오늘 날짜만큼 와야 할 기준선과 지금 속도로 간 월말 예상
+function progCard(){
+  const rows=S.sales.filter(inMonth),n=rows.length,goal=Object.values(S.settings.target).reduce((a,b)=>a+b,0);
+  const days=new Date(+MONTH.slice(0,4),+MONTH.slice(5,7),0).getDate(),day=+TODAY.slice(8);
+  const pace=goal*day/days,proj=Math.round(n/day*days),pct=goal?n/goal*100:0,gap=Math.round(n-pace);
+  const mnp=rows.filter(x=>x.type==='mnp').length;
+  return `<div class="card prog">
+    <div class="ph"><div><div class="l">이번 달 개통 진척 <small>${Number(MONTH.slice(5))}월 ${day}일 / ${days}일</small></div><div class="v">${fmt(n)}<small> / 목표 ${fmt(goal)}건</small></div></div><div class="pct ${n>=pace?'pos':'neg'}">${pct.toFixed(0)}%</div></div>
+    <div class="ptrack"><div class="fill ${pct>=100?'ok':n<pace*0.9?'warn':''}" style="width:${Math.min(100,pct)}%"></div><i style="left:${day/days*100}%"></i></div>
+    <div class="pl"><span>오늘까지 기준선 ${fmt(Math.round(pace))}건 · <b class="${gap<0?'neg':'pos'}">${gap>=0?'+':''}${gap}건</b></span><span>이 속도면 월말 <b>${fmt(proj)}건</b></span></div>
+    <div class="pr3">${REGIONS.map(t=>{const k=rows.filter(x=>x.region===t).length,g=S.settings.target[t]||0;return barRow(t,g?k/g*100:0,`${k}/${g}`);}).join('')}</div>
+    <div class="pl" style="margin-top:2px"><span>번이 ${fmt(mnp)} · 기변 ${fmt(n-mnp)}</span><span>${chKeys().map(k=>CH[k]+' '+rows.filter(x=>x.channel===k).length).join(' · ')}</span></div>
+  </div>`;
+}
+let sel=new Set();
 function salesView(){
-  const rows=S.sales.filter(x=>(filt.range==='today'?x.date===TODAY:inMonth(x))&&(filt.ch==='all'||x.channel===filt.ch)&&(filt.staff==='all'||x.staffId===filt.staff)).sort((a,b)=>b.date.localeCompare(a.date)||b.at-a.at);
+  const rows=visSales();
+  for(const id of [...sel])if(!rows.some(x=>x.id===id))sel.delete(id);
+  const allOn=rows.length>0&&rows.every(x=>sel.has(x.id));
   const chips=`<div class="chips">${[['month','이번 달'],['today','오늘']].map(([k,l])=>`<button class="${filt.range===k?'on':''}" data-filt="range" data-v="${k}">${l}</button>`).join('')}
   <span style="width:6px;flex:none"></span>${[['all','전체 경로'],...chKeys().map(k=>[k,CH[k]])].map(([k,l])=>`<button class="${filt.ch===k?'on':''}" data-filt="ch" data-v="${k}">${l}</button>`).join('')}
   <span style="width:6px;flex:none"></span>${[['all','전체 직원'],...S.pay.people.map(p=>[p.id,p.name])].map(([k,l])=>`<button class="${filt.staff===k?'on':''}" data-filt="staff" data-v="${k}">${l}</button>`).join('')}</div>`;
-  const head=`<h2>개통관리 <small>${rows.length}건 · 순마진 ${short(sum(rows,x=>x.calc.margin))}</small></h2>
-  <div class="tools"><button class="pri" data-act="dlSales">보이는 판매건 엑셀 다운로드</button><button data-tab="entry">판매 등록 (여러 건)</button></div>${chips}`;
+  const head=`${progCard()}<h2>개통관리 <small>${rows.length}건 · 순마진 ${short(sum(rows,x=>x.calc.margin))}</small></h2>
+  <div class="tools"><button class="pri" data-act="dlSales">보이는 판매건 엑셀 다운로드</button><button data-tab="entry">판매 등록 (여러 건)</button></div>${chips}
+  <div class="tools seltools"><button data-sel="all">${allOn?'선택 해제':'보이는 건 전체 선택'}</button><button class="warnb" data-act="delSel"${sel.size?'':' disabled'}>선택 삭제 (${sel.size}건)</button><button class="warnb" data-act="delAll"${rows.length?'':' disabled'}>보이는 ${rows.length}건 전체 삭제</button></div>`;
   if(PC()){
-    return head+`<div class="tscroll"><table class="tbl"><thead><tr><th>개통일</th><th>담당자</th><th>경로</th><th>지역</th><th>유형</th><th>요금제</th><th>모델</th><th class="r">대납</th><th class="r">중고폰</th><th>부가</th><th>메모</th><th class="r">정책 수수료</th><th class="r">차감</th><th class="r">건당 마진</th><th></th></tr></thead><tbody>
-    ${rows.map(x=>{const m=modelById(x.modelId),c=x.calc;return `<tr><td>${md(x.date)}</td><td>${esc(person(x.staffId)?.name||'-')}</td><td><span class="tag ${x.channel}">${CH[x.channel]}</span></td><td>${x.region}${x.idOpen?' · 신분증':''}</td><td>${TYPE[x.type]}</td><td>${esc(planName(x.plan))}</td><td>${esc(m?m.model+' '+m.cap:'-')}</td>
+    return head+`<div class="tscroll"><table class="tbl"><thead><tr><th class="c"><input type="checkbox" data-sel="all"${allOn?' checked':''} aria-label="전체 선택"></th><th>개통일</th><th>담당자</th><th>경로</th><th>지역</th><th>유형</th><th>요금제</th><th>모델</th><th class="r">대납</th><th class="r">중고폰</th><th>부가</th><th>메모</th><th class="r">정책 수수료</th><th class="r">차감</th><th class="r">건당 마진</th><th></th></tr></thead><tbody>
+    ${rows.map(x=>{const m=modelById(x.modelId),c=x.calc;return `<tr class="${sel.has(x.id)?'on':''}"><td class="c"><input type="checkbox" data-sel="${x.id}"${sel.has(x.id)?' checked':''} aria-label="선택"></td><td>${md(x.date)}</td><td>${esc(person(x.staffId)?.name||'-')}</td><td><span class="tag ${x.channel}">${CH[x.channel]}</span></td><td>${x.region}${x.idOpen?' · 신분증':''}</td><td>${TYPE[x.type]}</td><td>${esc(planName(x.plan))}</td><td>${esc(m?m.model+' '+m.cap:'-')}</td>
       <td class="r">${x.paybackAmt?fmt(x.paybackAmt):''}</td><td class="r">${x.usedAmt?fmt(x.usedAmt):''}</td><td>${['ins','watch','net'].filter(k=>x[k]).map(k=>ADDON[k]).join(', ')}</td><td>${esc(x.memo)}</td>
-      <td class="r">${fmt(c.fee+(c.used||0))}</td><td class="r">${fmt(-c.cost)}</td><td class="r ${c.margin<0?'neg':''}" style="font-weight:700">${fmt(c.margin)}</td><td style="white-space:nowrap"><button class="del" style="color:var(--blue);border-color:var(--blue)" data-act="editSale" data-id="${x.id}">수정</button> <button class="del" data-act="delSale" data-id="${x.id}">삭제</button></td></tr>`;}).join('')||'<tr><td colspan="15" class="empty">판매건이 없습니다</td></tr>'}
+      <td class="r">${fmt(c.fee+(c.used||0))}</td><td class="r">${fmt(-c.cost)}</td><td class="r ${c.margin<0?'neg':''}" style="font-weight:700">${fmt(c.margin)}</td><td style="white-space:nowrap"><button class="del" style="color:var(--blue);border-color:var(--blue)" data-act="editSale" data-id="${x.id}">수정</button> <button class="del" data-act="delSale" data-id="${x.id}">삭제</button></td></tr>`;}).join('')||'<tr><td colspan="16" class="empty">판매건이 없습니다</td></tr>'}
     </tbody></table></div><p class="note">정책 수수료에는 중고폰 반납 금액이 포함돼 있습니다. 마진은 입력한 날의 정책으로 고정됩니다.</p>`;
   }
-  return head+`<div class="card list">${rows.length?rows.slice(0,80).map(x=>saleItem(x)).join(''):'<div class="empty">판매건이 없습니다</div>'}</div>
+  return head+`<div class="card list">${rows.length?rows.slice(0,80).map(x=>saleItem(x,null,true)).join(''):'<div class="empty">판매건이 없습니다</div>'}</div>
   ${rows.length>80?`<p class="note">최근 80건만 보입니다. 전체는 PC 화면이나 엑셀 다운로드로 보세요.</p>`:''}
   <p class="note">줄을 누르면 수수료 항목별 내역이 열립니다. 마진은 입력한 날의 정책으로 고정됩니다.</p>`;
 }
@@ -669,11 +722,15 @@ function policyView(){
   <div class="tools"><button class="pri" data-act="dlPolicy">정책 엑셀 내려받기</button><label>정책 엑셀 올리기<input type="file" id="up_policy" accept=".xlsx,.xls"></label></div>
   <p class="note" style="margin:-4px 0 12px">PC에서는 엑셀로 내려받아 숫자를 고친 뒤 그대로 올리면 한 번에 바뀝니다. 모델명·용량 칸은 고치지 마세요.</p>
   <div class="card"><div class="sec" style="margin-top:0">공통 수수료</div>`;
-  h+=`<p class="note" style="margin:0 0 4px">한 줄이 요금제 하나입니다. 요금제·수수료 항목은 아래 '요금제·수수료 항목 관리'에서 추가·삭제합니다.</p>`;
+  h+=`<p class="note" style="margin:0 0 4px">요금제 수수료만 요금제마다 다르고, 나머지 항목은 전 요금제 같은 금액입니다(번호이동·기기변경은 따로). 요금제·수수료 항목은 아래 '요금제·수수료 항목 관리'에서 추가·삭제합니다.</p>`;
+  const uni=P.items.filter(it=>it.k!=='planfee'),pf=P.items.find(it=>it.k==='planfee');
+  const p0=P.plans[0].id;
   for(const t of ['mnp','dev']){
-    h+=`<div style="font-size:13px;font-weight:700;margin:14px 0 6px">${TYPE[t]}</div><div class="tscroll ptbl"><table class="tbl"><thead><tr><th>요금제</th><th class="r">월정액</th>${P.items.map(it=>`<th>${esc(it.l)}</th>`).join('')}</tr></thead><tbody>`+
-      P.plans.map(p=>{const c=P.common[t][p.id];return `<tr><td><b>${esc(p.name)}</b></td><td class="r">${fmt(p.price)}</td>${P.items.map(it=>`<td>${inp(`common.${t}.${p.id}.${it.k}`,c[it.k])}</td>`).join('')}</tr>`;}).join('')+`</tbody></table></div>`;
+    h+=`<div style="font-size:13px;font-weight:700;margin:14px 0 6px">${TYPE[t]} · 전 요금제 공통</div><div class="pg c3">${uni.map(it=>`<div>${esc(it.l)}<input inputmode="numeric" data-polall="${t}.${it.k}" value="${fmt(P.common[t][p0][it.k])}"></div>`).join('')}</div>`;
+    if(pf)h+=`<div style="font-size:13px;font-weight:700;margin:12px 0 6px">${TYPE[t]} · 요금제별 ${esc(pf.l)}</div><div class="tscroll ptbl" style="max-height:none"><table class="tbl"><thead><tr><th>요금제</th><th class="r">월정액</th><th>${esc(pf.l)}</th><th class="r">공통 포함 합계</th></tr></thead><tbody>`+
+      P.plans.map(p=>{const c=P.common[t][p.id];return `<tr><td><b>${esc(p.name)}</b></td><td class="r">${fmt(p.price)}</td><td>${inp(`common.${t}.${p.id}.planfee`,c.planfee)}</td><td class="r">${fmt(P.items.reduce((a,it)=>a+(c[it.k]||0),0))}</td></tr>`;}).join('')+`</tbody></table></div>`;
   }
+  h+=`<p class="note">공통 포함 합계 = 공통 항목 + 요금제 수수료. 판매활성화·스팟은 빠져 있고, 번호이동 담당유통망은 모델별 값이 있으면 그 값으로 계산됩니다.</p>`;
   h+=`<div class="sec">건당 비용</div><div class="pg c3">${CH_SEL.map(k=>`<div>${CH[k]} ${CH_COST[k]}${inp('cost.'+k,P.cost[k])}</div>`).join('')}</div></div>
   <div class="card"><div class="sec" style="margin-top:0">요금제·수수료 항목 관리</div>
     <div style="font-size:13px;font-weight:700;margin:4px 0 6px">수수료 항목 <small style="font-weight:400;color:var(--tx3)">이름을 고치면 바로 저장 · 담당유통망은 모델별 값과 이어져 있어 삭제 안 됨</small></div>
@@ -733,7 +790,30 @@ function payBox(p,rows){
     <div class="row"><span>부가 판매 (보험·워치·인터넷)</span><b>${won(r.addon)}</b></div>
     <div class="row ${r.grade?'':'dim'}"><span>실적 그레이드 (${r.n}건)</span><b>${r.grade?won(r.grade):'미달'}</b></div>
     <div class="row ${r.idt?'':'dim'}"><span>남부 신분증 번이 (${r.idn}건)</span><b>${r.idt?won(r.idt):'미달'}</b></div>
-    <div class="row tot"><span>예상 급여</span><b>${won(r.total)}</b></div></div>`;
+    <div class="row tot"><span>예상 급여</span><b>${won(r.total)}</b></div>
+    <button class="pdbtn" data-act="payDet" data-id="${p.id}">${payOpen.has(p.id)?'상세 내역 접기 ▲':'상세 내역 펼치기 ▼'}</button>
+    ${payOpen.has(p.id)?payDetail(p,rows,r):''}</div>`;
+}
+// 급여 상세: 수당 항목별 건수·금액, 정액 구간, 판매건별 수당 (기본은 접힘)
+let payOpen=new Set();
+function payDetail(p,rows,r){
+  const grp=new Map(),list=[];
+  for(const x of rows){const inc=incFor(p,x);if(!inc.length)continue;list.push([x,inc]);
+    for(const [l,a] of inc){const k=l+'|'+a,g=grp.get(k)||{l,a,n:0,add:Object.values(ADDON).includes(l)};g.n++;grp.set(k,g);}}
+  const tb=(arr)=>arr.length?`<div class="tscroll" style="max-height:none"><table class="tbl"><thead><tr><th>항목</th><th class="r">건수</th><th class="r">건당</th><th class="r">합계</th></tr></thead><tbody>${arr.map(g=>`<tr><td>${esc(g.l)}</td><td class="r">${fmt(g.n)}</td><td class="r">${fmt(g.a)}</td><td class="r"><b>${fmt(g.n*g.a)}</b></td></tr>`).join('')}</tbody></table></div>`:'<div class="empty" style="padding:8px 0">해당 없음</div>';
+  const G=[...grp.values()].sort((a,b)=>a.l.localeCompare(b.l,'ko')||a.a-b.a);
+  const tier=(n,t,unit)=>{const nx=nextTier(n,t),cur=[...t].reverse().find(([th])=>n>=th);return `${n}${unit} · ${cur?cur[0]+unit+' 이상 구간 '+won(cur[1]):'첫 구간('+t[0][0]+unit+') 미달'}${nx?' · 다음 구간까지 '+(nx[0]-n)+unit+' ('+won(nx[1])+')':' · 최고 구간'}`;};
+  const sorted=list.sort((a,b)=>b[0].date.localeCompare(a[0].date)||(b[0].at||0)-(a[0].at||0));
+  return `<div class="pdet">
+    <div class="sec">기본급·복지수당</div><div class="row"><span>기본급${r.welfare?' + 복지수당':''}</span><b>${won(r.base+r.welfare)}</b></div>
+    <div class="sec">건당 수당 <small>${won(r.perCase)}</small></div>${tb(G.filter(g=>!g.add))}
+    <div class="sec">부가 판매 <small>${won(r.addon)} · 본인 입력건만</small></div>${tb(G.filter(g=>g.add))}
+    <div class="sec">정액 수당</div>
+    <div class="row"><span>실적 그레이드</span><b>${won(r.grade)}</b></div><div class="hint" style="margin:0 0 6px">${tier(r.n,S.pay.grade,'건')}</div>
+    <div class="row"><span>남부 신분증 번이</span><b>${won(r.idt)}</b></div><div class="hint" style="margin:0 0 6px">${tier(r.idn,S.pay.idTier,'건')}</div>
+    <div class="sec">판매건별 수당 <small>${list.length}건 · ${md(MONTH+'-01')}~${md(TODAY)}</small></div>
+    ${list.length?`<div class="tscroll" style="max-height:420px"><table class="tbl"><thead><tr><th>개통일</th><th>담당</th><th>경로</th><th>유형</th><th>요금제</th><th>모델</th><th>받는 수당</th><th class="r">금액</th></tr></thead><tbody>${sorted.map(([x,inc])=>{const m=x.modelId&&modelById(x.modelId);return `<tr><td>${md(x.date)}</td><td>${x._team?'팀':esc(person(x.staffId)?.name||'-')}</td><td>${esc(CH[x.channel]||x.channel)}</td><td>${TYPE[x.type]||''}${isIdSouth(x)?' · 남부신분증':''}</td><td>${esc(planName(x.plan))}</td><td>${m?esc(m.model+' '+m.cap):'-'}</td><td>${inc.map(i=>esc(i[0])).join(', ')}</td><td class="r"><b>${fmt(inc.reduce((a,b)=>a+b[1],0))}</b></td></tr>`;}).join('')}</tbody></table></div>`:'<div class="empty" style="padding:8px 0">수당이 붙은 판매건이 없습니다</div>'}
+  </div>`;
 }
 function payView(){
   const rows=S.sales.filter(inMonth),P=S.pay;
@@ -1077,6 +1157,7 @@ function policyIn(wb){
   }
   const kr=get('건당비용');
   if(kr)for(const row of kr.slice(1)){const k=Object.keys(CH).find(k=>String(row[0]).startsWith(CH[k]));if(k)P.cost[k]=num(row[1]);}
+  fixPolicy(P);
   if(!mr&&!cr){toast('정책서 양식이 아닙니다. 먼저 "정책 엑셀 내려받기"로 받은 파일을 고쳐서 올리세요');return;}
   save();render();
   toast(`모델 ${nm}개 · 공통 ${nc}줄 반영${miss.length?' · 못 찾은 모델 '+miss.length+'개':''}`);
@@ -1086,7 +1167,11 @@ function policyIn(wb){
 // ── 이벤트 ──
 function setPath(root,path,v){const p=path.split('.');let o=root;for(let i=0;i<p.length-1;i++)o=o[p[i]];o[p[p.length-1]]=v;}
 document.addEventListener('click',e=>{
-  const t=e.target.closest('[data-tab],[data-act],[data-open],[data-filt],[data-seg] button,[data-chk],[data-polgrp],[data-polch],[data-mine]');if(!t)return;
+  const t=e.target.closest('[data-sel],[data-tab],[data-act],[data-open],[data-filt],[data-seg] button,[data-chk],[data-polgrp],[data-polch],[data-mine]');if(!t)return;
+  if(t.dataset.sel){const v=t.dataset.sel;
+    if(v==='all'){const ids=visSales().map(x=>x.id),on=ids.length&&ids.every(id=>sel.has(id));ids.forEach(id=>on?sel.delete(id):sel.add(id));}
+    else sel.has(v)?sel.delete(v):sel.add(v);
+    render();return;}
   if(t.dataset.tab){if(edit){form=edit.keep;edit=null;}tab=t.dataset.tab;open=null;render();scrollTo(0,0);return;}
   if(t.dataset.filt){filt[t.dataset.filt]=t.dataset.v;open=null;render();return;}
   if(t.dataset.mine){mineRange=t.dataset.mine;open=null;render();return;}
@@ -1161,7 +1246,13 @@ document.addEventListener('click',e=>{
     x.calc=calc(x);S.sales[i]=x;save();
     form=edit.keep;tab=edit.back;edit=null;render();scrollTo(0,0);toast('수정했습니다');
   }
-  else if(a==='delSale'){if(confirm('이 판매건을 삭제할까요?')){S.sales=S.sales.filter(x=>x.id!==t.dataset.id);open=null;save();render();toast('삭제했습니다');}}
+  else if(a==='payDet'){const id=t.dataset.id;payOpen.has(id)?payOpen.delete(id):payOpen.add(id);render();}
+  else if(a==='delSel'||a==='delAll'){
+    const ids=new Set(a==='delAll'?visSales().map(x=>x.id):[...sel]);if(!ids.size)return;
+    if(a==='delAll'){if(prompt(`지금 보이는 판매건 ${ids.size}건을 모두 삭제합니다. 되돌릴 수 없습니다.\n계속하려면 '삭제'라고 입력하세요.`)!=='삭제'){toast('삭제하지 않았습니다');return;}}
+    else if(!confirm(`선택한 판매건 ${ids.size}건을 삭제할까요? 되돌릴 수 없습니다.`))return;
+    S.sales=S.sales.filter(x=>!ids.has(x.id));sel.clear();open=null;save();render();toast(ids.size+'건 삭제했습니다');}
+  else if(a==='delSale'){if(confirm('이 판매건을 삭제할까요?')){S.sales=S.sales.filter(x=>x.id!==t.dataset.id);sel.delete(t.dataset.id);open=null;save();render();toast('삭제했습니다');}}
   else if(a==='addSpot'){
     const g=id=>document.getElementById(id).value;
     const sp={id:uid(),name:g('sp_name').trim(),from:g('sp_from'),to:g('sp_to'),model:g('sp_model'),type:g('sp_type'),plan:g('sp_plan'),amt:num(g('sp_amt'))};
@@ -1172,7 +1263,7 @@ document.addEventListener('click',e=>{
   else if(a==='addPlan'){const P=S.policy,nm=document.getElementById('npl_name').value.trim(),pr=num(document.getElementById('npl_price').value);
     if(!nm){toast('요금제 이름을 넣으세요');return;}
     if(P.plans.some(p=>p.name===nm)){toast('같은 이름의 요금제가 이미 있습니다');return;}
-    P.plans.push({id:'pl'+uid(),name:nm,price:pr});P.plans.sort((a,b)=>b.price-a.price);fixPolicy(P);save();render();toast(nm+' 추가 · 공통 수수료를 입력하세요');}
+    P.plans.push({id:'pl'+uid(),name:nm,price:pr});P.plans.sort((a,b)=>b.price-a.price);fixPolicy(P);save();render();toast(nm+' 추가 · 요금제 수수료를 입력하세요');}
   else if(a==='delPlan'){const P=S.policy,p=P.plans[Number(t.dataset.i)];if(!p)return;
     if(P.plans.length<=1){toast('요금제는 하나 이상 있어야 합니다');return;}
     if(!confirm(p.name+' 요금제를 목록에서 지울까요? 이 요금제의 공통 수수료도 지워집니다. 이미 저장된 판매건 마진은 바뀌지 않습니다.'))return;
@@ -1181,14 +1272,14 @@ document.addEventListener('click',e=>{
   else if(a==='addItem'){const P=S.policy,nm=document.getElementById('ni_name').value.trim();
     if(!nm){toast('항목 이름을 넣으세요');return;}
     if(P.items.some(it=>it.l===nm)){toast('같은 이름의 항목이 이미 있습니다');return;}
-    const at=P.items.findIndex(it=>it.k==='rep');P.items.splice(at<0?P.items.length:at,0,{k:'c'+uid(),l:nm});fixPolicy(P);save();render();toast(nm+' 항목 추가 · 요금제별 금액을 입력하세요');}
+    const at=P.items.findIndex(it=>it.k==='rep');P.items.splice(at<0?P.items.length:at,0,{k:'c'+uid(),l:nm});fixPolicy(P);save();render();toast(nm+' 항목 추가 · 번이·기변 공통 금액을 입력하세요');}
   else if(a==='delItem'){const P=S.policy,it=P.items[Number(t.dataset.i)];if(!it||it.k==='rep')return;
     if(!confirm(it.l+' 항목을 지울까요? 모든 요금제의 이 금액이 빠집니다. 이미 저장된 판매건 마진은 바뀌지 않습니다.'))return;
     P.items=P.items.filter(x=>x!==it);for(const t of ['mnp','dev'])for(const c of Object.values(P.common[t]))delete c[it.k];save();render();toast('지웠습니다');}
   else if(a==='delSpot'){if(confirm('이 스팟 정책을 삭제할까요? 이미 저장된 판매건 마진은 바뀌지 않습니다.')){S.spots=S.spots.filter(s=>s.id!==t.dataset.id);save();render();}}
   else if(a==='toggleMargin'){S.settings.showMargin=!S.settings.showMargin;save();render();}
   else if(a==='resetPolicy'){if(confirm('공통 수수료·요금제 목록·수수료 항목·모델별 판매활성화를 원본값으로 되돌릴까요? 저장된 판매건 마진은 바뀌지 않습니다.')){S.policy=freshPolicy();save();render();toast('원본값으로 되돌렸습니다');}}
-  else if(a==='dlSales'){const rows=S.sales.filter(x=>(filt.range==='today'?x.date===TODAY:inMonth(x))&&(filt.ch==='all'||x.channel===filt.ch)&&(filt.staff==='all'||x.staffId===filt.staff)).sort((a,b)=>a.date.localeCompare(b.date)||a.at-b.at);
+  else if(a==='dlSales'){const rows=visSales().reverse();
     xlsxOut('더끌림_판매건_'+(filt.range==='today'?TODAY:MONTH),[['판매건',salesAoa(rows,null)],['급여',payAoa(S.pay.people)]]);}
   else if(a==='dlMine'){const me=person(ses.pid);const rows=S.sales.filter(x=>x.staffId===me.id&&(mineRange==='today'?x.date===TODAY:inMonth(x))).sort((a,b)=>a.date.localeCompare(b.date)||a.at-b.at);
     xlsxOut('내판매건_'+me.name+'_'+(mineRange==='today'?TODAY:MONTH),[['내 판매',salesAoa(rows,me)],['내 급여',payAoa([me])]]);}
@@ -1215,7 +1306,8 @@ document.addEventListener('change',e=>{
   if(el.dataset.item){const it=S.policy.items[Number(el.dataset.item)],nm=el.value.trim();if(!it)return;
     if(!nm||S.policy.items.some(x=>x!==it&&x.l===nm)){el.value=it.l;toast(nm?'같은 이름의 항목이 이미 있습니다':'이름을 비울 수 없습니다');return;}
     it.l=nm;save();render();toast('항목 이름 저장');return;}
-  if(el.dataset.pol){setPath(S.policy,el.dataset.pol,v);el.value=fmt(v);el.classList.add('chg');save();toast('정책 저장');}
+  if(el.dataset.polall){const [t,k]=el.dataset.polall.split('.');for(const c of Object.values(S.policy.common[t]))c[k]=v;save();render();toast(TYPE[t]+' 전 요금제 저장');return;}
+  if(el.dataset.pol){setPath(S.policy,el.dataset.pol,v);el.value=fmt(v);el.classList.add('chg');save();if(el.dataset.pol.endsWith('.planfee'))render();toast('정책 저장');}
   else if(el.dataset.pay){setPath(S.pay,el.dataset.pay,v);save();render();toast('급여표 저장');}
   else if(el.dataset.set){S.settings.target[el.dataset.set.split('.')[1]]=v;save();toast('목표 저장');}
 });
