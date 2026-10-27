@@ -616,7 +616,7 @@ function saleItem(x,viewer,ck){
   const val=admin?c.margin:incSum(viewer,x);
   const extras=[x.payback?'대납 '+short(x.paybackAmt):'',x.usedReturn?'중고폰 '+short(x.usedAmt):'',...['ins','watch','net'].filter(k=>x[k]).map(k=>ADDON[k])].filter(Boolean).join(' · ');
   let h=`<div class="it${ck&&sel.has(x.id)?' on':''}" data-open="${x.id}">${ck?`<input type="checkbox" class="ck" data-sel="${x.id}"${sel.has(x.id)?' checked':''} aria-label="선택">`:''}<div><div class="a">${esc(m?m.model+' '+m.cap:'삭제된 모델')}</div>
-    <div class="b">${tags(x)}${md(x.date)} · ${TYPE[x.type]} ${esc(planName(x.plan))}${admin?' · '+esc(pname(person(x.staffId))):''}${extras?'<br>'+extras:''}</div></div>
+    <div class="b">${tags(x)}${x.custName?esc(x.custName)+' · ':''}${md(x.date)} · ${TYPE[x.type]} ${esc(planName(x.plan))}${admin?' · '+esc(pname(person(x.staffId))):''}${extras?'<br>'+extras:''}</div></div>
     <div class="m ${val<0?'neg':admin?'':'pos'}">${admin?won(val):'+'+won(val)}<small>${admin?'건당 마진':'내 수당'}</small></div></div>`;
   if(open===x.id){
     h+=`<div class="detail">`;
@@ -632,6 +632,7 @@ function saleItem(x,viewer,ck){
       }
     }
     if(x.usedReturn&&!admin)h+=`<div class="row"><span>중고폰 반납 금액</span><b>${won(x.usedAmt)}</b></div>`;
+    if(x.custName||x.custPhone)h+=`<div class="row"><span>고객</span><b>${esc([x.custName,x.custPhone].filter(Boolean).join(' · '))}</b></div>`;
     if(x.memo)h+=`<div class="row"><span>메모</span><b>${esc(x.memo)}</b></div>`;
     if(admin||x.staffId===viewer.id)h+=`<div style="display:flex;gap:8px"><button class="del" style="color:var(--blue);border-color:var(--blue)" data-act="editSale" data-id="${x.id}">이 판매건 수정</button><button class="del" data-act="delSale" data-id="${x.id}">이 판매건 삭제</button></div>`;
     h+=`</div>`;
@@ -702,10 +703,10 @@ function salesView(){
   <div class="tools"><button class="pri" data-act="dlSales">보이는 판매건 엑셀 다운로드</button><button data-tab="entry">판매 등록 (여러 건)</button></div>${chips}
   <div class="tools seltools"><button data-sel="all">${allOn?'선택 해제':'보이는 건 전체 선택'}</button><button class="warnb" data-act="delSel"${sel.size?'':' disabled'}>선택 삭제 (${sel.size}건)</button><button class="warnb" data-act="delAll"${rows.length?'':' disabled'}>보이는 ${rows.length}건 전체 삭제</button></div>`;
   if(PC()){
-    return head+`<div class="tscroll"><table class="tbl"><thead><tr><th class="c"><input type="checkbox" data-sel="all"${allOn?' checked':''} aria-label="전체 선택"></th><th>개통일</th><th>담당자</th><th>경로</th><th>지역</th><th>유형</th><th>요금제</th><th>모델</th><th class="r">대납</th><th class="r">중고폰</th><th>부가</th><th>메모</th><th class="r">정책 수수료</th><th class="r">차감</th><th class="r">건당 마진</th><th></th></tr></thead><tbody>
-    ${rows.map(x=>{const m=modelById(x.modelId),c=x.calc;return `<tr class="${sel.has(x.id)?'on':''}"><td class="c"><input type="checkbox" data-sel="${x.id}"${sel.has(x.id)?' checked':''} aria-label="선택"></td><td>${md(x.date)}</td><td>${esc(person(x.staffId)?.name||'-')}</td><td><span class="tag ${x.channel}">${CH[x.channel]}</span></td><td>${x.region}${x.idOpen?' · 신분증':''}</td><td>${TYPE[x.type]}</td><td>${esc(planName(x.plan))}</td><td>${esc(m?m.model+' '+m.cap:'-')}</td>
+    return head+`<div class="tscroll"><table class="tbl"><thead><tr><th class="c"><input type="checkbox" data-sel="all"${allOn?' checked':''} aria-label="전체 선택"></th><th>개통일</th><th>고객</th><th>담당자</th><th>경로</th><th>지역</th><th>유형</th><th>요금제</th><th>모델</th><th class="r">대납</th><th class="r">중고폰</th><th>부가</th><th>메모</th><th class="r">정책 수수료</th><th class="r">차감</th><th class="r">건당 마진</th><th></th></tr></thead><tbody>
+    ${rows.map(x=>{const m=modelById(x.modelId),c=x.calc;return `<tr class="${sel.has(x.id)?'on':''}"><td class="c"><input type="checkbox" data-sel="${x.id}"${sel.has(x.id)?' checked':''} aria-label="선택"></td><td>${md(x.date)}</td><td style="white-space:nowrap">${esc(x.custName||'')}${x.custPhone?`<br><small style="color:var(--tx3)">${esc(x.custPhone)}</small>`:''}</td><td>${esc(person(x.staffId)?.name||'-')}</td><td><span class="tag ${x.channel}">${CH[x.channel]}</span></td><td>${x.region}${x.idOpen?' · 신분증':''}</td><td>${TYPE[x.type]}</td><td>${esc(planName(x.plan))}</td><td>${esc(m?m.model+' '+m.cap:'-')}</td>
       <td class="r">${x.paybackAmt?fmt(x.paybackAmt):''}</td><td class="r">${x.usedAmt?fmt(x.usedAmt):''}</td><td>${['ins','watch','net'].filter(k=>x[k]).map(k=>ADDON[k]).join(', ')}</td><td>${esc(x.memo)}</td>
-      <td class="r">${fmt(c.fee+(c.used||0))}</td><td class="r">${fmt(-c.cost)}</td><td class="r ${c.margin<0?'neg':''}" style="font-weight:700">${fmt(c.margin)}</td><td style="white-space:nowrap"><button class="del" style="color:var(--blue);border-color:var(--blue)" data-act="editSale" data-id="${x.id}">수정</button> <button class="del" data-act="delSale" data-id="${x.id}">삭제</button></td></tr>`;}).join('')||'<tr><td colspan="16" class="empty">판매건이 없습니다</td></tr>'}
+      <td class="r">${fmt(c.fee+(c.used||0))}</td><td class="r">${fmt(-c.cost)}</td><td class="r ${c.margin<0?'neg':''}" style="font-weight:700">${fmt(c.margin)}</td><td style="white-space:nowrap"><button class="del" style="color:var(--blue);border-color:var(--blue)" data-act="editSale" data-id="${x.id}">수정</button> <button class="del" data-act="delSale" data-id="${x.id}">삭제</button></td></tr>`;}).join('')||'<tr><td colspan="17" class="empty">판매건이 없습니다</td></tr>'}
     </tbody></table></div><p class="note">정책 수수료에는 중고폰 반납 금액이 포함돼 있습니다. 마진은 입력한 날의 정책으로 고정됩니다.</p>`;
   }
   return head+`<div class="card list">${rows.length?rows.slice(0,80).map(x=>saleItem(x,null,true)).join(''):'<div class="empty">판매건이 없습니다</div>'}</div>
@@ -887,7 +888,8 @@ function homeView(me){
   <button class="btn" data-tab="input">판매건 입력하기</button>`;
 }
 
-function newForm(){const f=S.policy.models[0];return {date:TODAY,channel:'moyo',region:'남부',idOpen:false,type:'mnp',plan:defPlan(),model:f.model,modelId:f.id,payback:false,paybackAmt:0,usedReturn:false,usedAmt:0,ins:false,watch:false,net:false,memo:''};}
+const telFmt=v=>{const d=String(v??'').replace(/\D/g,'');if(/^01\d{9}$/.test(d))return d.replace(/(\d{3})(\d{4})(\d{4})/,'$1-$2-$3');if(/^01\d{8}$/.test(d))return d.replace(/(\d{3})(\d{3})(\d{4})/,'$1-$2-$3');if(/^0\d{9,10}$/.test(d))return d.replace(/(\d{2,3})(\d{3,4})(\d{4})/,'$1-$2-$3');return String(v??'').trim();};
+function newForm(){const f=S.policy.models[0];return {date:TODAY,channel:'moyo',region:'남부',idOpen:false,type:'mnp',plan:defPlan(),model:f.model,modelId:f.id,payback:false,paybackAmt:0,usedReturn:false,usedAmt:0,ins:false,watch:false,net:false,memo:'',custName:'',custPhone:''};}
 const seg=(k,opts,cur)=>`<div class="seg" data-seg="${k}">${opts.map(([v,l])=>`<button class="${String(cur)===String(v)?'on':''}" data-v="${v}">${l}</button>`).join('')}</div>`;
 function inputView(me,isEdit){
   if(!form)form=newForm();
@@ -898,6 +900,8 @@ function inputView(me,isEdit){
   <div class="form">
   <div class="step"><div class="t"><i>1</i>개통 정보</div>
     ${isEdit&&ses.role==='admin'?`<label>담당자</label><select id="f_staff">${S.pay.people.map(p=>`<option value="${p.id}" ${p.id===form.staffId?'selected':''}>${esc(pname(p))}</option>`).join('')}</select>`:''}
+    <label>고객명</label><input id="f_cname" autocomplete="off" placeholder="고객 이름" value="${esc(form.custName||'')}">
+    <label>전화번호</label><input id="f_cphone" inputmode="tel" autocomplete="off" placeholder="010-0000-0000" value="${esc(form.custPhone||'')}">
     <label>개통일</label><input type="date" id="f_date" value="${form.date}">
     <label>판매경로</label>${seg('channel',CH_SEL.map(k=>[k,CH[k]]),form.channel)}
     <label>개통 지역</label>${seg('region',REGIONS.map(r=>[r,r]),form.region)}
@@ -917,7 +921,7 @@ function inputView(me,isEdit){
   </div>
   <div class="step"><div class="t"><i>4</i>부가 판매</div>
     <div class="chk">${Object.entries(ADDON).map(([k,l])=>`<button data-chk="${k}" class="${form[k]?'on':''}"><b>${l}</b><span>+${fmt(S.pay.addon[k])}원</span></button>`).join('')}</div>
-    <label>메모 (선택)</label><input id="f_memo" placeholder="고객 뒷번호 4자리, 특이사항" value="${esc(form.memo)}">
+    <label>메모 (선택)</label><input id="f_memo" placeholder="특이사항" value="${esc(form.memo)}">
   </div>
   <div class="step"><div class="t">계산 내역</div><div class="calcd" id="calcBox">${calcBox(me)}</div></div>
   </div>
@@ -950,6 +954,8 @@ function bindInput(){
   const pb=document.getElementById('f_pb');if(pb)pb.oninput=()=>{form.paybackAmt=num(pb.value);refreshCalc(me);};
   const us=document.getElementById('f_used');if(us)us.oninput=()=>{form.usedAmt=num(us.value);refreshCalc(me);};
   const mm=document.getElementById('f_memo');if(mm)mm.oninput=()=>{form.memo=mm.value;};
+  const cn=document.getElementById('f_cname');if(cn)cn.oninput=()=>{form.custName=cn.value;};
+  const cp=document.getElementById('f_cphone');if(cp){cp.oninput=()=>{form.custPhone=cp.value;};cp.onchange=()=>{form.custPhone=cp.value=telFmt(cp.value);};}
 }
 
 function mineView(me){
@@ -964,9 +970,9 @@ function mineView(me){
 
 // ── PC 등록·엑셀 ──
 function PC(){try{return matchMedia('(min-width:1000px)').matches;}catch(e){return false;}}
-const ENTRY_COLS=['담당자','개통일','판매경로','개통지역','가입유형','신분증개통','요금제','모델','용량','대납금액','중고폰반납금액','보험','워치번들','인터넷동판','메모'];
-function newRow(me){return {date:TODAY,staffId:me?me.id:'',channel:'moyo',region:'남부',type:'mnp',idOpen:false,plan:defPlan(),model:'',modelId:'',paybackAmt:0,usedAmt:0,ins:false,watch:false,net:false,memo:'',err:''};}
-const isBlank=r=>!r.modelId&&!r.memo&&!r.paybackAmt&&!r.usedAmt&&!r.err;
+const ENTRY_COLS=['담당자','개통일','판매경로','개통지역','가입유형','신분증개통','요금제','모델','용량','대납금액','중고폰반납금액','보험','워치번들','인터넷동판','메모','고객명','전화번호'];
+function newRow(me){return {date:TODAY,staffId:me?me.id:'',channel:'moyo',region:'남부',type:'mnp',idOpen:false,plan:defPlan(),model:'',modelId:'',paybackAmt:0,usedAmt:0,ins:false,watch:false,net:false,memo:'',custName:'',custPhone:'',err:''};}
+const isBlank=r=>!r.modelId&&!r.memo&&!r.custName&&!r.custPhone&&!r.paybackAmt&&!r.usedAmt&&!r.err;
 function rowErr(r){
   if(r.err)return r.err;
   if(!r.modelId)return '모델을 고르세요';
@@ -975,7 +981,7 @@ function rowErr(r){
   return '';
 }
 const rowSale=r=>({date:r.date,staffId:ses.role==='seller'?ses.pid:r.staffId,channel:r.channel,region:r.region,idOpen:r.type==='mnp'&&r.idOpen,modelId:r.modelId,type:r.type,plan:r.plan,
-  payback:r.paybackAmt>0,paybackAmt:r.paybackAmt,usedReturn:r.usedAmt>0,usedAmt:r.usedAmt,ins:r.ins,watch:r.watch,net:r.net,memo:r.memo});
+  payback:r.paybackAmt>0,paybackAmt:r.paybackAmt,usedReturn:r.usedAmt>0,usedAmt:r.usedAmt,ins:r.ins,watch:r.watch,net:r.net,memo:r.memo,custName:(r.custName||'').trim(),custPhone:telFmt(r.custPhone)});
 function entryRes(r,me){
   if(isBlank(r))return '<span style="color:var(--tx3)">-</span>';
   const e=rowErr(r);if(e)return `<span class="err">${esc(e)}</span>`;
@@ -1010,6 +1016,8 @@ function entryView(me){
     <td>${amt(i,'paybackAmt',r.paybackAmt)}</td><td>${amt(i,'usedAmt',r.usedAmt)}</td>
     ${['ins','watch','net'].map(k=>`<td class="c"><input type="checkbox" data-b="${i}.${k}" ${r[k]?'checked':''}></td>`).join('')}
     <td><input data-b="${i}.memo" value="${esc(r.memo)}" style="width:150px"></td>
+    <td><input data-b="${i}.custName" value="${esc(r.custName||'')}" autocomplete="off" style="width:90px"></td>
+    <td><input data-b="${i}.custPhone" value="${esc(r.custPhone||'')}" inputmode="tel" autocomplete="off" placeholder="010-" style="width:124px"></td>
     <td class="r" id="eres${i}" style="min-width:96px">${entryRes(r,me)}</td>
     <td><button class="del" data-act="entryDel" data-i="${i}">빼기</button></td></tr>`;
   }).join('');
@@ -1022,7 +1030,7 @@ function entryView(me){
     <div class="tools" style="margin:0"><button class="pri" data-act="entryPaste">붙여넣은 내용 표에 넣기</button><label>엑셀 파일 올리기<input type="file" id="up_sales" accept=".xlsx,.xls,.csv"></label><button data-act="dlTemplate">등록 양식 엑셀 받기</button></div>
   </div>
   <div class="tools" style="margin-top:16px"><button data-act="entryAdd">빈 줄 5개 추가</button><button data-act="entryClear">입력 중인 줄 비우기</button><span class="sp"></span><span id="esum" style="font-size:14px">${entrySum(me)}</span><button class="pri" data-act="entrySave">표에 있는 판매건 저장</button></div>
-  <div class="tscroll"><table class="tbl"><thead><tr><th></th>${admin?'<th>담당자</th>':''}<th>개통일</th><th>판매경로</th><th>지역</th><th>유형</th><th>신분증</th><th>요금제</th><th>모델</th><th>용량</th><th>대납</th><th>중고폰 반납</th><th>보험</th><th>워치</th><th>인터넷</th><th>메모</th><th class="r">${admin?'건당 마진':'내 수당'}</th><th></th></tr></thead>
+  <div class="tscroll"><table class="tbl"><thead><tr><th></th>${admin?'<th>담당자</th>':''}<th>개통일</th><th>판매경로</th><th>지역</th><th>유형</th><th>신분증</th><th>요금제</th><th>모델</th><th>용량</th><th>대납</th><th>중고폰 반납</th><th>보험</th><th>워치</th><th>인터넷</th><th>메모</th><th>고객명</th><th>전화번호</th><th class="r">${admin?'건당 마진':'내 수당'}</th><th></th></tr></thead>
   <tbody>${rows}</tbody></table></div>
   <p class="note">줄마다 계산이 바로 나옵니다. 빨간 줄은 저장되지 않으니 고친 뒤 다시 저장하세요. 모바일에서는 '판매입력' 화면이 더 편합니다.</p>`;
 }
@@ -1031,6 +1039,7 @@ function entryField(el){
   const me=person(ses.pid);
   if(el.type==='checkbox')r[f]=el.checked;
   else if(f==='paybackAmt'||f==='usedAmt')r[f]=num(el.value);
+  else if(f==='custPhone')r[f]=el.value=telFmt(el.value);
   else r[f]=el.value;
   if(f==='model'){const caps=S.policy.models.filter(m=>m.model===r.model);r.modelId=caps[0]?caps[0].id:'';
     const cs=document.getElementById('ecap'+i);if(cs)cs.innerHTML=caps.map(m=>`<option value="${m.id}">${esc(m.cap)}</option>`).join('');}
@@ -1089,7 +1098,7 @@ function importRows(aoa){
     if(String(c[6]??'').trim()){const pl=pPlan(c[6]);if(pl)r.plan=pl;else errs.push('요금제 "'+String(c[6])+'"');}
     const m=pModel(c[7],c[8]);if(m){r.model=m.model;r.modelId=m.id;}else errs.push('모델·용량 "'+String(c[7]??'')+' '+String(c[8]??'')+'"');
     r.paybackAmt=num(c[9]);r.usedAmt=num(c[10]);
-    r.ins=yes(c[11]);r.watch=yes(c[12]);r.net=yes(c[13]);r.memo=String(c[14]??'');
+    r.ins=yes(c[11]);r.watch=yes(c[12]);r.net=yes(c[13]);r.memo=String(c[14]??'');r.custName=String(c[15]??'').trim();r.custPhone=telFmt(c[16]);
     if(errs.length)r.err='확인: '+errs.join(', ');
     out.push(r);
   }
@@ -1115,7 +1124,7 @@ function salesAoa(rows,me){
   const admin=!me;
   const head=[...ENTRY_COLS,...(admin?['정책 수수료','중고폰 반납(+)','광고비·모요 수수료','대리점 지원금','대납(−)','건당 마진']:['내 수당',...(S.settings.showMargin?['건당 마진']:[])])];
   return [head,...rows.map(x=>{const m=modelById(x.modelId),c=x.calc||calc(x),o=v=>v?'O':'';
-    const base=[person(x.staffId)?.name||'',x.date,CH[x.channel],x.region,TYPE[x.type],o(x.idOpen),planName(x.plan),m?m.model:'',m?m.cap:'',x.paybackAmt||0,x.usedAmt||0,o(x.ins),o(x.watch),o(x.net),x.memo||''];
+    const base=[person(x.staffId)?.name||'',x.date,CH[x.channel],x.region,TYPE[x.type],o(x.idOpen),planName(x.plan),m?m.model:'',m?m.cap:'',x.paybackAmt||0,x.usedAmt||0,o(x.ins),o(x.watch),o(x.net),x.memo||'',x.custName||'',x.custPhone||''];
     if(admin)return [...base,c.fee,c.used||0,c.costs[0][1],(c.costs.find(i=>i[0]==='대리점 지원금')||[0,0])[1],x.paybackAmt||0,c.margin];
     return [...base,incSum(me,x),...(S.settings.showMargin?[c.margin]:[])];})];
 }
@@ -1220,7 +1229,7 @@ document.addEventListener('click',e=>{
     const me=person(ses.pid);if(!me)return;
     if(form.payback&&!form.paybackAmt){toast('대납 금액을 입력하세요');return;}
     if(form.usedReturn&&!form.usedAmt){toast('중고폰 반납 금액을 입력하세요');return;}
-    const x={...draft(me),id:uid(),at:Date.now()};delete x.model;
+    const x={...draft(me),id:uid(),at:Date.now()};delete x.model;x.custName=(x.custName||'').trim();x.custPhone=telFmt(x.custPhone);
     if(x.type!=='mnp')x.idOpen=false;
     x.calc=calc(x);S.sales.push(x);save();
     toast('저장했습니다 · 내 수당 +'+won(incSum(me,x)));
@@ -1239,7 +1248,7 @@ document.addEventListener('click',e=>{
     if(ses.role!=='admin'&&S.sales[i].staffId!==ses.pid)return;
     if(form.payback&&!form.paybackAmt){toast('대납 금액을 입력하세요');return;}
     if(form.usedReturn&&!form.usedAmt){toast('중고폰 반납 금액을 입력하세요');return;}
-    const x={...form,id:edit.id,at:S.sales[i].at,editedAt:Date.now()};delete x.model;
+    const x={...form,id:edit.id,at:S.sales[i].at,editedAt:Date.now()};delete x.model;x.custName=(x.custName||'').trim();x.custPhone=telFmt(x.custPhone);
     if(ses.role!=='admin')x.staffId=ses.pid;
     if(x.type!=='mnp')x.idOpen=false;
     if(!x.payback)x.paybackAmt=0;if(!x.usedReturn)x.usedAmt=0;
@@ -1285,7 +1294,7 @@ document.addEventListener('click',e=>{
     xlsxOut('내판매건_'+me.name+'_'+(mineRange==='today'?TODAY:MONTH),[['내 판매',salesAoa(rows,me)],['내 급여',payAoa([me])]]);}
   else if(a==='dlPay'){xlsxOut('온라인팀_급여_'+MONTH,[['급여',payAoa(S.pay.people)]]);}
   else if(a==='dlPolicy'){policyOut();}
-  else if(a==='dlTemplate'){xlsxOut('판매건_등록양식',[['판매건',[ENTRY_COLS,[person(ses.pid)?.name||'방민정',TODAY,'모요','남부','번이','O','85','아이폰18 PRO','256GB','50000','','O','','','뒷번호 1234']]]]);}
+  else if(a==='dlTemplate'){xlsxOut('판매건_등록양식',[['판매건',[ENTRY_COLS,[person(ses.pid)?.name||'방민정',TODAY,'모요','남부','번이','O','85','아이폰18 PRO','256GB','50000','','O','','','','홍길동','010-1234-5678']]]]);}
   else if(a==='entryAdd'){const me=person(ses.pid);for(let i=0;i<5;i++)entry.rows.push(newRow(me));render();}
   else if(a==='entryDel'){entry.rows.splice(Number(t.dataset.i),1);if(!entry.rows.length)entry.rows.push(newRow(person(ses.pid)));render();}
   else if(a==='entryClear'){if(confirm('입력 중인 줄을 모두 비울까요? 이미 저장한 판매건은 그대로 둡니다.')){entry=null;render();}}
