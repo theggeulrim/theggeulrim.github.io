@@ -3,24 +3,20 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
     <url>
         <loc>https://theggeulrim.com/</loc>
-        <lastmod>2026-10-19</lastmod>
+        <lastmod>2026-10-29</lastmod>
         <changefreq>daily</changefreq>
         <priority>1.0</priority>
         <image:image>
-            <image:loc>https://theggeulrim.com/ipduo_hero.png</image:loc>
-            <image:title>아이폰 듀오 사전예약 통신사 이동 시 100만원 즉시 할인</image:title>
+            <image:loc>https://theggeulrim.com/hero_ip18pr.jpg</image:loc>
+            <image:title>아이폰18 Pro 256GB 번호이동 할부원금 991,000원</image:title>
         </image:image>
         <image:image>
-            <image:loc>https://theggeulrim.com/zfold8wide.png</image:loc>
-            <image:title>갤럭시 Z 폴드8 와이드</image:title>
+            <image:loc>https://theggeulrim.com/hero_ip17pr.jpg</image:loc>
+            <image:title>아이폰17 Pro 256GB 번호이동 할부원금 732,000원</image:title>
         </image:image>
         <image:image>
-            <image:loc>https://theggeulrim.com/zfold8ultra.png</image:loc>
-            <image:title>갤럭시 Z 폴드8 울트라</image:title>
-        </image:image>
-        <image:image>
-            <image:loc>https://theggeulrim.com/zflip8.png</image:loc>
-            <image:title>갤럭시 Z 플립8</image:title>
+            <image:loc>https://theggeulrim.com/hero_flip8.jpg</image:loc>
+            <image:title>갤럭시 Z플립8 256GB 번호이동 할부원금 663,000원</image:title>
         </image:image>
     </url>
 </urlset>
