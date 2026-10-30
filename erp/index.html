@@ -132,6 +132,13 @@ nav svg{width:23px;height:23px;stroke:currentColor;fill:none;stroke-width:1.9;st
 .chips{display:flex;gap:6px;overflow-x:auto;margin-bottom:12px;padding-bottom:2px}
 .chips button{border:1px solid var(--line);background:#fff;border-radius:999px;padding:7px 13px;font-size:13px;color:var(--tx2);white-space:nowrap;cursor:pointer;font-weight:600}
 .chips button.on{background:var(--tx);color:#fff;border-color:var(--tx)}
+.chips select{border:1px solid var(--line);background:#fff;border-radius:999px;padding:7px 12px;font-size:13px;color:var(--tx2);font-weight:600;flex:none;width:auto;cursor:pointer}
+.chips select.on{background:var(--tx);color:#fff;border-color:var(--tx)}
+.drange{display:flex;align-items:center;gap:8px;margin:-4px 0 12px}
+.drange input{flex:1;min-width:0;max-width:180px;border:1px solid var(--line);border-radius:10px;padding:8px 10px;font-size:14px;background:#fff;color:var(--tx);-webkit-appearance:none;appearance:none}
+.drange span{color:var(--tx3)}
+.pastnote{background:#fff8e6;border:1px solid #f3dfa6;border-radius:12px;padding:10px 12px;font-size:13px;color:var(--tx2);line-height:1.6;margin:0 0 12px}
+.pastnote button{border:1px solid var(--line);background:#fff;border-radius:8px;padding:3px 9px;font-size:12px;font-weight:600;cursor:pointer;margin-left:4px;color:var(--tx)}
 .login{min-height:100vh;display:flex;flex-direction:column;justify-content:center}
 .login .opt{background:var(--card);box-shadow:var(--sh);border-radius:18px;padding:18px;margin-top:10px;border:0;text-align:left;width:100%;cursor:pointer;display:flex;justify-content:space-between;align-items:center}
 .login .opt b{font-size:18px;display:block}
@@ -263,8 +270,12 @@ const won=n=>(n<0?'−':'')+fmt(Math.abs(n))+'원';
 const short=n=>{const a=Math.abs(n),s=n<0?'−':'';if(a>=1e8)return s+(a/1e8).toFixed(2)+'억';if(a>=1e4)return s+fmt(a/1e4)+'만';return s+fmt(a)+'원';};
 const pad=n=>String(n).padStart(2,'0');
 const ymd=d=>d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());
-const TODAY=ymd(new Date());
-const MONTH=TODAY.slice(0,7);
+// 페이지를 연 날 기준. 날짜가 바뀌면 dayWatch()가 다시 불러옴(달이 바뀌면 이번 달 화면이 새 달로 초기화)
+let TODAY=ymd(new Date());
+let MONTH=TODAY.slice(0,7);
+// 'YYYY-MM' 더하기·빼기, 그 달 마지막 날
+const addMon=(m,k)=>{const d=new Date(+m.slice(0,4),+m.slice(5,7)-1+k,1);return d.getFullYear()+'-'+pad(d.getMonth()+1);};
+const monEnd=m=>m+'-'+pad(new Date(+m.slice(0,4),+m.slice(5,7),0).getDate());
 const md=s=>Number(s.slice(5,7))+'/'+Number(s.slice(8));
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,7);
@@ -364,8 +375,13 @@ async function load(){
       staff:c.pay_staff||(acct.admin?fr.pay.staff:{mnp:0,dev:0}),lead:c.pay_lead||(acct.admin?fr.pay.lead:ZERO_LEAD),addon:pc.addon,grade:pc.grade,idTier:pc.idTier},
     sales:[]};
   try{
-    const own=await all(()=>sb.from('erp_sales').select('id,data').order('id'));
+    // 10/30: 이번 달(과 그 뒤 날짜) 판매건만 불러옴. 지난 달은 개통관리에서 고를 때만 서버에서 받아 옴(pastMon)
+    const own=await all(()=>sb.from('erp_sales').select('id,data').gte('sale_date',MONTH+'-01').order('id'));
     next.sales=own.map(r=>r.data);
+    for(const m of [...pastMon].filter(m=>m<MONTH).sort()){
+      const pr=await all(()=>sb.from('erp_sales').select('id,data').gte('sale_date',m+'-01').lte('sale_date',monEnd(m)).order('id'));
+      next.sales.push(...pr.map(r=>r.data));
+    }
     if(acct.admin){
       const rq=await sb.from('erp_requests').select('user_id,name,want,email,created_at').eq('status','pending').order('created_at');if(rq.error)throw rq.error;
       REQ=rq.data;
@@ -386,7 +402,43 @@ async function load(){
   else ses=acct.admin?{role:'admin'}:{role:'seller',pid:acct.pid};
   boot='ready';
   if(firstRun||(acct.admin&&(addedModels||fixed)))save();
+  autoBackup();
 }
+// 지난 달 판매건을 서버 백업 표(erp_sales_backup)에 복사. 들어올 때마다 지난 달을 다시 복사해 늦게 넣은 건도 백업됨
+let backedFor='';
+function autoBackup(){
+  const m=addMon(MONTH,-1);if(!sb||backedFor===m)return;backedFor=m;
+  sb.rpc('erp_backup_month',{p_month:m}).then(({error})=>{if(error){backedFor='';console.warn('백업 실패',error.message);}else if(acct&&acct.admin)loadBackups();});
+}
+let BK=null;
+function loadBackups(){if(!sb||!acct||!acct.admin)return;sb.rpc('erp_backup_list').then(({data,error})=>{if(!error){BK=data||[];if(tab==='sales')render();}});}
+// 지난 달 판매건 불러오기 (개통관리에서 지난 날짜를 고르면)
+const pastMon=new Set();let pastBusy=false;
+function needPast(from,to){
+  const out=[];if(!from||!to||from>to)return out;
+  for(let m=from.slice(0,7);m<=to.slice(0,7)&&m<MONTH;m=addMon(m,1))if(!pastMon.has(m))out.push(m);
+  return out;
+}
+async function loadPast(ms){
+  if(!ms.length||pastBusy)return;pastBusy=true;render();
+  try{
+    for(const m of ms){
+      const pr=await all(()=>sb.from('erp_sales').select('id,data').gte('sale_date',m+'-01').lte('sale_date',monEnd(m)).order('id'));
+      const have=new Set(S.sales.map(x=>x.id)),add=pr.map(r=>r.data).filter(x=>!have.has(x.id));
+      S.sales.push(...add);for(const x of add)base.sales[x.id]=J(x);
+      pastMon.add(m);
+    }
+  }catch(e){toast('지난 판매건을 못 불러왔습니다 · '+sbErr(e));}
+  pastBusy=false;render();
+}
+// 날짜가 바뀌면 새로 불러옴 (입력 중이면 끝날 때까지 기다림)
+function dayWatch(){
+  const d=ymd(new Date());if(d===TODAY)return;
+  const a=document.activeElement;
+  if(busy||(a&&/^(INPUT|SELECT|TEXTAREA)$/.test(a.tagName))||(entry&&entry.rows.some(r=>!isBlank(r)))||edit)return;
+  location.reload();
+}
+setInterval(dayWatch,60000);
 function save(){
   if(!S||!base)return;
   const now=snap(),ops=[];
@@ -529,7 +581,7 @@ const ICON={
 const ADMIN_TABS=[['dash','대시보드','home'],['sales','개통관리','phone'],['entry','판매 등록','grid'],['policy','정책서','doc'],['spot','스팟정책','bolt'],['pay','급여','won']];
 const SELLER_TABS=[['home','내 급여','home'],['input','판매입력','plus'],['entry','여러 건 등록','grid'],['mine','내 판매','list']];
 
-let edit=null,tab,open=null,entry=null,filt={ch:'all',range:'month',staff:'all'},form=null,mineRange='month',polGrp=null;
+let edit=null,tab,open=null,entry=null,filt={ch:'all',range:'month',staff:'all',from:'',to:'',month:''},form=null,mineRange='month',polGrp=null;
 
 function render(){
   const app=document.getElementById('app');
@@ -683,7 +735,18 @@ function dashView(){
 }
 
 // 개통관리 필터에 걸린 판매건 (최근 순)
-const visSales=()=>S.sales.filter(x=>(filt.range==='today'?x.date===TODAY:inMonth(x))&&(filt.ch==='all'||x.channel===filt.ch)&&(filt.staff==='all'||x.staffId===filt.staff)).sort((a,b)=>b.date.localeCompare(a.date)||b.at-a.at);
+// 10/30 날짜 필터: 오늘·어제·이번 달·지난 달·월 선택·기간 직접 선택
+function filtRange(){
+  const r=filt.range;
+  if(r==='today')return [TODAY,TODAY];
+  if(r==='yday'){const d=new Date();d.setDate(d.getDate()-1);const y=ymd(d);return [y,y];}
+  if(r==='pmonth'){const m=addMon(MONTH,-1);return [m+'-01',monEnd(m)];}
+  if(r==='mon'&&filt.month)return [filt.month+'-01',monEnd(filt.month)];
+  if(r==='custom'&&filt.from&&filt.to)return filt.from<=filt.to?[filt.from,filt.to]:[filt.to,filt.from];
+  return [MONTH+'-01',monEnd(MONTH)];
+}
+const rangeLabel=()=>{const [a,b]=filtRange();return a===b?md(a):a.slice(8)==='01'&&b===monEnd(a.slice(0,7))?Number(a.slice(5,7))+'월':md(a)+'~'+md(b);};
+const visSales=()=>{const [a,b]=filtRange();return S.sales.filter(x=>x.date>=a&&x.date<=b&&(filt.ch==='all'||x.channel===filt.ch)&&(filt.staff==='all'||x.staffId===filt.staff)).sort((a,b)=>b.date.localeCompare(a.date)||b.at-a.at);};
 // 이번 달 목표 대비 진척 — 오늘 날짜만큼 와야 할 기준선과 지금 속도로 간 월말 예상
 function progCard(){
   const rows=S.sales.filter(inMonth),n=rows.length,goal=Object.values(S.settings.target).reduce((a,b)=>a+b,0);
@@ -703,11 +766,19 @@ function salesView(){
   const rows=visSales();
   for(const id of [...sel])if(!rows.some(x=>x.id===id))sel.delete(id);
   const allOn=rows.length>0&&rows.every(x=>sel.has(x.id));
-  const chips=`<div class="chips">${[['month','이번 달'],['today','오늘']].map(([k,l])=>`<button class="${filt.range===k?'on':''}" data-filt="range" data-v="${k}">${l}</button>`).join('')}
-  <span style="width:6px;flex:none"></span>${[['all','전체 경로'],...chKeys().map(k=>[k,CH[k]])].map(([k,l])=>`<button class="${filt.ch===k?'on':''}" data-filt="ch" data-v="${k}">${l}</button>`).join('')}
+  const [fa,fb]=filtRange(),miss=needPast(fa,fb);
+  if(miss.length&&!pastBusy)setTimeout(()=>loadPast(miss));
+  const mons=[];for(let i=1;i<=12;i++)mons.push(addMon(MONTH,-i));
+  const dates=`<div class="chips dchips">${[['today','오늘'],['yday','어제'],['month','이번 달'],['pmonth','지난 달'],['custom','기간 선택']].map(([k,l])=>`<button class="${filt.range===k?'on':''}" data-filt="range" data-v="${k}">${l}</button>`).join('')}
+  <select data-fmon class="${filt.range==='mon'?'on':''}" aria-label="월별 보기"><option value="">월별 보기</option>${mons.map(m=>`<option value="${m}"${filt.range==='mon'&&filt.month===m?' selected':''}>${m.slice(0,4)}년 ${Number(m.slice(5))}월</option>`).join('')}</select></div>
+  ${filt.range==='custom'?`<div class="drange"><input type="date" data-fdate="from" value="${filt.from||MONTH+'-01'}" max="${TODAY}"><span>~</span><input type="date" data-fdate="to" value="${filt.to||TODAY}" max="${TODAY}"></div>`:''}`;
+  const past=fb<MONTH+'-01';
+  const bk=past&&acct.admin&&BK?BK.filter(b=>b.month>=fa.slice(0,7)&&b.month<=fb.slice(0,7)):[];
+  const pastNote=past?`<div class="pastnote"><b>지난 기간 판매건</b> · 서버에 그대로 저장돼 있고, 수정·삭제하면 바로 반영됩니다.${acct.admin?(bk.length?' 백업 '+bk.map(b=>`${Number(b.month.slice(5))}월 ${fmt(b.n)}건(${md(String(b.last).slice(0,10))} ${String(b.last).slice(11,16)} 저장)`).join(', ')+` <button data-act="dlBackup">백업본 엑셀</button>`:' 아직 백업본이 없습니다.')+` <button data-act="backupNow">지금 백업</button>`:''}</div>`:'';
+  const chips=`${dates}<div class="chips">${[['all','전체 경로'],...chKeys().map(k=>[k,CH[k]])].map(([k,l])=>`<button class="${filt.ch===k?'on':''}" data-filt="ch" data-v="${k}">${l}</button>`).join('')}
   <span style="width:6px;flex:none"></span>${[['all','전체 직원'],...S.pay.people.map(p=>[p.id,p.name])].map(([k,l])=>`<button class="${filt.staff===k?'on':''}" data-filt="staff" data-v="${k}">${l}</button>`).join('')}</div>`;
-  const head=`${progCard()}<h2>개통관리 <small>${rows.length}건 · 순마진 ${short(sum(rows,x=>x.calc.margin))}</small></h2>
-  <div class="tools"><button class="pri" data-act="dlSales">보이는 판매건 엑셀 다운로드</button><button data-tab="entry">판매 등록 (여러 건)</button></div>${chips}
+  const head=`${progCard()}<h2>개통관리 <small>${rangeLabel()} · ${pastBusy?'불러오는 중…':rows.length+'건 · 순마진 '+short(sum(rows,x=>x.calc.margin))}</small></h2>
+  <div class="tools"><button class="pri" data-act="dlSales">보이는 판매건 엑셀 다운로드</button><button data-tab="entry">판매 등록 (여러 건)</button></div>${chips}${pastNote}
   <div class="tools seltools"><button data-sel="all">${allOn?'선택 해제':'보이는 건 전체 선택'}</button><button class="warnb" data-act="delSel"${sel.size?'':' disabled'}>선택 삭제 (${sel.size}건)</button><button class="warnb" data-act="delAll"${rows.length?'':' disabled'}>보이는 ${rows.length}건 전체 삭제</button></div>`;
   if(PC()){
     return head+`<div class="tscroll"><table class="tbl"><thead><tr><th class="c"><input type="checkbox" data-sel="all"${allOn?' checked':''} aria-label="전체 선택"></th><th>개통일</th><th>고객</th><th>담당자</th><th>경로</th><th>지역</th><th>유형</th><th>요금제</th><th>모델</th><th class="r">대납</th><th class="r">중고폰</th><th>부가</th><th>메모</th><th class="r">정책 수수료</th><th class="r">차감</th><th class="r">건당 마진</th><th></th></tr></thead><tbody>
@@ -1200,7 +1271,7 @@ document.addEventListener('click',e=>{
     else sel.has(v)?sel.delete(v):sel.add(v);
     render();return;}
   if(t.dataset.tab){if(edit){form=edit.keep;edit=null;}tab=t.dataset.tab;open=null;render();scrollTo(0,0);return;}
-  if(t.dataset.filt){filt[t.dataset.filt]=t.dataset.v;open=null;render();return;}
+  if(t.dataset.filt){filt[t.dataset.filt]=t.dataset.v;if(t.dataset.v==='custom'&&!filt.from){filt.from=MONTH+'-01';filt.to=TODAY;}open=null;render();return;}
   if(t.dataset.mine){mineRange=t.dataset.mine;open=null;render();return;}
   if(t.dataset.polgrp){polGrp=t.dataset.polgrp;render();return;}
   if(t.dataset.chk){form[t.dataset.chk]=!form[t.dataset.chk];render();return;}
@@ -1308,7 +1379,14 @@ document.addEventListener('click',e=>{
   else if(a==='toggleMargin'){S.settings.showMargin=!S.settings.showMargin;save();render();}
   else if(a==='resetPolicy'){if(confirm('공통 수수료·요금제 목록·수수료 항목·모델별 판매활성화를 원본값으로 되돌릴까요? 저장된 판매건 마진은 바뀌지 않습니다.')){S.policy=freshPolicy();save();render();toast('원본값으로 되돌렸습니다');}}
   else if(a==='dlSales'){const rows=visSales().reverse();
-    xlsxOut('더끌림_판매건_'+(filt.range==='today'?TODAY:MONTH),[['판매건',salesAoa(rows,null)],['급여',payAoa(S.pay.people)]]);}
+    const [fa,fb]=filtRange();xlsxOut('판매건_'+(fa===fb?fa:fa.slice(8)==='01'&&fb===monEnd(fa.slice(0,7))?fa.slice(0,7):fa+'~'+fb),[['판매건',salesAoa(rows,null)],...(fa.slice(0,7)===MONTH&&fb.slice(0,7)===MONTH?[['급여',payAoa(S.pay.people)]]:[])]);}
+  else if(a==='backupNow'){const [fa,fb]=filtRange();const ms=[];for(let m=fa.slice(0,7);m<=fb.slice(0,7)&&m<MONTH;m=addMon(m,1))ms.push(m);
+    Promise.all(ms.map(m=>sb.rpc('erp_backup_month',{p_month:m}))).then(rs=>{const e=rs.find(r=>r.error);if(e){toast('백업 실패 · '+sbErr(e.error));return;}toast(ms.map((m,i)=>Number(m.slice(5))+'월 '+rs[i].data+'건').join(', ')+' 백업했습니다');loadBackups();});}
+  else if(a==='dlBackup'){const [fa,fb]=filtRange();
+    sb.from('erp_sales_backup').select('data,gone,backed_at').gte('month',fa.slice(0,7)).lte('month',fb.slice(0,7)).then(({data,error})=>{if(error){toast(sbErr(error));return;}
+      const rows=data.map(r=>({...r.data,_gone:r.gone})).sort((a,b)=>a.date.localeCompare(b.date)||a.at-b.at),aoa=salesAoa(rows,null);
+      aoa[0].push('지금 상태');rows.forEach((x,i)=>aoa[i+1].push(x._gone?'원본에서 삭제됨':''));
+      xlsxOut('백업_판매건_'+fa.slice(0,7)+(fa.slice(0,7)===fb.slice(0,7)?'':'~'+fb.slice(0,7)),[['백업 판매건',aoa]]);});}
   else if(a==='dlMine'){const me=person(ses.pid);const rows=S.sales.filter(x=>x.staffId===me.id&&(mineRange==='today'?x.date===TODAY:inMonth(x))).sort((a,b)=>a.date.localeCompare(b.date)||a.at-b.at);
     xlsxOut('내판매건_'+me.name+'_'+(mineRange==='today'?TODAY:MONTH),[['내 판매',salesAoa(rows,me)],['내 급여',payAoa([me])]]);}
   else if(a==='dlPay'){xlsxOut('온라인팀_급여_'+MONTH,[['급여',payAoa(S.pay.people)]]);}
@@ -1325,6 +1403,8 @@ document.addEventListener('input',e=>{if(e.target.dataset.b&&e.target.type!=='ch
 document.addEventListener('change',e=>{
   const el=e.target,v=num(el.value);
   if(el.dataset.b){entryField(el);return;}
+  if(el.dataset.fdate){filt.from=filt.from||MONTH+'-01';filt.to=filt.to||TODAY;filt[el.dataset.fdate]=el.value||(el.dataset.fdate==='from'?MONTH+'-01':TODAY);open=null;sel.clear();render();return;}
+  if(el.hasAttribute('data-fmon')){if(el.value){filt.range='mon';filt.month=el.value;}else filt.range='month';open=null;sel.clear();render();return;}
   if(el.id==='up_policy'&&el.files[0]){readXlsx(el.files[0],policyIn);el.value='';return;}
   if(el.id==='up_sales'&&el.files[0]){readXlsx(el.files[0],wb=>{const ws=wb.Sheets[wb.SheetNames[0]];importRows(XLSX.utils.sheet_to_json(ws,{header:1,raw:true,defval:''}));});el.value='';return;}
   if(el.dataset.plan){const [i,f]=el.dataset.plan.split('.'),p=S.policy.plans[Number(i)];if(!p)return;
