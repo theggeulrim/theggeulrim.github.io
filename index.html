@@ -2019,10 +2019,6 @@ body.ap-lock .fab-container, body.ap-lock .bottom-cta-bar { display: none !impor
 .os-sum-ask { text-align: center; font-size: 13px; color: var(--os-grey); margin-top: 10px; }
 .os-sum-ask button { background: none; border: 0; padding: 0; color: var(--os-sub); font: inherit; font-weight: 700; text-decoration: underline; cursor: pointer; }
 .os-mbar .os-btn-pink { flex: 0 0 auto; padding: 0 28px; }
-/* 카톡 문의 버튼 키움 (10/30) */
-.os-sum-btns .os-sum-kakao { width: auto; height: 52px; padding: 0 16px; font-size: 16px; font-weight: 700; }
-.os-mbar .os-mbar-kakao { flex: 0 0 auto; width: auto; padding: 0 14px; font-weight: 700; }
-@media (max-width: 380px) { .os-mbar .os-btn-pink { padding: 0 18px; } .os-mbar .os-mbar-kakao { padding: 0 10px; } }
 
 /* 공통 섹션 */
 .st-sec { padding: 80px 0; }
@@ -2433,14 +2429,11 @@ fbq('track', 'PageView');
 </div>
 
 <div class="os-step">
-<h3>지금 쓰는 통신사를 골라주세요<small>통신사에 따라 가격이 달라져요</small></h3>
-<div class="os-choice c4" id="osPdType">
-<button type="button" class="os-opt" data-v="SKT"><span class="os-opt-t">SKT</span><span class="os-opt-d">번호이동 가격</span></button>
-<button type="button" class="os-opt" data-v="KT"><span class="os-opt-t">KT</span><span class="os-opt-d">번호이동 가격</span></button>
-<button type="button" class="os-opt" data-v="MVNO"><span class="os-opt-t">알뜰폰</span><span class="os-opt-d">번호이동 가격</span></button>
-<button type="button" class="os-opt" data-v="LGU"><span class="os-opt-t">LG U+</span><span class="os-opt-d">기기변경 가격</span></button>
+<h3>가입 유형을 선택해 주세요</h3>
+<div class="os-choice c3" id="osPdType">
+<button type="button" class="os-opt" data-v="1"><span class="os-opt-t">기기변경</span><span class="os-opt-d">U+에서 쓰던 번호로 휴대폰만 바꿀게요</span></button>
+<button type="button" class="os-opt" data-v="2"><span class="os-opt-t">번호이동</span><span class="os-opt-d">쓰던 번호 그대로 U+로 옮길게요</span></button>
 </div>
-<p class="os-plan-note" id="osPdTypeNote"></p>
 </div>
 
 <div class="os-step">
@@ -2494,14 +2487,13 @@ fbq('track', 'PageView');
 <ul class="os-safe"><li>신청 비용 0원</li><li>공식 신청서 작성 전 언제든 무료 취소</li><li>담당 직원이 전화로 가격을 한 번 더 확인</li></ul>
 <div class="os-sum-btns">
 <button type="button" class="os-btn os-btn-pink" data-apply>이 조건으로 신청하기</button>
-<button type="button" class="os-btn os-btn-line os-sum-kakao" data-quote>신청 전에 카톡으로 물어보기</button>
 </div>
+<p class="os-sum-ask">궁금한 점이 있다면 <button type="button" data-quote>이 견적으로 카톡 문의</button></p>
 </aside>
 </div>
 </div>
 <div class="os-mbar">
 <div class="os-mbar-price"><span id="osMbarLabel">할부원금</span><strong id="osMbarTotal">-</strong></div>
-<button type="button" class="os-btn os-btn-line os-mbar-kakao" data-quote>카톡 문의</button>
 <button type="button" class="os-btn os-btn-pink" data-apply>신청하기</button>
 </div>
 </div>
@@ -3158,13 +3150,11 @@ var OS_DATA={"models":[{"id":"duo","name":"iPhone Duo","maker":"apple","img":"ip
     }
 
     /* ---------- 견적 비교 모달 ---------- */
-    var lastCur = '';
     function openPd(id, o) {
         var m = modelMap[id];
         o = o || {};
         var cap = o.cap && m.caps.some(function (c) { return c.c === o.cap && !c.sold; }) ? o.cap : firstCap(m);
-        pd = { id: id, cap: cap, type: TYPE_NM[o.type] ? o.type : st.type, plan: planMap[o.plan] ? o.plan : st.plan, dc: st.dc, n: 24, after: '', cur: lastCur };
-        if (lastCur) pd.type = lastCur === 'LGU' ? '1' : '2';
+        pd = { id: id, cap: cap, type: TYPE_NM[o.type] ? o.type : st.type, plan: planMap[o.plan] ? o.plan : st.plan, dc: st.dc, n: 24, after: '' };
         // 사전예약 기종은 신청 버튼 문구만 '사전예약'으로
         [].forEach.call($('osPd').querySelectorAll('[data-apply]'), function (b) {
             if (!b.dataset.t) b.dataset.t = b.textContent;
@@ -3211,12 +3201,7 @@ var OS_DATA={"models":[{"id":"duo","name":"iPhone Duo","maker":"apple","img":"ip
             (dcSum ? '<span class="os-pd-dc"><b>' + won(dcSum) + '원 할인</b> → 할부원금 <b>' + won(r.prin) + '원</b></span>' : '');
         $('osPdCaps').innerHTML = capsHtml(m, pd.cap);
 
-        // 가입 유형 대신 지금 쓰는 통신사를 먼저 물음 (10/30): LG U+ → 기기변경, 그 외 → 번호이동
-        [].forEach.call($('osPdType').children, function (b) { b.classList.toggle('on', b.dataset.v === pd.cur); });
-        var CUR_NM = { SKT: 'SKT', KT: 'KT', MVNO: '알뜰폰', LGU: 'LG U+' };
-        $('osPdTypeNote').innerHTML = pd.cur
-            ? (pd.cur === 'LGU' ? 'LG U+를 쓰시던 분의 <b>기기변경</b> 가격이에요.' : CUR_NM[pd.cur] + '에서 LG U+로 옮기는 <b>번호이동</b> 가격이에요.')
-            : (pd.type === '1' ? '지금은 LG U+를 쓰시던 분의 <b>기기변경</b> 가격이에요. 다른 통신사를 쓰시면 골라주세요.' : '지금은 SKT·KT·알뜰폰에서 옮기는 <b>번호이동</b> 가격이에요. LG U+를 쓰시면 LG U+를 눌러주세요.');
+        [].forEach.call($('osPdType').children, function (b) { b.classList.toggle('on', b.dataset.v === pd.type); });
 
         // 요금제: 추천 4개 + 선택한 다른 요금제
         var plans = REC_PLANS.slice();
@@ -3337,7 +3322,7 @@ var OS_DATA={"models":[{"id":"duo","name":"iPhone Duo","maker":"apple","img":"ip
         var q = quote(m, pd.cap, pd.type, pd.plan, pd.dc, pd.n, pd.after);
         var r = q.r;
         return {
-            id: m.id, name: m.name, img: m.img, cap: pd.cap, type: pd.type, typeNm: TYPE_NM[pd.type], cur: pd.cur || '',
+            id: m.id, name: m.name, img: m.img, cap: pd.cap, type: pd.type, typeNm: TYPE_NM[pd.type],
             plan: pd.plan, planName: q.plan.name, planFee: q.plan.fee, tier: tierOf(pd.plan),
             plan2Name: q.plan2 ? q.plan2.name : '', six: !!q.plan2,
             dc: pd.dc, n: pd.n, retail: q.retail, sub: r.subUsed, ag: r.agUsed, price: r.prin, pre: m.pre ? (PRE_DATE[m.id] || '출시') : '',
@@ -3434,7 +3419,7 @@ var OS_DATA={"models":[{"id":"duo","name":"iPhone Duo","maker":"apple","img":"ip
         var text = quoteText();
         var go = function (ok) {
             toast(ok ? '견적 내용이 복사됐어요. 카톡 채팅창에 붙여넣기 해주세요.' : '카톡 채팅창에 모델·요금제를 알려주세요.');
-            if (typeof fbq === 'function') fbq('trackCustom', 'KakaoClick', { from: 'quote', model: pd ? pd.id : '' });
+            if (typeof fbq === 'function') fbq('trackCustom', 'KakaoClick');
             setTimeout(function () { window.open(KAKAO, '_blank'); }, 400);
         };
         if (navigator.clipboard && navigator.clipboard.writeText) {
@@ -3514,13 +3499,7 @@ var OS_DATA={"models":[{"id":"duo","name":"iPhone Duo","maker":"apple","img":"ip
             if (!opt) return;
             var box = opt.parentNode.id;
             var v = opt.dataset.v;
-            if (box === 'osPdType') {
-                pd.cur = lastCur = v;
-                if (typeof fbq === 'function') fbq('trackCustom', 'CarrierPick', { model: pd.id, cur: v });
-                var t = v === 'LGU' ? '1' : '2';
-                if (t !== pd.type) { pd.type = t; pd.dc = null; renderPd(); fetchSubsidy(pd.type, pd.plan, renderPd); }
-                else renderPd();
-            }
+            if (box === 'osPdType') { pd.type = v; pd.dc = null; renderPd(); fetchSubsidy(pd.type, pd.plan, renderPd); }
             else if (box === 'osPdPlans') { pd.plan = v; pd.dc = null; renderPd(); fetchSubsidy(pd.type, pd.plan, renderPd); }
             else if (box === 'osPdDc') { pd.dc = v; renderPd(); }
             else if (box === 'osPdInst') { pd.n = Number(v); renderPd(); }
@@ -4044,8 +4023,6 @@ window.SITE_STORES=[{"name":"신림점","region":"서울","addr":"서울특별�
             st = { ctx: ctx, step: '', cur: '', method: preStore ? 'visit' : '', store: preStore, date: preStore ? days()[0].v : '', name: '', phone: '', color: '', a1: false, a2: false, tk: {} };
             // 지금 견적의 가입 유형으로 통신사를 미리 짐작 (기기변경 → LG U+)
             if (ctx.type === '1') st.cur = 'LGU';
-            // 견적창에서 통신사를 이미 골랐으면 통신사 단계는 건너뜀 (뒤로 가면 다시 고를 수 있음, 10/30)
-            if (ctx.cur) { st.cur = ctx.cur; show(); step('ApplyStart'); vMethod(); return; }
             show(); vCur();
         },
         notice: function () { resumeTo = el.classList.contains('open') && st && st.step !== 'done' ? st.step : ''; show(); vNotice(); },
