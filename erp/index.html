@@ -6,6 +6,7 @@
 <meta name="robots" content="noindex,nofollow">
 <meta name="theme-color" content="#f4f6fa">
 <title>온라인팀 실적 관리 시스템</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
 <style>
 :root{
   --bg:#f4f6fa;--card:#fff;--soft:#f2f4f8;--line:#e8ebf0;--tx:#191f28;--tx2:#6b7684;--tx3:#a0a8b3;
@@ -13,7 +14,7 @@
   --sh:0 1px 2px rgba(20,30,50,.04),0 4px 14px rgba(20,30,50,.05);
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html,body{background:var(--bg);color:var(--tx);font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Pretendard","Noto Sans KR",sans-serif;-webkit-font-smoothing:antialiased}
+html,body{background:var(--bg);color:var(--tx);font-family:"Pretendard Variable","Pretendard",-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;letter-spacing:-.01em;-webkit-font-smoothing:antialiased}
 body{padding-bottom:calc(86px + env(safe-area-inset-bottom))}
 body.withbar{padding-bottom:calc(190px + env(safe-area-inset-bottom))}
 button,input,select{font:inherit;color:inherit}
@@ -199,6 +200,88 @@ textarea.paste:focus{outline:0;border-color:var(--blue);background:#fff}
 .err{color:var(--red);font-size:12px;font-weight:600}
 .colhelp{font-size:12px;color:var(--tx2);line-height:1.7;margin:8px 0}
 .colhelp b{display:inline-block;background:var(--soft);border-radius:6px;padding:0 6px;margin:2px 2px 2px 0;font-weight:600;color:var(--tx)}
+/* 11/02 화면 개편: 대시보드·내 급여 */
+.chd{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px}
+.chd b{font-size:16px;font-weight:700}
+.chd small{font-size:12px;color:var(--tx3);font-weight:500;margin-left:6px}
+.pill{display:inline-block;font-size:12px;font-weight:700;border-radius:999px;padding:4px 10px;background:var(--soft);color:var(--tx2);white-space:nowrap}
+.pill.ok{background:var(--greenbg);color:var(--green)}.pill.bad{background:var(--redbg);color:var(--red)}
+.hero2{display:grid;gap:14px;padding:18px;margin-top:14px}
+.hero2 .hl{display:flex;align-items:center;gap:16px}
+.hero2 .k{font-size:14px;color:var(--tx2);font-weight:600}.hero2 .k small{color:var(--tx3);font-weight:500;margin-left:4px}
+.hero2 .big{font-size:36px;font-weight:800;letter-spacing:-.03em;font-variant-numeric:tabular-nums;line-height:1.15;margin:2px 0 6px}
+.hero2 .big small{font-size:16px;color:var(--tx3);font-weight:600;margin-left:6px}
+.hero2 .k2{font-size:13px;color:var(--tx2);margin-top:8px}.hero2 .k2 b{color:var(--tx)}
+.ring{width:96px;height:96px;flex:none}
+.ring .bg{fill:none;stroke:var(--soft);stroke-width:11}
+.ring .fg{fill:none;stroke:var(--orange);stroke-width:11;stroke-linecap:round}
+.ring.ok .fg{stroke:var(--blue)}
+.ring text{font-size:22px;font-weight:800;fill:var(--tx);font-family:inherit}
+.cum{width:100%;height:auto;display:block}
+.cum text{font-size:12px;fill:var(--tx3);font-family:inherit}
+.cum .gl{stroke:var(--line);stroke-width:1}
+.cum .goal{stroke:#9aa4b2;stroke-width:1.6;stroke-dasharray:5 5}
+.cum .ar{fill:rgba(43,110,242,.12)}.cum .ln{fill:none;stroke:var(--blue);stroke-width:3;stroke-linejoin:round}
+.cum .pj{stroke:var(--blue);stroke-width:2;stroke-dasharray:2 5;opacity:.55;stroke-linecap:round}
+.cum .dot{fill:#fff;stroke:var(--blue);stroke-width:3}
+.cum .nv{font-size:14px;font-weight:800;fill:var(--blue)}
+.lg{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--tx2);margin-top:4px}
+.lg i{display:inline-block;width:14px;height:3px;border-radius:2px;vertical-align:middle;margin-right:5px}
+.lg i.dash{background:repeating-linear-gradient(90deg,#9aa4b2 0 4px,transparent 4px 7px)}
+.lg i.dash.lt{background:repeating-linear-gradient(90deg,#8fb1f5 0 2px,transparent 2px 5px)}
+.kgrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px;margin-top:10px}
+.kgrid .kpi{padding:14px 16px}.kgrid .kpi .v{font-size:23px}
+.kgrid .kpi .s{font-size:12px}
+.dgrid{display:grid;grid-template-columns:minmax(0,1fr);gap:10px;margin-top:10px}
+.dgrid>*{min-width:0}
+@media(max-width:999px){.dchart .c:not(.td):not(.mx) b{visibility:hidden}.dchart .c:not(.k) span{visibility:hidden}}
+.dgrid>.card{margin:0;padding:16px}
+.dchart{display:flex;align-items:flex-end;gap:2px;height:150px;padding-top:4px}
+.dchart .c{flex:1;min-width:0;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%}
+.dchart .c b{font-size:9px;font-weight:700;color:var(--tx2);margin-bottom:3px;white-space:nowrap;height:11px;font-variant-numeric:tabular-nums}
+.dchart .c i{display:block;width:100%;max-width:22px;background:#bcd2fb;border-radius:4px 4px 1px 1px}
+.dchart .c i.n{background:#f5b3b5}
+.dchart .c.td i{background:var(--blue)}.dchart .c.td b{color:var(--blue)}
+.dchart .c span{font-size:9px;color:var(--tx3);margin-top:5px;height:11px;font-variant-numeric:tabular-nums}
+.dchart .c span.su{color:#e5484d}.dchart .c span.sa{color:#5b8def}
+.dchart .c.fu span{opacity:.45}
+.dchart .c.td span{color:var(--blue);font-weight:800}
+.mini{display:flex;background:var(--soft);border-radius:10px;padding:3px}
+.mini button{border:0;background:none;padding:5px 10px;font-size:12px;font-weight:600;color:var(--tx2);border-radius:8px;cursor:pointer}
+.mini button.on{background:#fff;color:var(--tx);box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.stk{display:flex;height:14px;border-radius:999px;overflow:hidden;background:var(--soft);gap:2px}
+.stk i{display:block;height:100%}
+.slg{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:13px;color:var(--tx2);margin-top:9px}
+.slg i{display:inline-block;width:9px;height:9px;border-radius:3px;margin-right:5px;vertical-align:0}
+.slg b{color:var(--tx);font-variant-numeric:tabular-nums}
+.slg em{font-style:normal;color:var(--tx3);font-size:12px;margin-left:3px}
+.chm{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:12px;color:var(--tx3);margin-top:8px}.chm b{color:var(--tx2)}
+.rank .rr{padding:7px 0}
+.rank .rt{display:flex;justify-content:space-between;font-size:14px;font-weight:600;margin-bottom:5px}
+.rank .rt em{font-style:normal;display:inline-block;width:18px;color:var(--tx3);font-size:12px;font-weight:700}
+.rank .rt b{font-variant-numeric:tabular-nums}
+.rank .rk{height:8px;background:var(--soft);border-radius:999px;overflow:hidden;margin-left:18px}
+.rank .rk i{display:block;height:100%;background:var(--blue);border-radius:999px}
+.rank .rk i.n{background:var(--red)}
+.rank .rs{font-size:12px;color:var(--tx3);margin:4px 0 0 18px}
+.steps{display:flex;gap:3px;padding-bottom:2px}
+.steps .sp{flex:1 1 0;min-width:0;text-align:center;white-space:nowrap}
+.steps .sb{height:8px;background:var(--soft);border-radius:3px;overflow:hidden;margin-bottom:6px}
+.steps .sb i{display:block;height:100%;background:var(--blue)}
+.steps .sp.on .sb i{background:var(--green)}
+.steps .sp b{display:block;font-size:11.5px;letter-spacing:-.03em;color:var(--tx3);font-variant-numeric:tabular-nums}
+.steps .sp span{font-size:11px;color:var(--tx3)}
+.steps .sp.on b,.steps .sp.on span{color:var(--green)}
+.steps .sp.next b,.steps .sp.next span{color:var(--blue);font-weight:800}
+.tierc .hint{margin-top:10px}
+.hero3{margin-top:14px;padding:20px 18px;background:linear-gradient(135deg,#2b6ef2,#1d4fd8)}
+.hero3 .l small{opacity:.75;margin-left:4px;font-size:12px}
+.hero3 .v{margin:6px 0 14px}
+.stk.wh{background:rgba(255,255,255,.18)}
+.slg.wh{color:rgba(255,255,255,.85)}.slg.wh b{color:#fff}
+.kgrid.k3{grid-template-columns:repeat(3,1fr)}.kgrid.k3 .kpi{padding:12px}.kgrid.k3 .kpi .v{font-size:19px}.kgrid.k3 .kpi .l{font-size:12px}
+.card.list>.chd{margin-bottom:4px}
+.card.list>.btn{margin-top:12px}
 .pconly{display:none}
 @media(min-width:1000px){
   .pconly{display:block}
@@ -216,6 +299,16 @@ textarea.paste:focus{outline:0;border-color:var(--blue);background:#fff}
   .kpi.big{grid-column:span 4}
   .sbar{left:220px;bottom:0;padding-bottom:16px}
   .form{max-width:640px}
+  .hero2{grid-template-columns:minmax(300px,380px) 1fr;align-items:center;padding:22px 24px}
+  .hero2 .big{font-size:42px}
+  .ring{width:112px;height:112px}
+  .kgrid{grid-template-columns:repeat(4,1fr);gap:12px;margin-top:12px}
+  .kgrid.k3{grid-template-columns:repeat(3,1fr)}
+  .kgrid .kpi .v{font-size:27px}.kgrid.k3 .kpi .v{font-size:24px}.kgrid.k3 .kpi .l{font-size:14px}.kgrid.k3 .kpi{padding:16px}
+  .dgrid{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;margin-top:12px}
+  .dgrid>.span2{grid-column:span 2}
+  .dchart{height:180px;gap:4px}.dchart .c b,.dchart .c span{font-size:11px}
+  .hero3{padding:26px 28px}.hero3 .v{font-size:42px}
 }
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js" defer></script>
@@ -277,7 +370,9 @@ function fixWatch(o){const m=modelById(o.modelId);for(const k in WATCH)if(o[k]&&
 const KIND={gwatch:'갤럭시워치',awatch:'애플워치',net:'인터넷'};
 const SALE_TYPE={...TYPE,...KIND},TYPE_SHORT={mnp:'번이',dev:'기변',...KIND};
 const isPhone=x=>x.type==='mnp'||x.type==='dev';
-function fixKind(o){if(isPhone(o))return o;Object.assign(o,{idOpen:false,payback:false,paybackAmt:0,usedReturn:false,usedAmt:0,ins:false,gwatch:false,awatch:false,net:false,watch:false,plan:''});if(o.type==='net')o.modelId='';return o;}
+// 11/02 워치는 대납 입력 가능 (인터넷은 없음)
+const hasPb=x=>isPhone(x)||!!WATCH[x.type];
+function fixKind(o){if(isPhone(o))return o;const pb=WATCH[o.type]?{payback:!!o.payback,paybackAmt:o.payback?o.paybackAmt||0:0}:{};Object.assign(o,{idOpen:false,payback:false,paybackAmt:0,usedReturn:false,usedAmt:0,ins:false,gwatch:false,awatch:false,net:false,watch:false,plan:''},pb);if(o.type==='net')o.modelId='';return o;}
 // 워치로 바꿀 때 조건 안 맞는 폰이면: pick=true면 첫 조건 모델, 아니면 비움
 function fitWatch(o,pick){if(!WATCH[o.type]||watchOk(o.type,modelById(o.modelId)))return o;const f=pick&&S.policy.models.find(m=>watchOk(o.type,m));o.model=f?f.model:'';o.modelId=f?f.id:'';return o;}
 const saleTitle=(x,m)=>isPhone(x)?(m?m.model+' '+m.cap:'삭제된 모델'):KIND[x.type]+(WATCH[x.type]?' · '+(m?m.model+' 같이 개통':'폰 모델 없음'):'');
@@ -549,7 +644,7 @@ function spotsFor(date,m,type,plan,region){
 function calc(x){
   if(!isPhone(x)){const items=[];
     if(WATCH[x.type]){if(!watchOk(x.type,modelById(x.modelId)))return null;const w=S.policy.watch[x.type];if(w.act)items.push([KIND[x.type]+' 개통수수료',w.act]);if(w.bundle)items.push([KIND[x.type]+' 번들수수료',w.bundle]);}
-    const fee=items.reduce((a,b)=>a+b[1],0);return {items,fee,used:0,costs:[],cost:0,margin:fee};}
+    const fee=items.reduce((a,b)=>a+b[1],0),costs=x.payback&&x.paybackAmt>0?[['대납',x.paybackAmt]]:[],cost=costs.reduce((a,b)=>a+b[1],0);return {items,fee,used:0,costs,cost,margin:fee-cost};}
   const m=modelById(x.modelId);if(!m)return null;
   const c=S.policy.common[x.type][x.plan]||{};
   const items=[];
@@ -683,19 +778,62 @@ function barRow(label,pct,extra){
   const p=Math.max(0,Math.min(100,pct));
   return `<div class="bar"><div class="r"><span>${label}${extra?`<em>${extra}</em>`:''}</span><span>${Math.round(pct)}%</span></div><div class="track"><div class="fill ${pct>=100?'ok':pct<70?'warn':''}" style="width:${p}%"></div></div></div>`;
 }
-function dailyChart(rows,valFn){
-  const day=Number(TODAY.slice(8)),vals=[];
-  for(let d=1;d<=day;d++){const ds=MONTH+'-'+pad(d);vals.push([d,sum(rows.filter(x=>x.date===ds),valFn)]);}
-  const max=Math.max(1,...vals.map(v=>Math.abs(v[1])));
-  return `<div class="chart">${vals.map(([d,v])=>`<div class="c" title="${d}일 ${won(v)}"><i class="${d===day?'t':v<0?'n':''}" style="height:${Math.abs(v)/max*100}%"></i><span>${d%5===0||d===1||d===day?d:''}</span></div>`).join('')}</div>`;
+// 11/02 화면 개편: 그래프 공통 부품
+const KCOL={mnp:'#2b6ef2',dev:'#14b8a6',gwatch:'#8b5cf6',awatch:'#f59e0b',net:'#94a3b8'};
+const CHCOL={moyo:'#7c5cf0',hotdeal:'#f0566a',online:'#2b6ef2'};
+const monDays=()=>new Date(+MONTH.slice(0,4),+MONTH.slice(5,7),0).getDate();
+// 일별 막대: 막대 위에 값, 오늘은 진한 색
+function dailyChart(rows,valFn,lab){
+  const day=Number(TODAY.slice(8)),days=monDays(),vals=[];
+  for(let d=1;d<=days;d++){const ds=MONTH+'-'+pad(d);vals.push([d,d<=day?sum(rows.filter(x=>x.date===ds),valFn):null]);}
+  const max=Math.max(1,...vals.map(v=>Math.abs(v[1]||0)));
+  const L=lab||(v=>short(v).replace('원',''));
+  return `<div class="dchart">${vals.map(([d,v])=>{const wk=new Date(+MONTH.slice(0,4),+MONTH.slice(5,7)-1,d).getDay();
+    return `<div class="c${v===null?' fu':''}${d===day?' td':''}${d===1||d%5===0||d===day?' k':''}${v&&Math.abs(v)===max?' mx':''}" title="${d}일 ${v===null?'':L(v)}"><b>${v?L(v):''}</b><i class="${v<0?'n':''}" style="height:${v?Math.max(3,Math.abs(v)/max*100):0}%"></i><span class="${wk===0?'su':wk===6?'sa':''}">${d}</span></div>`;}).join('')}</div>`;
 }
+// 누적 개통 선 그래프: 실제 누적 · 목표 기준선(점선) · 이 속도면 월말(흐린 점선)
+function cumChart(rows,goal){
+  const days=monDays(),day=+TODAY.slice(8),W=640,H=210,l=34,r=12,t=14,bt=26;
+  const cnt=[];let acc=0;for(let d=1;d<=day;d++){acc+=rows.filter(x=>x.date===MONTH+'-'+pad(d)).length;cnt.push(acc);}
+  const proj=day?acc/day*days:0,top=Math.max(goal,proj,acc,1)*1.08;
+  const X=d=>l+(W-l-r)*(d/days),Y=v=>t+(H-t-bt)*(1-v/top);
+  const pts=cnt.map((v,i)=>X(i+1).toFixed(1)+','+Y(v).toFixed(1));
+  const line='M'+X(0)+','+Y(0)+' L'+pts.join(' L');
+  const area=line+` L${X(day).toFixed(1)},${Y(0)} Z`;
+  const grid=[0,.5,1].map(f=>{const v=Math.round(goal*f);return `<line x1="${l}" x2="${W-r}" y1="${Y(v)}" y2="${Y(v)}" class="gl"/><text x="${l-6}" y="${Y(v)+4}" text-anchor="end">${fmt(v)}</text>`;}).join('');
+  const xt=[1,10,20,days].map(d=>`<text x="${X(d)}" y="${H-6}" text-anchor="middle">${d}일</text>`).join('');
+  return `<svg class="cum" viewBox="0 0 ${W} ${H}" role="img" aria-label="누적 개통 그래프">${grid}${xt}
+    <line x1="${X(0)}" y1="${Y(0)}" x2="${X(days)}" y2="${Y(goal)}" class="goal"/>
+    <path d="${area}" class="ar"/><path d="${line}" class="ln"/>
+    <line x1="${X(day)}" y1="${Y(acc)}" x2="${X(days)}" y2="${Y(proj)}" class="pj"/>
+    <circle cx="${X(day)}" cy="${Y(acc)}" r="5" class="dot"/>
+    <text x="${Math.min(X(day),W-r-40)}" y="${Y(acc)-12}" text-anchor="middle" class="nv">${fmt(acc)}건</text></svg>
+    <div class="lg"><span><i style="background:var(--blue)"></i>실제 누적</span><span><i class="dash"></i>목표 기준선</span><span><i class="dash lt"></i>이 속도면</span></div>`;
+}
+// 달성률 원형
+function ring(pct,cls){
+  const R=44,C=2*Math.PI*R,p=Math.max(0,Math.min(100,pct));
+  return `<svg class="ring ${cls||''}" viewBox="0 0 108 108"><circle cx="54" cy="54" r="${R}" class="bg"/><circle cx="54" cy="54" r="${R}" class="fg" stroke-dasharray="${(C*p/100).toFixed(1)} ${C.toFixed(1)}" transform="rotate(-90 54 54)"/><text x="54" y="60" text-anchor="middle">${Math.round(pct)}%</text></svg>`;
+}
+// 비율 막대 한 줄 + 범례: parts=[[이름,값,색]]
+function stackBar(parts,unit){
+  const tot=sum(parts,p=>Math.max(0,p[1]))||1,u=unit||'건';
+  return `<div class="stk">${parts.filter(p=>p[1]>0).map(p=>`<i style="width:${p[1]/tot*100}%;background:${p[2]}" title="${esc(p[0])} ${fmt(p[1])}${u}"></i>`).join('')}</div>
+    <div class="slg">${parts.map(p=>`<span><i style="background:${p[2]}"></i>${esc(p[0])} <b>${u==='원'?short(p[1]):fmt(p[1])+u}</b>${u!=='원'&&p[1]?`<em>${Math.round(p[1]/tot*100)}%</em>`:''}</span>`).join('')}</div>`;
+}
+// 가로 순위 막대: list=[[이름,막대값,오른쪽 글,아래 글]]
+function rankBars(list){
+  const max=Math.max(1,...list.map(x=>Math.abs(x[1])));
+  return `<div class="rank">${list.map(([n,v,rt,sub],i)=>`<div class="rr"><div class="rt"><span><em>${i+1}</em>${esc(n)}</span><b class="${v<0?'neg':''}">${rt}</b></div><div class="rk"><i class="${v<0?'n':''}" style="width:${Math.abs(v)/max*100}%"></i></div>${sub?`<div class="rs">${sub}</div>`:''}</div>`).join('')||'<div class="empty">아직 판매건이 없습니다</div>'}</div>`;
+}
+const cardH=(t,sm,extra)=>`<div class="chd"><div><b>${t}</b>${sm?`<small>${sm}</small>`:''}</div>${extra||''}</div>`;
+// 정액 수당 구간: 계단 칸 + 지금 위치
 function tierCard(title,n,tiers,unit){
   const cur=tierOf(n,tiers),nx=nextTier(n,tiers);
-  const goal=nx?nx[0]:tiers[tiers.length-1][0];
-  return `<div class="card"><div class="bar" style="margin:0"><div class="r"><span>${title}<em>${n}${unit}</em></span><span>${cur?'+'+short(cur):'미달'}</span></div>
-    <div class="track"><div class="fill ${cur?'ok':''}" style="width:${Math.min(100,n/goal*100)}%"></div></div></div>
-    <div class="hint">${nx?`<b>${nx[0]-n}${unit}</b> 더 하면 ${short(nx[1])}`:'최고 구간 달성'}</div>
-    <div class="tier">${tiers.map(([th,a])=>`<span class="${n>=th?'on':nx&&th===nx[0]?'next':''}">${th}${unit} ${short(a)}</span>`).join('')}</div></div>`;
+  return `<div class="card tierc">${cardH(title,`지금 ${n}${unit}`,`<span class="pill ${cur?'ok':''}">${cur?'+'+short(cur):'미달'}</span>`)}
+    <div class="steps">${tiers.map(([th,a],i)=>{const prev=i?tiers[i-1][0]:0,f=n>=th?100:n<=prev?0:(n-prev)/(th-prev)*100;
+      return `<div class="sp ${n>=th?'on':nx&&th===nx[0]?'next':''}"><div class="sb"><i style="width:${f}%"></i></div><b>${th}${unit}</b><span>${short(a)}</span></div>`;}).join('')}</div>
+    <div class="hint">${nx?`다음 구간까지 <b>${nx[0]-n}${unit}</b> · 달성하면 ${short(nx[1])}`:'최고 구간 달성'}</div></div>`;
 }
 function tags(x){
   return `<span class="tag ${x.channel}">${CH[x.channel]}</span><span class="tag">${x.region}</span>${x.idOpen?'<span class="tag">신분증</span>':''}`;
@@ -731,37 +869,47 @@ function saleItem(x,viewer,ck){
 }
 
 // ── 관리자 ──
+let dashMet='n';
 function dashView(){
   const rows=S.sales.filter(inMonth);
-  const total=Object.values(S.settings.target).reduce((a,b)=>a+b,0);
+  const goal=Object.values(S.settings.target).reduce((a,b)=>a+b,0);
   const fee=sum(rows,x=>x.calc.fee),margin=sum(rows,x=>x.calc.margin);
-  const labor=sum(S.pay.people,p=>payroll(p,rows.filter(()=>true)).total);
-  const today=rows.filter(x=>x.date===TODAY);
+  const labor=sum(S.pay.people,p=>payroll(p,rows).total);
+  const today=rows.filter(x=>x.date===TODAY),n=rows.length;
+  const days=monDays(),day=+TODAY.slice(8),pace=goal*day/days,proj=Math.round(n/day*days),gap=Math.round(n-pace),pct=goal?n/goal*100:0;
   const byModel={};rows.forEach(x=>{const m=modelById(x.modelId);const k=!isPhone(x)?KIND[x.type]:m?m.model:'-';byModel[k]=byModel[k]||{n:0,mg:0};byModel[k].n++;byModel[k].mg+=x.calc.margin;});
   const top=Object.entries(byModel).sort((a,b)=>b[1].n-a[1].n).slice(0,6);
-  return `<div class="grid2">
-    <div class="kpi"><div class="l">이번 달 개통</div><div class="v">${fmt(rows.length)}건</div><div class="s">목표 ${fmt(total)}건</div></div>
-    <div class="kpi"><div class="l">목표 달성률</div><div class="v">${(rows.length/total*100).toFixed(1)}%</div><div class="s">${typeSplit(rows)}</div></div>
-    <div class="kpi"><div class="l">예상 수수료</div><div class="v">${short(fee)}</div><div class="s">정책 자동 계산</div></div>
-    <div class="kpi"><div class="l">예상 순마진</div><div class="v ${margin<0?'neg':''}">${short(margin)}</div><div class="s">중고폰 더하고 광고비·대납 차감</div></div>
-    <div class="kpi big"><div class="l">예상 인건비 (온라인팀 ${S.pay.people.length}명)</div><div class="v">${short(labor)}</div><div class="s">기본급 + 수당 + 그레이드 · 인건비까지 뺀 마진 <b class="${margin-labor<0?'neg':'pos'}">${short(margin-labor)}</b></div></div>
+  const staff=S.pay.people.map(p=>{const r=rows.filter(x=>x.staffId===p.id);return [pname(p),r.length,sum(r,x=>x.calc.margin)];}).sort((a,b)=>b[1]-a[1]);
+  const kinds=Object.keys(TYPE_SHORT).map(k=>[TYPE_SHORT[k],rows.filter(x=>x.type===k).length,KCOL[k]]).filter((p,i)=>p[1]||i<2);
+  const chs=chKeys().map(k=>{const r=rows.filter(x=>x.channel===k);return [CH[k],r.length,CHCOL[k],sum(r,x=>x.calc.margin)];});
+  const tm=sum(today,x=>x.calc.margin);
+  return `<div class="hero2 card">
+    <div class="hl">${ring(pct,n>=pace?'ok':'')}
+      <div><div class="k">${Number(MONTH.slice(5))}월 개통 <small>${day}일 / ${days}일</small></div>
+      <div class="big">${fmt(n)}<small>/ ${fmt(goal)}건</small></div>
+      <div class="pill ${gap>=0?'ok':'bad'}">${gap>=0?'기준선보다 '+gap+'건 앞섬':'기준선보다 '+(-gap)+'건 부족'}</div>
+      <div class="k2">이 속도면 월말 <b>${fmt(proj)}건</b> · 오늘 <b>${today.length}건</b></div></div></div>
+    <div class="hr">${cumChart(rows,goal)}</div>
   </div>
-  <h2>판매경로별 <small>이번 달</small></h2>
-  <div class="card">${chKeys().map(k=>{const r=rows.filter(x=>x.channel===k);return `<div class="tg"><span><span class="tag ${k}">${CH[k]}</span> ${r.length}건</span><b class="${sum(r,x=>x.calc.margin)<0?'neg':''}" style="font-variant-numeric:tabular-nums">${short(sum(r,x=>x.calc.margin))}</b></div>`;}).join('')}</div>
-  <h2>지역별 목표 달성 <small>개통 지역 기준</small></h2>
-  <div class="card">${REGIONS.map(t=>{const n=rows.filter(x=>x.region===t).length,g=S.settings.target[t]||0;return barRow(t,g?n/g*100:0,`${n} / ${g}건`);}).join('')}</div>
-  <h2>정액 수당 구간 <small>온라인팀 공통</small></h2>
-  ${tierCard('온라인 전체 실적',rows.length,S.pay.grade,'건')}
-  ${tierCard('남부 신분증 번호이동',rows.filter(isIdSouth).length,S.pay.idTier,'건')}
-  <h2>오늘 <small>${md(TODAY)}</small></h2>
-  <div class="grid2" style="margin-top:0">
-    <div class="kpi"><div class="l">오늘 개통</div><div class="v">${today.length}건</div></div>
-    <div class="kpi"><div class="l">오늘 순마진</div><div class="v ${sum(today,x=>x.calc.margin)<0?'neg':''}">${short(sum(today,x=>x.calc.margin))}</div></div>
+  <div class="kgrid">
+    <div class="kpi"><div class="l">순마진</div><div class="v ${margin<0?'neg':''}">${short(margin)}</div><div class="s">수수료 ${short(fee)}</div></div>
+    <div class="kpi"><div class="l">예상 인건비</div><div class="v">${short(labor)}</div><div class="s">${S.pay.people.length}명 · 기본급+수당</div></div>
+    <div class="kpi"><div class="l">인건비 뺀 마진</div><div class="v ${margin-labor<0?'neg':'pos'}">${short(margin-labor)}</div><div class="s">순마진 − 인건비</div></div>
+    <div class="kpi"><div class="l">오늘 순마진</div><div class="v ${tm<0?'neg':''}">${short(tm)}</div><div class="s">오늘 ${today.length}건 · 건당 ${n?short(margin/n):'-'}</div></div>
   </div>
-  <h2>일별 순마진 <small>파란 막대 = 오늘</small></h2>
-  <div class="card">${dailyChart(rows,x=>x.calc.margin)}</div>
-  <h2>모델별 판매 <small>건수 · 순마진</small></h2>
-  <div class="card list">${top.map(([k,v])=>`<div class="it" style="cursor:default"><div><div class="a">${esc(k)}</div><div class="b">${v.n}건 · 건당 평균 ${won(v.mg/v.n)}</div></div><div class="m ${v.mg<0?'neg':''}">${short(v.mg)}</div></div>`).join('')}</div>`;
+  <div class="dgrid">
+    <div class="card span2">${cardH('일별 '+(dashMet==='n'?'개통 건수':'순마진'),'오늘은 진한 색',`<div class="mini">${[['n','건수'],['m','순마진']].map(([k,l])=>`<button class="${dashMet===k?'on':''}" data-dm="${k}">${l}</button>`).join('')}</div>`)}
+      ${dashMet==='n'?dailyChart(rows,()=>1,v=>fmt(v)):dailyChart(rows,x=>x.calc.margin)}</div>
+    <div class="card">${cardH('지역별 목표','개통 지역 기준')}${REGIONS.map(t=>{const k=rows.filter(x=>x.region===t).length,g=S.settings.target[t]||0;return barRow(t,g?k/g*100:0,`${k} / ${g}건`);}).join('')}</div>
+    <div class="card">${cardH('직원별 실적','건수 · 순마진')}${rankBars(staff.map(([nm,k,mg])=>[nm,k,fmt(k)+'건',`순마진 ${short(mg)}`]))}</div>
+    <div class="card">${cardH('판매 구성','이번 달')}
+      <div class="sec" style="margin-top:4px">유형</div>${stackBar(kinds)}
+      <div class="sec">판매경로</div>${stackBar(chs.map(c=>c.slice(0,3)))}
+      <div class="chm">${chs.map(c=>`<span>${esc(c[0])} 순마진 <b class="${c[3]<0?'neg':''}">${short(c[3])}</b></span>`).join('')}</div></div>
+    <div class="card">${cardH('모델별 판매','많이 팔린 순')}${rankBars(top.map(([k,v])=>[k,v.n,fmt(v.n)+'건',`순마진 ${short(v.mg)} · 건당 ${short(v.mg/v.n)}`]))}</div>
+    ${tierCard('정액 수당 · 온라인 전체 실적',n,S.pay.grade,'건')}
+    ${tierCard('정액 수당 · 남부 신분증 번이',rows.filter(isIdSouth).length,S.pay.idTier,'건')}
+  </div>`;
 }
 
 // 개통관리 필터에 걸린 판매건 (최근 순)
@@ -987,22 +1135,28 @@ function homeView(me){
   const today=rows.filter(x=>x.date===TODAY);
   const r=payroll(me,rows);
   const t=sum(today,x=>incSum(me,x));
-  const mineToday=today.filter(x=>x.staffId===me.id);
-  return `<div class="grid2">
-    <div class="kpi hero"><div class="l">이번 달 예상 급여</div><div class="v">${won(r.total)}</div><div class="s">기본급 ${short(r.base+r.welfare)} + 수당 ${short(r.total-r.base-r.welfare)}</div></div>
-    <div class="kpi"><div class="l">오늘 번 수당</div><div class="v pos">+${short(t)}</div><div class="s">팀 오늘 ${today.length}건</div></div>
-    <div class="kpi"><div class="l">내가 입력한 건</div><div class="v">${rows.filter(x=>x.staffId===me.id).length}건</div><div class="s">오늘 ${mineToday.length}건</div></div>
+  const mine=rows.filter(x=>x.staffId===me.id),mineToday=today.filter(x=>x.staffId===me.id);
+  const parts=[['기본급',r.base+r.welfare,'rgba(255,255,255,.95)'],['건당 수당',r.perCase,'#9cc2ff'],['부가 판매',r.addon,'#c9b6ff'],['정액 수당',r.grade+r.idt,'#7ee0b5']];
+  const tot=r.total||1;
+  return `<div class="kpi hero hero3">
+    <div class="l">${Number(MONTH.slice(5))}월 예상 급여 <small>오늘까지 실적 기준</small></div>
+    <div class="v">${won(r.total)}</div>
+    <div class="stk wh">${parts.filter(p=>p[1]>0).map(p=>`<i style="width:${p[1]/tot*100}%;background:${p[2]}"></i>`).join('')}</div>
+    <div class="slg wh">${parts.map(p=>`<span><i style="background:${p[2]}"></i>${p[0]} <b>${short(p[1])}</b></span>`).join('')}</div>
   </div>
-  <h2>급여 내역 <small>오늘까지 실적 기준</small></h2>
-  <div class="card">${payBox(me,rows)}</div>
-  <h2>정액 수당까지 남은 건수</h2>
-  ${tierCard('온라인 전체 실적',r.n,S.pay.grade,'건')}
-  ${tierCard('남부 신분증 번호이동',r.idn,S.pay.idTier,'건')}
-  <h2>일별 수당 <small>파란 막대 = 오늘</small></h2>
-  <div class="card">${dailyChart(rows,x=>incSum(me,x))}</div>
-  <h2>오늘 내가 입력한 판매 <small>${mineToday.length}건</small></h2>
-  <div class="card list">${mineToday.length?mineToday.slice().reverse().map(x=>saleItem(x,me)).join(''):'<div class="empty">오늘 입력한 판매건이 없습니다</div>'}</div>
-  <button class="btn" data-tab="input">판매건 입력하기</button>`;
+  <div class="kgrid k3">
+    <div class="kpi"><div class="l">오늘 번 수당</div><div class="v pos">+${short(t)}</div><div class="s">팀 오늘 ${today.length}건</div></div>
+    <div class="kpi"><div class="l">팀 이번 달 실적</div><div class="v">${fmt(r.n)}건</div><div class="s">그레이드 기준</div></div>
+    <div class="kpi"><div class="l">내가 입력한 건</div><div class="v">${mine.length}건</div><div class="s">오늘 ${mineToday.length}건</div></div>
+  </div>
+  <div class="dgrid">
+    ${tierCard('실적 그레이드 · 온라인 전체',r.n,S.pay.grade,'건')}
+    ${tierCard('남부 신분증 번이',r.idn,S.pay.idTier,'건')}
+    <div class="card span2">${cardH('일별 내 수당','오늘은 진한 색')}${dailyChart(rows,x=>incSum(me,x))}</div>
+    <div class="card">${cardH('급여 내역','오늘까지 실적 기준')}${payBox(me,rows)}</div>
+    <div class="card list">${cardH('오늘 내가 입력한 판매',mineToday.length+'건')}${mineToday.length?mineToday.slice().reverse().map(x=>saleItem(x,me)).join(''):'<div class="empty">오늘 입력한 판매건이 없습니다</div>'}
+      <button class="btn" data-tab="input">판매건 입력하기</button></div>
+  </div>`;
 }
 
 const telFmt=v=>{const d=String(v??'').replace(/\D/g,'');if(/^01\d{9}$/.test(d))return d.replace(/(\d{3})(\d{4})(\d{4})/,'$1-$2-$3');if(/^01\d{8}$/.test(d))return d.replace(/(\d{3})(\d{3})(\d{4})/,'$1-$2-$3');if(/^0\d{9,10}$/.test(d))return d.replace(/(\d{2,3})(\d{3,4})(\d{4})/,'$1-$2-$3');return String(v??'').trim();};
@@ -1033,11 +1187,11 @@ function inputView(me,isEdit){
     <label>용량</label>${seg('cap',caps.map(m=>[m.id,m.cap]),form.modelId)}
     ${ph?`<label>요금제</label><select id="f_plan">${planOpts().map(([v,l])=>`<option value="${esc(v)}" ${v===form.plan?'selected':''}>${esc(l)}</option>`).join('')}</select>`:''}
   </div>`}
-  ${ph?`<div class="step"><div class="t"><i>${++no}</i>대납 · 중고폰</div>
+  ${ph||wk?`<div class="step"><div class="t"><i>${++no}</i>${ph?'대납 · 중고폰':'대납'}</div>
     <label>대납</label>${seg('payback',[[0,'없음'],[1,'대납 있음']],form.payback?1:0)}
     ${form.payback?`<div class="inline"><input id="f_pb" inputmode="numeric" placeholder="대납 금액 (원)" value="${form.paybackAmt?fmt(form.paybackAmt):''}"></div>`:''}
-    <label>중고폰 반납</label>${seg('usedReturn',[[0,'없음'],[1,'반납 있음']],form.usedReturn?1:0)}
-    ${form.usedReturn?`<div class="inline"><input id="f_used" inputmode="numeric" placeholder="반납 금액 (원)" value="${form.usedAmt?fmt(form.usedAmt):''}"></div>`:''}
+    ${ph?`<label>중고폰 반납</label>${seg('usedReturn',[[0,'없음'],[1,'반납 있음']],form.usedReturn?1:0)}
+    ${form.usedReturn?`<div class="inline"><input id="f_used" inputmode="numeric" placeholder="반납 금액 (원)" value="${form.usedAmt?fmt(form.usedAmt):''}"></div>`:''}`:''}
   </div>`:''}
   <div class="step"><div class="t"><i>${++no}</i>${ph?'부가 판매':'메모'}</div>
     ${ph?`<div class="chk"><button data-chk="ins" class="${form.ins?'on':''}"><b>${ADDON.ins}</b><span>수당 +${fmt(S.pay.addon.ins)}원</span></button></div>`:''}
@@ -1142,7 +1296,7 @@ function entryView(me){
     ${ph?`<td><select data-b="${i}.plan" style="width:150px">${opt(planOpts(),r.plan)}</select></td>`:na}
     ${r.type==='net'?na+na:`<td><select data-b="${i}.model" style="width:150px">${opt([['',ph?'모델 선택':'같이 개통한 폰'],...names.filter(n=>!wk||S.policy.models.some(m=>m.model===n&&wk.ok(m))).map(n=>[n,n])],r.model)}</select></td>
     <td><select data-b="${i}.modelId" id="ecap${i}" style="width:84px">${opt(caps.map(m=>[m.id,m.cap]),r.modelId)}</select></td>`}
-    ${ph?`<td>${amt(i,'paybackAmt',r.paybackAmt)}</td><td>${amt(i,'usedAmt',r.usedAmt)}</td><td class="c"><input type="checkbox" data-b="${i}.ins" ${r.ins?'checked':''}></td>`:na+na+na}
+    ${ph?`<td>${amt(i,'paybackAmt',r.paybackAmt)}</td><td>${amt(i,'usedAmt',r.usedAmt)}</td><td class="c"><input type="checkbox" data-b="${i}.ins" ${r.ins?'checked':''}></td>`:wk?`<td>${amt(i,'paybackAmt',r.paybackAmt)}</td>`+na+na:na+na+na}
     <td><input data-b="${i}.memo" value="${esc(r.memo)}" style="width:150px"></td>
     <td><input data-b="${i}.custName" value="${esc(r.custName||'')}" autocomplete="off" style="width:90px"></td>
     <td><input data-b="${i}.custPhone" value="${esc(r.custPhone||'')}" inputmode="tel" autocomplete="off" placeholder="010-" style="width:124px"></td>
@@ -1227,7 +1381,7 @@ function importRows(aoa){
     const m=r.type==='net'?null:pModel(c[7],c[8]);if(m){r.model=m.model;r.modelId=m.id;}else if(r.type!=='net')errs.push('모델·용량 "'+String(c[7]??'')+' '+String(c[8]??'')+'"');
     if(r.type==='watch?')r.type=watchOk('awatch',m)?'awatch':'gwatch';
     if(WATCH[r.type]&&m&&!watchOk(r.type,m))errs.push(KIND[r.type]+'는 '+WATCH[r.type].cond+' 동시개통만');
-    if(isPhone(r)){r.paybackAmt=num(c[9]);r.usedAmt=num(c[10]);r.ins=yes(c[11]);}
+    if(isPhone(r)){r.paybackAmt=num(c[9]);r.usedAmt=num(c[10]);r.ins=yes(c[11]);}else if(WATCH[r.type])r.paybackAmt=num(c[9]);
     r.memo=String(c[12]??'');r.custName=String(c[13]??'').trim();r.custPhone=telFmt(c[14]);
     if(errs.length)r.err='확인: '+errs.join(', ');
     out.push(r);
@@ -1306,7 +1460,7 @@ function policyIn(wb){
 // ── 이벤트 ──
 function setPath(root,path,v){const p=path.split('.');let o=root;for(let i=0;i<p.length-1;i++)o=o[p[i]];o[p[p.length-1]]=v;}
 document.addEventListener('click',e=>{
-  const t=e.target.closest('[data-sel],[data-tab],[data-act],[data-open],[data-filt],[data-seg] button,[data-chk],[data-polgrp],[data-polch],[data-mine],[data-spk]');if(!t)return;
+  const t=e.target.closest('[data-sel],[data-tab],[data-act],[data-open],[data-filt],[data-seg] button,[data-chk],[data-polgrp],[data-polch],[data-mine],[data-spk],[data-dm]');if(!t)return;
   if(t.dataset.spk){const k=t.dataset.spk,v=t.dataset.v,cur=spPick[k];
     if(v==='all')cur.clear();else cur.has(v)?cur.delete(v):cur.add(v);
     const g=t.parentNode;g.querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.dataset.v==='all'?!cur.size:cur.has(b.dataset.v)));return;}
@@ -1317,6 +1471,7 @@ document.addEventListener('click',e=>{
   if(t.dataset.tab){if(edit){form=edit.keep;edit=null;}tab=t.dataset.tab;open=null;render();scrollTo(0,0);return;}
   if(t.dataset.filt){filt[t.dataset.filt]=t.dataset.v;if(t.dataset.v==='custom'&&!filt.from){filt.from=MONTH+'-01';filt.to=TODAY;}open=null;render();return;}
   if(t.dataset.mine){mineRange=t.dataset.mine;open=null;render();return;}
+  if(t.dataset.dm){dashMet=t.dataset.dm;render();return;}
   if(t.dataset.polgrp){polGrp=t.dataset.polgrp;render();return;}
   if(t.dataset.chk){form[t.dataset.chk]=!form[t.dataset.chk];render();return;}
   if(t.dataset.open&&!e.target.closest('[data-act]')){open=open===t.dataset.open?null:t.dataset.open;render();return;}
