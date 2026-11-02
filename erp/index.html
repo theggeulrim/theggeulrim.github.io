@@ -31,6 +31,8 @@ button,input,select{font:inherit;color:inherit}
 .kpi .l{color:var(--tx2);font-size:14px;font-weight:500}
 .kpi .v{font-size:26px;font-weight:800;margin:6px 0 2px;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
 .kpi .s{color:var(--tx3);font-size:13px}
+.kpi .lh{display:flex;justify-content:space-between;align-items:center;gap:6px}
+.hbtn{border:1px solid var(--line,#e2e5ea);background:transparent;color:var(--tx3);font:inherit;font-size:12px;padding:2px 8px;border-radius:8px;cursor:pointer}
 .kpi.big{grid-column:1/-1}
 .kpi.hero{grid-column:1/-1;background:var(--blue);color:#fff}
 .kpi.hero .l,.kpi.hero .s{color:rgba(255,255,255,.82)}
@@ -871,6 +873,8 @@ function saleItem(x,viewer,ck){
 
 // ── 관리자 ──
 let dashMet='n';
+// 11/02 예상 인건비·인건비 뺀 마진 가리기 — 이 기기에만 기억
+let hideLabor=false;try{hideLabor=localStorage.getItem('ggr-erp-hidelabor')==='1';}catch(e){}
 function dashView(){
   const rows=S.sales.filter(inMonth);
   const goal=Object.values(S.settings.target).reduce((a,b)=>a+b,0);
@@ -894,8 +898,8 @@ function dashView(){
   </div>
   <div class="kgrid">
     <div class="kpi"><div class="l">순마진</div><div class="v ${margin<0?'neg':''}">${short(margin)}</div><div class="s">수수료 ${short(fee)}</div></div>
-    <div class="kpi"><div class="l">예상 인건비</div><div class="v">${short(labor)}</div><div class="s">${S.pay.people.length}명 · 기본급+수당</div></div>
-    <div class="kpi"><div class="l">인건비 뺀 마진</div><div class="v ${margin-labor<0?'neg':'pos'}">${short(margin-labor)}</div><div class="s">순마진 − 인건비</div></div>
+    <div class="kpi"><div class="l lh">예상 인건비<button class="hbtn" data-hl="1">${hideLabor?'보이기':'가리기'}</button></div><div class="v">${hideLabor?'••••':short(labor)}</div><div class="s">${S.pay.people.length}명 · 기본급+수당</div></div>
+    <div class="kpi"><div class="l lh">인건비 뺀 마진<button class="hbtn" data-hl="1">${hideLabor?'보이기':'가리기'}</button></div><div class="v ${hideLabor?'':margin-labor<0?'neg':'pos'}">${hideLabor?'••••':short(margin-labor)}</div><div class="s">순마진 − 인건비</div></div>
     <div class="kpi"><div class="l">오늘 순마진</div><div class="v ${tm<0?'neg':''}">${short(tm)}</div><div class="s">오늘 ${today.length}건 · 건당 ${n?short(margin/n):'-'}</div></div>
   </div>
   <div class="dgrid">
@@ -1461,7 +1465,7 @@ function policyIn(wb){
 // ── 이벤트 ──
 function setPath(root,path,v){const p=path.split('.');let o=root;for(let i=0;i<p.length-1;i++)o=o[p[i]];o[p[p.length-1]]=v;}
 document.addEventListener('click',e=>{
-  const t=e.target.closest('[data-sel],[data-tab],[data-act],[data-open],[data-filt],[data-seg] button,[data-chk],[data-polgrp],[data-polch],[data-mine],[data-spk],[data-dm]');if(!t)return;
+  const t=e.target.closest('[data-sel],[data-tab],[data-act],[data-open],[data-filt],[data-seg] button,[data-chk],[data-polgrp],[data-polch],[data-mine],[data-spk],[data-dm],[data-hl]');if(!t)return;
   if(t.dataset.spk){const k=t.dataset.spk,v=t.dataset.v,cur=spPick[k];
     if(v==='all')cur.clear();else cur.has(v)?cur.delete(v):cur.add(v);
     const g=t.parentNode;g.querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.dataset.v==='all'?!cur.size:cur.has(b.dataset.v)));return;}
@@ -1473,6 +1477,7 @@ document.addEventListener('click',e=>{
   if(t.dataset.filt){filt[t.dataset.filt]=t.dataset.v;if(t.dataset.v==='custom'&&!filt.from){filt.from=MONTH+'-01';filt.to=TODAY;}open=null;render();return;}
   if(t.dataset.mine){mineRange=t.dataset.mine;open=null;render();return;}
   if(t.dataset.dm){dashMet=t.dataset.dm;render();return;}
+  if(t.dataset.hl){hideLabor=!hideLabor;try{localStorage.setItem('ggr-erp-hidelabor',hideLabor?'1':'0');}catch(e){}render();return;}
   if(t.dataset.polgrp){polGrp=t.dataset.polgrp;render();return;}
   if(t.dataset.chk){form[t.dataset.chk]=!form[t.dataset.chk];render();return;}
   if(t.dataset.open&&!e.target.closest('[data-act]')){open=open===t.dataset.open?null:t.dataset.open;render();return;}
