@@ -550,7 +550,7 @@ function incFor(p,x){
       else out.push(planPrice(x.plan)>=115000?['핫딜 기변 (115 이상)',P.lead.hotdeal.dev115]:['핫딜 기변',P.lead.hotdeal.dev]);
     }else out.push(['온라인 플랫폼 '+(x.type==='mnp'?'번이':'기변'),P.lead.online[x.type]]);
   }
-  if(x.staffId===p.id) for(const k of ['ins','watch','net']) if(x[k]) out.push([ADDON[k],P.addon[k]]);
+  for(const k of ['ins','watch','net']) if(x[k]) out.push([ADDON[k],P.addon[k]]);
   return out.filter(i=>i[1]);
 }
 const incSum=(p,x)=>incFor(p,x).reduce((a,b)=>a+b[1],0);
@@ -894,7 +894,7 @@ function payDetail(p,rows,r){
   return `<div class="pdet">
     <div class="sec">기본급·복지수당</div><div class="row"><span>기본급${r.welfare?' + 복지수당':''}</span><b>${won(r.base+r.welfare)}</b></div>
     <div class="sec">건당 수당 <small>${won(r.perCase)}</small></div>${tb(G.filter(g=>!g.add))}
-    <div class="sec">부가 판매 <small>${won(r.addon)} · 본인 입력건만</small></div>${tb(G.filter(g=>g.add))}
+    <div class="sec">부가 판매 <small>${won(r.addon)} · 팀 전체 판매건</small></div>${tb(G.filter(g=>g.add))}
     <div class="sec">정액 수당</div>
     <div class="row"><span>실적 그레이드</span><b>${won(r.grade)}</b></div><div class="hint" style="margin:0 0 6px">${tier(r.n,S.pay.grade,'건')}</div>
     <div class="row"><span>남부 신분증 번이</span><b>${won(r.idt)}</b></div><div class="hint" style="margin:0 0 6px">${tier(r.idn,S.pay.idTier,'건')}</div>
@@ -927,7 +927,7 @@ function payView(){
     <div class="sec">팀장 (${P.people.filter(p=>p.role==='lead').map(p=>esc(p.name)).join('·')||'없음'}) · 판매경로별 건당</div>
     <div class="pg"><div>모요 번이${inp('lead.moyo.mnp',P.lead.moyo.mnp)}</div><div>모요 기변${inp('lead.moyo.dev',P.lead.moyo.dev)}</div><div>핫딜 번이${inp('lead.hotdeal.mnp',P.lead.hotdeal.mnp)}</div><div>핫딜 번이 남부신분증${inp('lead.hotdeal.mnpId',P.lead.hotdeal.mnpId)}</div>
     <div>핫딜 기변${inp('lead.hotdeal.dev',P.lead.hotdeal.dev)}</div><div>핫딜 기변 115${inp('lead.hotdeal.dev115',P.lead.hotdeal.dev115)}</div></div>
-    <div class="sec">부가 판매 · 본인 입력건 건당 (전원 공통)</div>
+    <div class="sec">부가 판매 · 팀 전체 판매건 건당 (전원 공통)</div>
     <div class="pg c3">${Object.entries(ADDON).map(([k,l])=>`<div>${l}${inp('addon.'+k,P.addon[k])}</div>`).join('')}</div>
     <div class="sec">온라인 전체 실적 그레이드 (정액)</div>
     <div class="pg c3">${P.grade.map((g,i)=>`<div>${inp(`grade.${i}.0`,g[0])}건 이상${inp(`grade.${i}.1`,g[1])}</div>`).join('')}</div>
@@ -946,7 +946,7 @@ function payView(){
     <div style="display:flex;gap:8px"><input id="lk_${p.id}" type="text" autocapitalize="none" autocorrect="off" spellcheck="false" placeholder="직원이 만든 아이디" value="${esc(showId(p.email))}"><button class="who" style="white-space:nowrap" data-act="linkUser" data-id="${p.id}">${p.email?'바꾸기':'연결'}</button>${!p.email&&!S.sales.some(x=>x.staffId===p.id)?`<button class="who" style="white-space:nowrap" data-act="delPerson" data-id="${p.id}">직원 빼기</button>`:''}</div>`).join('')}
     <p class="note">아이디 칸을 비우고 누르면 연결이 풀립니다. '직원 빼기'는 계정 연결과 판매건이 없는 직원에게만 보입니다. 연결된 직원은 본인 판매건과 본인 급여만 볼 수 있습니다.</p></div>
   <button class="btn ghost" data-act="resetPay">급여표를 처음 받은 값으로 되돌리기</button>
-  <p class="note">그레이드·신분증 수당은 도달한 구간의 금액 하나만 받습니다(누적 아님). 보험·워치·인터넷 동판은 본인이 입력한 판매건만 셉니다.</p>`;
+  <p class="note">그레이드·신분증 수당은 도달한 구간의 금액 하나만 받습니다(누적 아님). 보험·워치·인터넷 동판은 누가 팔았든 팀 전체 판매건을 모두 셉니다.</p>`;
   return h;
 }
 
