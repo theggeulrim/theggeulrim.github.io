@@ -656,7 +656,8 @@ function calc(x){
   for(const k in WATCH)if(x[k]&&watchOk(k,m)){const w=S.policy.watch[k];if(w.act)items.push([ADDON[k]+' 개통수수료',w.act]);if(w.bundle)items.push([ADDON[k]+' 번들수수료',w.bundle]);}
   const fee=items.reduce((a,b)=>a+b[1],0);
   // 10/26 팀장님 지시: 대리점 지원금은 마진에서 빼지 않고, 건마다 입력한 대납 금액만 차감
-  const costs=[[CH_COST[x.channel],S.policy.cost[x.channel]]];
+  // 11/02 팀장님 지시: 핫딜은 건당 88,000원 비용 없음 (모요만 수수료 차감)
+  const costs=x.channel==='hotdeal'?[]:[[CH_COST[x.channel],S.policy.cost[x.channel]]];
   if(x.payback&&x.paybackAmt>0) costs.push(['대납',x.paybackAmt]);
   const cost=costs.reduce((a,b)=>a+b[1],0);
   const used=x.usedReturn&&x.usedAmt>0?x.usedAmt:0;
@@ -958,7 +959,7 @@ function salesView(){
   <div class="tools"><button class="pri" data-act="dlSales">보이는 판매건 엑셀 다운로드</button><button data-tab="entry">판매 등록 (여러 건)</button></div>${chips}${pastNote}
   <div class="tools seltools"><button data-sel="all">${allOn?'선택 해제':'보이는 건 전체 선택'}</button><button class="warnb" data-act="delSel"${sel.size?'':' disabled'}>선택 삭제 (${sel.size}건)</button><button class="warnb" data-act="delAll"${rows.length?'':' disabled'}>보이는 ${rows.length}건 전체 삭제</button></div>`;
   if(PC()){
-    return head+`<div class="tscroll"><table class="tbl"><thead><tr><th class="c"><input type="checkbox" data-sel="all"${allOn?' checked':''} aria-label="전체 선택"></th><th>개통일</th><th>고객</th><th>담당자</th><th>경로</th><th>지역</th><th>유형</th><th>요금제</th><th>모델</th><th class="r">대납</th><th class="r">중고폰</th><th>부가</th><th>메모</th><th class="r">정책 수수료</th><th class="r">차감</th><th class="r">건당 마진</th><th></th></tr></thead><tbody>
+    return head+`<div class="tscroll"><table class="tbl"><thead><tr><th class="c"><input type="checkbox" data-sel="all"${allOn?' checked':''} aria-label="전체 선택"></th><th>개통일</th><th>고객</th><th>담당자</th><th>경로</th><th>지역</th><th>유형</th><th>요금제</th><th>모델</th><th class="r">대납</th><th class="r">중고폰</th><th>부가</th><th>메모</th><th class="r">정책 수수료</th><th class="r">비용</th><th class="r">건당 마진</th><th></th></tr></thead><tbody>
     ${rows.map(x=>{const m=modelById(x.modelId),c=x.calc;return `<tr class="${sel.has(x.id)?'on':''}"><td class="c"><input type="checkbox" data-sel="${x.id}"${sel.has(x.id)?' checked':''} aria-label="선택"></td><td>${md(x.date)}</td><td style="white-space:nowrap">${esc(x.custName||'')}${x.custPhone?`<br><small style="color:var(--tx3)">${esc(x.custPhone)}</small>`:''}</td><td>${esc(person(x.staffId)?.name||'-')}</td><td><span class="tag ${x.channel}">${CH[x.channel]}</span></td><td>${x.region}${x.idOpen?' · 신분증':''}</td><td>${SALE_TYPE[x.type]||''}</td><td>${isPhone(x)?esc(planName(x.plan)):''}</td><td>${esc(m?m.model+' '+m.cap+(isPhone(x)?'':' (같이 개통)'):'-')}</td>
       <td class="r">${x.paybackAmt?fmt(x.paybackAmt):''}</td><td class="r">${x.usedAmt?fmt(x.usedAmt):''}</td><td>${addonNames(x).join(', ')}</td><td>${esc(x.memo)}</td>
       <td class="r">${fmt(c.fee+(c.used||0))}</td><td class="r">${fmt(-c.cost)}</td><td class="r ${c.margin<0?'neg':''}" style="font-weight:700">${fmt(c.margin)}</td><td style="white-space:nowrap"><button class="del" style="color:var(--blue);border-color:var(--blue)" data-act="editSale" data-id="${x.id}">수정</button> <button class="del" data-act="delSale" data-id="${x.id}">삭제</button></td></tr>`;}).join('')||'<tr><td colspan="17" class="empty">판매건이 없습니다</td></tr>'}
@@ -989,7 +990,7 @@ function policyView(){
   h+=`<p class="note">공통 포함 합계 = 공통 항목 + 요금제 수수료. 판매활성화·스팟은 빠져 있고, 번호이동 담당유통망은 모델별 값이 있으면 그 값으로 계산됩니다.</p>`;
   h+=`<div class="sec">워치 동시개통 수수료</div><p class="note" style="margin:-4px 0 8px">조건 모델과 같이 개통한 판매건에만 더해집니다. 인터넷은 정책 수수료가 없습니다.</p>
     <div class="pg">${Object.keys(WATCH).map(k=>`<div>${ADDON[k]} 개통수수료 <small>${WATCH[k].cond}</small>${inp(`watch.${k}.act`,P.watch[k].act)}</div><div>${ADDON[k]} 번들수수료 <small>${WATCH[k].cond}</small>${inp(`watch.${k}.bundle`,P.watch[k].bundle)}</div>`).join('')}</div>`;
-  h+=`<div class="sec">건당 비용</div><div class="pg c3">${CH_SEL.map(k=>`<div>${CH[k]} ${CH_COST[k]}${inp('cost.'+k,P.cost[k])}</div>`).join('')}</div></div>
+  h+=`<div class="sec">건당 비용</div><p class="note" style="margin:-4px 0 8px">핫딜은 건당 비용이 없습니다(대납만 뺌).</p><div class="pg c3">${CH_SEL.filter(k=>k!=='hotdeal').map(k=>`<div>${CH[k]} ${CH_COST[k]}${inp('cost.'+k,P.cost[k])}</div>`).join('')}</div></div>
   <div class="card"><div class="sec" style="margin-top:0">요금제·수수료 항목 관리</div>
     <div style="font-size:13px;font-weight:700;margin:4px 0 6px">수수료 항목 <small style="font-weight:400;color:var(--tx3)">이름을 고치면 바로 저장 · 담당유통망은 모델별 값과 이어져 있어 삭제 안 됨</small></div>
     <div class="tscroll"><table class="tbl"><thead><tr><th>항목 이름</th><th></th></tr></thead><tbody>${P.items.map((it,i)=>`<tr><td>${it.k==='rep'?`<b>${esc(it.l)}</b>`:`<input data-item="${i}" value="${esc(it.l)}">`}</td><td class="r" style="width:70px">${it.k==='rep'?'':`<button class="del" data-act="delItem" data-i="${i}">삭제</button>`}</td></tr>`).join('')}
@@ -1409,7 +1410,7 @@ function salesAoa(rows,me){
   const head=[...ENTRY_COLS,...(admin?['정책 수수료','중고폰 반납(+)','광고비·모요 수수료','대리점 지원금','대납(−)','건당 마진']:['내 수당',...(S.settings.showMargin?['건당 마진']:[])])];
   return [head,...rows.map(x=>{const m=modelById(x.modelId),c=x.calc||calc(x),o=v=>v?'O':'';
     const base=[person(x.staffId)?.name||'',x.date,CH[x.channel],x.region,SALE_TYPE[x.type]||'',o(x.idOpen),isPhone(x)?planName(x.plan):'',m?m.model:'',m?m.cap:'',x.paybackAmt||0,x.usedAmt||0,o(x.ins),[x.memo||'',...addonNames(x).filter(l=>l!==ADDON.ins).map(l=>'['+l+']')].filter(Boolean).join(' '),x.custName||'',x.custPhone||''];
-    if(admin)return [...base,c.fee,c.used||0,(c.costs[0]||[0,0])[1],(c.costs.find(i=>i[0]==='대리점 지원금')||[0,0])[1],x.paybackAmt||0,c.margin];
+    if(admin)return [...base,c.fee,c.used||0,(c.costs.find(i=>i[0]===CH_COST[x.channel])||[0,0])[1],(c.costs.find(i=>i[0]==='대리점 지원금')||[0,0])[1],x.paybackAmt||0,c.margin];
     return [...base,incSum(me,x),...(S.settings.showMargin?[c.margin]:[])];})];
 }
 function payAoa(people){
