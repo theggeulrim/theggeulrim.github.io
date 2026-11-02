@@ -260,7 +260,18 @@ const CH={moyo:'모요',hotdeal:'핫딜',online:'온라인 플랫폼'};
 const CH_SEL=['moyo','hotdeal'];
 const chKeys=()=>Object.keys(CH).filter(k=>CH_SEL.includes(k)||S.sales.some(x=>x.channel===k));
 const CH_COST={moyo:'모요 수수료',hotdeal:'광고비',online:'광고비'};
-const ADDON={ins:'보험',watch:'워치번들',net:'인터넷 동판'};
+// 판매건에 체크하는 부가 판매 (워치는 예전 건 'watch' 하나였고, 11/02부터 갤럭시·애플로 나눔)
+const ADDON={ins:'보험',gwatch:'갤럭시워치',awatch:'애플워치',net:'인터넷'};
+// 급여 부가 수당 항목 (워치는 갤럭시·애플 공통 금액)
+const PAY_ADDON={ins:'보험',watch:'워치번들',net:'인터넷 동판'};
+// 11/02 팀장님 지시: 워치는 정해진 모델과 동시개통할 때만 수수료(개통+번들)가 붙음. 인터넷은 정책 수수료 없음
+const WATCH={gwatch:{ok:m=>m.grp==='폴더블'||(/^갤럭시 S26/.test(m.model)&&!/FE/.test(m.model)),cond:'S26(FE 제외)·폴더블'},
+  awatch:{ok:m=>/아이폰/.test(m.model),cond:'아이폰'}};
+const DEFAULT_WATCH={gwatch:{act:22000,bundle:352000},awatch:{act:22000,bundle:220000}};
+const watchOk=(k,m)=>!!m&&WATCH[k].ok(m);
+// 모델을 바꿔 조건이 안 맞게 된 워치 체크는 풀어줌
+function fixWatch(o){const m=modelById(o.modelId);for(const k in WATCH)if(o[k]&&!watchOk(k,m))o[k]=false;return o;}
+const addonNames=x=>[...Object.keys(ADDON).filter(k=>x[k]).map(k=>ADDON[k]),...(x.watch?[PAY_ADDON.watch]:[])];
 const REGIONS=['남부','수원','강서'];
 const SKEY='ggr-erp-role';
 
@@ -287,6 +298,7 @@ function fixPolicy(pol){
   if(!pol)return false;let ch=false;
   if(!Array.isArray(pol.plans)){pol.plans=clone(DEFAULT_PLANS);ch=true;}
   if(!Array.isArray(pol.items)){pol.items=clone(DEFAULT_ITEMS);ch=true;}
+  pol.watch=pol.watch||{};for(const k in DEFAULT_WATCH)if(!pol.watch[k]){pol.watch[k]=clone(DEFAULT_WATCH[k]);ch=true;}
   pol.common=pol.common||{};
   for(const t of ['mnp','dev']){
     pol.common[t]=pol.common[t]||{};
@@ -531,6 +543,7 @@ function calc(x){
   if(rep) items.push([FEE_LABEL.rep,rep]);
   if(m.act[x.type]) items.push([FEE_LABEL.act,m.act[x.type]]);
   spotsFor(x.date,m,x.type,x.plan,x.region).forEach(s=>items.push(['스팟 · '+s.name,s.amt,'spot']));
+  for(const k in WATCH)if(x[k]&&watchOk(k,m)){const w=S.policy.watch[k];if(w.act)items.push([ADDON[k]+' 개통수수료',w.act]);if(w.bundle)items.push([ADDON[k]+' 번들수수료',w.bundle]);}
   const fee=items.reduce((a,b)=>a+b[1],0);
   // 10/26 팀장님 지시: 대리점 지원금은 마진에서 빼지 않고, 건마다 입력한 대납 금액만 차감
   const costs=[[CH_COST[x.channel],S.policy.cost[x.channel]]];
@@ -550,7 +563,9 @@ function incFor(p,x){
       else out.push(planPrice(x.plan)>=115000?['핫딜 기변 (115 이상)',P.lead.hotdeal.dev115]:['핫딜 기변',P.lead.hotdeal.dev]);
     }else out.push(['온라인 플랫폼 '+(x.type==='mnp'?'번이':'기변'),P.lead.online[x.type]]);
   }
-  for(const k of ['ins','watch','net']) if(x[k]) out.push([ADDON[k],P.addon[k]]);
+  if(x.ins) out.push([PAY_ADDON.ins,P.addon.ins]);
+  if(x.watch||x.gwatch||x.awatch) out.push([PAY_ADDON.watch,P.addon.watch]);
+  if(x.net) out.push([PAY_ADDON.net,P.addon.net]);
   return out.filter(i=>i[1]);
 }
 const incSum=(p,x)=>incFor(p,x).reduce((a,b)=>a+b[1],0);
@@ -559,7 +574,7 @@ const nextTier=(n,t)=>t.find(([th])=>n<th);
 const isIdSouth=x=>x.type==='mnp'&&x.region==='남부'&&x.idOpen;
 function payroll(p,rows){
   let perCase=0,addon=0;
-  for(const x of rows) for(const [l,a] of incFor(p,x)) (Object.values(ADDON).includes(l)?addon+=a:perCase+=a);
+  for(const x of rows) for(const [l,a] of incFor(p,x)) (Object.values(PAY_ADDON).includes(l)?addon+=a:perCase+=a);
   const n=rows.length,idn=rows.filter(isIdSouth).length;
   const grade=tierOf(n,S.pay.grade),idt=tierOf(idn,S.pay.idTier);
   return {base:p.base,welfare:p.welfare,perCase,addon,grade,idt,n,idn,total:p.base+p.welfare+perCase+addon+grade+idt};
@@ -673,7 +688,7 @@ function saleItem(x,viewer,ck){
   const m=modelById(x.modelId),c=x.calc;
   const admin=ses.role==='admin';
   const val=admin?c.margin:incSum(viewer,x);
-  const extras=[x.payback?'대납 '+short(x.paybackAmt):'',x.usedReturn?'중고폰 '+short(x.usedAmt):'',...['ins','watch','net'].filter(k=>x[k]).map(k=>ADDON[k])].filter(Boolean).join(' · ');
+  const extras=[x.payback?'대납 '+short(x.paybackAmt):'',x.usedReturn?'중고폰 '+short(x.usedAmt):'',...addonNames(x)].filter(Boolean).join(' · ');
   let h=`<div class="it${ck&&sel.has(x.id)?' on':''}" data-open="${x.id}">${ck?`<input type="checkbox" class="ck" data-sel="${x.id}"${sel.has(x.id)?' checked':''} aria-label="선택">`:''}<div><div class="a">${esc(m?m.model+' '+m.cap:'삭제된 모델')}</div>
     <div class="b">${tags(x)}${x.custName?esc(x.custName)+' · ':''}${md(x.date)} · ${TYPE[x.type]} ${esc(planName(x.plan))}${admin?' · '+esc(pname(person(x.staffId))):''}${extras?'<br>'+extras:''}</div></div>
     <div class="m ${val<0?'neg':admin?'':'pos'}">${admin?won(val):'+'+won(val)}<small>${admin?'건당 마진':'내 수당'}</small></div></div>`;
@@ -783,7 +798,7 @@ function salesView(){
   if(PC()){
     return head+`<div class="tscroll"><table class="tbl"><thead><tr><th class="c"><input type="checkbox" data-sel="all"${allOn?' checked':''} aria-label="전체 선택"></th><th>개통일</th><th>고객</th><th>담당자</th><th>경로</th><th>지역</th><th>유형</th><th>요금제</th><th>모델</th><th class="r">대납</th><th class="r">중고폰</th><th>부가</th><th>메모</th><th class="r">정책 수수료</th><th class="r">차감</th><th class="r">건당 마진</th><th></th></tr></thead><tbody>
     ${rows.map(x=>{const m=modelById(x.modelId),c=x.calc;return `<tr class="${sel.has(x.id)?'on':''}"><td class="c"><input type="checkbox" data-sel="${x.id}"${sel.has(x.id)?' checked':''} aria-label="선택"></td><td>${md(x.date)}</td><td style="white-space:nowrap">${esc(x.custName||'')}${x.custPhone?`<br><small style="color:var(--tx3)">${esc(x.custPhone)}</small>`:''}</td><td>${esc(person(x.staffId)?.name||'-')}</td><td><span class="tag ${x.channel}">${CH[x.channel]}</span></td><td>${x.region}${x.idOpen?' · 신분증':''}</td><td>${TYPE[x.type]}</td><td>${esc(planName(x.plan))}</td><td>${esc(m?m.model+' '+m.cap:'-')}</td>
-      <td class="r">${x.paybackAmt?fmt(x.paybackAmt):''}</td><td class="r">${x.usedAmt?fmt(x.usedAmt):''}</td><td>${['ins','watch','net'].filter(k=>x[k]).map(k=>ADDON[k]).join(', ')}</td><td>${esc(x.memo)}</td>
+      <td class="r">${x.paybackAmt?fmt(x.paybackAmt):''}</td><td class="r">${x.usedAmt?fmt(x.usedAmt):''}</td><td>${addonNames(x).join(', ')}</td><td>${esc(x.memo)}</td>
       <td class="r">${fmt(c.fee+(c.used||0))}</td><td class="r">${fmt(-c.cost)}</td><td class="r ${c.margin<0?'neg':''}" style="font-weight:700">${fmt(c.margin)}</td><td style="white-space:nowrap"><button class="del" style="color:var(--blue);border-color:var(--blue)" data-act="editSale" data-id="${x.id}">수정</button> <button class="del" data-act="delSale" data-id="${x.id}">삭제</button></td></tr>`;}).join('')||'<tr><td colspan="17" class="empty">판매건이 없습니다</td></tr>'}
     </tbody></table></div><p class="note">정책 수수료에는 중고폰 반납 금액이 포함돼 있습니다. 마진은 입력한 날의 정책으로 고정됩니다.</p>`;
   }
@@ -810,6 +825,8 @@ function policyView(){
       P.plans.map(p=>{const c=P.common[t][p.id];return `<tr><td><b>${esc(p.name)}</b></td><td class="r">${fmt(p.price)}</td><td>${inp(`common.${t}.${p.id}.planfee`,c.planfee)}</td><td class="r">${fmt(P.items.reduce((a,it)=>a+(c[it.k]||0),0))}</td></tr>`;}).join('')+`</tbody></table></div>`;
   }
   h+=`<p class="note">공통 포함 합계 = 공통 항목 + 요금제 수수료. 판매활성화·스팟은 빠져 있고, 번호이동 담당유통망은 모델별 값이 있으면 그 값으로 계산됩니다.</p>`;
+  h+=`<div class="sec">워치 동시개통 수수료</div><p class="note" style="margin:-4px 0 8px">조건 모델과 같이 개통한 판매건에만 더해집니다. 인터넷은 정책 수수료가 없습니다.</p>
+    <div class="pg">${Object.keys(WATCH).map(k=>`<div>${ADDON[k]} 개통수수료 <small>${WATCH[k].cond}</small>${inp(`watch.${k}.act`,P.watch[k].act)}</div><div>${ADDON[k]} 번들수수료 <small>${WATCH[k].cond}</small>${inp(`watch.${k}.bundle`,P.watch[k].bundle)}</div>`).join('')}</div>`;
   h+=`<div class="sec">건당 비용</div><div class="pg c3">${CH_SEL.map(k=>`<div>${CH[k]} ${CH_COST[k]}${inp('cost.'+k,P.cost[k])}</div>`).join('')}</div></div>
   <div class="card"><div class="sec" style="margin-top:0">요금제·수수료 항목 관리</div>
     <div style="font-size:13px;font-weight:700;margin:4px 0 6px">수수료 항목 <small style="font-weight:400;color:var(--tx3)">이름을 고치면 바로 저장 · 담당유통망은 모델별 값과 이어져 있어 삭제 안 됨</small></div>
@@ -886,7 +903,7 @@ let payOpen=new Set();
 function payDetail(p,rows,r){
   const grp=new Map(),list=[];
   for(const x of rows){const inc=incFor(p,x);if(!inc.length)continue;list.push([x,inc]);
-    for(const [l,a] of inc){const k=l+'|'+a,g=grp.get(k)||{l,a,n:0,add:Object.values(ADDON).includes(l)};g.n++;grp.set(k,g);}}
+    for(const [l,a] of inc){const k=l+'|'+a,g=grp.get(k)||{l,a,n:0,add:Object.values(PAY_ADDON).includes(l)};g.n++;grp.set(k,g);}}
   const tb=(arr)=>arr.length?`<div class="tscroll" style="max-height:none"><table class="tbl"><thead><tr><th>항목</th><th class="r">건수</th><th class="r">건당</th><th class="r">합계</th></tr></thead><tbody>${arr.map(g=>`<tr><td>${esc(g.l)}</td><td class="r">${fmt(g.n)}</td><td class="r">${fmt(g.a)}</td><td class="r"><b>${fmt(g.n*g.a)}</b></td></tr>`).join('')}</tbody></table></div>`:'<div class="empty" style="padding:8px 0">해당 없음</div>';
   const G=[...grp.values()].sort((a,b)=>a.l.localeCompare(b.l,'ko')||a.a-b.a);
   const tier=(n,t,unit)=>{const nx=nextTier(n,t),cur=[...t].reverse().find(([th])=>n>=th);return `${n}${unit} · ${cur?cur[0]+unit+' 이상 구간 '+won(cur[1]):'첫 구간('+t[0][0]+unit+') 미달'}${nx?' · 다음 구간까지 '+(nx[0]-n)+unit+' ('+won(nx[1])+')':' · 최고 구간'}`;};
@@ -928,7 +945,7 @@ function payView(){
     <div class="pg"><div>모요 번이${inp('lead.moyo.mnp',P.lead.moyo.mnp)}</div><div>모요 기변${inp('lead.moyo.dev',P.lead.moyo.dev)}</div><div>핫딜 번이${inp('lead.hotdeal.mnp',P.lead.hotdeal.mnp)}</div><div>핫딜 번이 남부신분증${inp('lead.hotdeal.mnpId',P.lead.hotdeal.mnpId)}</div>
     <div>핫딜 기변${inp('lead.hotdeal.dev',P.lead.hotdeal.dev)}</div><div>핫딜 기변 115${inp('lead.hotdeal.dev115',P.lead.hotdeal.dev115)}</div></div>
     <div class="sec">부가 판매 · 팀 전체 판매건 건당 (전원 공통)</div>
-    <div class="pg c3">${Object.entries(ADDON).map(([k,l])=>`<div>${l}${inp('addon.'+k,P.addon[k])}</div>`).join('')}</div>
+    <div class="pg c3">${Object.entries(PAY_ADDON).map(([k,l])=>`<div>${k==='watch'?'워치번들 (갤럭시·애플)':l}${inp('addon.'+k,P.addon[k])}</div>`).join('')}</div>
     <div class="sec">온라인 전체 실적 그레이드 (정액)</div>
     <div class="pg c3">${P.grade.map((g,i)=>`<div>${inp(`grade.${i}.0`,g[0])}건 이상${inp(`grade.${i}.1`,g[1])}</div>`).join('')}</div>
     <div class="sec">번호이동 신분증 개통 · 남부 개통건만 (정액)</div>
@@ -975,10 +992,11 @@ function homeView(me){
 }
 
 const telFmt=v=>{const d=String(v??'').replace(/\D/g,'');if(/^01\d{9}$/.test(d))return d.replace(/(\d{3})(\d{4})(\d{4})/,'$1-$2-$3');if(/^01\d{8}$/.test(d))return d.replace(/(\d{3})(\d{3})(\d{4})/,'$1-$2-$3');if(/^0\d{9,10}$/.test(d))return d.replace(/(\d{2,3})(\d{3,4})(\d{4})/,'$1-$2-$3');return String(v??'').trim();};
-function newForm(){const f=S.policy.models[0];return {date:TODAY,channel:'moyo',region:'남부',idOpen:false,type:'mnp',plan:defPlan(),model:f.model,modelId:f.id,payback:false,paybackAmt:0,usedReturn:false,usedAmt:0,ins:false,watch:false,net:false,memo:'',custName:'',custPhone:''};}
+function newForm(){const f=S.policy.models[0];return {date:TODAY,channel:'moyo',region:'남부',idOpen:false,type:'mnp',plan:defPlan(),model:f.model,modelId:f.id,payback:false,paybackAmt:0,usedReturn:false,usedAmt:0,ins:false,gwatch:false,awatch:false,net:false,memo:'',custName:'',custPhone:''};}
 const seg=(k,opts,cur)=>`<div class="seg" data-seg="${k}">${opts.map(([v,l])=>`<button class="${String(cur)===String(v)?'on':''}" data-v="${v}">${l}</button>`).join('')}</div>`;
 function inputView(me,isEdit){
   if(!form)form=newForm();
+  fixWatch(form);
   const names=[...new Set(S.policy.models.map(m=>m.model))];
   const caps=S.policy.models.filter(m=>m.model===form.model);
   return `<h2>${isEdit?'판매건 수정 <small>고친 뒤 저장</small>':'판매건 입력 <small>1건씩</small>'}</h2>
@@ -1006,7 +1024,9 @@ function inputView(me,isEdit){
     ${form.usedReturn?`<div class="inline"><input id="f_used" inputmode="numeric" placeholder="반납 금액 (원)" value="${form.usedAmt?fmt(form.usedAmt):''}"></div>`:''}
   </div>
   <div class="step"><div class="t"><i>4</i>부가 판매</div>
-    <div class="chk">${Object.entries(ADDON).map(([k,l])=>`<button data-chk="${k}" class="${form[k]?'on':''}"><b>${l}</b><span>+${fmt(S.pay.addon[k])}원</span></button>`).join('')}</div>
+    <div class="chk">${Object.entries(ADDON).map(([k,l])=>{const w=WATCH[k];if(!w)return `<button data-chk="${k}" class="${form[k]?'on':''}"><b>${l}</b><span>수당 +${fmt(S.pay.addon[k])}원</span></button>`;
+      const ok=watchOk(k,modelById(form.modelId)),pw=S.policy.watch[k];
+      return `<button data-chk="${k}" class="${form[k]?'on':''}" ${ok?'':'disabled style="opacity:.45;cursor:default"'}><b>${l}</b><span>${ok?'수수료 +'+fmt(pw.act+pw.bundle)+' · 수당 +'+fmt(S.pay.addon.watch):w.cond+' 동시개통만'}</span></button>`;}).join('')}</div>
     <label>메모 (선택)</label><input id="f_memo" placeholder="특이사항" value="${esc(form.memo)}">
   </div>
   <div class="step"><div class="t">계산 내역</div><div class="calcd" id="calcBox">${calcBox(me)}</div></div>
@@ -1056,8 +1076,8 @@ function mineView(me){
 
 // ── PC 등록·엑셀 ──
 function PC(){try{return matchMedia('(min-width:1000px)').matches;}catch(e){return false;}}
-const ENTRY_COLS=['담당자','개통일','판매경로','개통지역','가입유형','신분증개통','요금제','모델','용량','대납금액','중고폰반납금액','보험','워치번들','인터넷동판','메모','고객명','전화번호'];
-function newRow(me){return {date:TODAY,staffId:me?me.id:'',channel:'moyo',region:'남부',type:'mnp',idOpen:false,plan:defPlan(),model:'',modelId:'',paybackAmt:0,usedAmt:0,ins:false,watch:false,net:false,memo:'',custName:'',custPhone:'',err:''};}
+const ENTRY_COLS=['담당자','개통일','판매경로','개통지역','가입유형','신분증개통','요금제','모델','용량','대납금액','중고폰반납금액','보험','워치(갤럭시·애플)','인터넷동판','메모','고객명','전화번호'];
+function newRow(me){return {date:TODAY,staffId:me?me.id:'',channel:'moyo',region:'남부',type:'mnp',idOpen:false,plan:defPlan(),model:'',modelId:'',paybackAmt:0,usedAmt:0,ins:false,gwatch:false,awatch:false,net:false,memo:'',custName:'',custPhone:'',err:''};}
 const isBlank=r=>!r.modelId&&!r.memo&&!r.custName&&!r.custPhone&&!r.paybackAmt&&!r.usedAmt&&!r.err;
 function rowErr(r){
   if(r.err)return r.err;
@@ -1067,7 +1087,7 @@ function rowErr(r){
   return '';
 }
 const rowSale=r=>({date:r.date,staffId:ses.role==='seller'?ses.pid:r.staffId,channel:r.channel,region:r.region,idOpen:r.type==='mnp'&&r.idOpen,modelId:r.modelId,type:r.type,plan:r.plan,
-  payback:r.paybackAmt>0,paybackAmt:r.paybackAmt,usedReturn:r.usedAmt>0,usedAmt:r.usedAmt,ins:r.ins,watch:r.watch,net:r.net,memo:r.memo,custName:(r.custName||'').trim(),custPhone:telFmt(r.custPhone)});
+  payback:r.paybackAmt>0,paybackAmt:r.paybackAmt,usedReturn:r.usedAmt>0,usedAmt:r.usedAmt,ins:r.ins,gwatch:r.gwatch,awatch:r.awatch,net:r.net,memo:r.memo,custName:(r.custName||'').trim(),custPhone:telFmt(r.custPhone)});
 function entryRes(r,me){
   if(isBlank(r))return '<span style="color:var(--tx3)">-</span>';
   const e=rowErr(r);if(e)return `<span class="err">${esc(e)}</span>`;
@@ -1100,7 +1120,7 @@ function entryView(me){
     <td><select data-b="${i}.model" style="width:150px">${opt([['','모델 선택'],...names.map(n=>[n,n])],r.model)}</select></td>
     <td><select data-b="${i}.modelId" id="ecap${i}" style="width:84px">${opt(caps.map(m=>[m.id,m.cap]),r.modelId)}</select></td>
     <td>${amt(i,'paybackAmt',r.paybackAmt)}</td><td>${amt(i,'usedAmt',r.usedAmt)}</td>
-    ${['ins','watch','net'].map(k=>`<td class="c"><input type="checkbox" data-b="${i}.${k}" ${r[k]?'checked':''}></td>`).join('')}
+    ${Object.keys(ADDON).map(k=>`<td class="c"><input type="checkbox" data-b="${i}.${k}" id="e${k}${i}" ${r[k]?'checked':''} ${WATCH[k]&&!watchOk(k,modelById(r.modelId))?'disabled':''}></td>`).join('')}
     <td><input data-b="${i}.memo" value="${esc(r.memo)}" style="width:150px"></td>
     <td><input data-b="${i}.custName" value="${esc(r.custName||'')}" autocomplete="off" style="width:90px"></td>
     <td><input data-b="${i}.custPhone" value="${esc(r.custPhone||'')}" inputmode="tel" autocomplete="off" placeholder="010-" style="width:124px"></td>
@@ -1112,11 +1132,11 @@ function entryView(me){
     <div class="sec" style="margin-top:0">엑셀에서 복사해 붙여넣기</div>
     <textarea class="paste" id="e_paste" placeholder="엑셀에서 아래 순서의 칸을 여러 줄 복사(Ctrl+C)해 여기에 붙여넣기(Ctrl+V) 하세요. 제목 줄은 있어도 됩니다."></textarea>
     <div class="colhelp">칸 순서: ${ENTRY_COLS.map(c=>`<b>${c}</b>`).join('')}<br>
-      판매경로는 모요·핫딜(홈페이지), 가입유형은 번이·기변, 신분증·보험·워치·인터넷은 O 또는 빈칸으로 적습니다.${admin?'':' 담당자 칸은 비워도 본인으로 저장됩니다.'}</div>
+      판매경로는 모요·핫딜(홈페이지), 가입유형은 번이·기변, 신분증·보험·인터넷은 O 또는 빈칸, 워치는 갤럭시·애플 또는 O(모델에 맞춰 자동)로 적습니다. 갤럭시워치는 S26(FE 제외)·폴더블, 애플워치는 아이폰과 동시개통만 됩니다.${admin?'':' 담당자 칸은 비워도 본인으로 저장됩니다.'}</div>
     <div class="tools" style="margin:0"><button class="pri" data-act="entryPaste">붙여넣은 내용 표에 넣기</button><label>엑셀 파일 올리기<input type="file" id="up_sales" accept=".xlsx,.xls,.csv"></label><button data-act="dlTemplate">등록 양식 엑셀 받기</button></div>
   </div>
   <div class="tools" style="margin-top:16px"><button data-act="entryAdd">빈 줄 5개 추가</button><button data-act="entryClear">입력 중인 줄 비우기</button><span class="sp"></span><span id="esum" style="font-size:14px">${entrySum(me)}</span><button class="pri" data-act="entrySave">표에 있는 판매건 저장</button></div>
-  <div class="tscroll"><table class="tbl"><thead><tr><th></th>${admin?'<th>담당자</th>':''}<th>개통일</th><th>판매경로</th><th>지역</th><th>유형</th><th>신분증</th><th>요금제</th><th>모델</th><th>용량</th><th>대납</th><th>중고폰 반납</th><th>보험</th><th>워치</th><th>인터넷</th><th>메모</th><th>고객명</th><th>전화번호</th><th class="r">${admin?'건당 마진':'내 수당'}</th><th></th></tr></thead>
+  <div class="tscroll"><table class="tbl"><thead><tr><th></th>${admin?'<th>담당자</th>':''}<th>개통일</th><th>판매경로</th><th>지역</th><th>유형</th><th>신분증</th><th>요금제</th><th>모델</th><th>용량</th><th>대납</th><th>중고폰 반납</th><th>보험</th><th>갤럭시워치</th><th>애플워치</th><th>인터넷</th><th>메모</th><th>고객명</th><th>전화번호</th><th class="r">${admin?'건당 마진':'내 수당'}</th><th></th></tr></thead>
   <tbody>${rows}</tbody></table></div>
   <p class="note">줄마다 계산이 바로 나옵니다. 빨간 줄은 저장되지 않으니 고친 뒤 다시 저장하세요. 모바일에서는 '판매입력' 화면이 더 편합니다.</p>`;
 }
@@ -1131,6 +1151,7 @@ function entryField(el){
     const cs=document.getElementById('ecap'+i);if(cs)cs.innerHTML=caps.map(m=>`<option value="${m.id}">${esc(m.cap)}</option>`).join('');}
   if(f==='type'){const cb=document.getElementById('eid'+i);if(r.type!=='mnp'){r.idOpen=false;if(cb){cb.checked=false;cb.disabled=true;}}else if(cb)cb.disabled=false;}
   if(f==='model'||f==='modelId'||f==='staffId')r.err='';
+  if(f==='model'||f==='modelId'){fixWatch(r);const m=modelById(r.modelId);for(const k in WATCH){const cb=document.getElementById('e'+k+i);if(cb){cb.checked=!!r[k];cb.disabled=!watchOk(k,m);}}}
   const tr=document.getElementById('er'+i);if(tr)tr.className=!isBlank(r)&&rowErr(r)?'bad':'';
   const rs=document.getElementById('eres'+i);if(rs)rs.innerHTML=entryRes(r,me);
   const sm=document.getElementById('esum');if(sm)sm.innerHTML=entrySum(me);
@@ -1184,7 +1205,10 @@ function importRows(aoa){
     if(String(c[6]??'').trim()){const pl=pPlan(c[6]);if(pl)r.plan=pl;else errs.push('요금제 "'+String(c[6])+'"');}
     const m=pModel(c[7],c[8]);if(m){r.model=m.model;r.modelId=m.id;}else errs.push('모델·용량 "'+String(c[7]??'')+' '+String(c[8]??'')+'"');
     r.paybackAmt=num(c[9]);r.usedAmt=num(c[10]);
-    r.ins=yes(c[11]);r.watch=yes(c[12]);r.net=yes(c[13]);r.memo=String(c[14]??'');r.custName=String(c[15]??'').trim();r.custPhone=telFmt(c[16]);
+    r.ins=yes(c[11]);r.net=yes(c[13]);
+    {const w=String(c[12]??'').trim();if(w){const k=/애플|apple|아이폰/i.test(w)?'awatch':/갤럭시|galaxy|삼성/i.test(w)?'gwatch':yes(w)?(watchOk('awatch',m)?'awatch':'gwatch'):'';
+      if(!k)errs.push('워치 "'+w+'"');else if(!watchOk(k,m))errs.push(ADDON[k]+'는 '+WATCH[k].cond+' 동시개통만');else r[k]=true;}}
+    r.memo=String(c[14]??'');r.custName=String(c[15]??'').trim();r.custPhone=telFmt(c[16]);
     if(errs.length)r.err='확인: '+errs.join(', ');
     out.push(r);
   }
@@ -1210,7 +1234,7 @@ function salesAoa(rows,me){
   const admin=!me;
   const head=[...ENTRY_COLS,...(admin?['정책 수수료','중고폰 반납(+)','광고비·모요 수수료','대리점 지원금','대납(−)','건당 마진']:['내 수당',...(S.settings.showMargin?['건당 마진']:[])])];
   return [head,...rows.map(x=>{const m=modelById(x.modelId),c=x.calc||calc(x),o=v=>v?'O':'';
-    const base=[person(x.staffId)?.name||'',x.date,CH[x.channel],x.region,TYPE[x.type],o(x.idOpen),planName(x.plan),m?m.model:'',m?m.cap:'',x.paybackAmt||0,x.usedAmt||0,o(x.ins),o(x.watch),o(x.net),x.memo||'',x.custName||'',x.custPhone||''];
+    const base=[person(x.staffId)?.name||'',x.date,CH[x.channel],x.region,TYPE[x.type],o(x.idOpen),planName(x.plan),m?m.model:'',m?m.cap:'',x.paybackAmt||0,x.usedAmt||0,o(x.ins),x.gwatch?'갤럭시':x.awatch?'애플':o(x.watch),o(x.net),x.memo||'',x.custName||'',x.custPhone||''];
     if(admin)return [...base,c.fee,c.used||0,c.costs[0][1],(c.costs.find(i=>i[0]==='대리점 지원금')||[0,0])[1],x.paybackAmt||0,c.margin];
     return [...base,incSum(me,x),...(S.settings.showMargin?[c.margin]:[])];})];
 }
@@ -1329,6 +1353,7 @@ document.addEventListener('click',e=>{
     const m=modelById(x.modelId);
     edit={id:x.id,back:tab==='edit'?edit.back:tab,keep:edit?edit.keep:form};
     form={...newForm(),...clone(x),model:m?m.model:'',payback:!!x.paybackAmt,usedReturn:!!x.usedAmt};delete form.calc;
+    if(form.watch){const k=Object.keys(WATCH).find(k=>watchOk(k,m));if(k){form[k]=true;form.watch=false;}}
     if(!m){const f=S.policy.models[0];form.model=f.model;form.modelId=f.id;toast('이 건의 모델이 정책서에 없어 첫 모델로 바꿔 보여줍니다. 모델을 다시 고르세요');}
     tab='edit';open=null;render();scrollTo(0,0);}
   else if(a==='cancelEdit'){if(edit){form=edit.keep;tab=edit.back;edit=null;}render();scrollTo(0,0);}
