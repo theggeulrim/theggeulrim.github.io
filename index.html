@@ -1781,6 +1781,23 @@ body.os-lock .fab-container, body.os-lock .bottom-cta-bar, body.os-lock .realtim
 .os-pd-code { font-size: 13px; color: var(--os-grey-2); margin-bottom: 20px; }
 .os-pd-label { font-size: 14px; font-weight: 700; margin-bottom: 8px; }
 .os-step { padding: 32px 0; border-bottom: 1px solid var(--os-line); }
+/* 견적창 첫 화면 간편 상담 (11/7): 가격 다 읽고 버튼 안 누르고 나감 → 통신사·이름·번호만 받고 전화 안내 */
+.os-quick { margin: 20px 0 4px; padding: 18px 16px; border: 1.5px solid var(--os-pink); border-radius: 14px; background: var(--os-pink-bg); }
+.os-quick-t { margin: 0; font-size: 16px; font-weight: 800; line-height: 1.4; }
+.os-quick-p { margin: 6px 0 12px; font-size: 13px; color: var(--os-sub); line-height: 1.5; }
+.os-quick-p b { color: var(--os-pink); }
+.os-quick-cur { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+.os-quick-cur button { height: 40px; border: 1px solid var(--os-line-2); border-radius: 8px; background: #fff; font: inherit; font-size: 14px; font-weight: 700; color: var(--os-text); cursor: pointer; padding: 0; }
+.os-quick-cur button.on { border-color: var(--os-pink); color: var(--os-pink); box-shadow: inset 0 0 0 1px var(--os-pink); }
+.os-quick-hint { margin: 8px 0 0; font-size: 12.5px; color: var(--os-pink); line-height: 1.5; }
+.os-quick-in { display: grid; grid-template-columns: 1fr 1.4fr; gap: 6px; margin-top: 8px; }
+.os-quick-in input { height: 44px; border: 1px solid var(--os-line-2); border-radius: 8px; padding: 0 12px; font: inherit; font-size: 16px; background: #fff; min-width: 0; }
+.os-quick-in input.err { border-color: #E5352B; }
+.os-quick .ap-chk { margin-top: 10px; font-size: 13px; }
+.os-quick .ap-chk.need { color: #E5352B; }
+.os-quick .ap-chk a { color: var(--os-sub); }
+.os-quick-btn { width: 100%; height: 50px; margin-top: 10px; font-size: 16px; border-radius: 10px; }
+.os-quick-s { margin: 8px 0 0; font-size: 12px; color: var(--os-grey); text-align: center; }
 .os-step:last-child { border-bottom: 0; }
 .os-step h3 { font-size: 20px; font-weight: 700; margin-bottom: 16px; letter-spacing: -0.03em; }
 .os-step h3 small { font-size: 13px; font-weight: 500; color: var(--os-grey); margin-left: 8px; }
@@ -2437,6 +2454,17 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
 <p class="os-pd-label">용량 선택</p>
 <div class="os-caps" id="osPdCaps"></div>
 </div>
+</div>
+
+<div class="os-quick" id="osQuick">
+<p class="os-quick-t">이름·번호만 남기시면 이 가격 그대로 전화로 안내해 드려요</p>
+<p class="os-quick-p" id="osQuickP"></p>
+<div class="os-quick-cur" id="osQuickCur"><button type="button" data-qc="SKT">SKT</button><button type="button" data-qc="KT">KT</button><button type="button" data-qc="MVNO">알뜰폰</button><button type="button" data-qc="LGU">LG U+</button></div>
+<p class="os-quick-hint" id="osQuickHint" hidden></p>
+<div class="os-quick-in"><input id="osQuickName" data-clarity-mask="True" autocomplete="name" placeholder="이름"><input id="osQuickPhone" data-clarity-mask="True" type="tel" inputmode="numeric" autocomplete="tel" placeholder="휴대폰 번호"></div>
+<label class="ap-chk" id="osQuickAgreeF"><input type="checkbox" id="osQuickAgree"><span><em>[필수]</em> 상담을 위해 이름·연락처·견적을 주식회사 더끌림컴퍼니에 제공하는 데 동의해요 (상담 종료 후 3개월 보관) · <a href="#" data-notice>유의사항</a></span></label>
+<button type="button" class="os-btn os-btn-pink os-quick-btn" data-quick>전화 상담 받기</button>
+<p class="os-quick-s">접수해도 가입·결제되지 않아요 · 영업시간 안에 전화드려요</p>
 </div>
 
 <div class="os-step">
@@ -3290,6 +3318,9 @@ var OS_DATA={"models":[{"id":"duo","name":"iPhone Duo","maker":"apple","img":"ip
             : low ? '<span>7개월째부터<small>월 ' + won(q.planC.fee) + '원 요금제로 바꾸면</small></span><b>월 ' + won(r.totalC) + '원</b>' : '';
         $('osSumTotal2').style.display = six || low ? '' : 'none';
         $('osMbarTotal').innerHTML = won(r.prin) + '원';
+        $('osQuickP').innerHTML = m.name + ' ' + pd.cap + ' · ' + TYPE_NM[pd.type] + ' · ' + q.plan.name + '<br>할부원금 <b>' + won(r.prin) + '원</b> · ' +
+            (six || low ? '1~6개월 월 <b>' + won(r.total) + '원</b> · 7개월째부터 월 ' + won(six ? r.total2 : r.totalC) + '원' : '월 <b>' + won(r.total) + '원</b>');
+        quickHint();
         $('osMbarLabel').textContent = (dcSum ? won(dcSum) + '원 할인 · ' : '') + '할부원금';
         $('osSumDevT').textContent = '휴대폰 ' + (pd.n ? pd.n + '개월 할부' : '일시불');
         $('osSumDevM').textContent = pd.n ? '월 ' + won(r.devM) + '원' : '일시불 ' + won(r.prin) + '원';
@@ -3328,6 +3359,24 @@ var OS_DATA={"models":[{"id":"duo","name":"iPhone Duo","maker":"apple","img":"ip
     }
 
     // 신청 시트(apply.js)에 넘기는 현재 견적
+    function quickHint() {
+        var h = $('osQuickHint');
+        if (!pd || !pd.qcur) { h.hidden = true; return; }
+        h.hidden = false;
+        h.textContent = pd.qcur === 'LGU' ? 'LG U+를 쓰시면 기기변경 가격으로 바꿔 보여드려요.' : '쓰던 번호 그대로 LG U+로 옮기는 번호이동 가격이에요.';
+    }
+    function quickSubmit() {
+        var nm = $('osQuickName'), ph = $('osQuickPhone'), ag = $('osQuickAgree');
+        if (!pd.qcur) { toast('지금 쓰는 통신사를 골라주세요.'); return; }
+        var bad = false;
+        nm.classList.toggle('err', !nm.value.trim()); if (!nm.value.trim()) bad = true;
+        var d = ph.value.replace(/\D/g, '');
+        ph.classList.toggle('err', !/^01\d{8,9}$/.test(d)); if (!/^01\d{8,9}$/.test(d)) bad = true;
+        if (bad) { toast('이름과 휴대폰 번호를 확인해 주세요.'); return; }
+        if (!ag.checked) { $('osQuickAgreeF').classList.add('need'); toast('[필수] 동의를 체크해 주세요.'); return; }
+        if (!window.SiteApply || !window.SiteApply.quick) return;
+        window.SiteApply.quick(applyCtx(), pd.qcur, nm.value.trim(), d, document.querySelector('#osPd [data-quick]'));
+    }
     function applyCtx() {
         var m = modelMap[pd.id];
         var q = quote(m, pd.cap, pd.type, pd.plan, pd.dc, pd.n, pd.after);
@@ -3502,6 +3551,18 @@ var OS_DATA={"models":[{"id":"duo","name":"iPhone Duo","maker":"apple","img":"ip
         pdEl.addEventListener('click', function (e) {
             if (e.target === pdEl || e.target.closest('[data-close]')) { closePd(); return; }
             if (e.target.closest('[data-quote]')) { sendQuote(); return; }
+            var qc = e.target.closest('[data-qc]');
+            if (qc) {
+                pd.qcur = qc.dataset.qc;
+                [].forEach.call($('osQuickCur').children, function (b) { b.classList.toggle('on', b === qc); });
+                if (typeof fbq === 'function' && !pd.qt) { pd.qt = 1; fbq('trackCustom', 'QuickStart', { model: pd.id, cur: pd.qcur }); }
+                // 통신사에 맞는 가입 유형으로 가격 다시 계산 (LG U+ → 기기변경, 그 외 → 번호이동)
+                var want = pd.qcur === 'LGU' ? '1' : '2';
+                if (pd.type !== want) { pd.type = want; pd.dc = null; renderPd(); fetchSubsidy(pd.type, pd.plan, renderPd); }
+                quickHint();
+                return;
+            }
+            if (e.target.closest('[data-quick]')) { quickSubmit(); return; }
             if (e.target.closest('[data-apply]')) { if (window.SiteApply) window.SiteApply.open(applyCtx()); return; }
             if (e.target.closest('[data-notice]')) { e.preventDefault(); if (window.SiteApply) window.SiteApply.notice(); return; }
             var cap = e.target.closest('#osPdCaps .os-cap');
@@ -4035,6 +4096,42 @@ window.SITE_STORES=[{"name":"신림점","region":"서울","addr":"서울특별�
             // 지금 견적의 가입 유형으로 통신사를 미리 짐작 (기기변경 → LG U+)
             if (ctx.type === '1') st.cur = 'LGU';
             show(); vCur();
+        },
+        // 견적창 첫 화면 간편 상담 (11/7): 받는 방법은 택배로 넣고 전화 상담 때 바꿈, src 끝에 #quick
+        quick: function (ctx, cur, name, ph, btn) {
+            if (btn.disabled) return;
+            btn.disabled = true; btn.textContent = '보내는 중…';
+            st = { ctx: ctx, step: 'quick', cur: cur, method: 'delivery', store: '', date: '', name: name, phone: ph, color: '', a1: true, a2: true, tk: {} };
+            if (typeof fbq === 'function') fbq('trackCustom', 'QuickSubmitTry', { model: ctx.id, cur: cur });
+            loadStoreIds().then(function (ids) {
+                var sid = ids[ONLINE];
+                if (!sid) throw new Error('store');
+                return rpc('submit_app', { a: {
+                    store_id: sid, model: ctx.id, cap: ctx.cap, color: '', type: ctx.type, plan: ctx.plan, dc: ctx.dc, n: ctx.n,
+                    retail: ctx.retail, sub: ctx.sub, ag: ctx.ag, price: ctx.price, fresh: true, method: 'delivery',
+                    visit_date: '', name: name, phone: fmtPhone(ph), cur: cur, src: (srcNow() + '#quick').slice(0, 130)
+                } });
+            }).then(function (r) {
+                var row = Array.isArray(r) ? r[0] : r;
+                var my = lsGet(MY, []); my.unshift({ id: row.id, token: row.token }); lsSet(MY, my);
+                track('ReserveClick');
+                if (typeof fbq === 'function') fbq('trackCustom', 'QuickSubmit', { model: ctx.id, cur: cur });
+                btn.disabled = false; btn.textContent = '전화 상담 받기';
+                if (window.OS_SHOP) window.OS_SHOP.close();
+                show(); vDone(row.id, false);
+                renderMy();
+            }).catch(function (e) {
+                btn.disabled = false; btn.textContent = '전화 상담 받기';
+                if (typeof fbq === 'function') fbq('trackCustom', 'QuickSubmitFail', { model: ctx.id });
+                var m = errMsg(e);
+                if (m && e.message !== 'store') { toast(m); return; }
+                window.OS_SHOP.copy(appText(), function (ok) {
+                    track('KakaoClick');
+                    if (window.OS_SHOP) window.OS_SHOP.close();
+                    show(); vDone('', ok ? 'copied' : 'manual');
+                    setTimeout(function () { window.open(KAKAO, '_blank'); }, 300);
+                });
+            });
         },
         notice: function () { resumeTo = el.classList.contains('open') && st && st.step !== 'done' ? st.step : ''; show(); vNotice(); },
         pickStore: function (name) { preStore = name; },
