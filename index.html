@@ -1884,6 +1884,19 @@ body.os-lock .fab-container, body.os-lock .bottom-cta-bar, body.os-lock .realtim
     .os-gnb { gap: 22px; }
     .os-gnb a { font-size: 16px; }
 }
+/* PC: 메뉴의 접수내역은 오른쪽 버튼과 겹쳐서 숨김(모바일은 버튼이 숨으니 메뉴에 남김) */
+@media (min-width: 961px) { .os-gnb a[href="#my"] { display: none; } }
+@media (min-width: 1181px) and (max-width: 1260px) { .os-gnb { gap: 24px; } }
+@media (min-width: 961px) and (max-width: 1180px) {
+    .os-header .os-inner { gap: 20px; }
+    .os-gnb { gap: 16px; }
+    .os-gnb a { font-size: 15px; }
+}
+@media (min-width: 961px) and (max-width: 1060px) {
+    .os-header .os-inner { gap: 16px; }
+    .os-gnb { gap: 12px; }
+    .os-gnb a { font-size: 14px; }
+}
 @media (max-width: 960px) {
     .os-inner { padding: 0 20px; }
     .os-util { display: none; }
@@ -2301,6 +2314,7 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
 <a href="./" class="os-logo"><img src="cert_mark.png" alt="LG유플러스 공식인증 대리점 LGU+더끌림컴퍼니"><strong>LGU+<i>더끌림</i>컴퍼니</strong></a>
 <nav class="os-gnb">
 <a href="#phones" class="on">휴대폰 시세</a>
+<a href="/price/">오늘 시세표</a>
 <a href="#apply-duo">아이폰 듀오</a><a href="#how">신청 방법</a>
 <a href="#stores">매장 찾기</a>
 <a href="#tips">구매 가이드</a>
