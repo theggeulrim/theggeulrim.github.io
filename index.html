@@ -1797,7 +1797,11 @@ body.os-lock .fab-container, body.os-lock .bottom-cta-bar, body.os-lock .realtim
 .os-quick .ap-chk.need { color: #E5352B; }
 .os-quick .ap-chk a { color: var(--os-sub); }
 .os-quick-btn { width: 100%; height: 50px; margin-top: 10px; font-size: 16px; border-radius: 10px; }
-.os-quick-s { margin: 8px 0 0; font-size: 12px; color: var(--os-grey); text-align: center; }
+.os-quick-s { margin: 8px 0 0; font-size: 12px; color: var(--os-grey); text-align: center; line-height: 1.5; }
+.os-quick-s b { color: var(--os-text); }
+.os-quick-t b { color: var(--os-pink); font-weight: 800; }
+.os-quick-m { display: block; margin: 2px 0 4px; font-size: 15px; font-weight: 800; color: var(--os-text); }
+.os-quick-kk { display: flex; width: 100%; height: 44px; margin-top: 8px; font-size: 15px; border-radius: 10px; }
 .os-step:last-child { border-bottom: 0; }
 .os-step h3 { font-size: 20px; font-weight: 700; margin-bottom: 16px; letter-spacing: -0.03em; }
 .os-step h3 small { font-size: 13px; font-weight: 500; color: var(--os-grey); margin-left: 8px; }
@@ -2457,14 +2461,15 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
 </div>
 
 <div class="os-quick" id="osQuick">
-<p class="os-quick-t">이름·번호만 남기시면 이 가격 그대로 전화로 안내해 드려요</p>
+<p class="os-quick-t">광고·홈페이지에 보이는 가격 <b>그대로</b> 개통해 드려요</p>
 <p class="os-quick-p" id="osQuickP"></p>
 <div class="os-quick-cur" id="osQuickCur"><button type="button" data-qc="SKT">SKT</button><button type="button" data-qc="KT">KT</button><button type="button" data-qc="MVNO">알뜰폰</button><button type="button" data-qc="LGU">LG U+</button></div>
 <p class="os-quick-hint" id="osQuickHint" hidden></p>
 <div class="os-quick-in"><input id="osQuickName" data-clarity-mask="True" autocomplete="name" placeholder="이름"><input id="osQuickPhone" data-clarity-mask="True" type="tel" inputmode="numeric" autocomplete="tel" placeholder="휴대폰 번호"></div>
 <label class="ap-chk" id="osQuickAgreeF"><input type="checkbox" id="osQuickAgree"><span><em>[필수]</em> 상담을 위해 이름·연락처·견적을 주식회사 더끌림컴퍼니에 제공하는 데 동의해요 (상담 종료 후 3개월 보관) · <a href="#" data-notice>유의사항</a></span></label>
 <button type="button" class="os-btn os-btn-pink os-quick-btn" data-quick>전화 상담 받기</button>
-<p class="os-quick-s">접수해도 가입·결제되지 않아요 · 영업시간 안에 전화드려요</p>
+<a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" rel="noopener" class="os-btn os-btn-kakao os-quick-kk" data-kakao>전화 말고 카톡으로 먼저 물어볼게요</a>
+<p class="os-quick-s">신청 비용 0원 · 공식 신청서 쓰기 전 언제든 무료 취소<br>담당 직원이 <b>이 가격 그대로</b> 전화로 한 번 더 확인해 드려요</p>
 </div>
 
 <div class="os-step">
@@ -3318,8 +3323,9 @@ var OS_DATA={"models":[{"id":"duo","name":"iPhone Duo","maker":"apple","img":"ip
             : low ? '<span>7개월째부터<small>월 ' + won(q.planC.fee) + '원 요금제로 바꾸면</small></span><b>월 ' + won(r.totalC) + '원</b>' : '';
         $('osSumTotal2').style.display = six || low ? '' : 'none';
         $('osMbarTotal').innerHTML = won(r.prin) + '원';
-        $('osQuickP').innerHTML = m.name + ' ' + pd.cap + ' · ' + TYPE_NM[pd.type] + ' · ' + q.plan.name + '<br>할부원금 <b>' + won(r.prin) + '원</b> · ' +
-            (six || low ? '1~6개월 월 <b>' + won(r.total) + '원</b> · 7개월째부터 월 ' + won(six ? r.total2 : r.totalC) + '원' : '월 <b>' + won(r.total) + '원</b>');
+        $('osQuickP').innerHTML = '<span class="os-quick-m">' +
+            (six || low ? '1~6개월 월 <b>' + won(r.total) + '원</b> → 7개월째부터 월 <b>' + won(six ? r.total2 : r.totalC) + '원</b>' : '월 <b>' + won(r.total) + '원</b>') +
+            '</span>' + m.name + ' ' + pd.cap + ' · ' + TYPE_NM[pd.type] + ' · ' + q.plan.name + '<br>할부원금 ' + won(r.prin) + '원 · 요금제 포함 월 납부액';
         quickHint();
         $('osMbarLabel').textContent = (dcSum ? won(dcSum) + '원 할인 · ' : '') + '할부원금';
         $('osSumDevT').textContent = '휴대폰 ' + (pd.n ? pd.n + '개월 할부' : '일시불');
