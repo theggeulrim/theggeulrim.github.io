@@ -1788,6 +1788,10 @@ body.os-lock .fab-container, body.os-lock .bottom-cta-bar, body.os-lock .realtim
 .os-quick-p b { color: var(--os-pink); }
 .os-quick-cur { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
 .os-quick-cur button { height: 40px; border: 1px solid var(--os-line-2); border-radius: 8px; background: #fff; font: inherit; font-size: 14px; font-weight: 700; color: var(--os-text); cursor: pointer; padding: 0; }
+.os-quick-cur.mnp { grid-template-columns: repeat(3, 1fr); }
+.os-quick-cur.mnp [data-qc="LGU"] { display: none; }
+.os-quick-lgu { display: block; width: 100%; margin: 8px 0 0; padding: 0; border: 0; background: none; font: inherit; font-size: 12.5px; color: var(--os-sub); text-align: left; line-height: 1.5; cursor: pointer; }
+.os-quick-lgu[hidden] { display: none; }
 .os-quick-cur button.on { border-color: var(--os-pink); color: var(--os-pink); box-shadow: inset 0 0 0 1px var(--os-pink); }
 .os-quick-hint { margin: 8px 0 0; font-size: 12.5px; color: var(--os-pink); line-height: 1.5; }
 .os-quick-in { display: grid; grid-template-columns: 1fr 1.4fr; gap: 6px; margin-top: 8px; }
@@ -2478,6 +2482,7 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
 <p class="os-quick-t">광고·홈페이지에 보이는 가격 <b>그대로</b> 개통해 드려요</p>
 <p class="os-quick-p" id="osQuickP"></p>
 <div class="os-quick-cur" id="osQuickCur"><button type="button" data-qc="SKT">SKT</button><button type="button" data-qc="KT">KT</button><button type="button" data-qc="MVNO">알뜰폰</button><button type="button" data-qc="LGU">LG U+</button></div>
+<button type="button" class="os-quick-lgu" id="osQuickLgu" data-qlgu hidden>LG U+를 쓰고 계시면 기기변경이라 가격이 달라요 · <u>기기변경 가격 보기</u></button>
 <p class="os-quick-hint" id="osQuickHint" hidden></p>
 <div class="os-quick-in"><input id="osQuickName" data-clarity-mask="True" autocomplete="name" placeholder="이름"><input id="osQuickPhone" data-clarity-mask="True" type="tel" inputmode="numeric" autocomplete="tel" placeholder="휴대폰 번호"></div>
 <label class="ap-chk" id="osQuickAgreeF"><input type="checkbox" id="osQuickAgree"><span><em>[필수]</em> 상담을 위해 이름·연락처·견적을 주식회사 더끌림컴퍼니에 제공하는 데 동의해요 (상담 종료 후 3개월 보관) · <a href="#" data-notice>유의사항</a></span></label>
@@ -3229,6 +3234,9 @@ var OS_DATA={"models":[{"id":"duo","name":"iPhone Duo","maker":"apple","img":"ip
         fetchSubsidy(pd.type, pd.plan, renderPd);
         // auto: 광고 링크(#apply-)로 들어와 자동으로 열린 경우 — 직접 누른 것과 구분 (10/23)
         pd.t0 = Date.now(); pd.sc = 0; pd.auto = o.auto ? 1 : 0;
+        // 11/11 17 Pro 광고 링크(utm + 번호이동)로 들어오면 간편칸을 SKT·KT·알뜰폰만 → 광고에 보인 가격 그대로 신청
+        pd.mnp = o.auto && o.utm_source && id === 'ip17pr' && pd.type === '2' ? 1 : 0;
+        quickMode();
         $('osPd').querySelector('.os-pd-body').scrollTop = 0;
         if (typeof fbq === 'function') fbq('trackCustom', 'QuoteOpen', { model: id, auto: pd.auto });
     }
@@ -3379,6 +3387,10 @@ var OS_DATA={"models":[{"id":"duo","name":"iPhone Duo","maker":"apple","img":"ip
     }
 
     // 신청 시트(apply.js)에 넘기는 현재 견적
+    function quickMode() {
+        $('osQuickCur').classList.toggle('mnp', !!pd.mnp);
+        $('osQuickLgu').hidden = !pd.mnp;
+    }
     function quickHint() {
         var h = $('osQuickHint');
         if (!pd || !pd.qcur) { h.hidden = true; return; }
@@ -3571,6 +3583,13 @@ var OS_DATA={"models":[{"id":"duo","name":"iPhone Duo","maker":"apple","img":"ip
         pdEl.addEventListener('click', function (e) {
             if (e.target === pdEl || e.target.closest('[data-close]')) { closePd(); return; }
             if (e.target.closest('[data-quote]')) { sendQuote(); return; }
+            if (e.target.closest('[data-qlgu]')) {
+                pd.mnp = 0; quickMode();
+                if (typeof fbq === 'function') fbq('trackCustom', 'QuickLgu', { model: pd.id });
+                var lg = $('osQuickCur').querySelector('[data-qc="LGU"]');
+                if (lg) lg.click();
+                return;
+            }
             var qc = e.target.closest('[data-qc]');
             if (qc) {
                 pd.qcur = qc.dataset.qc;
