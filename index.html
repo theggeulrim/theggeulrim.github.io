@@ -2403,31 +2403,46 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
 .rv-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 12px; margin-bottom: 18px; }
 .rv-head h2 { font-size: 28px; font-weight: 800; letter-spacing: -0.04em; color: var(--os-text); }
 .rv-head p { font-size: 14px; color: var(--os-grey); margin-top: 6px; line-height: 1.5; }
+.rv-cnt { display: flex; align-items: center; gap: 12px; flex: none; }
+.rv-num { text-align: center; line-height: 1.1; }
+.rv-num b { display: block; font-size: 26px; font-weight: 800; color: var(--os-pink); }
+.rv-num span { font-size: 12px; color: var(--os-grey); }
 .rv-nav { display: flex; gap: 8px; flex: none; }
 .rv-arr { width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--os-line-2, #ddd); background: #fff; font-size: 22px; line-height: 1; color: var(--os-text); cursor: pointer; }
-.rv-row { list-style: none; margin: 0; padding: 4px 0 8px; display: grid; grid-auto-flow: column; grid-auto-columns: calc((100% - 48px) / 4); gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
+.rv-row { list-style: none; margin: 0; padding: 6px 2px 10px; display: grid; grid-auto-flow: column; grid-auto-columns: calc((100% - 48px) / 4.5); gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
 .rv-row::-webkit-scrollbar { display: none; }
-.rv-card { scroll-snap-align: start; background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,.05); display: flex; flex-direction: column; cursor: pointer; }
-.rv-img { aspect-ratio: 4 / 5; background: #eee; overflow: hidden; }
+.rv-card { scroll-snap-align: start; height: 350px; background: #fff; border: 1px solid #ececec; border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; cursor: pointer; }
+.rv-img { flex: none; aspect-ratio: 4 / 3; background: #f3f4f6; overflow: hidden; }
 .rv-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.rv-txt .rv-b { padding: 20px 18px 16px; gap: 12px; }
-.rv-txt .rv-t { font-size: 15px; line-height: 1.7; -webkit-line-clamp: 13; }
-.rv-b { padding: 14px 14px 16px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
-.rv-tag { align-self: flex-start; font-size: 12px; font-weight: 700; color: var(--os-pink); background: var(--os-pink-bg); border-radius: 6px; padding: 3px 8px; }
-.rv-t { font-size: 14px; line-height: 1.55; color: var(--os-text); display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; word-break: keep-all; }
-.rv-card.open .rv-t { -webkit-line-clamp: unset; display: block; }
-.rv-who { margin-top: auto; display: flex; justify-content: space-between; font-size: 12px; color: var(--os-grey); padding-top: 8px; border-top: 1px solid #f0f0f0; }
-.rv-who b { color: var(--os-text); font-weight: 700; }
-@media (max-width: 768px) {
+.rv-b { padding: 14px 14px 12px; display: flex; flex-direction: column; gap: 6px; flex: 1; min-height: 0; }
+.rv-tag { font-size: 15px; font-weight: 700; line-height: 1.45; color: var(--os-text); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; word-break: keep-all; }
+.rv-t { font-size: 13.4px; line-height: 1.6; color: #666; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; word-break: keep-all; }
+.rv-txt .rv-t { font-size: 15px; line-height: 1.75; color: #444; -webkit-line-clamp: 10; }
+.rv-who { margin-top: auto; display: flex; justify-content: space-between; gap: 6px; font-size: 11.5px; color: #999; padding-top: 6px; }
+.rv-who b { color: var(--os-text); font-weight: 600; }
+.rv-modal { position: fixed; inset: 0; z-index: 9999; background: rgba(0,0,0,.5); display: none; align-items: center; justify-content: center; padding: 16px; }
+.rv-modal.on { display: flex; }
+.rv-box { position: relative; width: 100%; max-width: 440px; max-height: 88vh; overflow-y: auto; background: #fff; border-radius: 16px; }
+.rv-box img { width: 100%; display: block; }
+.rv-box .rv-mb { padding: 18px 20px 22px; }
+.rv-box h3 { font-size: 17px; font-weight: 800; color: var(--os-text); margin-bottom: 4px; }
+.rv-box .rv-mw { font-size: 12.5px; color: #999; margin-bottom: 12px; }
+.rv-box .rv-mw b { color: var(--os-text); font-weight: 600; margin-right: 6px; }
+.rv-box p { font-size: 14.5px; line-height: 1.7; color: #444; word-break: keep-all; }
+.rv-x { position: absolute; top: 10px; right: 10px; width: 34px; height: 34px; border-radius: 50%; border: 0; background: rgba(0,0,0,.55); color: #fff; font-size: 20px; line-height: 1; cursor: pointer; }
+@media (max-width: 767px) {
   .rv-sec { padding: 40px 0 48px; }
   .rv-head h2 { font-size: 22px; }
   .rv-head p { font-size: 13px; }
   .rv-nav { display: none; }
-  .rv-row { grid-auto-columns: 46%; gap: 10px; margin: 0 -16px; padding: 4px 16px 8px; scroll-padding: 0 16px; }
-  .rv-b { padding: 11px 11px 12px; gap: 6px; }
-  .rv-t { font-size: 13px; }
-  .rv-txt .rv-b { padding: 16px 13px 12px; gap: 10px; }
-  .rv-txt .rv-t { font-size: 13.5px; line-height: 1.65; -webkit-line-clamp: 14; }
+  .rv-num b { font-size: 22px; }
+  .rv-row { grid-auto-columns: 31%; gap: 8px; margin: 0 -16px; padding: 6px 16px 10px; scroll-padding: 0 16px; }
+  .rv-card { height: 220px; border-radius: 10px; }
+  .rv-b { padding: 9px 9px 9px; gap: 4px; }
+  .rv-tag { font-size: 12.5px; -webkit-line-clamp: 1; }
+  .rv-t { font-size: 11.5px; line-height: 1.5; -webkit-line-clamp: 3; }
+  .rv-txt .rv-t { font-size: 12.5px; line-height: 1.6; -webkit-line-clamp: 7; }
+  .rv-who { flex-direction: column; gap: 0; font-size: 10.5px; padding-top: 4px; }
 }
 </style>
 </head>
@@ -2703,28 +2718,28 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
 <div class="os-inner">
 <div class="rv-head">
 <div><h2>고객 후기</h2><p>구매하신 고객님이 직접 남겨주신 후기를 그대로 옮겼어요</p></div>
-<div class="rv-nav"><button type="button" class="rv-arr" data-rv="-1" aria-label="이전 후기">‹</button><button type="button" class="rv-arr" data-rv="1" aria-label="다음 후기">›</button></div>
+<div class="rv-cnt"><div class="rv-num"><b>19</b><span>개의 후기</span></div><div class="rv-nav"><button type="button" class="rv-arr" data-rv="-1" aria-label="이전 후기">‹</button><button type="button" class="rv-arr" data-rv="1" aria-label="다음 후기">›</button></div></div>
 </div>
 <ul class="rv-row" id="rvRow">
-<li class="rv-card"><div class="rv-img"><img src="reviews/r1.webp" alt="기기변경 후기 사진" loading="lazy" width="420" height="531"></div><div class="rv-b"><span class="rv-tag">기기변경</span><p class="rv-t">기기변경하면서 이것저것 질문이 많았는데 귀찮은 내색 없이 친절하게 응대해주셔서 감사했어요<br>복잡한 조건도 쉽게 풀어서 설명해주셔서 이해가 잘 됐고 기다리는 시간도 거의 없었어요<br>전체적으로 만족도 높은 방문이었어요 😊</p><div class="rv-who"><b>옥ra***</b><span>네이버 지도 리뷰</span></div></div></li>
-<li class="rv-card"><div class="rv-img"><img src="reviews/r5.webp" alt="아이폰17 후기 사진" loading="lazy" width="420" height="531"></div><div class="rv-b"><span class="rv-tag">아이폰17</span><p class="rv-t">신림역 근처 매장 방문해서 아이폰17 확인하고 바로 결정했어요. 친절하게 안내해 주셔서 구매 과정이 편했고, 제품도 깔끔하게 잘 받았습니다:)</p><div class="rv-who"><b>wv***</b><span>네이버 지도 리뷰</span></div></div></li>
-<li class="rv-card"><div class="rv-img"><img src="reviews/r3.webp" alt="갤럭시 S25 · 기기변경 후기 사진" loading="lazy" width="420" height="531"></div><div class="rv-b"><span class="rv-tag">갤럭시 S25 · 기기변경</span><p class="rv-t">s25로 기기변경 했습니다.<br>원하는 조건 말씀드리니 확실히 자급제보다 저렴하게 구매 했어요!</p><div class="rv-who"><b>re***</b><span>네이버 지도 리뷰</span></div></div></li>
-<li class="rv-card"><div class="rv-img"><img src="reviews/r7.webp" alt="신림역 매장 후기 사진" loading="lazy" width="420" height="531"></div><div class="rv-b"><span class="rv-tag">신림역 매장</span><p class="rv-t">신림역 근처 매장들 다 돌아다니며 견적받고 결정한 곳이 바로 여기입니다!ㅋㅋ 다른곳들보다 훨씬 저렴해서 만족합니다!</p><div class="rv-who"><b>아뵤***</b><span>네이버 지도 리뷰</span></div></div></li>
-<li class="rv-card"><div class="rv-img"><img src="reviews/r2.webp" alt="기기변경 후기 사진" loading="lazy" width="420" height="531"></div><div class="rv-b"><span class="rv-tag">기기변경</span><p class="rv-t">폰 바꾸는 게 항상 어렵게 느껴졌는데 여기서는 정말 편했어요<br>제 사용 패턴에 맞게 추천해주셔서 쓸데없는 요금 없이 딱 맞는 선택을 했고 데이터 옮기는 것도 깔끔하게 도와주셨어요<br>다음에 또 기기변경할 일 있으면 다시 올 것 같아요 ㅎㅎ</p><div class="rv-who"><b>da***</b><span>네이버 지도 리뷰</span></div></div></li>
-<li class="rv-card"><div class="rv-img"><img src="reviews/r9.webp" alt="아이폰17 후기 사진" loading="lazy" width="420" height="531"></div><div class="rv-b"><span class="rv-tag">아이폰17</span><p class="rv-t">신림역 주변 여러 곳 알아보다가 이곳이 가장 친절하고 설명이 깔끔해서 아이폰17로 선택하게 되었습니다:)<br>행사 조건이 잘 정리되어 있어 부담 없이 결정할 수 있었고, 전반적으로 만족스러운 방문이었습니다!!ㅎㅎ</p><div class="rv-who"><b>Ab***</b><span>네이버 지도 리뷰</span></div></div></li>
-<li class="rv-card"><div class="rv-img"><img src="reviews/r8.webp" alt="갤럭시 Z 폴드7 후기 사진" loading="lazy" width="420" height="531"></div><div class="rv-b"><span class="rv-tag">갤럭시 Z 폴드7</span><p class="rv-t">지인 소개로 방문했는데, 설명도 아주 잘 해주시고 무엇보다 친절해서 좋더라구요!<br>가격도 착하게 잘 산 것 같고, 혜택도 좋은 것 같아서 아주 마음에 들어요!^^</p><div class="rv-who"><b>yyy****</b><span>네이버 지도 리뷰</span></div></div></li>
-<li class="rv-card"><div class="rv-img"><img src="reviews/r4.webp" alt="신림역 매장 후기 사진" loading="lazy" width="420" height="531"></div><div class="rv-b"><span class="rv-tag">신림역 매장</span><p class="rv-t">오늘 신림역 매장에 폰 바꾸러 다녀왔어요!!<br>여기 저렴하게 잘 사고, 여러 혜택도 챙길 수 있어서 기분 좋았답니다.&gt;&lt;!!<br>직원분들이 친절하게 하나하나 설명해주셔서 고민 없이 선택할 수 있었고, 매장 분위기도 깔끔해서 편하게 구경하면서 결정했어요~</p><div class="rv-who"><b>TG***</b><span>네이버 지도 리뷰</span></div></div></li>
-<li class="rv-card"><div class="rv-img"><img src="reviews/r11.webp" alt="갤럭시 S25 엣지 후기 사진" loading="lazy" width="420" height="531"></div><div class="rv-b"><span class="rv-tag">갤럭시 S25 엣지</span><p class="rv-t">일요일에도 근무하시느라 고생 많으신데 너무 친절하게 설명해 주시고 아이폰만 썼었는데 맘에 쏙드는 삼성 핸드폰 추천해주셔서 삼성으로 갈아탔어요 오래하는 매장은 이유가 있네요 친절 굿 전문성 굿 100점입니다</p><div class="rv-who"><b>its****</b><span>네이버 지도 리뷰</span></div></div></li>
-<li class="rv-card rv-txt"><div class="rv-b"><span class="rv-tag">매장 방문</span><p class="rv-t">가까운매장을 선택해서 방문하고.<br>응대도 좋고..<br>저렴한가격으로 원하는 핸드폰을 구매해서<br>좋았습니다.<br>다른 가족들 변경할때도 또 이용하려구요.</p><div class="rv-who"><b>김*기</b><span>구매 고객 후기</span></div></div></li>
-<li class="rv-card rv-txt"><div class="rv-b"><span class="rv-tag">아이폰</span><p class="rv-t">매장 직원분이 데이터 이전을 깔끔하게 도와주셔서 걱정 없이 아이폰으로 바꿨는데 진짜 처음 켰을 때 속도 차이가 확 느껴지더라구요!!!화면 색감이 더 선명해서 사진 볼 때마다 기분이 좋아지고 스피커 음질도 깨끗해서 영상 볼 맛이 났어요!!!오랜만에 기기 바꾸니까 새출발한 느낌이라 괜히 설레네요 ㅎㅎ</p><div class="rv-who"><b>135만***</b><span>네이버 지도 리뷰</span></div></div></li>
-<li class="rv-card rv-txt"><div class="rv-b"><span class="rv-tag">온라인 구매</span><p class="rv-t">오프라인으로 저렴하다라는 어떤곳보다도 더 저렴하게 구입할 수 있었습니다<br><br>상담원분들도 친절하고, 절차도 간단해서 편리했네요.<br>또 이용할 의사 있습니다</p><div class="rv-who"><b>이*희</b><span>구매 고객 후기</span></div></div></li>
-<li class="rv-card"><div class="rv-img"><img src="reviews/r6.webp" alt="아이폰 후기 사진" loading="lazy" width="420" height="531"></div><div class="rv-b"><span class="rv-tag">아이폰</span><p class="rv-t">상담도 너무 친절하고 조건도 자세하게 알려주셨어요<br>완전 만족! 감사합니다! ㅎㅎ</p><div class="rv-who"><b>sk***</b><span>네이버 지도 리뷰</span></div></div></li>
-<li class="rv-card rv-txt"><div class="rv-b"><span class="rv-tag">당일 배송</span><p class="rv-t">바로 당날 배송 도와주시고 빠른 개통 해주셨어요<br>상담도 너무 친절하게 응답해주셔서 좋았습니다<br>깔끔하니 조건 그대로 개통 해줬어요<br>믿을만한 대리점 같습니다</p><div class="rv-who"><b>주*경</b><span>구매 고객 후기</span></div></div></li>
-<li class="rv-card"><div class="rv-img"><img src="reviews/r10.webp" alt="자녀 폰 후기 사진" loading="lazy" width="420" height="531"></div><div class="rv-b"><span class="rv-tag">자녀 폰</span><p class="rv-t">자녀 핸드폰 바꾸러왔습니다.<br><br>직원분이 너무 친절하고 대기석도 많고<br>분위기도 좋고 너무 깔끔해서 완전 강추!!</p><div class="rv-who"><b>밤꼬**</b><span>네이버 지도 리뷰</span></div></div></li>
-<li class="rv-card rv-txt"><div class="rv-b"><span class="rv-tag">구매 상담</span><p class="rv-t">설명도 자세했고 친절했어요<br>구매하면서 혹시나 설마 이런 의문들이 들었는데 그 의문마저 믿음으로 바꿔주셨어요<br>상담사님 감사합니다<br><br>다음에도 구매하게된다면<br>이용하고 싶습니다^^</p><div class="rv-who"><b>강*현</b><span>구매 고객 후기</span></div></div></li>
-<li class="rv-card"><div class="rv-img"><img src="reviews/r14.webp" alt="약정 만료 후기 사진" loading="lazy" width="420" height="531"></div><div class="rv-b"><span class="rv-tag">약정 만료</span><p class="rv-t">약정이 끝나서 전화가 왔어요, 요금도 낮추고 덕분에 핸드폰도 잘 바꿨어요 외국인 이라 잘 모르는데 잘 친절하게 설명 해주셔서 너무 감사합니다</p><div class="rv-who"><b>l12****</b><span>네이버 지도 리뷰</span></div></div></li>
-<li class="rv-card"><div class="rv-img"><img src="reviews/r13.webp" alt="아이폰16 후기 사진" loading="lazy" width="420" height="531"></div><div class="rv-b"><span class="rv-tag">아이폰16</span><p class="rv-t">친절하고 자세하게 설명해주셨습니다.<br>잘 사용하겠습니다!</p><div class="rv-who"><b>to***</b><span>네이버 지도 리뷰</span></div></div></li>
-<li class="rv-card rv-txt"><div class="rv-b"><span class="rv-tag">배송</span><p class="rv-t">배송 이틀만에 받았어요<br>진행도 빠르게 됐고 설명도 친절하게 해주셨고<br>개통도 전화거니까 금방 되네요<br>지원금도 많아서 저렴하게 잘 구매한 것 같습니다 다음에 바꿀 때도 이용하고 싶어요</p><div class="rv-who"><b>윤*성</b><span>구매 고객 후기</span></div></div></li>
+<li class="rv-card"><div class="rv-img"><img src="reviews/r1.webp" alt="기기변경 후기 사진" loading="lazy" width="420" height="531"></div><div class="rv-b"><h3 class="rv-tag">기기변경</h3><p class="rv-t">기기변경하면서 이것저것 질문이 많았는데 귀찮은 내색 없이 친절하게 응대해주셔서 감사했어요<br>복잡한 조건도 쉽게 풀어서 설명해주셔서 이해가 잘 됐고 기다리는 시간도 거의 없었어요<br>전체적으로 만족도 높은 방문이었어요 😊</p><div class="rv-who"><b>옥ra***</b><span>네이버 지도 리뷰</span></div></div></li>
+<li class="rv-card"><div class="rv-img"><img src="reviews/r5.webp" alt="아이폰17 후기 사진" loading="lazy" width="420" height="531"></div><div class="rv-b"><h3 class="rv-tag">아이폰17</h3><p class="rv-t">신림역 근처 매장 방문해서 아이폰17 확인하고 바로 결정했어요. 친절하게 안내해 주셔서 구매 과정이 편했고, 제품도 깔끔하게 잘 받았습니다:)</p><div class="rv-who"><b>wv***</b><span>네이버 지도 리뷰</span></div></div></li>
+<li class="rv-card"><div class="rv-img"><img src="reviews/r3.webp" alt="갤럭시 S25 · 기기변경 후기 사진" loading="lazy" width="420" height="531"></div><div class="rv-b"><h3 class="rv-tag">갤럭시 S25 · 기기변경</h3><p class="rv-t">s25로 기기변경 했습니다.<br>원하는 조건 말씀드리니 확실히 자급제보다 저렴하게 구매 했어요!</p><div class="rv-who"><b>re***</b><span>네이버 지도 리뷰</span></div></div></li>
+<li class="rv-card"><div class="rv-img"><img src="reviews/r7.webp" alt="신림역 매장 후기 사진" loading="lazy" width="420" height="531"></div><div class="rv-b"><h3 class="rv-tag">신림역 매장</h3><p class="rv-t">신림역 근처 매장들 다 돌아다니며 견적받고 결정한 곳이 바로 여기입니다!ㅋㅋ 다른곳들보다 훨씬 저렴해서 만족합니다!</p><div class="rv-who"><b>아뵤***</b><span>네이버 지도 리뷰</span></div></div></li>
+<li class="rv-card"><div class="rv-img"><img src="reviews/r2.webp" alt="기기변경 후기 사진" loading="lazy" width="420" height="531"></div><div class="rv-b"><h3 class="rv-tag">기기변경</h3><p class="rv-t">폰 바꾸는 게 항상 어렵게 느껴졌는데 여기서는 정말 편했어요<br>제 사용 패턴에 맞게 추천해주셔서 쓸데없는 요금 없이 딱 맞는 선택을 했고 데이터 옮기는 것도 깔끔하게 도와주셨어요<br>다음에 또 기기변경할 일 있으면 다시 올 것 같아요 ㅎㅎ</p><div class="rv-who"><b>da***</b><span>네이버 지도 리뷰</span></div></div></li>
+<li class="rv-card"><div class="rv-img"><img src="reviews/r9.webp" alt="아이폰17 후기 사진" loading="lazy" width="420" height="531"></div><div class="rv-b"><h3 class="rv-tag">아이폰17</h3><p class="rv-t">신림역 주변 여러 곳 알아보다가 이곳이 가장 친절하고 설명이 깔끔해서 아이폰17로 선택하게 되었습니다:)<br>행사 조건이 잘 정리되어 있어 부담 없이 결정할 수 있었고, 전반적으로 만족스러운 방문이었습니다!!ㅎㅎ</p><div class="rv-who"><b>Ab***</b><span>네이버 지도 리뷰</span></div></div></li>
+<li class="rv-card"><div class="rv-img"><img src="reviews/r8.webp" alt="갤럭시 Z 폴드7 후기 사진" loading="lazy" width="420" height="531"></div><div class="rv-b"><h3 class="rv-tag">갤럭시 Z 폴드7</h3><p class="rv-t">지인 소개로 방문했는데, 설명도 아주 잘 해주시고 무엇보다 친절해서 좋더라구요!<br>가격도 착하게 잘 산 것 같고, 혜택도 좋은 것 같아서 아주 마음에 들어요!^^</p><div class="rv-who"><b>yyy****</b><span>네이버 지도 리뷰</span></div></div></li>
+<li class="rv-card"><div class="rv-img"><img src="reviews/r4.webp" alt="신림역 매장 후기 사진" loading="lazy" width="420" height="531"></div><div class="rv-b"><h3 class="rv-tag">신림역 매장</h3><p class="rv-t">오늘 신림역 매장에 폰 바꾸러 다녀왔어요!!<br>여기 저렴하게 잘 사고, 여러 혜택도 챙길 수 있어서 기분 좋았답니다.&gt;&lt;!!<br>직원분들이 친절하게 하나하나 설명해주셔서 고민 없이 선택할 수 있었고, 매장 분위기도 깔끔해서 편하게 구경하면서 결정했어요~</p><div class="rv-who"><b>TG***</b><span>네이버 지도 리뷰</span></div></div></li>
+<li class="rv-card"><div class="rv-img"><img src="reviews/r11.webp" alt="갤럭시 S25 엣지 후기 사진" loading="lazy" width="420" height="531"></div><div class="rv-b"><h3 class="rv-tag">갤럭시 S25 엣지</h3><p class="rv-t">일요일에도 근무하시느라 고생 많으신데 너무 친절하게 설명해 주시고 아이폰만 썼었는데 맘에 쏙드는 삼성 핸드폰 추천해주셔서 삼성으로 갈아탔어요 오래하는 매장은 이유가 있네요 친절 굿 전문성 굿 100점입니다</p><div class="rv-who"><b>its****</b><span>네이버 지도 리뷰</span></div></div></li>
+<li class="rv-card rv-txt"><div class="rv-b"><h3 class="rv-tag">매장 방문</h3><p class="rv-t">가까운매장을 선택해서 방문하고.<br>응대도 좋고..<br>저렴한가격으로 원하는 핸드폰을 구매해서<br>좋았습니다.<br>다른 가족들 변경할때도 또 이용하려구요.</p><div class="rv-who"><b>김*기</b><span>구매 고객 후기</span></div></div></li>
+<li class="rv-card rv-txt"><div class="rv-b"><h3 class="rv-tag">아이폰</h3><p class="rv-t">매장 직원분이 데이터 이전을 깔끔하게 도와주셔서 걱정 없이 아이폰으로 바꿨는데 진짜 처음 켰을 때 속도 차이가 확 느껴지더라구요!!!화면 색감이 더 선명해서 사진 볼 때마다 기분이 좋아지고 스피커 음질도 깨끗해서 영상 볼 맛이 났어요!!!오랜만에 기기 바꾸니까 새출발한 느낌이라 괜히 설레네요 ㅎㅎ</p><div class="rv-who"><b>135만***</b><span>네이버 지도 리뷰</span></div></div></li>
+<li class="rv-card rv-txt"><div class="rv-b"><h3 class="rv-tag">온라인 구매</h3><p class="rv-t">오프라인으로 저렴하다라는 어떤곳보다도 더 저렴하게 구입할 수 있었습니다<br><br>상담원분들도 친절하고, 절차도 간단해서 편리했네요.<br>또 이용할 의사 있습니다</p><div class="rv-who"><b>이*희</b><span>구매 고객 후기</span></div></div></li>
+<li class="rv-card"><div class="rv-img"><img src="reviews/r6.webp" alt="아이폰 후기 사진" loading="lazy" width="420" height="531"></div><div class="rv-b"><h3 class="rv-tag">아이폰</h3><p class="rv-t">상담도 너무 친절하고 조건도 자세하게 알려주셨어요<br>완전 만족! 감사합니다! ㅎㅎ</p><div class="rv-who"><b>sk***</b><span>네이버 지도 리뷰</span></div></div></li>
+<li class="rv-card rv-txt"><div class="rv-b"><h3 class="rv-tag">당일 배송</h3><p class="rv-t">바로 당날 배송 도와주시고 빠른 개통 해주셨어요<br>상담도 너무 친절하게 응답해주셔서 좋았습니다<br>깔끔하니 조건 그대로 개통 해줬어요<br>믿을만한 대리점 같습니다</p><div class="rv-who"><b>주*경</b><span>구매 고객 후기</span></div></div></li>
+<li class="rv-card"><div class="rv-img"><img src="reviews/r10.webp" alt="자녀 폰 후기 사진" loading="lazy" width="420" height="531"></div><div class="rv-b"><h3 class="rv-tag">자녀 폰</h3><p class="rv-t">자녀 핸드폰 바꾸러왔습니다.<br><br>직원분이 너무 친절하고 대기석도 많고<br>분위기도 좋고 너무 깔끔해서 완전 강추!!</p><div class="rv-who"><b>밤꼬**</b><span>네이버 지도 리뷰</span></div></div></li>
+<li class="rv-card rv-txt"><div class="rv-b"><h3 class="rv-tag">구매 상담</h3><p class="rv-t">설명도 자세했고 친절했어요<br>구매하면서 혹시나 설마 이런 의문들이 들었는데 그 의문마저 믿음으로 바꿔주셨어요<br>상담사님 감사합니다<br><br>다음에도 구매하게된다면<br>이용하고 싶습니다^^</p><div class="rv-who"><b>강*현</b><span>구매 고객 후기</span></div></div></li>
+<li class="rv-card"><div class="rv-img"><img src="reviews/r14.webp" alt="약정 만료 후기 사진" loading="lazy" width="420" height="531"></div><div class="rv-b"><h3 class="rv-tag">약정 만료</h3><p class="rv-t">약정이 끝나서 전화가 왔어요, 요금도 낮추고 덕분에 핸드폰도 잘 바꿨어요 외국인 이라 잘 모르는데 잘 친절하게 설명 해주셔서 너무 감사합니다</p><div class="rv-who"><b>l12****</b><span>네이버 지도 리뷰</span></div></div></li>
+<li class="rv-card"><div class="rv-img"><img src="reviews/r13.webp" alt="아이폰16 후기 사진" loading="lazy" width="420" height="531"></div><div class="rv-b"><h3 class="rv-tag">아이폰16</h3><p class="rv-t">친절하고 자세하게 설명해주셨습니다.<br>잘 사용하겠습니다!</p><div class="rv-who"><b>to***</b><span>네이버 지도 리뷰</span></div></div></li>
+<li class="rv-card rv-txt"><div class="rv-b"><h3 class="rv-tag">배송</h3><p class="rv-t">배송 이틀만에 받았어요<br>진행도 빠르게 됐고 설명도 친절하게 해주셨고<br>개통도 전화거니까 금방 되네요<br>지원금도 많아서 저렴하게 잘 구매한 것 같습니다 다음에 바꿀 때도 이용하고 싶어요</p><div class="rv-who"><b>윤*성</b><span>구매 고객 후기</span></div></div></li>
 </ul>
 </div>
 </section>
@@ -4398,13 +4413,27 @@ window.SITE_STORES=[{"name":"신림점","region":"서울","addr":"서울특별�
 </script>
 
 <script>
-/* 고객 후기 넘기기·펼치기 (11/16) */
+/* 고객 후기 넘기기·크게 보기 (11/16) */
 (function () {
     var row = document.getElementById('rvRow'); if (!row) return;
     document.querySelectorAll('[data-rv]').forEach(function (b) {
         b.addEventListener('click', function () { row.scrollBy({ left: Number(b.dataset.rv) * row.clientWidth, behavior: 'smooth' }); });
     });
-    row.addEventListener('click', function (e) { var c = e.target.closest('.rv-card'); if (c) c.classList.toggle('open'); });
+    var m = document.createElement('div'); m.className = 'rv-modal';
+    m.innerHTML = '<div class="rv-box" role="dialog" aria-modal="true"><button type="button" class="rv-x" aria-label="닫기">×</button><div class="rv-mi"></div><div class="rv-mb"><h3></h3><div class="rv-mw"></div><p></p></div></div>';
+    document.body.appendChild(m);
+    function close() { m.classList.remove('on'); document.body.style.overflow = ''; }
+    m.addEventListener('click', function (e) { if (e.target === m || e.target.closest('.rv-x')) close(); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+    row.addEventListener('click', function (e) {
+        var c = e.target.closest('.rv-card'); if (!c) return;
+        var img = c.querySelector('.rv-img img');
+        m.querySelector('.rv-mi').innerHTML = img ? '<img src="' + img.getAttribute('src') + '" alt="' + img.alt + '">' : '';
+        m.querySelector('h3').textContent = c.querySelector('.rv-tag').textContent;
+        m.querySelector('.rv-mw').innerHTML = c.querySelector('.rv-who').innerHTML;
+        m.querySelector('p').innerHTML = c.querySelector('.rv-t').innerHTML;
+        m.classList.add('on'); document.body.style.overflow = 'hidden';
+    });
 })();
 </script>
 </body>
