@@ -2399,51 +2399,84 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
 
 <style>
 /* 고객 후기 (11/16, 네이버 지도 실제 리뷰) */
-.rv-sec { padding: 56px 0 64px; background: #F7F8FA; }
-.rv-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 12px; margin-bottom: 18px; }
+.rv-sec { padding: 56px 0 64px; background: linear-gradient(#F9FAFB, #F3F4F6); }
+.rv-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; margin-bottom: 20px; }
 .rv-head h2 { font-size: 28px; font-weight: 800; letter-spacing: -0.04em; color: var(--os-text); }
 .rv-head p { font-size: 14px; color: var(--os-grey); margin-top: 6px; line-height: 1.5; }
-.rv-cnt { display: flex; align-items: center; gap: 12px; flex: none; }
-.rv-num { text-align: center; line-height: 1.1; }
-.rv-num b { display: block; font-size: 26px; font-weight: 800; color: var(--os-pink); }
-.rv-num span { font-size: 12px; color: var(--os-grey); }
-.rv-nav { display: flex; gap: 8px; flex: none; }
-.rv-arr { width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--os-line-2, #ddd); background: #fff; font-size: 22px; line-height: 1; color: var(--os-text); cursor: pointer; }
-.rv-row { list-style: none; margin: 0; padding: 6px 2px 10px; display: grid; grid-auto-flow: column; grid-auto-columns: calc((100% - 48px) / 4.5); gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
+.rv-right { display: flex; align-items: center; gap: 16px; flex: none; }
+.rv-num { display: flex; align-items: baseline; gap: 4px; }
+.rv-num b { font-size: 1.6rem; font-weight: 800; color: var(--os-pink); line-height: 1; }
+.rv-num span { font-size: 0.8rem; color: #888; }
+.rv-mode { display: flex; gap: 6px; }
+.rv-mode button { width: 36px; height: 36px; border: 1px solid #dee2e6; border-radius: 8px; background: #fff; color: #999; display: flex; align-items: center; justify-content: center; cursor: pointer; padding: 0; }
+.rv-mode button.on { background: var(--os-pink); border-color: var(--os-pink); color: #fff; }
+.rv-mode svg { width: 16px; height: 16px; }
+.rv-row { --rv-per: 5; --rv-gap: clamp(12px, 1.5vw, 18px); list-style: none; margin: 0; display: flex; gap: var(--rv-gap); overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; scrollbar-width: none; padding: 8px 2px 14px; scroll-padding-inline: 2px; }
 .rv-row::-webkit-scrollbar { display: none; }
-.rv-card { scroll-snap-align: start; height: 350px; background: #fff; border: 1px solid #ececec; border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; cursor: pointer; }
-.rv-img { flex: none; aspect-ratio: 4 / 3; background: #f3f4f6; overflow: hidden; }
+.rv-card { flex: 0 0 calc((100% - (var(--rv-per) - 1) * var(--rv-gap)) / var(--rv-per)); padding: 14px; overflow: hidden; position: relative; background: #fff; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,.06); display: flex; flex-direction: column; cursor: pointer; transition: transform .2s; min-width: 0; }
+.rv-card:nth-child(5n+1) { scroll-snap-align: start; scroll-snap-stop: always; }
+.rv-card:hover { transform: translateY(-4px); }
+.rv-img { margin: -14px -14px 10px; aspect-ratio: 4 / 3; background: #f3f4f6; overflow: hidden; }
 .rv-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.rv-b { padding: 14px 14px 12px; display: flex; flex-direction: column; gap: 6px; flex: 1; min-height: 0; }
-.rv-tag { font-size: 15px; font-weight: 700; line-height: 1.45; color: var(--os-text); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; word-break: keep-all; }
-.rv-t { font-size: 13.4px; line-height: 1.6; color: #666; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; word-break: keep-all; }
-.rv-txt .rv-t { font-size: 15px; line-height: 1.75; color: #444; -webkit-line-clamp: 10; }
-.rv-who { margin-top: auto; display: flex; justify-content: space-between; gap: 6px; font-size: 11.5px; color: #999; padding-top: 6px; }
+.rv-b { flex: 1; min-height: 0; display: flex; flex-direction: column; }
+.rv-tag { font-size: 0.95rem; font-weight: 700; line-height: 1.4; color: var(--os-text); margin-bottom: 8px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; word-break: keep-all; }
+.rv-t { flex: 1; font-size: 0.84rem; line-height: 1.55; color: #666; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; word-break: keep-all; }
+.rv-card:has(.rv-img) .rv-t { -webkit-line-clamp: 2; }
+.rv-txt .rv-t { display: block; flex: 1 1 0; min-height: 0; height: 0; overflow: hidden; -webkit-mask-image: linear-gradient(#000 calc(100% - 24px), transparent); mask-image: linear-gradient(#000 calc(100% - 24px), transparent); }
+.rv-who { margin-top: auto; display: flex; justify-content: space-between; align-items: center; gap: 6px; border-top: 1px solid #f0f0f0; padding-top: 12px; font-size: 0.78rem; }
+.rv-t { margin-bottom: 12px; }
 .rv-who b { color: var(--os-text); font-weight: 600; }
+.rv-who span { color: #999; font-size: 0.72rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.rv-list { list-style: none; margin: 8px 0 0; padding: 0; border-top: 2px solid #333; display: none; }
+.rv-sec.list .rv-list { display: block; }
+.rv-sec.list .rv-row { display: none; }
+.rv-list li { display: flex; align-items: center; gap: 12px; padding: 12px 8px; border-bottom: 1px solid #eee; font-size: 0.88rem; cursor: pointer; background: #fff; }
+.rv-list li:hover { background: #fafafa; }
+.rv-list .lt { flex: none; font-weight: 700; color: var(--os-pink); min-width: 64px; }
+.rv-list .lx { flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--os-text); }
+.rv-list .la { flex: none; color: #555; font-weight: 600; }
+.rv-list .ls { flex: none; color: #999; font-size: 0.8rem; }
+.rv-pager { display: flex; align-items: center; justify-content: center; gap: 16px; margin-top: 20px; }
+.rv-pager[hidden] { display: none; }
+.rv-pager button { width: 40px; height: 40px; border-radius: 50%; border: 1px solid #e5e7eb; background: #fff; color: #333; display: flex; align-items: center; justify-content: center; cursor: pointer; padding: 0; transition: border-color .2s, color .2s; }
+.rv-pager button:hover:not(:disabled) { border-color: var(--os-pink); color: var(--os-pink); }
+.rv-pager button:disabled { opacity: .35; cursor: default; }
+.rv-pager svg { width: 18px; height: 18px; }
+.rv-count { font-size: 0.9rem; font-weight: 600; color: #666; min-width: 56px; text-align: center; }
 .rv-modal { position: fixed; inset: 0; z-index: 9999; background: rgba(0,0,0,.5); display: none; align-items: center; justify-content: center; padding: 16px; }
 .rv-modal.on { display: flex; }
-.rv-box { position: relative; width: 100%; max-width: 440px; max-height: 88vh; overflow-y: auto; background: #fff; border-radius: 16px; }
-.rv-box img { width: 100%; display: block; }
-.rv-box .rv-mb { padding: 18px 20px 22px; }
-.rv-box h3 { font-size: 17px; font-weight: 800; color: var(--os-text); margin-bottom: 4px; }
-.rv-box .rv-mw { font-size: 12.5px; color: #999; margin-bottom: 12px; }
-.rv-box .rv-mw b { color: var(--os-text); font-weight: 600; margin-right: 6px; }
-.rv-box p { font-size: 14.5px; line-height: 1.7; color: #444; word-break: keep-all; }
-.rv-x { position: absolute; top: 10px; right: 10px; width: 34px; height: 34px; border-radius: 50%; border: 0; background: rgba(0,0,0,.55); color: #fff; font-size: 20px; line-height: 1; cursor: pointer; }
+.rv-box { width: 100%; max-width: 480px; max-height: 88vh; display: flex; flex-direction: column; background: #fff; border-radius: 16px; overflow: hidden; }
+.rv-mh { display: flex; justify-content: space-between; align-items: center; padding: 16px 20px; border-bottom: 1px solid #eee; }
+.rv-mh h3 { font-size: 1.05rem; font-weight: 800; color: var(--os-text); }
+.rv-x { width: 32px; height: 32px; border: 0; background: none; color: #666; font-size: 24px; line-height: 1; cursor: pointer; }
+.rv-mc { overflow-y: auto; padding: 18px 20px 22px; }
+.rv-mw { display: flex; justify-content: space-between; font-size: 0.85rem; padding-bottom: 14px; margin-bottom: 14px; border-bottom: 1px solid #f0f0f0; }
+.rv-mw b { color: var(--os-text); font-weight: 700; }
+.rv-mw span { color: #999; }
+.rv-mi img { width: 100%; display: block; border-radius: 12px; margin-bottom: 14px; }
+.rv-mc h4 { font-size: 1rem; font-weight: 700; color: var(--os-text); margin-bottom: 8px; }
+.rv-mc p { font-size: 0.92rem; line-height: 1.7; color: #444; word-break: keep-all; }
+@media (max-width: 1199px) { .rv-row { --rv-per: 4; } .rv-card:nth-child(5n+1) { scroll-snap-align: none; scroll-snap-stop: normal; } .rv-card:nth-child(4n+1) { scroll-snap-align: start; scroll-snap-stop: always; } }
+@media (max-width: 991px) { .rv-row { --rv-per: 3; } .rv-card:nth-child(4n+1) { scroll-snap-align: none; scroll-snap-stop: normal; } .rv-card:nth-child(3n+1) { scroll-snap-align: start; scroll-snap-stop: always; } }
 @media (max-width: 767px) {
   .rv-sec { padding: 40px 0 48px; }
+  .rv-head { flex-direction: column; align-items: stretch; gap: 16px; }
   .rv-head h2 { font-size: 22px; }
   .rv-head p { font-size: 13px; }
-  .rv-nav { display: none; }
-  .rv-num b { font-size: 22px; }
-  .rv-row { grid-auto-columns: 31%; gap: 8px; margin: 0 -16px; padding: 6px 16px 10px; scroll-padding: 0 16px; }
-  .rv-card { height: 220px; border-radius: 10px; }
-  .rv-b { padding: 9px 9px 9px; gap: 4px; }
-  .rv-tag { font-size: 12.5px; -webkit-line-clamp: 1; }
-  .rv-t { font-size: 11.5px; line-height: 1.5; -webkit-line-clamp: 3; }
-  .rv-txt .rv-t { font-size: 12.5px; line-height: 1.6; -webkit-line-clamp: 7; }
-  .rv-who { flex-direction: column; gap: 0; font-size: 10.5px; padding-top: 4px; }
+  .rv-right { width: 100%; justify-content: space-between; }
+  .rv-row { --rv-gap: 8px; padding: 6px 2px 10px; }
+  .rv-card { padding: 10px; border-radius: 12px; }
+  .rv-img { margin: -10px -10px 8px; }
+  .rv-tag { font-size: 0.8rem; line-height: 1.35; -webkit-line-clamp: 1; margin-bottom: 6px; }
+  .rv-t { font-size: 0.72rem; line-height: 1.45; }
+  .rv-who { flex-direction: column; align-items: flex-start; gap: 0; padding-top: 6px; }
+  .rv-t { margin-bottom: 8px; }
+  .rv-who b { font-size: 0.7rem; }
+  .rv-who span { font-size: 0.64rem; max-width: 100%; }
+  .rv-list li { gap: 8px; font-size: 0.82rem; }
+  .rv-list .lt { min-width: 52px; }
 }
+@media (max-width: 575px) { .rv-list .la { display: none; } }
 </style>
 </head>
 <body class="os-body">
@@ -2718,7 +2751,7 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
 <div class="os-inner">
 <div class="rv-head">
 <div><h2>고객 후기</h2><p>구매하신 고객님이 직접 남겨주신 후기를 그대로 옮겼어요</p></div>
-<div class="rv-cnt"><div class="rv-num"><b>19</b><span>개의 후기</span></div><div class="rv-nav"><button type="button" class="rv-arr" data-rv="-1" aria-label="이전 후기">‹</button><button type="button" class="rv-arr" data-rv="1" aria-label="다음 후기">›</button></div></div>
+<div class="rv-right"><div class="rv-num"><b>19</b><span>개의 후기</span></div><div class="rv-mode"><button type="button" class="on" data-mode="card" aria-label="카드로 보기"><svg viewBox="0 0 16 16" fill="currentColor"><rect x="1" y="1" width="6" height="6" rx="1"/><rect x="9" y="1" width="6" height="6" rx="1"/><rect x="1" y="9" width="6" height="6" rx="1"/><rect x="9" y="9" width="6" height="6" rx="1"/></svg></button><button type="button" data-mode="list" aria-label="목록으로 보기"><svg viewBox="0 0 16 16" fill="currentColor"><rect x="1" y="2" width="14" height="2" rx="1"/><rect x="1" y="7" width="14" height="2" rx="1"/><rect x="1" y="12" width="14" height="2" rx="1"/></svg></button></div></div>
 </div>
 <ul class="rv-row" id="rvRow">
 <li class="rv-card"><div class="rv-img"><img src="reviews/r1.webp" alt="기기변경 후기 사진" loading="lazy" width="420" height="531"></div><div class="rv-b"><h3 class="rv-tag">기기변경</h3><p class="rv-t">기기변경하면서 이것저것 질문이 많았는데 귀찮은 내색 없이 친절하게 응대해주셔서 감사했어요<br>복잡한 조건도 쉽게 풀어서 설명해주셔서 이해가 잘 됐고 기다리는 시간도 거의 없었어요<br>전체적으로 만족도 높은 방문이었어요 😊</p><div class="rv-who"><b>옥ra***</b><span>네이버 지도 리뷰</span></div></div></li>
@@ -2741,6 +2774,8 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
 <li class="rv-card"><div class="rv-img"><img src="reviews/r13.webp" alt="아이폰16 후기 사진" loading="lazy" width="420" height="531"></div><div class="rv-b"><h3 class="rv-tag">아이폰16</h3><p class="rv-t">친절하고 자세하게 설명해주셨습니다.<br>잘 사용하겠습니다!</p><div class="rv-who"><b>to***</b><span>네이버 지도 리뷰</span></div></div></li>
 <li class="rv-card rv-txt"><div class="rv-b"><h3 class="rv-tag">배송</h3><p class="rv-t">배송 이틀만에 받았어요<br>진행도 빠르게 됐고 설명도 친절하게 해주셨고<br>개통도 전화거니까 금방 되네요<br>지원금도 많아서 저렴하게 잘 구매한 것 같습니다 다음에 바꿀 때도 이용하고 싶어요</p><div class="rv-who"><b>윤*성</b><span>구매 고객 후기</span></div></div></li>
 </ul>
+<ul class="rv-list" id="rvList"></ul>
+<div class="rv-pager" id="rvPager"><button type="button" data-rv="-1" aria-label="이전 후기"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button><span class="rv-count" id="rvCount">1 / 1</span><button type="button" data-rv="1" aria-label="다음 후기"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg></button></div>
 </div>
 </section>
 
@@ -4413,28 +4448,83 @@ window.SITE_STORES=[{"name":"신림점","region":"서울","addr":"서울특별�
 </script>
 
 <script>
-/* 고객 후기 넘기기·크게 보기 (11/16) */
+/* 고객 후기 넘기기·목록·크게 보기 (11/16, 유플핫픽 방식) */
 (function () {
-    var row = document.getElementById('rvRow'); if (!row) return;
-    document.querySelectorAll('[data-rv]').forEach(function (b) {
-        b.addEventListener('click', function () { row.scrollBy({ left: Number(b.dataset.rv) * row.clientWidth, behavior: 'smooth' }); });
+    var sec = document.getElementById('reviews'), row = document.getElementById('rvRow'), list = document.getElementById('rvList');
+    if (!row) return;
+    var pager = document.getElementById('rvPager'), count = document.getElementById('rvCount');
+    var prev = pager.querySelector('[data-rv="-1"]'), next = pager.querySelector('[data-rv="1"]');
+    var cards = [].slice.call(row.children), LIST_PER = 6, listPage = 0, mode = 'card';
+    cards.forEach(function (c, i) {
+        var rt = c.querySelector('.rv-t'); c.dataset.full = rt.innerHTML; rt.innerHTML = rt.innerHTML.replace(/(<br\s*\/?>\s*){2,}/g, '<br>');
+        var li = document.createElement('li'); li.dataset.i = i;
+        li.innerHTML = '<span class="lt"></span><span class="lx"></span><span class="la"></span><span class="ls"></span>';
+        li.querySelector('.lt').textContent = c.querySelector('.rv-tag').textContent;
+        var tmp = document.createElement('div'); tmp.innerHTML = c.querySelector('.rv-t').innerHTML.replace(/<br\s*\/?>/g, ' '); li.querySelector('.lx').textContent = tmp.textContent;
+        li.querySelector('.la').textContent = c.querySelector('.rv-who b').textContent;
+        li.querySelector('.ls').textContent = c.querySelector('.rv-who span').textContent;
+        list.appendChild(li);
     });
+    var rows = [].slice.call(list.children);
+    function gap() { return parseFloat(getComputedStyle(row).columnGap) || 0; }
+    function step() { return cards[0].offsetWidth + gap(); }
+    function perView() { return Math.max(1, Math.round((row.clientWidth + gap()) / step())); }
+    function info() {
+        if (mode === 'list') return { page: listPage, total: Math.ceil(cards.length / LIST_PER) };
+        var pv = perView(), total = Math.ceil(cards.length / pv);
+        var page = row.scrollLeft + row.clientWidth >= row.scrollWidth - 2 ? total - 1 : Math.round(row.scrollLeft / (step() * pv));
+        return { page: page, total: total };
+    }
+    function render() {
+        var o = info();
+        pager.hidden = o.total <= 1;
+        count.textContent = (o.page + 1) + ' / ' + o.total;
+        prev.disabled = o.page <= 0; next.disabled = o.page >= o.total - 1;
+        if (mode === 'list') rows.forEach(function (r, i) { r.style.display = Math.floor(i / LIST_PER) === listPage ? '' : 'none'; });
+    }
+    var tgt = null;
+    function go(d) {
+        var o = info(), p = Math.min(Math.max((tgt === null ? o.page : tgt) + d, 0), o.total - 1);
+        if (mode === 'list') { listPage = p; render(); return; }
+        tgt = p;
+        count.textContent = (p + 1) + ' / ' + o.total;
+        prev.disabled = p <= 0; next.disabled = p >= o.total - 1;
+        row.scrollTo({ left: p * perView() * step(), behavior: 'smooth' });
+    }
+    prev.addEventListener('click', function () { go(-1); });
+    next.addEventListener('click', function () { go(1); });
+    var t; function later() { clearTimeout(t); t = setTimeout(function () { tgt = null; render(); }, 120); }
+    row.addEventListener('scroll', later, { passive: true });
+    window.addEventListener('resize', later);
+    var btns = sec.querySelectorAll('[data-mode]');
+    function setMode(m) {
+        mode = m === 'list' ? 'list' : 'card';
+        sec.classList.toggle('list', mode === 'list');
+        btns.forEach(function (b) { b.classList.toggle('on', b.dataset.mode === mode); });
+        try { localStorage.setItem('reviewViewMode', mode); } catch (e) {}
+        render();
+    }
+    btns.forEach(function (b) { b.addEventListener('click', function () { setMode(b.dataset.mode); }); });
+    var saved = null; try { saved = localStorage.getItem('reviewViewMode'); } catch (e) {}
+    setMode(saved);
     var m = document.createElement('div'); m.className = 'rv-modal';
-    m.innerHTML = '<div class="rv-box" role="dialog" aria-modal="true"><button type="button" class="rv-x" aria-label="닫기">×</button><div class="rv-mi"></div><div class="rv-mb"><h3></h3><div class="rv-mw"></div><p></p></div></div>';
+    m.innerHTML = '<div class="rv-box" role="dialog" aria-modal="true" aria-label="구매 후기"><div class="rv-mh"><h3>구매 후기</h3><button type="button" class="rv-x" aria-label="닫기">×</button></div><div class="rv-mc"><div class="rv-mw"></div><div class="rv-mi"></div><h4></h4><p></p></div></div>';
     document.body.appendChild(m);
     function close() { m.classList.remove('on'); document.body.style.overflow = ''; }
     m.addEventListener('click', function (e) { if (e.target === m || e.target.closest('.rv-x')) close(); });
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
-    row.addEventListener('click', function (e) {
-        var c = e.target.closest('.rv-card'); if (!c) return;
+    function open(c) {
         var img = c.querySelector('.rv-img img');
         m.querySelector('.rv-mi').innerHTML = img ? '<img src="' + img.getAttribute('src') + '" alt="' + img.alt + '">' : '';
-        m.querySelector('h3').textContent = c.querySelector('.rv-tag').textContent;
         m.querySelector('.rv-mw').innerHTML = c.querySelector('.rv-who').innerHTML;
-        m.querySelector('p').innerHTML = c.querySelector('.rv-t').innerHTML;
+        m.querySelector('h4').textContent = c.querySelector('.rv-tag').textContent;
+        m.querySelector('p').innerHTML = c.dataset.full;
+        m.querySelector('.rv-mc').scrollTop = 0;
         m.classList.add('on'); document.body.style.overflow = 'hidden';
-    });
-})();
+    }
+    row.addEventListener('click', function (e) { var c = e.target.closest('.rv-card'); if (c) open(c); });
+    list.addEventListener('click', function (e) { var r = e.target.closest('li'); if (r) open(cards[r.dataset.i]); });
+})()
 </script>
 </body>
 </html>
