@@ -2285,6 +2285,97 @@ body.ap-lock .fab-container, body.ap-lock .bottom-cta-bar { display: none !impor
 .os-page-head h1 { font-size: 36px; font-weight: 700; letter-spacing: -0.04em; margin: 0; }
 @media (max-width: 960px) { .os-page-head h1 { font-size: 26px; } }
 
+/* ===== 11/16 유플핫픽 구조: 묶음별 3열 카드 · 번호이동/기기변경 가격 · 통신사 먼저 · 하단 바 ===== */
+.os-f-type, #osQuick { display: none !important; }
+.os-grid.hp-groups { display: block; }
+.hp-group + .hp-group { margin-top: 36px; }
+.hp-gh { display: flex; align-items: baseline; gap: 8px; font-size: 22px; font-weight: 800; letter-spacing: -0.04em; margin: 0 0 14px; padding-left: 30px; position: relative; }
+.hp-gh::before { content: ''; position: absolute; left: 0; top: 50%; width: 18px; height: 14px; margin-top: -6px; border: 2px solid #9b6fd6; border-radius: 3px; border-top-width: 4px; }
+.hp-gh small { font-size: 15px; font-weight: 600; color: var(--os-grey); }
+.hp-row { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 12px; }
+.os-card.hp-card { display: flex; flex-direction: column; padding: 14px 12px 12px; border-radius: 14px; text-align: center; grid-template-areas: none; }
+.hp-card .hp-maker { position: absolute; top: 8px; left: 8px; font-size: 11px; font-weight: 700; color: var(--os-sub); background: #f2f3f5; border-radius: 4px; padding: 2px 6px; }
+.hp-card .hp-new { position: absolute; top: 8px; right: 8px; font-size: 10px; font-weight: 800; color: #fff; background: var(--os-pink); border-radius: 4px; padding: 2px 5px; }
+.hp-card .os-card-img { height: 140px; margin: 14px 0 10px; }
+.hp-card .os-card-name { font-size: 16px; line-height: 1.3; min-height: 2.6em; display: flex; align-items: center; justify-content: center; }
+.hp-card .os-caps { justify-content: center; margin: 8px 0 10px; }
+.hp-card .os-cap { height: 24px; padding: 0 8px; font-size: 12px; border-radius: 6px; }
+.hp-pr { display: block; width: 100%; text-align: left; font-family: inherit; background: #fff; border: 1px solid var(--os-line-2); border-radius: 10px; padding: 8px 10px; margin-top: 6px; cursor: pointer; color: var(--os-text); }
+.hp-pr.mnp { border-color: #f7b3d6; background: #fff7fb; }
+.hp-pr-t { display: flex; justify-content: space-between; font-size: 12px; font-weight: 600; color: var(--os-sub); }
+.hp-pr.mnp .hp-pr-t { color: var(--os-pink); }
+.hp-pr-t i { font-style: normal; font-weight: 800; color: var(--os-pink); font-size: 14px; }
+.hp-pr b { display: block; font-size: 19px; font-weight: 800; letter-spacing: -0.04em; margin-top: 2px; white-space: nowrap; }
+.hp-pr s { display: block; font-size: 12px; color: #aaa; }
+.hp-go { display: flex; align-items: center; justify-content: center; width: 100%; height: 40px; margin-top: 10px; border: 0; border-radius: 10px; background: var(--os-pink); color: #fff; font-family: inherit; font-size: 14px; font-weight: 800; cursor: pointer; text-decoration: none; }
+.hp-go.line { background: #fff; color: var(--os-pink); border: 1px solid var(--os-pink); }
+.hp-soldout { margin-top: auto; padding: 22px 0; font-size: 15px; font-weight: 700; color: var(--os-grey); }
+
+/* 통신사 팝업 */
+.hp-carrier { position: fixed; inset: 0; z-index: 10050; background: rgba(0,0,0,.5); display: flex; align-items: center; justify-content: center; padding: 16px; }
+.hp-carrier[hidden] { display: none; }
+.hp-carrier-box { position: relative; width: 100%; max-width: 400px; background: #fff; border-radius: 20px; padding: 28px 20px 20px; text-align: center; }
+.hp-carrier-box strong { display: block; font-size: 19px; font-weight: 800; letter-spacing: -0.04em; }
+.hp-carrier-box p { font-size: 14px; color: var(--os-grey); margin: 6px 0 18px; }
+.hp-carrier-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.hp-carrier-grid button { font-family: inherit; background: #fff; border: 1.5px solid var(--os-line-2); border-radius: 14px; padding: 20px 0; cursor: pointer; }
+.hp-carrier-grid button:hover { border-color: var(--os-pink); }
+.hp-carrier-grid b { display: block; font-size: 20px; font-weight: 800; color: var(--os-text); }
+.hp-carrier-grid span { display: block; font-size: 12px; color: var(--os-grey); margin-top: 4px; }
+.hp-carrier-x { position: absolute; top: 12px; right: 12px; width: 32px; height: 32px; border: 0; background: none; cursor: pointer; }
+.hp-carrier-x::before, .hp-carrier-x::after { content: ''; position: absolute; left: 7px; top: 15px; width: 18px; height: 2px; background: #888; transform: rotate(45deg); }
+.hp-carrier-x::after { transform: rotate(-45deg); }
+
+/* 홈 하단 바 */
+.hp-bar-call { background: #fff; color: #222; border-top: 1px solid #e5e5e5; }
+
+@media (max-width: 768px) {
+    .os-page-head p { display: none; }
+    .os-notice, .os-fnote { display: none !important; }
+    .st-trust ul { flex-wrap: nowrap !important; overflow-x: auto; padding: 9px 16px !important; gap: 16px !important; }
+    .st-trust li { flex: none; font-size: 12.5px; white-space: nowrap; }
+    .os-shop { padding-top: 14px !important; }
+    .os-page-head { margin-bottom: 6px !important; }
+    .os-page-head h1 { font-size: 20px !important; }
+    .os-maker button { font-size: 15px !important; padding-bottom: 8px !important; }
+    .os-filter { padding: 6px 16px !important; }
+    .os-filter .os-select { height: 36px; font-size: 13px; }
+    .os-list-head { margin: 8px 0 10px !important; }
+    .os-list-head > span:first-child { display: none; }
+    .os-cond { font-size: 11.5px; color: var(--os-grey); }
+    .os-cond em { font-weight: 600; }
+    .hp-group + .hp-group { margin-top: 26px; }
+    .hp-gh { font-size: 18px; padding-left: 28px; margin-bottom: 10px; }
+    .hp-gh small { font-size: 13px; }
+    .hp-row { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
+    .os-card.hp-card { display: flex; padding: 8px 6px 8px; border-radius: 10px; }
+    .hp-card .os-card-img { grid-area: auto; height: 74px; margin: 16px 0 6px; align-self: auto; }
+    .hp-card .os-card-name { grid-area: auto; font-size: 12.5px; margin: 0; min-height: 2.6em; letter-spacing: -0.05em; }
+    .hp-card .os-caps { grid-area: auto; gap: 3px; margin: 4px 0 4px; }
+    .hp-card .os-cap { height: 20px; padding: 0 4px; font-size: 10px; border-radius: 4px; }
+    .hp-card .hp-maker { font-size: 9.5px; top: 5px; left: 5px; padding: 1px 4px; }
+    .hp-card .hp-new { font-size: 9px; top: 5px; right: 5px; padding: 1px 4px; }
+    .hp-pr { padding: 5px 6px; border-radius: 8px; margin-top: 4px; }
+    .hp-pr-t { font-size: 10px; }
+    .hp-pr-t i { font-size: 11px; }
+    .hp-pr b { font-size: 13.5px; }
+    .hp-pr s { font-size: 9.5px; }
+    .hp-go { height: 32px; font-size: 11.5px; border-radius: 8px; margin-top: 6px; }
+    .hp-soldout { padding: 14px 0; font-size: 12px; }
+
+    /* 견적창 하단 바 */
+    .os-mbar.hp-mbar { display: block; padding: 0 0 env(safe-area-inset-bottom); }
+    .hp-mline { padding: 10px 12px; font-size: 12.5px; color: var(--os-sub); text-align: center; white-space: nowrap; letter-spacing: -0.04em; border-bottom: 1px solid var(--os-line); }
+    .hp-mline b { color: var(--os-text); }
+    .hp-mline span { color: var(--os-pink); font-weight: 700; }
+    .hp-mline strong { font-size: 17px; font-weight: 800; }
+    .hp-mbtns { display: grid; grid-template-columns: 1fr 1fr 1.6fr; }
+    .hp-mbtns button { height: 54px; border: 0; font-family: inherit; font-size: 15px; font-weight: 800; cursor: pointer; }
+    .hp-mb-kk { background: #FEE500; color: #191919; }
+    .hp-mb-sv { background: #f2f3f5; color: #333; }
+    .hp-mb-go { background: var(--os-pink); color: #fff; }
+    .os-pd-body { padding-bottom: 130px !important; }
+}
 </style>
 <script>
 !function(f,b,e,v,n,t,s)
@@ -2305,6 +2396,37 @@ t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
 y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
 })(window, document, "clarity", "script", "z7n4mh13g6");
 </script>
+
+<style>
+/* 고객 후기 (11/16, 네이버 지도 실제 리뷰) */
+.rv-sec { padding: 56px 0 64px; background: #F7F8FA; }
+.rv-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 12px; margin-bottom: 18px; }
+.rv-head h2 { font-size: 28px; font-weight: 800; letter-spacing: -0.04em; color: var(--os-text); }
+.rv-head p { font-size: 14px; color: var(--os-grey); margin-top: 6px; line-height: 1.5; }
+.rv-nav { display: flex; gap: 8px; flex: none; }
+.rv-arr { width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--os-line-2, #ddd); background: #fff; font-size: 22px; line-height: 1; color: var(--os-text); cursor: pointer; }
+.rv-row { list-style: none; margin: 0; padding: 4px 0 8px; display: grid; grid-auto-flow: column; grid-auto-columns: calc((100% - 48px) / 4); gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
+.rv-row::-webkit-scrollbar { display: none; }
+.rv-card { scroll-snap-align: start; background: #fff; border-radius: 16px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,.05); display: flex; flex-direction: column; cursor: pointer; }
+.rv-img { aspect-ratio: 4 / 5; background: #eee; overflow: hidden; }
+.rv-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.rv-noimg { height: 100%; display: flex; align-items: center; justify-content: center; font-size: 90px; font-weight: 800; color: var(--os-pink); background: var(--os-pink-bg); }
+.rv-b { padding: 14px 14px 16px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+.rv-tag { align-self: flex-start; font-size: 12px; font-weight: 700; color: var(--os-pink); background: var(--os-pink-bg); border-radius: 6px; padding: 3px 8px; }
+.rv-t { font-size: 14px; line-height: 1.55; color: var(--os-text); display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; word-break: keep-all; }
+.rv-card.open .rv-t { -webkit-line-clamp: unset; display: block; }
+.rv-who { margin-top: auto; display: flex; justify-content: space-between; font-size: 12px; color: var(--os-grey); padding-top: 8px; border-top: 1px solid #f0f0f0; }
+.rv-who b { color: var(--os-text); font-weight: 700; }
+@media (max-width: 768px) {
+  .rv-sec { padding: 40px 0 48px; }
+  .rv-head h2 { font-size: 22px; }
+  .rv-head p { font-size: 13px; }
+  .rv-nav { display: none; }
+  .rv-row { grid-auto-columns: 46%; gap: 10px; margin: 0 -16px; padding: 4px 16px 8px; scroll-padding: 0 16px; }
+  .rv-b { padding: 11px 11px 12px; gap: 6px; }
+  .rv-t { font-size: 13px; }
+}
+</style>
 </head>
 <body class="os-body">
 <div class="os-util">
@@ -2319,7 +2441,7 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
 <nav class="os-gnb">
 <a href="#phones" class="on">휴대폰 시세</a>
 <a href="/price/">오늘 시세표</a>
-<a href="#apply-duo">아이폰 듀오</a><a href="#how">신청 방법</a>
+<a href="#how">신청 방법</a>
 <a href="#stores">매장 찾기</a>
 <a href="#tips">구매 가이드</a>
 <a href="#faq">자주 묻는 질문</a>
@@ -2335,19 +2457,16 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
 <section class="ip18-hero" aria-roledescription="carousel" aria-label="이번 주 특가">
 <a class="ip18-hero-link hero-slide on" href="?cap=256&amp;type=2&amp;plan=LPZ1006510#apply-flip8">
 <picture class="ip18-photo">
-<source media="(max-width: 768px)" srcset="hero_flip8_sq.jpg?v=1026">
 <img src="hero_flip8.jpg?v=1026" alt="갤럭시 Z플립8 256GB 통신사 이동 시 102만원 할인, 할부원금 663,000원 - 5G 데이터플랜 MAX(월 85,000원) 6개월(181일) 사용 조건(공시지원금 50만원 + 대리점 지원금 52만원) - LG유플러스 공식인증 대리점 LGU+더끌림컴퍼니">
 </picture>
 </a>
 <a class="ip18-hero-link hero-slide" href="?cap=256&amp;type=2&amp;plan=LPZ1007251#apply-ip17pr">
 <picture class="ip18-photo">
-<source media="(max-width: 768px)" srcset="hero_ip17pr_sq.jpg?v=1111">
 <img src="hero_ip17pr.jpg?v=1111" alt="아이폰17 Pro 256GB 통신사 이동 시 110만원 할인, 할부원금 682,000원 - 넷플릭스 플러스플랜115(월 115,000원) 6개월(181일) 사용 조건(공시지원금 55만원 + 대리점 지원금 55만원) - LG유플러스 공식인증 대리점 LGU+더끌림컴퍼니">
 </picture>
 </a>
 <a class="ip18-hero-link hero-slide" href="?cap=256&amp;type=2&amp;plan=LPZ1007251#apply-ip18pr">
 <picture class="ip18-photo">
-<source media="(max-width: 768px)" srcset="hero_ip18pr_sq.jpg?v=1026">
 <img src="hero_ip18pr.jpg?v=1026" alt="아이폰18 Pro 256GB 통신사 이동 시 100만원 할인, 할부원금 991,000원 - 넷플릭스 플러스플랜115(월 115,000원) 6개월(181일) 사용 조건(공시지원금 45만원 + 대리점 지원금 55만원) - LG유플러스 공식인증 대리점 LGU+더끌림컴퍼니">
 </picture>
 </a>
@@ -2433,7 +2552,7 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
 <p><i>!</i><span>대리점 추가지원금은 <b>월 85,000원 이상 요금제</b>, <b>6개월 유지</b> 조건에 적용됩니다.</span></p>
 <p><i>!</i><span>월 납부금액은 <b>할부 24개월(연 5.9%) 기준</b>입니다. <b>상품을 누르면</b> 할부 개월·요금제를 바꿔 비교할 수 있습니다.</span></p>
 </div>
-<div class="os-grid" id="osGrid">
+<div class="os-grid hp-groups" id="osGrid">
 <article class="os-card"><h3 class="os-card-name">아이폰 듀오 (iPhone Duo)</h3><p>256GB·512GB·1TB·2TB · 출고가 3,300,000원부터 · LG U+ 번호이동·기기변경</p></article>
 <article class="os-card"><h3 class="os-card-name">아이폰18 프로 (iPhone 18 Pro)</h3><p>256GB·512GB·1TB·2TB · 출고가 1,991,000원부터 · LG U+ 번호이동·기기변경</p></article>
 <article class="os-card"><h3 class="os-card-name">아이폰18 프로맥스 (iPhone 18 Pro Max)</h3><p>256GB·512GB·1TB·2TB · 출고가 2,200,000원부터 · LG U+ 번호이동·기기변경</p></article>
@@ -2500,6 +2619,12 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
 </div>
 
 <div class="os-step">
+<h3>할인 방법을 선택해 주세요<small>둘 중 하나만 받을 수 있어요</small></h3>
+<div class="os-choice c2" id="osPdDc"></div>
+<div class="os-diff" id="osPdDiff"></div>
+</div>
+
+<div class="os-step">
 <h3>요금제를 선택해 주세요<small>요금제마다 공시지원금이 달라집니다</small></h3>
 <div class="os-choice c4" id="osPdPlans"></div>
 <p class="os-plan-note" id="osPdPlanNote"></p>
@@ -2511,12 +2636,6 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
 <p class="os-six-result" id="osSixResult"></p>
 <p class="os-six-warn">6개월 전에 요금제를 낮추면 지원금 차액이 청구될 수 있어요.</p>
 </div>
-</div>
-
-<div class="os-step">
-<h3>할인 방법을 선택해 주세요<small>둘 중 하나만 받을 수 있어요</small></h3>
-<div class="os-choice c2" id="osPdDc"></div>
-<div class="os-diff" id="osPdDiff"></div>
 </div>
 
 <div class="os-step">
@@ -2555,14 +2674,57 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
 </aside>
 </div>
 </div>
-<div class="os-mbar">
-<div class="os-mbar-price"><span id="osMbarLabel">할부원금</span><strong id="osMbarTotal">-</strong></div>
-<button type="button" class="os-btn os-btn-pink" data-apply>상담 신청</button>
+<div class="os-mbar hp-mbar">
+<div class="hp-mline" id="osMbarLine">-</div>
+<div class="hp-mbtns"><button type="button" class="hp-mb-kk" data-quote>카톡문의</button><button type="button" class="hp-mb-sv" data-qsave>견적 복사</button><button type="button" class="hp-mb-go" data-apply>주문 신청하기</button></div>
+</div>
+<div class="hp-carrier" id="osCarrier" hidden>
+<div class="hp-carrier-box">
+<button type="button" class="hp-carrier-x" data-cr="" aria-label="닫기"></button>
+<strong>지금 쓰고 계신 통신사를 골라주세요</strong>
+<p>통신사에 맞는 가격으로 바로 보여드려요</p>
+<div class="hp-carrier-grid">
+<button type="button" data-cr="SKT"><b>SKT</b><span>번호이동</span></button>
+<button type="button" data-cr="KT"><b>KT</b><span>번호이동</span></button>
+<button type="button" data-cr="LGU"><b>LG U+</b><span>기기변경</span></button>
+<button type="button" data-cr="MVNO"><b>알뜰폰</b><span>번호이동</span></button>
+</div>
+</div>
 </div>
 </div>
 </div>
 <div class="os-copied" id="osCopied"></div>
 
+
+<section id="reviews" class="rv-sec">
+<div class="os-inner">
+<div class="rv-head">
+<div><h2>고객 후기</h2><p>구매하신 고객님이 직접 남겨주신 후기를 그대로 옮겼어요</p></div>
+<div class="rv-nav"><button type="button" class="rv-arr" data-rv="-1" aria-label="이전 후기">‹</button><button type="button" class="rv-arr" data-rv="1" aria-label="다음 후기">›</button></div>
+</div>
+<ul class="rv-row" id="rvRow">
+<li class="rv-card"><div class="rv-img"><img src="reviews/r1.webp" alt="기기변경 후기 사진" loading="lazy" width="420" height="531"></div><div class="rv-b"><span class="rv-tag">기기변경</span><p class="rv-t">기기변경하면서 이것저것 질문이 많았는데 귀찮은 내색 없이 친절하게 응대해주셔서 감사했어요<br>복잡한 조건도 쉽게 풀어서 설명해주셔서 이해가 잘 됐고 기다리는 시간도 거의 없었어요<br>전체적으로 만족도 높은 방문이었어요 😊</p><div class="rv-who"><b>옥ra***</b><span>네이버 지도 리뷰</span></div></div></li>
+<li class="rv-card"><div class="rv-img"><img src="reviews/r5.webp" alt="아이폰17 후기 사진" loading="lazy" width="420" height="531"></div><div class="rv-b"><span class="rv-tag">아이폰17</span><p class="rv-t">신림역 근처 매장 방문해서 아이폰17 확인하고 바로 결정했어요. 친절하게 안내해 주셔서 구매 과정이 편했고, 제품도 깔끔하게 잘 받았습니다:)</p><div class="rv-who"><b>wv***</b><span>네이버 지도 리뷰</span></div></div></li>
+<li class="rv-card"><div class="rv-img"><img src="reviews/r3.webp" alt="갤럭시 S25 · 기기변경 후기 사진" loading="lazy" width="420" height="531"></div><div class="rv-b"><span class="rv-tag">갤럭시 S25 · 기기변경</span><p class="rv-t">s25로 기기변경 했습니다.<br>원하는 조건 말씀드리니 확실히 자급제보다 저렴하게 구매 했어요!</p><div class="rv-who"><b>re***</b><span>네이버 지도 리뷰</span></div></div></li>
+<li class="rv-card"><div class="rv-img"><img src="reviews/r7.webp" alt="신림역 매장 후기 사진" loading="lazy" width="420" height="531"></div><div class="rv-b"><span class="rv-tag">신림역 매장</span><p class="rv-t">신림역 근처 매장들 다 돌아다니며 견적받고 결정한 곳이 바로 여기입니다!ㅋㅋ 다른곳들보다 훨씬 저렴해서 만족합니다!</p><div class="rv-who"><b>아뵤***</b><span>네이버 지도 리뷰</span></div></div></li>
+<li class="rv-card"><div class="rv-img"><img src="reviews/r2.webp" alt="기기변경 후기 사진" loading="lazy" width="420" height="531"></div><div class="rv-b"><span class="rv-tag">기기변경</span><p class="rv-t">폰 바꾸는 게 항상 어렵게 느껴졌는데 여기서는 정말 편했어요<br>제 사용 패턴에 맞게 추천해주셔서 쓸데없는 요금 없이 딱 맞는 선택을 했고 데이터 옮기는 것도 깔끔하게 도와주셨어요<br>다음에 또 기기변경할 일 있으면 다시 올 것 같아요 ㅎㅎ</p><div class="rv-who"><b>da***</b><span>네이버 지도 리뷰</span></div></div></li>
+<li class="rv-card"><div class="rv-img"><img src="reviews/r9.webp" alt="아이폰17 후기 사진" loading="lazy" width="420" height="531"></div><div class="rv-b"><span class="rv-tag">아이폰17</span><p class="rv-t">신림역 주변 여러 곳 알아보다가 이곳이 가장 친절하고 설명이 깔끔해서 아이폰17로 선택하게 되었습니다:)<br>행사 조건이 잘 정리되어 있어 부담 없이 결정할 수 있었고, 전반적으로 만족스러운 방문이었습니다!!ㅎㅎ</p><div class="rv-who"><b>Ab***</b><span>네이버 지도 리뷰</span></div></div></li>
+<li class="rv-card"><div class="rv-img"><img src="reviews/r8.webp" alt="갤럭시 Z 폴드7 후기 사진" loading="lazy" width="420" height="531"></div><div class="rv-b"><span class="rv-tag">갤럭시 Z 폴드7</span><p class="rv-t">지인 소개로 방문했는데, 설명도 아주 잘 해주시고 무엇보다 친절해서 좋더라구요!<br>가격도 착하게 잘 산 것 같고, 혜택도 좋은 것 같아서 아주 마음에 들어요!^^</p><div class="rv-who"><b>yyy****</b><span>네이버 지도 리뷰</span></div></div></li>
+<li class="rv-card"><div class="rv-img"><img src="reviews/r4.webp" alt="신림역 매장 후기 사진" loading="lazy" width="420" height="531"></div><div class="rv-b"><span class="rv-tag">신림역 매장</span><p class="rv-t">오늘 신림역 매장에 폰 바꾸러 다녀왔어요!!<br>여기 저렴하게 잘 사고, 여러 혜택도 챙길 수 있어서 기분 좋았답니다.&gt;&lt;!!<br>직원분들이 친절하게 하나하나 설명해주셔서 고민 없이 선택할 수 있었고, 매장 분위기도 깔끔해서 편하게 구경하면서 결정했어요~</p><div class="rv-who"><b>TG***</b><span>네이버 지도 리뷰</span></div></div></li>
+<li class="rv-card"><div class="rv-img"><img src="reviews/r11.webp" alt="갤럭시 S25 엣지 후기 사진" loading="lazy" width="420" height="531"></div><div class="rv-b"><span class="rv-tag">갤럭시 S25 엣지</span><p class="rv-t">일요일에도 근무하시느라 고생 많으신데 너무 친절하게 설명해 주시고 아이폰만 썼었는데 맘에 쏙드는 삼성 핸드폰 추천해주셔서 삼성으로 갈아탔어요 오래하는 매장은 이유가 있네요 친절 굿 전문성 굿 100점입니다</p><div class="rv-who"><b>its****</b><span>네이버 지도 리뷰</span></div></div></li>
+<li class="rv-card"><div class="rv-img"><div class="rv-noimg">“</div></div><div class="rv-b"><span class="rv-tag">매장 방문</span><p class="rv-t">가까운매장을 선택해서 방문하고.<br>응대도 좋고..<br>저렴한가격으로 원하는 핸드폰을 구매해서<br>좋았습니다.<br>다른 가족들 변경할때도 또 이용하려구요.</p><div class="rv-who"><b>김*기</b><span>구매 고객 후기</span></div></div></li>
+<li class="rv-card"><div class="rv-img"><div class="rv-noimg">“</div></div><div class="rv-b"><span class="rv-tag">아이폰</span><p class="rv-t">매장 직원분이 데이터 이전을 깔끔하게 도와주셔서 걱정 없이 아이폰으로 바꿨는데 진짜 처음 켰을 때 속도 차이가 확 느껴지더라구요!!!화면 색감이 더 선명해서 사진 볼 때마다 기분이 좋아지고 스피커 음질도 깨끗해서 영상 볼 맛이 났어요!!!오랜만에 기기 바꾸니까 새출발한 느낌이라 괜히 설레네요 ㅎㅎ</p><div class="rv-who"><b>135만***</b><span>네이버 지도 리뷰</span></div></div></li>
+<li class="rv-card"><div class="rv-img"><div class="rv-noimg">“</div></div><div class="rv-b"><span class="rv-tag">온라인 구매</span><p class="rv-t">오프라인으로 저렴하다라는 어떤곳보다도 더 저렴하게 구입할 수 있었습니다<br><br>상담원분들도 친절하고, 절차도 간단해서 편리했네요.<br>또 이용할 의사 있습니다</p><div class="rv-who"><b>이*희</b><span>구매 고객 후기</span></div></div></li>
+<li class="rv-card"><div class="rv-img"><img src="reviews/r6.webp" alt="아이폰 후기 사진" loading="lazy" width="420" height="531"></div><div class="rv-b"><span class="rv-tag">아이폰</span><p class="rv-t">상담도 너무 친절하고 조건도 자세하게 알려주셨어요<br>완전 만족! 감사합니다! ㅎㅎ</p><div class="rv-who"><b>sk***</b><span>네이버 지도 리뷰</span></div></div></li>
+<li class="rv-card"><div class="rv-img"><div class="rv-noimg">“</div></div><div class="rv-b"><span class="rv-tag">당일 배송</span><p class="rv-t">바로 당날 배송 도와주시고 빠른 개통 해주셨어요<br>상담도 너무 친절하게 응답해주셔서 좋았습니다<br>깔끔하니 조건 그대로 개통 해줬어요<br>믿을만한 대리점 같습니다</p><div class="rv-who"><b>주*경</b><span>구매 고객 후기</span></div></div></li>
+<li class="rv-card"><div class="rv-img"><img src="reviews/r10.webp" alt="자녀 폰 후기 사진" loading="lazy" width="420" height="531"></div><div class="rv-b"><span class="rv-tag">자녀 폰</span><p class="rv-t">자녀 핸드폰 바꾸러왔습니다.<br><br>직원분이 너무 친절하고 대기석도 많고<br>분위기도 좋고 너무 깔끔해서 완전 강추!!</p><div class="rv-who"><b>밤꼬**</b><span>네이버 지도 리뷰</span></div></div></li>
+<li class="rv-card"><div class="rv-img"><div class="rv-noimg">“</div></div><div class="rv-b"><span class="rv-tag">구매 상담</span><p class="rv-t">설명도 자세했고 친절했어요<br>구매하면서 혹시나 설마 이런 의문들이 들었는데 그 의문마저 믿음으로 바꿔주셨어요<br>상담사님 감사합니다<br><br>다음에도 구매하게된다면<br>이용하고 싶습니다^^</p><div class="rv-who"><b>강*현</b><span>구매 고객 후기</span></div></div></li>
+<li class="rv-card"><div class="rv-img"><img src="reviews/r14.webp" alt="약정 만료 후기 사진" loading="lazy" width="420" height="531"></div><div class="rv-b"><span class="rv-tag">약정 만료</span><p class="rv-t">약정이 끝나서 전화가 왔어요, 요금도 낮추고 덕분에 핸드폰도 잘 바꿨어요 외국인 이라 잘 모르는데 잘 친절하게 설명 해주셔서 너무 감사합니다</p><div class="rv-who"><b>l12****</b><span>네이버 지도 리뷰</span></div></div></li>
+<li class="rv-card"><div class="rv-img"><img src="reviews/r13.webp" alt="아이폰16 후기 사진" loading="lazy" width="420" height="531"></div><div class="rv-b"><span class="rv-tag">아이폰16</span><p class="rv-t">친절하고 자세하게 설명해주셨습니다.<br>잘 사용하겠습니다!</p><div class="rv-who"><b>to***</b><span>네이버 지도 리뷰</span></div></div></li>
+<li class="rv-card"><div class="rv-img"><div class="rv-noimg">“</div></div><div class="rv-b"><span class="rv-tag">배송</span><p class="rv-t">배송 이틀만에 받았어요<br>진행도 빠르게 됐고 설명도 친절하게 해주셨고<br>개통도 전화거니까 금방 되네요<br>지원금도 많아서 저렴하게 잘 구매한 것 같습니다 다음에 바꿀 때도 이용하고 싶어요</p><div class="rv-who"><b>윤*성</b><span>구매 고객 후기</span></div></div></li>
+</ul>
+</div>
+</section>
 
 <section id="how" class="st-sec st-how">
 <div class="os-inner">
@@ -2706,25 +2868,7 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
 </div>
 <svg class="trust-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#E6007E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="7 13 12 18 17 13"></polyline><polyline points="7 6 12 11 17 6"></polyline></svg>
 <div class="trust-text-main">더 이상 <span class="highlight">비교</span>에 지치지 마세요.</div>
-<div class="trust-text-sub">출고가부터 지원금, 할부원금까지 전부 공개합니다.<br>실제 고객님들의 후기를 확인해 보세요.</div>
-<div class="review-slider-wrap">
-<div class="review-track-container">
-<div class="review-slide-set">
-<div class="review-card"><img src="review1.png" alt="LGU+더끌림컴퍼니 고객 후기 1"></div>
-<div class="review-card"><img src="review2.png" alt="LGU+더끌림컴퍼니 고객 후기 2"></div>
-<div class="review-card"><img src="review3.png" alt="LGU+더끌림컴퍼니 고객 후기 3"></div>
-<div class="review-card"><img src="review4.png" alt="LGU+더끌림컴퍼니 고객 후기 4"></div>
-<div class="review-card"><img src="review5.png" alt="LGU+더끌림컴퍼니 고객 후기 5"></div>
-</div>
-<div class="review-slide-set">
-<div class="review-card"><img src="review1.png" alt=""></div>
-<div class="review-card"><img src="review2.png" alt=""></div>
-<div class="review-card"><img src="review3.png" alt=""></div>
-<div class="review-card"><img src="review4.png" alt=""></div>
-<div class="review-card"><img src="review5.png" alt=""></div>
-</div>
-</div>
-</div>
+<div class="trust-text-sub">출고가부터 지원금, 할부원금까지 전부 공개합니다.</div>
 </section>
 
 <section id="faq" class="faq-section">
@@ -2926,8 +3070,8 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
 </div>
 
 <div class="bottom-cta-bar">
-<a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" rel="noopener" class="bottom-cta-btn btn-bar-kakao" data-kakao><span style="font-size:20px">💬</span> 카톡 상담</a>
-<a href="#phones" class="bottom-cta-btn btn-bar-phone"><span style="font-size:20px">📱</span> 가격 보고 신청</a>
+<a href="tel:070-4007-7776" class="bottom-cta-btn hp-bar-call" data-call>📞 전화</a>
+<a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" rel="noopener" class="bottom-cta-btn btn-bar-kakao" data-kakao>💬 카톡</a>
 </div>
 
 <div class="ap" id="apSheet" aria-hidden="true"></div>
@@ -3125,84 +3269,59 @@ var OS_DATA={"models":[{"id":"duo","name":"iPhone Duo","maker":"apple","img":"ip
 
     function isPriced(m) { return m.caps.some(function (c) { return c.retail > 0; }); }
 
+    var GROUPS = [['아이폰18', ['duo', 'ip18pr', 'ip18pm']], ['갤럭시 Z폴더블', ['flip8', 'fold8w', 'fold8u']], ['갤럭시 S26', ['s26', 's26p', 's26u']], ['아이폰17', ['ip17', 'ip17pr', 'ip17pm']], ['아이폰16', ['ip16pr', 'ip16pm']]];
+
+    // 11/16 유플핫픽 구조: 카드에 번호이동·기기변경 할부원금을 같이 (할인율 + 출고가 줄긋기)
     function cardHtml(m) {
         var allSold = m.caps.every(function (c) { return c.sold; });
         var cap = firstCap(m);
-        var h = '<article class="os-card' + (allSold ? ' is-soldout' : '') + '" data-id="' + m.id + '">';
-        var badges = m.badges.slice();
-        if (allSold) badges = [['out', '일시품절']];
-        var q = null;
-        var priced = isPriced(m);   // 아이폰 듀오: 10/17 출고가·공시 반영
-        if (priced && !allSold) {
-            q = quote(m, cap, st.type, st.plan, st.dc, 24);
-            if (q.r.prin === 0) badges.push(['zero', '할부원금 0원']);
-        }
-        h += '<div class="os-badges">' + badgeHtml(badges) + '</div>';
-        h += '<div class="os-card-img"><img src="' + m.img + '" alt="' + m.name + ' LG유플러스 ' + TYPE_NM[st.type] + ' 가격"></div>';
+        var priced = isPriced(m);
+        var h = '<article class="os-card hp-card' + (allSold ? ' is-soldout' : '') + '" data-id="' + m.id + '">';
+        h += '<span class="hp-maker">' + (m.maker === 'apple' ? '애플' : '삼성') + '</span>';
+        if (m.badges.some(function (b) { return b[0] === 'new'; })) h += '<span class="hp-new">NEW</span>';
+        h += '<div class="os-card-img"><img src="' + m.img + '" alt="' + m.name + ' LG유플러스 번호이동·기기변경 가격" loading="lazy"></div>';
         h += '<h3 class="os-card-name">' + m.name + '</h3>';
         h += '<div class="os-caps">' + capsHtml(m, cap) + '</div>';
-
-        if (m.pre && !priced) {
-            h += '<div class="os-pre-box"><strong>사전예약 진행 중 · 최대 95만원 즉시 할인</strong>' +
-                '<span>번호이동 115요금제 기준(공시 45만 + 대리점 50만) · 10월 23일(금) 출시</span>' +
-                '<span>출고가·공시지원금은 출시 공시 후 반영됩니다</span></div>';
-            h += '<div class="os-card-btns"><a class="os-btn os-btn-pink" href="earlybird/ipduo/#apply">사전예약 신청</a></div>';
-        } else if (allSold) {
-            h += '<div class="os-pre-box"><strong>현재 전 용량 품절</strong><span>입고 일정은 상담으로 안내해 드립니다</span></div>';
-            h += '<div class="os-card-btns"><a class="os-btn os-btn-line" href="' + KAKAO + '" target="_blank">입고 문의</a></div>';
-        } else {
-            var r = q.r;
-            var off = q.retail ? Math.round((q.retail - r.prin) / q.retail * 100) : 0;
-            var dcAmt = (r.kind === 'sub' ? r.subUsed : 0) + r.agUsed;
-            // 10/17 가격 계산 순서대로 표시: 출고가 → 지원금 차감 → 할부원금 → 월 납부
-            h += '<div class="os-total">' +
-                '<dl class="os-calc">' +
-                '<div><dt>출고가</dt><dd>' + won(q.retail) + '원</dd></div>' +
-                (r.kind === 'sub'
-                    ? '<div><dt>공시지원금</dt><dd class="dc">-' + won(r.subUsed) + '원</dd></div>'
-                    : '<div><dt>선택약정 <small>요금 25%</small></dt><dd class="dc">월 -' + won(r.sel) + '원</dd></div>') +
-                (r.agUsed
-                    ? '<div><dt>대리점 지원금</dt><dd class="dc">-' + won(r.agUsed) + '원</dd></div>'
-                    : '<div><dt>대리점 지원금</dt><dd class="na">85,000원↑ 요금제</dd></div>') +
-                '</dl>' +
-                '<div class="os-total-prin"><span>할부원금' + (off > 0 ? ' <i class="os-off">' + off + '% 할인</i>' : '') + '</span>' +
-                '<strong>' + won(r.prin) + '<small>원</small></strong></div>' +
-                '<div class="os-total-month"><span>월 예상 납부 <small>24개월</small><em>기기 ' + won(r.devM) + ' + 요금 ' + won(r.planM) + '</em></span><b>' + won(r.total) + '원</b></div>' +
-                '</div>';
-            // 모바일 전용 요약 (10/15 모바일 스크롤 축소)
-            h += '<div class="os-msum">' +
-                '<div class="os-msum-price"><span>할부원금</span><strong>' + won(r.prin) + '<small>원</small></strong></div>' +
-                '<div class="os-msum-retail">출고가 <s>' + won(q.retail) + '원</s>' + (off > 0 ? '<i class="os-off">' + off + '% 할인</i>' : '') + '</div>' +
-                '<div class="os-msum-dc">' + (r.kind === 'sub'
-                    ? '<span>공시 <b>-' + won(r.subUsed) + '</b></span>'
-                    : '<span>선약 월 <b>-' + won(r.sel) + '</b></span>') +
-                (r.agUsed ? '<span>대리점 <b>-' + won(r.agUsed) + '</b></span>' : '<span>대리점 85,000원↑ 요금제</span>') + '</div>' +
-                '<div class="os-msum-prin">월 예상 <b>' + won(r.total) + '원</b><em>24개월 · 기기 ' + won(r.devM) + ' + 요금 ' + won(r.planM) + '</em></div>' + '<i class="os-msum-go" aria-hidden="true"></i>' +
-                '</div>';
-            if (m.pre) {
-                h += '<div class="os-pre-box"><strong>사전예약 진행 중 · 10월 23일(금) 출시</strong>' +
-                    '<span>위 가격은 사전예약 즉시 할인(대리점 지원금)이 들어간 금액입니다</span></div>';
-                // 10/17 사전예약도 다른 기종처럼 견적 확인 창 → 신청 (파트너스로 접수)
-                h += '<div class="os-card-btns"><button type="button" class="os-btn os-btn-pink" data-open>사전예약 신청</button></div>';
-            } else {
-                h += '<div class="os-card-btns m-hide"><button type="button" class="os-btn os-btn-pink" data-open>신청하기</button></div>';
-            }
+        if (allSold || !priced) {
+            h += '<div class="hp-soldout">' + (allSold ? '일시품절' : '출시 예정') + '</div>';
+            h += '<a class="hp-go line" href="' + KAKAO + '" target="_blank" rel="noopener" data-kakao>입고 문의</a>';
+            return h + '</article>';
         }
+        ['2', '1'].forEach(function (t) {
+            var q = quote(m, cap, t, st.plan, st.dc, 24);
+            var off = q.retail ? Math.round((q.retail - q.r.prin) / q.retail * 100) : 0;
+            h += '<button type="button" class="hp-pr' + (t === '2' ? ' mnp' : '') + '" data-t="' + t + '">' +
+                '<span class="hp-pr-t">' + TYPE_NM[t] + (off > 0 ? '<i>' + off + '%</i>' : '') + '</span>' +
+                '<b>' + won(q.r.prin) + '원</b><s>' + won(q.retail) + '</s></button>';
+        });
+        h += '<button type="button" class="hp-go" data-open>주문 신청하기</button>';
         return h + '</article>';
     }
 
     function renderList() {
         var list = D.models.filter(function (m) { return st.maker === 'all' || m.maker === st.maker; });
-        $('osGrid').innerHTML = list.map(cardHtml).join('');
+        var used = {};
+        var groups = GROUPS.map(function (g) {
+            var ms = g[1].map(function (id) { return modelMap[id]; }).filter(function (m) { return m && list.indexOf(m) >= 0; });
+            ms.forEach(function (m) { used[m.id] = 1; });
+            return [g[0], ms];
+        });
+        var rest = list.filter(function (m) { return !used[m.id]; });
+        if (rest.length) groups.push(['다른 모델', rest]);
+        $('osGrid').innerHTML = groups.filter(function (g) { return g[1].length; }).map(function (g) {
+            return '<div class="hp-group"><h2 class="hp-gh">' + g[0] + '<small>' + g[1].length + '개</small></h2>' +
+                '<div class="hp-row">' + g[1].map(cardHtml).join('') + '</div></div>';
+        }).join('');
         $('osCount').textContent = list.length;
         var p = planMap[st.plan];
         var dcNm = { sub: '공시지원금', sel: '선택약정' }[st.dc];
-        $('osCond').innerHTML = '<em>' + TYPE_NM[st.type] + '</em> · <em>' + p.name + '</em> · <em>' + dcNm + '</em>';
+        $('osCond').innerHTML = '<em>' + p.name + '(월 ' + won(p.fee) + '원)</em> · <em>' + dcNm + '</em> · <em>24개월 할부</em> · <em>6개월 유지</em>';
     }
 
     function refreshList() {
         renderList();
-        fetchSubsidy(st.type, st.plan, renderList);
+        fetchSubsidy('2', st.plan, renderList);
+        fetchSubsidy('1', st.plan, renderList);
     }
 
     /* ---------- 요금제 셀렉트 ---------- */
@@ -3237,6 +3356,8 @@ var OS_DATA={"models":[{"id":"duo","name":"iPhone Duo","maker":"apple","img":"ip
         // 11/11 17 Pro 광고 링크(utm + 번호이동)로 들어오면 간편칸을 SKT·KT·알뜰폰만 → 광고에 보인 가격 그대로 신청
         pd.mnp = o.auto && o.utm_source && id === 'ip17pr' && pd.type === '2' ? 1 : 0;
         quickMode();
+        // 11/16 유플핫픽처럼 주문 신청하기로 열면 통신사부터 묻기 (광고 링크·가격 칸을 눌러 들어오면 묻지 않음)
+        $('osCarrier').hidden = !o.ask;
         $('osPd').querySelector('.os-pd-body').scrollTop = 0;
         if (typeof fbq === 'function') fbq('trackCustom', 'QuoteOpen', { model: id, auto: pd.auto });
     }
@@ -3344,12 +3465,11 @@ var OS_DATA={"models":[{"id":"duo","name":"iPhone Duo","maker":"apple","img":"ip
         $('osSumTotal2').innerHTML = six ? '<span>7개월째부터</span><b>월 ' + won(r.total2) + '원</b>'
             : low ? '<span>7개월째부터<small>월 ' + won(q.planC.fee) + '원 요금제로 바꾸면</small></span><b>월 ' + won(r.totalC) + '원</b>' : '';
         $('osSumTotal2').style.display = six || low ? '' : 'none';
-        $('osMbarTotal').innerHTML = won(r.prin) + '원';
+        $('osMbarLine').innerHTML = '할부금 <b>' + won(r.devM) + '원</b> + 통신료 <b>' + won(r.planM) + '원</b> = <span>월납부금 <strong>' + won(r.total) + '원</strong></span>';
         $('osQuickP').innerHTML = '<span class="os-quick-m">' +
             (six || low ? '1~6개월 월 <b>' + won(r.total) + '원</b> → 7개월째부터 월 <b>' + won(six ? r.total2 : r.totalC) + '원</b>' : '월 <b>' + won(r.total) + '원</b>') +
             '</span>' + m.name + ' ' + pd.cap + ' · ' + TYPE_NM[pd.type] + ' · ' + q.plan.name + '<br>할부원금 ' + won(r.prin) + '원 · 요금제 포함 월 납부액';
         quickHint();
-        $('osMbarLabel').textContent = (dcSum ? won(dcSum) + '원 할인 · ' : '') + '할부원금';
         $('osSumDevT').textContent = '휴대폰 ' + (pd.n ? pd.n + '개월 할부' : '일시불');
         $('osSumDevM').textContent = pd.n ? '월 ' + won(r.devM) + '원' : '일시불 ' + won(r.prin) + '원';
         $('osSumRetail').textContent = won(q.retail) + '원';
@@ -3419,7 +3539,7 @@ var OS_DATA={"models":[{"id":"duo","name":"iPhone Duo","maker":"apple","img":"ip
             plan2Name: q.plan2 ? q.plan2.name : '', six: !!q.plan2,
             dc: pd.dc, n: pd.n, retail: q.retail, sub: r.subUsed, ag: r.agUsed, price: r.prin, pre: m.pre ? (PRE_DATE[m.id] || '출시') : '',
             fee: r.fee, devM: r.devM, sel: r.sel, planM: r.planM, total: r.total, total2: r.total2,
-            quoteText: quoteText()
+            quoteText: quoteText(), cur: pd.qcur || ''
         };
     }
 
@@ -3576,13 +3696,33 @@ var OS_DATA={"models":[{"id":"duo","name":"iPhone Duo","maker":"apple","img":"ip
             if (e.target.closest('a')) return;
             var m = modelMap[card.dataset.id];
             if ((m.pre && !isPriced(m)) || card.classList.contains('is-soldout')) return;
-            openPd(card.dataset.id);
+            var pr = e.target.closest('[data-t]');
+            if (pr) { openPd(card.dataset.id, { type: pr.dataset.t }); return; }
+            openPd(card.dataset.id, { ask: 1 });
         });
 
         var pdEl = $('osPd');
         pdEl.addEventListener('click', function (e) {
             if (e.target === pdEl || e.target.closest('[data-close]')) { closePd(); return; }
             if (e.target.closest('[data-quote]')) { sendQuote(); return; }
+            var cr = e.target.closest('[data-cr]');
+            if (cr) {
+                $('osCarrier').hidden = true;
+                var v0 = cr.dataset.cr;
+                if (!v0) return;
+                pd.qcur = v0;
+                [].forEach.call($('osQuickCur').children, function (b) { b.classList.toggle('on', b.dataset.qc === v0); });
+                if (typeof fbq === 'function') fbq('trackCustom', 'CarrierPick', { model: pd.id, cur: v0 });
+                var want0 = v0 === 'LGU' ? '1' : '2';
+                if (pd.type !== want0) { pd.type = want0; pd.dc = null; renderPd(); fetchSubsidy(pd.type, pd.plan, renderPd); }
+                quickHint();
+                return;
+            }
+            if (e.target.closest('[data-qsave]')) {
+                window.OS_SHOP.copy(quoteText(), function (ok) { toast(ok ? '견적을 복사했어요. 카톡·문자에 붙여넣어 보관하세요.' : '복사가 안 돼요. 화면을 캡처해 주세요.'); });
+                if (typeof fbq === 'function') fbq('trackCustom', 'QuoteSave', { model: pd.id });
+                return;
+            }
             if (e.target.closest('[data-qlgu]')) {
                 pd.mnp = 0; quickMode();
                 if (typeof fbq === 'function') fbq('trackCustom', 'QuickLgu', { model: pd.id });
@@ -4133,8 +4273,11 @@ window.SITE_STORES=[{"name":"신림점","region":"서울","addr":"서울특별�
             if (!ctx) return;
             st = { ctx: ctx, step: '', cur: '', method: preStore ? 'visit' : '', store: preStore, date: preStore ? days()[0].v : '', name: '', phone: '', color: '', a1: false, a2: false, tk: {} };
             // 지금 견적의 가입 유형으로 통신사를 미리 짐작 (기기변경 → LG U+)
-            if (ctx.type === '1') st.cur = 'LGU';
-            show(); vCur();
+            if (ctx.cur) st.cur = ctx.cur;
+            else if (ctx.type === '1') st.cur = 'LGU';
+            show();
+            // 견적창에서 통신사를 이미 골랐으면 통신사 단계 건너뜀 (11/16)
+            if (ctx.cur && typeOk()) { step('ApplyStart'); vMethod(); } else vCur();
         },
         // 견적창 첫 화면 간편 상담 (11/7): 받는 방법은 택배로 넣고 전화 상담 때 바꿈, src 끝에 #quick
         quick: function (ctx, cur, name, ph, btn) {
@@ -4248,6 +4391,17 @@ window.SITE_STORES=[{"name":"신림점","region":"서울","addr":"서울특별�
         }, { rootMargin: '-45% 0px -50% 0px' });
         links.forEach(function (a) { var s = document.querySelector(a.getAttribute('href')); if (s) io.observe(s); });
     }
+})();
+</script>
+
+<script>
+/* 고객 후기 넘기기·펼치기 (11/16) */
+(function () {
+    var row = document.getElementById('rvRow'); if (!row) return;
+    document.querySelectorAll('[data-rv]').forEach(function (b) {
+        b.addEventListener('click', function () { row.scrollBy({ left: Number(b.dataset.rv) * row.clientWidth, behavior: 'smooth' }); });
+    });
+    row.addEventListener('click', function (e) { var c = e.target.closest('.rv-card'); if (c) c.classList.toggle('open'); });
 })();
 </script>
 </body>
