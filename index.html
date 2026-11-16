@@ -2515,6 +2515,11 @@ body.ap-lock .fab-container, body.ap-lock .bottom-cta-bar { display: none !impor
 }
 
 /* 11/16 07·08년생 배너 1장 */
+.os-ystrip { display: flex; align-items: center; gap: 10px; margin: 0 0 16px; padding: 12px 16px; border: 1px solid #ffd0e6; border-radius: 12px; background: #fff7fb; font-size: 15px; color: #16181d; line-height: 1.4; word-break: keep-all; }
+.os-ystrip > span:first-child { font-size: 20px; flex: none; }
+.os-ystrip b { color: #E6007E; }
+.os-ystrip small { display: block; font-size: 12.5px; color: #6b7684; }
+@media (max-width: 575px) { .os-ystrip { font-size: 13.5px; padding: 10px 12px; margin: 0 0 12px; } }
 .yb-hero { background: linear-gradient(115deg, #fff3f9 0%, #ffe3f0 55%, #ffcfe5 100%) !important; }
 .yb-in { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 40px 24px; min-height: 300px; cursor: pointer; position: relative; line-height: normal; }
 .yb-in:focus-visible { outline: 3px solid #E6007E; outline-offset: -3px; }
@@ -2974,10 +2979,10 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
 <section class="ip18-hero yb-hero" aria-label="07·08년생 20만원 추가 할인">
 <div class="yb-in" data-youth-go role="button" tabindex="0">
 <div class="yb-txt">
-<span class="yb-badge">2007·2008년생 한정</span>
+<span class="yb-badge">2007·2008년생 · 전 기종</span>
 <h2 class="yb-h"><em>20만원</em><br>추가 할인</h2>
-<p class="yb-s">공시지원금·대리점 지원금 받고<br class="yb-m"> <b>20만원 더</b> 빼드려요</p>
-<span class="yb-go">할인 받는 기종 보기 <span aria-hidden="true">→</span></span>
+<p class="yb-s">아이폰·갤럭시 <b>전 기종</b><br class="yb-m"> 지원금 받고 <b>20만원 더</b> 빼드려요</p>
+<span class="yb-go">전 기종 가격 보기 <span aria-hidden="true">→</span></span>
 <p class="yb-fine">본인 명의 개통 · 개통 때 신분증으로 출생연도 확인 · 만 19세 미만은 법정대리인(부모님) 동의 필요</p>
 </div>
 <div class="yb-img" aria-hidden="true"><img src="zflip8.png" alt=""><img src="ip18pro.png" alt=""><img src="s26.png" alt=""></div>
@@ -3007,6 +3012,7 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
 <button type="button" data-maker="samsung">삼성</button>
 <button type="button" data-maker="apple">애플</button>
 </div>
+<p class="os-ystrip" id="osYstrip"><span aria-hidden="true">🎁</span><span>2007·2008년생은 <b>모든 기종</b> 할부원금에서 <b>20만원 더</b> 빠져요<small>신청할 때 출생연도만 고르면 돼요</small></span></p>
 <div class="os-layout">
 <aside class="os-filter" aria-label="가격 조건">
 <div class="os-fgroup os-f-type">
@@ -4438,8 +4444,8 @@ var OS_DATA={"models":[{"id":"duo","name":"iPhone Duo","maker":"apple","img":"ip
             var g = e.target.closest('[data-youth-go]');
             if (g) {
                 if (typeof fbq === 'function') fbq('trackCustom', 'YouthBanner');
-                var ph = document.getElementById('phones');
-                if (ph) ph.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                var ph = document.getElementById('osYstrip') || document.getElementById('phones');
+                if (ph) ph.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 return;
             }
             var cb = e.target.closest('[data-cmp]');
