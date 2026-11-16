@@ -2376,6 +2376,257 @@ body.ap-lock .fab-container, body.ap-lock .bottom-cta-bar { display: none !impor
     .hp-mb-go { background: var(--os-pink); color: #fff; }
     .os-pd-body { padding-bottom: 130px !important; }
 }
+/* ===== 11/16 유플핫픽 pcard 그대로 (실측: 사이드 필터 없음 · PC 4열/태블릿·폰 3열 · U+ 가격 상자 · 기본 115요금제) ===== */
+.os-shop .os-filter, .os-shop .os-list-head, .os-shop .os-notice { display: none !important; }
+.os-shop .os-layout { display: block; }
+.pc-top-bar { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin: 4px 0 15px; }
+.pc-cond { margin: 0; font-size: 13px; color: #8b95a1; line-height: 1.45; }
+.pc-view { display: flex; gap: 4px; flex: none; }
+.pc-view button { width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; border: 1px solid #dee2e6; background: #fff; border-radius: 8px; color: #999; cursor: pointer; }
+.pc-view button.on { background: #e91e63; border-color: #e91e63; color: #fff; }
+.hp-gh { padding-bottom: 12px; border-bottom: 2px solid #e9ecef; margin-bottom: 20px !important; }
+.hp-gh::before { top: calc(50% - 6px); }
+.hp-group + .hp-group { margin-top: 40px; }
+.hp-row.pc-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; }
+.os-card.pcard { position: relative; display: flex; flex-direction: column; height: 100%; padding: 0; background: #fff; border: 1px solid #eceef1; border-radius: 14px; text-align: left; cursor: default; transition: border-color .25s, box-shadow .3s, transform .3s cubic-bezier(.2,.8,.2,1); grid-template-areas: none; }
+@media (hover: hover) and (pointer: fine) {
+  .os-card.pcard:hover { transform: translateY(-6px); border-color: #f6d4e4; box-shadow: rgba(233,30,99,.12) 0 14px 32px, rgba(23,23,28,.05) 0 4px 10px; }
+  .os-card.pcard.is-open, .os-card.pcard.is-open:hover { transform: none; }
+  .pcard .pc-img { transition: transform .45s cubic-bezier(.2,.8,.2,1); }
+  .pcard:hover .pc-img { transform: translateY(-6px) scale(1.07); }
+  .pcard:hover .pc-name { color: #e91e63; }
+  .pc-thumb::after { content: "자세히 보기 →"; position: absolute; left: 50%; bottom: 10px; padding: 4px 12px; border-radius: 999px; background: rgba(23,23,28,.82); color: #fff; font-size: 11.5px; font-weight: 600; white-space: nowrap; opacity: 0; transform: translate(-50%, 8px); transition: opacity .25s, transform .3s; pointer-events: none; z-index: 2; }
+  .pcard:hover .pc-thumb::after { opacity: 1; transform: translate(-50%, 0); }
+}
+.os-card.pcard.is-open { z-index: 30; }
+.pc-thumb { position: relative; display: flex; align-items: center; justify-content: center; aspect-ratio: 4 / 3; padding: 14px; background: #fff; border-radius: 13px 13px 0 0; overflow: hidden; cursor: pointer; }
+.pc-img { max-width: 100%; max-height: 100%; width: auto; object-fit: contain; mix-blend-mode: multiply; }
+.pc-mfr { position: absolute; z-index: 2; top: 8px; left: 8px; padding: 2px 7px; border-radius: 5px; font-size: 9.6px; font-weight: 700; line-height: 1.5; background: rgba(245,246,248,.92); color: #4b5563; }
+.pc-name { margin: 0; padding: 12px 12px 0; font-size: 14.7px; font-weight: 700; line-height: 1.35; color: #17171c; text-align: center !important; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; cursor: pointer; letter-spacing: -0.02em; }
+.pc-chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px; padding: 8px 12px 0; }
+.pcard .os-cap.pc-chip { height: auto; min-width: 0; padding: 2px 7px; border: 1px solid #eceef1; border-radius: 5px; font-family: inherit; font-size: 10px; font-weight: 600; color: #4b5563; background: #fff; line-height: 1.5; cursor: pointer; }
+.pcard .os-cap.pc-chip.on { border-color: #e6007e; background: #f5f6f8; color: #e6007e; }
+.pcard .os-cap.pc-chip:disabled { color: #c3c8cf; cursor: default; }
+.pc-body { display: flex; flex-direction: column; margin-top: auto; }
+.pc-offers { display: flex; flex-direction: column; gap: 7px; padding: 12px; }
+.pc-offer { position: relative; border: 1px solid #eceef1; border-radius: 10px; }
+.pc-offer.is-mnp { border-color: #f4d3e5; }
+.pc-offer-btn { position: relative; display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: 9px; width: 100%; padding: 9px 22px 9px 9px; border: 0; background: transparent; text-align: left; cursor: pointer; font-family: inherit; color: inherit; }
+.pc-telco { display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 9px; background: #f5f6f8; color: #98a2ad; font-size: 13px; font-weight: 800; letter-spacing: -0.02em; }
+.pc-telco sup { font-size: .6em; top: -.4em; position: relative; vertical-align: baseline; }
+.is-mnp .pc-telco { background: #fdeff6; color: #e6007e; }
+.pc-main { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
+.pc-top { display: flex; align-items: baseline; justify-content: space-between; gap: 6px; }
+.pc-label { flex: 1 1 auto; min-width: 0; font-size: 10.6px; color: #8b95a1; line-height: 1.4; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.pc-tn::after { content: " / "; }
+.pc-jt { font-weight: 700; color: #4b5563; }
+.is-mnp .pc-jt { color: #e6007e; }
+.pc-rate { flex: 0 0 auto; font-size: 11.5px; font-weight: 800; color: #e6007e; line-height: 1.4; }
+.pc-final { display: block; font-size: 14.7px; font-weight: 800; color: #17171c; line-height: 1.35; white-space: nowrap; font-variant-numeric: tabular-nums; letter-spacing: -0.02em; }
+.pc-msrp { font-size: 10.2px; color: #b6bec7; text-decoration: line-through; line-height: 1.4; }
+.pc-caret { position: absolute; top: 50%; right: 8px; color: #8b95a1; transform: translateY(-50%); transition: transform .2s; }
+.pc-offer-btn[aria-expanded="true"] .pc-caret { transform: translateY(-50%) rotate(180deg); }
+.pc-plain { padding: 18px 10px; border: 1px solid #eceef1; border-radius: 10px; text-align: center; font-size: 13px; font-weight: 700; color: #8b95a1; }
+.pc-detail { position: absolute; top: calc(100% + 6px); right: -1px; left: -1px; z-index: 5; background: #fff; border: 1px solid #eceef1; border-radius: 12px; box-shadow: rgba(23,23,28,.18) 0 12px 32px; }
+.pc-detail[hidden] { display: none; }
+.pc-detail::before { content: ""; position: absolute; top: -5px; left: 22px; width: 9px; height: 9px; background: #fff; border-top: 1px solid #eceef1; border-left: 1px solid #eceef1; transform: rotate(45deg); }
+.pc-detail-in { position: relative; padding: 12px; }
+.pc-drow { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; padding: 2px 0; font-size: 11.2px; }
+.pc-drow.is-head { padding-bottom: 5px; font-size: 12.2px; }
+.pc-drow.has-divider { margin-top: 8px; padding-top: 9px; border-top: 1px solid #eceef1; }
+.pc-dname { color: #8b95a1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pc-drow.is-head .pc-dname { color: #17171c; font-weight: 700; }
+.pc-dval { color: #4b5563; white-space: nowrap; }
+.pc-dval.is-minus { color: #e6007e; }
+.pc-dsum { font-weight: 800; color: #17171c; white-space: nowrap; }
+.pc-tag { display: inline-block; margin-left: 2px; padding: 1px 5px; border-radius: 4px; background: #f5f6f8; color: #8b95a1; font-size: 9.6px; font-weight: 700; vertical-align: middle; }
+.pc-dnote { margin: 7px 0 0; font-size: 10px; color: #8b95a1; line-height: 1.45; }
+.pc-order { display: flex; align-items: center; justify-content: center; gap: 5px; margin: 0 12px 12px; padding: 9px; border: 0; border-radius: 9px; background: #e6007e; color: #fff; font-family: inherit; font-size: 11.8px; font-weight: 700; text-align: center; text-decoration: none; cursor: pointer; }
+.pc-order:hover { opacity: .9; color: #fff; }
+.pc-order.line { background: #fff; color: #e6007e; border: 1px solid #e6007e; }
+/* 목록 보기 */
+#osGrid.list-view .hp-row.pc-grid { grid-template-columns: 1fr; gap: 12px; }
+#osGrid.list-view .os-card.pcard { display: grid; grid-template-columns: 170px minmax(0, 1fr); grid-template-areas: "head name" "head chips" "head body"; align-content: start; column-gap: 14px; padding: 12px; }
+#osGrid.list-view .pc-thumb { grid-area: head; aspect-ratio: 1 / 1; border-radius: 10px; align-self: start; }
+#osGrid.list-view .pc-name { grid-area: name; text-align: left !important; padding: 0 0 2px; }
+#osGrid.list-view .pc-chips { grid-area: chips; justify-content: flex-start; padding: 6px 0 0; }
+#osGrid.list-view .pc-body { grid-area: body; }
+#osGrid.list-view .pc-offers { flex-flow: row wrap; padding: 10px 0 0; }
+#osGrid.list-view .pc-offer { flex: 1 1 250px; }
+#osGrid.list-view .pc-order { margin: 8px 0 0; }
+/* 폰 시트 */
+.pc-sheet { position: fixed; inset: 0; z-index: 10060; background: rgba(0,0,0,.45); display: flex; align-items: flex-end; }
+.pc-sheet[hidden] { display: none; }
+.pc-sheet-box { width: 100%; background: #fff; border-radius: 18px 18px 0 0; padding: 0 16px calc(16px + env(safe-area-inset-bottom)); }
+.pc-sheet-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 16px 0; border-bottom: 1px solid #eceef1; }
+.pc-sheet-head strong { font-size: 15px; font-weight: 800; color: #17171c; }
+.pc-sheet-x { width: 30px; height: 30px; border: 0; background: transparent; color: #8b95a1; font-size: 15px; cursor: pointer; }
+.pc-sheet-body { padding: 12px 0 4px; }
+.pc-sheet-body .pc-drow { padding: 6px 0; font-size: 13.6px; }
+.pc-sheet-body .pc-drow.is-head { font-size: 15.2px; }
+.pc-sheet-body .pc-tag, .pc-sheet-body .pc-dnote { font-size: 11.5px; }
+.pc-sheet-go { width: 100%; height: 48px; margin-top: 12px; border: 0; border-radius: 10px; background: #e6007e; color: #fff; font-family: inherit; font-size: 15px; font-weight: 800; cursor: pointer; }
+@media (max-width: 991px) { .hp-row.pc-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 767px) {
+  .hp-row.pc-grid { gap: 12px; }
+  .os-card.pcard { border-radius: 12px; padding: 0 !important; display: flex !important; }
+  .pc-thumb { padding: 10px; }
+  .pc-name { padding: 10px 8px 0; font-size: 12.8px; margin: 0 !important; min-height: 0 !important; }
+  .pc-chips { padding: 6px 8px 0; }
+  .pcard .os-cap.pc-chip { font-size: 9.3px; padding: 1px 5px; height: auto; }
+  .pc-offers { gap: 6px; padding: 10px 8px; }
+  .pc-offer-btn { gap: 7px; padding: 7px 18px 7px 7px; }
+  .pc-telco { width: 30px; height: 30px; border-radius: 8px; font-size: 11.5px; }
+  .pc-label { font-size: 9.6px; }
+  .pc-rate { font-size: 11.2px; }
+  .pc-final { font-size: 13.3px; }
+  .pc-msrp { font-size: 9.3px; }
+  .pc-order { margin: 0 8px 10px; font-size: 10px; }
+  .pc-detail { display: none !important; }
+  .pc-top-bar { margin: 0 0 10px; align-items: flex-start; }
+  .pc-cond { font-size: 11.5px; }
+  .pc-view button { width: 32px; height: 32px; }
+  .hp-gh { padding-bottom: 8px; margin-bottom: 10px !important; }
+  #osGrid.list-view .os-card.pcard { display: grid !important; grid-template-columns: 120px minmax(0, 1fr); column-gap: 10px; padding: 10px !important; }
+  #osGrid.list-view .pc-thumb { aspect-ratio: auto; height: 100%; min-height: 120px; }
+}
+@media (max-width: 575px) {
+  .hp-row.pc-grid { gap: 6px; }
+  .pc-thumb { padding: 8px; }
+  .pc-mfr { top: 5px; left: 5px; padding: 1px 4px; font-size: 8.3px; }
+  .pc-name { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; white-space: normal; min-height: 2.6em !important; padding: 8px 6px 0; font-size: 11.5px; line-height: 1.3; }
+  .pc-chips { gap: 3px; padding: 5px 4px 0; }
+  .pcard .os-cap.pc-chip { padding: 1px 4px; font-size: 8.5px; }
+  .pc-offers { gap: 5px; padding: 8px 5px; }
+  .pc-offer-btn { grid-template-columns: minmax(0, 1fr); gap: 0; padding: 6px 15px 6px 6px; }
+  .pc-telco, .pc-tn { display: none; }
+  .pc-caret { right: 4px; }
+  .pc-label { font-size: 9px; }
+  .pc-top { gap: 4px; }
+  .pc-rate { font-size: 9.9px; }
+  .pc-final { font-size: 11.8px; }
+  .pc-msrp { font-size: 8.5px; }
+  .pc-order { margin: 0 5px 8px; padding: 6px 4px; font-size: 9.6px; gap: 3px; }
+  .pc-order svg { width: 10px; height: 10px; }
+  #osGrid.list-view .pc-telco { display: flex; }
+  #osGrid.list-view .pc-tn { display: inline; }
+  #osGrid.list-view .pc-offer-btn { grid-template-columns: auto minmax(0, 1fr); gap: 7px; padding: 7px 18px 7px 7px; }
+  #osGrid.list-view .pc-name { min-height: 0 !important; }
+}
+
+/* 11/16 07·08년생 배너 1장 */
+.yb-hero { background: linear-gradient(115deg, #fff3f9 0%, #ffe3f0 55%, #ffcfe5 100%) !important; }
+.yb-in { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 40px 24px; min-height: 300px; cursor: pointer; position: relative; line-height: normal; }
+.yb-in:focus-visible { outline: 3px solid #E6007E; outline-offset: -3px; }
+.yb-txt { position: relative; z-index: 1; }
+.yb-badge { display: inline-block; background: #16181d; color: #fff; font-weight: 800; font-size: 15px; padding: 7px 15px; border-radius: 999px; letter-spacing: -0.2px; }
+.yb-h { font-size: 66px; font-weight: 900; letter-spacing: -2.5px; color: #16181d; margin: 14px 0 10px; line-height: 1.04; }
+.yb-h em { color: #E6007E; font-style: normal; }
+.yb-s { font-size: 20px; color: #333d4b; margin: 0 0 22px; line-height: 1.4; }
+.yb-s b { color: #E6007E; }
+.yb-m { display: none; }
+.yb-go { display: inline-block; background: #E6007E; color: #fff; border-radius: 12px; font-size: 18px; font-weight: 800; padding: 15px 26px; box-shadow: 0 8px 20px rgba(230,0,126,0.28); }
+.yb-fine { font-size: 12.5px; color: #6b7684; margin: 16px 0 0; }
+.yb-img { display: flex; align-items: flex-end; flex: 0 0 auto; padding-right: 10px; }
+.yb-img img { height: 230px; width: auto; object-fit: contain; margin-left: -28px; mix-blend-mode: multiply; }
+.yb-img img:nth-child(2) { height: 270px; }
+@media (max-width: 767px) {
+  .yb-in { padding: 24px 18px 22px; min-height: 0; }
+  .yb-badge { font-size: 12.5px; padding: 5px 11px; }
+  .yb-h { font-size: 42px; letter-spacing: -1.6px; margin: 10px 0 8px; }
+  .yb-s { font-size: 15px; margin-bottom: 16px; }
+  .yb-m { display: inline; }
+  .yb-go { font-size: 15.5px; padding: 12px 18px; }
+  .yb-fine { font-size: 11px; margin-top: 12px; padding-right: 0; }
+  .yb-img { position: absolute; right: 8px; top: 22px; padding: 0; }
+  .yb-img img { height: 118px; margin-left: -26px; }
+  .yb-img img:nth-child(2) { height: 132px; }
+  .yb-img img:nth-child(3) { display: none; }
+}
+/* 11/16 카드 85·115 고르기 */
+.pc-tools { display: flex; align-items: center; gap: 10px; flex: 0 0 auto; }
+.pc-cond b { color: #4e5968; }
+.pc-youth { display: inline-flex; align-items: center; gap: 7px; border: 1.5px solid #E6007E; color: #E6007E; background: #fff; border-radius: 999px; padding: 8px 14px; font-weight: 800; font-size: 13.5px; white-space: nowrap; cursor: pointer; font-family: inherit; }
+.pc-yck, .hd-yck { width: 16px; height: 16px; border-radius: 5px; border: 1.5px solid currentColor; flex: 0 0 auto; position: relative; }
+.pc-youth[aria-pressed="true"] { background: #E6007E; color: #fff; }
+.pc-youth[aria-pressed="true"] .pc-yck::after, .hd-youth[aria-pressed="true"] .hd-yck::after, .hd-cmp-b.on .hd-cmp-ck::after { content: ''; position: absolute; left: 4px; top: 0px; width: 5px; height: 9px; border: solid currentColor; border-width: 0 2px 2px 0; transform: rotate(45deg); }
+.pc-plans { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin: 12px 0 6px; }
+.pc-plans button { position: relative; border: 1.5px solid #e5e8eb; background: #fff; border-radius: 10px; padding: 7px 4px 6px; cursor: pointer; display: flex; flex-direction: column; align-items: center; line-height: 1.25; font-family: inherit; }
+.pc-plans button b { font-size: 14.5px; color: #333d4b; font-weight: 800; }
+.pc-plans button span { font-size: 11px; color: #8b95a1; }
+.pc-plans button.on { border-color: #E6007E; background: #fff0f7; box-shadow: 0 0 0 1px #E6007E inset; }
+.pc-plans button.on b { color: #E6007E; }
+.pc-best { position: absolute; top: -9px; right: -3px; background: #16181d; color: #fff; font-size: 10.5px; font-style: normal; font-weight: 800; padding: 2px 7px; border-radius: 999px; }
+.pc-gain { font-size: 11.5px; color: #4e5968; margin: 0 0 8px; text-align: center; line-height: 1.45; letter-spacing: -0.3px; }
+.pc-gain b { color: #E6007E; font-weight: 800; font-size: 13px; display: block; }
+.pc-gain small { display: block; font-size: 11px; color: #8b95a1; }
+.pc-gain .dn, .hd-cmp-g .dn { color: #1b64da; font-weight: 700; }
+.pc-gain .up, .hd-cmp-g .up { color: #e5503a; font-weight: 700; }
+.pc-plnote { font-size: 11px; color: #8b95a1; margin: 6px 0 0; text-align: center; }
+.pc-plnote b { color: #E6007E; }
+#osGrid.list-view .pc-gain, #osGrid.list-view .pc-plnote { text-align: left; }
+#osGrid.list-view .pc-plans { max-width: 360px; }
+@media (max-width: 767px) {
+  .pc-top-bar { flex-wrap: wrap; }
+  .pc-tools { width: 100%; justify-content: space-between; }
+  .pc-youth { font-size: 12.5px; padding: 7px 11px; }
+  .pc-plans button b { font-size: 13px; }
+  .pc-plans button span { font-size: 10px; }
+  .pc-gain { font-size: 10.5px; }
+}
+.pc-plans button b small { font-size: inherit; font-weight: inherit; color: inherit; }
+@media (max-width: 575px) {
+  .pc-plans { gap: 4px; margin-top: 12px; }
+  .pc-plans button { padding: 6px 2px 5px; border-radius: 8px; }
+  .pc-plans button b { font-size: 17px; line-height: 1.1; }
+  .pc-plans button b small { display: block; font-size: 10.5px; font-weight: 700; }
+  .pc-plans button span { display: none; }
+  .pc-best { font-size: 9.5px; padding: 1px 5px; top: -8px; right: -2px; }
+  .pc-gain b { font-size: 11.5px; line-height: 1.35; }
+  .pc-gain small { display: none; }
+  .pc-plnote { display: none; }
+}
+/* 11/16 견적창 07·08년생 · 85/115 비교 */
+#osPd .hd-youth { width: 100%; display: flex; align-items: center; gap: 12px; border: 1.5px solid #e5e8eb; background: #fff; border-radius: 12px; padding: 14px 16px; cursor: pointer; text-align: left; font-family: inherit; color: #8b95a1; }
+#osPd .hd-youth .hd-yck { width: 22px; height: 22px; border-radius: 7px; }
+#osPd .hd-youth[aria-pressed="true"] .hd-yck::after { left: 6px; top: 2px; width: 6px; height: 11px; }
+#osPd .hd-yt { flex: 1; display: flex; flex-direction: column; gap: 2px; }
+#osPd .hd-yt b { font-size: 16px; color: #191f28; }
+#osPd .hd-yt small { font-size: 12.5px; color: #8b95a1; }
+#osPd .hd-yv { font-size: 18px; font-weight: 800; color: #b0b8c1; white-space: nowrap; }
+#osPd .hd-youth[aria-pressed="true"] { border-color: #E6007E; background: #fff0f7; color: #E6007E; box-shadow: 0 0 0 1px #E6007E inset; }
+#osPd .hd-youth[aria-pressed="true"] .hd-yv { color: #E6007E; }
+#osPd .hd-ynote { font-size: 12px; color: #8b95a1; margin: 8px 2px 0; line-height: 1.5; }
+#osPd .hd-cmp { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 8px; }
+#osPd .hd-cmp-b { position: relative; display: flex; flex-direction: column; align-items: stretch; gap: 6px; border: 1.5px solid #e5e8eb; background: #fff; border-radius: 14px; padding: 16px 14px 14px; cursor: pointer; text-align: left; font-family: inherit; color: #b0b8c1; }
+#osPd .hd-cmp-b.on { border-color: #E6007E; background: #fff0f7; box-shadow: 0 0 0 1px #E6007E inset; color: #E6007E; }
+#osPd .hd-cmp-ck { position: absolute; top: 14px; right: 14px; width: 20px; height: 20px; border-radius: 50%; border: 1.5px solid currentColor; }
+#osPd .hd-cmp-b.on .hd-cmp-ck { background: #E6007E; border-color: #E6007E; color: #fff; }
+#osPd .hd-cmp-b.on .hd-cmp-ck::after { left: 6px; top: 2px; }
+#osPd .hd-cmp-t { font-size: 20px; font-weight: 900; color: #191f28; letter-spacing: -0.5px; }
+#osPd .hd-cmp-b.on .hd-cmp-t { color: #E6007E; }
+#osPd .hd-cmp-n { font-size: 12px; color: #8b95a1; margin-top: -4px; padding-bottom: 6px; border-bottom: 1px dashed #e5e8eb; }
+#osPd .hd-cmp-r { display: flex; justify-content: space-between; align-items: baseline; font-size: 13px; color: #6b7684; }
+#osPd .hd-cmp-r b { font-size: 15px; color: #191f28; }
+#osPd .hd-cmp-r b.pk { color: #E6007E; font-size: 17px; }
+#osPd .hd-cmp-best { position: absolute; top: -10px; left: 12px; background: #16181d; color: #fff; font-size: 11.5px; font-style: normal; font-weight: 800; padding: 3px 9px; border-radius: 999px; }
+#osPd .hd-cmp-g { font-size: 14px; color: #333d4b; background: #f7f8fa; border-radius: 10px; padding: 10px 12px; margin: 0 0 10px; line-height: 1.5; }
+#osPd .hd-cmp-g b { color: #E6007E; font-size: 16px; display: block; }
+#osPd .hd-cmp-g small:first-of-type { font-size: 13px; color: #4e5968; }
+#osPd .hd-cmp-g small { display: block; font-size: 11.5px; color: #8b95a1; margin-top: 2px; }
+#osPd .hd-cmp-or { font-size: 12px; color: #8b95a1; margin: 0 0 6px; }
+@media (max-width: 575px) {
+  #osPd .hd-cmp-t { font-size: 17px; }
+  #osPd .hd-cmp-b { padding: 14px 11px 12px; }
+  #osPd .hd-cmp-r { font-size: 12px; }
+  #osPd .hd-cmp-r b.pk { font-size: 15px; }
+  #osPd .hd-cmp-g { font-size: 13px; }
+  #osPd .hd-youth { padding: 12px; gap: 10px; }
+  #osPd .hd-yt { min-width: 0; }
+  #osPd .hd-yt b { font-size: 14px; word-break: keep-all; letter-spacing: -0.3px; }
+  #osPd .hd-yt small { font-size: 11.5px; }
+  #osPd .hd-yv { font-size: 15px; }
+}
 </style>
 <script>
 !function(f,b,e,v,n,t,s)
@@ -2710,43 +2961,17 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
 </div>
 </header>
 
-<section class="ip18-hero" aria-roledescription="carousel" aria-label="이번 주 특가">
-<a class="ip18-hero-link hero-slide on" href="?cap=256&amp;type=2&amp;plan=LPZ1006510#apply-flip8">
-<picture class="ip18-photo">
-<img src="hero_flip8.jpg?v=1026" alt="갤럭시 Z플립8 256GB 통신사 이동 시 102만원 할인, 할부원금 663,000원 - 5G 데이터플랜 MAX(월 85,000원) 6개월(181일) 사용 조건(공시지원금 50만원 + 대리점 지원금 52만원) - LG유플러스 공식인증 대리점 LGU+더끌림컴퍼니">
-</picture>
-</a>
-<a class="ip18-hero-link hero-slide" href="?cap=256&amp;type=2&amp;plan=LPZ1007251#apply-ip17pr">
-<picture class="ip18-photo">
-<img src="hero_ip17pr.jpg?v=1111" alt="아이폰17 Pro 256GB 통신사 이동 시 110만원 할인, 할부원금 682,000원 - 넷플릭스 플러스플랜115(월 115,000원) 6개월(181일) 사용 조건(공시지원금 55만원 + 대리점 지원금 55만원) - LG유플러스 공식인증 대리점 LGU+더끌림컴퍼니">
-</picture>
-</a>
-<a class="ip18-hero-link hero-slide" href="?cap=256&amp;type=2&amp;plan=LPZ1007251#apply-ip18pr">
-<picture class="ip18-photo">
-<img src="hero_ip18pr.jpg?v=1026" alt="아이폰18 Pro 256GB 통신사 이동 시 100만원 할인, 할부원금 991,000원 - 넷플릭스 플러스플랜115(월 115,000원) 6개월(181일) 사용 조건(공시지원금 45만원 + 대리점 지원금 55만원) - LG유플러스 공식인증 대리점 LGU+더끌림컴퍼니">
-</picture>
-</a>
-<div class="hero-dots"><button type="button" aria-label="1번째 배너" class="on"></button><button type="button" aria-label="2번째 배너"></button><button type="button" aria-label="3번째 배너"></button></div>
-<script>
-(function () {
-    var box = document.currentScript.parentNode, sl = box.querySelectorAll('.hero-slide'), dots = box.querySelectorAll('.hero-dots button'), cur = 0, t, x0 = null;
-    function go(i) {
-        cur = (i + sl.length) % sl.length;
-        for (var k = 0; k < sl.length; k++) { sl[k].classList.toggle('on', k === cur); dots[k].classList.toggle('on', k === cur); }
-    }
-    function play() { clearInterval(t); t = setInterval(function () { go(cur + 1); }, 4000); }
-    for (var k = 0; k < dots.length; k++) (function (k) { dots[k].addEventListener('click', function () { go(k); play(); }); })(k);
-    box.addEventListener('mouseenter', function () { clearInterval(t); });
-    box.addEventListener('mouseleave', play);
-    box.addEventListener('touchstart', function (e) { x0 = e.touches[0].clientX; clearInterval(t); }, { passive: true });
-    box.addEventListener('touchend', function (e) {
-        if (x0 !== null) { var dx = e.changedTouches[0].clientX - x0; if (Math.abs(dx) > 40) go(cur + (dx < 0 ? 1 : -1)); }
-        x0 = null; play();
-    }, { passive: true });
-    document.addEventListener('visibilitychange', function () { if (document.hidden) clearInterval(t); else play(); });
-    play();
-})();
-</script>
+<section class="ip18-hero yb-hero" aria-label="07·08년생 20만원 추가 할인">
+<div class="yb-in" data-youth-go role="button" tabindex="0">
+<div class="yb-txt">
+<span class="yb-badge">2007·2008년생 한정</span>
+<h2 class="yb-h"><em>20만원</em><br>추가 할인</h2>
+<p class="yb-s">공시지원금·대리점 지원금 받고<br class="yb-m"> <b>20만원 더</b> 빼드려요</p>
+<span class="yb-go">내 할인 가격 보기 <span aria-hidden="true">→</span></span>
+<p class="yb-fine">본인 명의 개통 · 개통 때 신분증으로 출생연도 확인 · 만 19세 미만은 법정대리인(부모님) 동의 필요</p>
+</div>
+<div class="yb-img" aria-hidden="true"><img src="zflip8.png" alt=""><img src="ip18pro.png" alt=""><img src="s26.png" alt=""></div>
+</div>
 </section>
 
 <div class="st-trust">
@@ -2808,6 +3033,9 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
 <p><i>!</i><span>대리점 추가지원금은 <b>월 85,000원 이상 요금제</b>, <b>6개월 유지</b> 조건에 적용됩니다.</span></p>
 <p><i>!</i><span>월 납부금액은 <b>할부 24개월(연 5.9%) 기준</b>입니다. <b>상품을 누르면</b> 할부 개월·요금제를 바꿔 비교할 수 있습니다.</span></p>
 </div>
+<div class="pc-top-bar"><p class="pc-cond">※ 카드마다 <b>85요금제 · 115요금제</b> 중 골라 가격을 비교하세요 · 6개월(181일) 사용 후 요금제 변경 가능</p>
+<div class="pc-tools"><button type="button" class="pc-youth" data-youth aria-pressed="false"><span class="pc-yck" aria-hidden="true"></span>07·08년생 20만원 할인 적용</button>
+<div class="pc-view"><button type="button" class="on" data-view="grid" title="카드 보기" aria-label="카드 보기"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M1 1h4v4H1zM6 1h4v4H6zM11 1h4v4h-4zM1 6h4v4H1zM6 6h4v4H6zM11 6h4v4h-4zM1 11h4v4H1zM6 11h4v4H6zM11 11h4v4h-4z"/></svg></button><button type="button" data-view="list" title="목록 보기" aria-label="목록 보기"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M1 2h2v2H1zM5 2.5h10v1H5zM1 7h2v2H1zM5 7.5h10v1H5zM1 12h2v2H1zM5 12.5h10v1H5z"/></svg></button></div></div></div>
 <div class="os-grid hp-groups" id="osGrid">
 <article class="os-card"><h3 class="os-card-name">아이폰 듀오 (iPhone Duo)</h3><p>256GB·512GB·1TB·2TB · 출고가 3,300,000원부터 · LG U+ 번호이동·기기변경</p></article>
 <article class="os-card"><h3 class="os-card-name">아이폰18 프로 (iPhone 18 Pro)</h3><p>256GB·512GB·1TB·2TB · 출고가 1,991,000원부터 · LG U+ 번호이동·기기변경</p></article>
@@ -2872,6 +3100,12 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
 <div class="hd-stor" id="osPdCaps"></div>
 </section>
 
+<section class="hd-sec hd-ysec">
+<h5 class="hd-h"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 12v10H4V12M2 7h20v5H2zM12 22V7M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7zM12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>추가 할인</h5>
+<button type="button" class="hd-youth" id="hdYouth" data-youth aria-pressed="false"><span class="hd-yck" aria-hidden="true"></span><span class="hd-yt"><b>2007·2008년생이에요</b><small>본인 명의로 개통하면 20만원 더 할인</small></span><span class="hd-yv">-200,000원</span></button>
+<p class="hd-ynote">개통할 때 신분증으로 출생연도를 확인해요 · 만 19세 미만은 법정대리인(부모님) 동의가 필요해요</p>
+</section>
+
 <section class="hd-sec">
 <h5 class="hd-h"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h5"/></svg>할인방법</h5>
 <div class="hd-ct" id="osPdDc"></div>
@@ -2880,6 +3114,9 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
 
 <section class="hd-sec">
 <h5 class="hd-h"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="6" y="2" width="12" height="20" rx="2"/><path d="M9 7h6v5H9z"/></svg>요금제</h5>
+<div class="hd-cmp" id="hdCmp"></div>
+<p class="hd-cmp-g" id="hdCmpG"></p>
+<p class="hd-cmp-or">다른 요금제를 보고 싶으면 아래에서 고르세요</p>
 <label class="hd-plan"><select id="hdPlanSel" aria-label="요금제"></select><span class="hd-plan-v" id="hdPlanV"></span></label>
 <div class="hd-self" id="hdSelf"></div>
 <div class="os-choice c4" id="osPdPlans" hidden></div>
@@ -2999,6 +3236,7 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
 <div class="hd-row"><span>출고가</span><b id="osSumRetail">-</b></div>
 <div class="hd-row" id="hdSubRow"><span>공시지원금</span><b class="pk" id="osSumSub">-</b></div>
 <div class="hd-row hl"><span><strong>대리점 추가지원금</strong></span><b class="pk" id="osSumAg">-</b></div>
+<div class="hd-row hl" id="hdYouthRow" style="display:none"><span><strong>07·08년생 추가할인</strong></span><b class="pk" id="osSumYd">-</b></div>
 <div class="hd-row rs"><span>할부원금</span><b id="osSumPrin">-</b></div>
 <div class="hd-row"><span>할부이자</span><b id="osSumFee">-</b></div>
 <span class="hd-rate">할부 원리금균등 연 5.9%</span>
@@ -3456,7 +3694,15 @@ var OS_DATA={"models":[{"id":"duo","name":"iPhone Duo","maker":"apple","img":"ip
     var liveTime = null;
     var pending = {};
 
-    var st = { type: '2', plan: 'LPZ1006510', dc: 'sub', maker: 'all', capSel: {} };
+    var st = { type: '2', plan: 'LPZ1007251', dc: 'sub', maker: 'all', capSel: {}, planSel: {}, youth: false };
+    // 11/16 팀장님: 07·08년생 20만원 추가 할인 (배너·카드 상단·견적창에서 켜고 끔)
+    var YOUTH_AMT = 200000;
+    // 11/16 팀장님: 기본 요금제는 115(가격이 더 싸 보이게). 85요금제에서 할부원금 0원인 경우만 85로
+    var P85 = 'LPZ1006510', P115 = 'LPZ1007251';
+    function defPlan(m, cap, t) {
+        try { return quote(m, cap, t, P85, 'sub', 24, '', true).r.prin <= 0 ? P85 : P115; } catch (e) { return P115; }
+    }
+    var KO = { duo: '아이폰 듀오', ip18pr: '아이폰 18 프로', ip18pm: '아이폰 18 프로맥스', ip17: '아이폰 17', ip17pr: '아이폰 17 프로', ip17pm: '아이폰 17 프로맥스', ip16pr: '아이폰 16 프로', ip16pm: '아이폰 16 프로맥스' };
     var pd = null;          // 모달 상태 {id, cap, type, plan, dc, n}
 
     var $ = function (id) { return document.getElementById(id); };
@@ -3558,7 +3804,7 @@ var OS_DATA={"models":[{"id":"duo","name":"iPhone Duo","maker":"apple","img":"ip
     }
 
     // after: 식스플랜 — 가입 요금제(plan)를 6개월 쓰고 7개월째부터 바꿀 요금제. 지원금은 가입 요금제 기준 그대로
-    function quote(m, cap, type, plan, dc, n, after) {
+    function quote(m, cap, type, plan, dc, n, after, noY) {
         var c = m.caps.filter(function (x) { return x.c === cap; })[0];
         var p = planMap[plan];
         var p2 = after && planMap[after] && planMap[after].fee < p.fee && planMap[after].fee >= 47000 ? planMap[after] : null;
@@ -3567,8 +3813,9 @@ var OS_DATA={"models":[{"id":"duo","name":"iPhone Duo","maker":"apple","img":"ip
         var retail = c.retail;
         var sub = carrierAmt(m, cap, type, plan);
         var ag = agencyAmt(m, cap, type, plan);
+        var yd = !noY && st.youth ? YOUTH_AMT : 0;
         function one(kind) {
-            var prin = Math.max(0, retail - (kind === 'sub' ? sub : 0) - ag);
+            var prin = Math.max(0, retail - (kind === 'sub' ? sub : 0) - ag - yd);
             var i = inst(prin, n);
             var sel = kind === 'sel' ? p.sel : 0;
             var planM = p.fee - sel;
@@ -3584,13 +3831,14 @@ var OS_DATA={"models":[{"id":"duo","name":"iPhone Duo","maker":"apple","img":"ip
                 costC: prin + i.fee + planM * 6 + planMC * 18,
                 totalC: i.m + planMC,
                 subUsed: kind === 'sub' ? Math.min(sub, retail) : 0,
-                agUsed: Math.min(ag, Math.max(0, retail - (kind === 'sub' ? sub : 0)))
+                agUsed: Math.min(ag, Math.max(0, retail - (kind === 'sub' ? sub : 0))),
+                ydUsed: Math.min(yd, Math.max(0, retail - (kind === 'sub' ? sub : 0) - ag))
             };
         }
         var a = one('sub'), b = one('sel');
         var best = b.costC < a.costC ? 'sel' : 'sub';
         var pick = dc === 'auto' ? best : dc;
-        return { retail: retail, sub: sub, ag: ag, plan: p, plan2: p2, planC: pc, s: a, l: b, best: best, pick: pick, r: pick === 'sub' ? a : b };
+        return { retail: retail, sub: sub, ag: ag, yd: yd, plan: p, plan2: p2, planC: pc, s: a, l: b, best: best, pick: pick, r: pick === 'sub' ? a : b };
     }
 
     /* ---------- 카드 목록 ---------- */
@@ -3615,31 +3863,77 @@ var OS_DATA={"models":[{"id":"duo","name":"iPhone Duo","maker":"apple","img":"ip
 
     var GROUPS = [['아이폰18', ['duo', 'ip18pr', 'ip18pm']], ['갤럭시 Z폴더블', ['flip8', 'fold8w', 'fold8u']], ['갤럭시 S26', ['s26', 's26p', 's26u']], ['아이폰17', ['ip17', 'ip17pr', 'ip17pm']], ['아이폰16', ['ip16pr', 'ip16pm']]];
 
-    // 11/16 유플핫픽 구조: 카드에 번호이동·기기변경 할부원금을 같이 (할인율 + 출고가 줄긋기)
+    // 11/16 유플핫픽 pcard 구조 그대로: 사진 4:3 · 한글 이름 · 용량 칩 · U+ 가격 상자(누르면 상세 내역) · 주문 신청하기
+    var CART = '<svg width="13" height="13" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/></svg>';
+    function capLabel(c) { return c.replace('TB', 'T'); }
+    function offerDetail(q) {
+        var row = function (n, v, cls) { return '<div class="pc-drow' + (cls || '') + '"><span class="pc-dname">' + n + '</span><span class="pc-dval' + (v.charAt(0) === '-' ? ' is-minus' : '') + '">' + v + '</span></div>'; };
+        return '<div class="pc-drow is-head"><span class="pc-dname">휴대폰 <span class="pc-tag">공시지원</span></span><span class="pc-dsum">' + won(q.r.prin) + '원</span></div>' +
+            row('출고가', won(q.retail) + '원') +
+            row('이통사지원금', '-' + won(q.sub) + '원') +
+            (q.ag ? row('유통망지원금', '-' + won(q.ag) + '원') : '') +
+            (q.r.ydUsed ? row('07·08년생 할인', '-' + won(q.r.ydUsed) + '원') : '') +
+            '<div class="pc-drow is-head has-divider"><span class="pc-dname">요금제</span><span class="pc-dsum">' + won(q.plan.fee) + '원</span></div>' +
+            row(q.plan.name.replace('5G ', ''), won(q.plan.fee) + '원') +
+            '<p class="pc-dnote">6개월(181일) 사용 후 요금제 변경 가능 · 24개월 할부(연 5.9%)</p>';
+    }
+    // 11/16 85·115 비교: 번호이동 기준 (폰값+할부이자) + 6개월 요금 합으로 어느 쪽이 이득인지
+    var man = function (n) { n = Math.round(n / 1000) * 1000; return (n % 10000 ? (n / 10000).toFixed(1) : String(n / 10000)) + '만원'; };
+    function cmpPlans(m, cap, t, dc, n) {
+        var a = quote(m, cap, t, P85, dc || 'sub', n == null ? 24 : n), b = quote(m, cap, t, P115, dc || 'sub', n == null ? 24 : n);
+        var dev = (a.r.prin + a.r.fee) - (b.r.prin + b.r.fee);          // 115 고르면 폰값이 이만큼 덜
+        var fee6 = (b.r.planM - a.r.planM) * 6;                          // 115 고르면 6개월 요금이 이만큼 더
+        var gain = dev - fee6;                                           // + 면 115 이득, - 면 85 이득
+        return { a: a, b: b, dev: dev, fee6: fee6, gain: gain, win: Math.abs(gain) < 10000 ? '' : (gain > 0 ? P115 : P85) };
+    }
+    function gainText(c) {
+        if (!c.win) return '<b>두 요금제 거의 같아요</b><small>편한 요금제로 고르세요</small>';
+        var w = c.win === P115;
+        return '<b>' + (w ? '115' : '85') + '요금제가 ' + man(Math.abs(c.gain)) + ' 더 이득</b><small>' +
+            (w ? '폰값 <span class="dn">' + man(c.dev) + ' 싸고</span> · 6개월 요금 <span class="up">' + man(c.fee6) + ' 더</span>'
+               : (c.dev > 0 ? '폰값 <span class="up">' + man(c.dev) + ' 비싸도</span> · ' : '폰값 같고 · ') + '6개월 요금 <span class="dn">' + man(c.fee6) + ' 덜</span>') + '</small>';
+    }
     function cardHtml(m) {
         var allSold = m.caps.every(function (c) { return c.sold; });
         var cap = firstCap(m);
         var priced = isPriced(m);
-        var h = '<article class="os-card hp-card' + (allSold ? ' is-soldout' : '') + '" data-id="' + m.id + '">';
-        h += '<span class="hp-maker">' + (m.maker === 'apple' ? '애플' : '삼성') + '</span>';
-        if (m.badges.some(function (b) { return b[0] === 'new'; })) h += '<span class="hp-new">NEW</span>';
-        h += '<div class="os-card-img"><img src="' + m.img + '" alt="' + m.name + ' LG유플러스 번호이동·기기변경 가격" loading="lazy"></div>';
-        h += '<h3 class="os-card-name">' + m.name + '</h3>';
-        h += '<div class="os-caps">' + capsHtml(m, cap) + '</div>';
+        var nm = KO[m.id] || m.name;
+        var h = '<article class="os-card pcard' + (allSold ? ' is-soldout' : '') + '" data-id="' + m.id + '">';
+        h += '<div class="pc-thumb"><span class="pc-mfr">' + (m.maker === 'apple' ? '애플' : '삼성') + '</span>' +
+            '<img src="' + m.img + '" class="pc-img" alt="' + nm + ' LG유플러스 번호이동·기기변경 가격" loading="lazy"></div>';
+        h += '<h3 class="pc-name">' + nm + '</h3>';
+        h += '<div class="pc-chips">' + m.caps.map(function (c) {
+            return '<button type="button" class="os-cap pc-chip' + (c.c === cap ? ' on' : '') + '" data-cap="' + c.c + '"' + (c.sold ? ' disabled' : '') + '>' + capLabel(c.c) + (c.sold ? ' 품절' : '') + '</button>';
+        }).join('') + '</div>';
+        h += '<div class="pc-body">';
         if (allSold || !priced) {
-            h += '<div class="hp-soldout">' + (allSold ? '일시품절' : '출시 예정') + '</div>';
-            h += '<a class="hp-go line" href="' + KAKAO + '" target="_blank" rel="noopener" data-kakao>입고 문의</a>';
-            return h + '</article>';
+            h += '<div class="pc-offers"><div class="pc-plain">' + (allSold ? '일시품절' : '출시 예정') + '</div></div>';
+            h += '<a class="pc-order line" href="' + KAKAO + '" target="_blank" rel="noopener" data-kakao>입고 문의</a>';
+            return h + '</div></article>';
         }
+        var sp = st.planSel[m.id] || defPlan(m, cap, '2');
+        var cp = cmpPlans(m, cap, '2');
+        h += '<div class="pc-plans" role="group" aria-label="요금제 고르기">' + [[P85, '85요금제', 85000], [P115, '115요금제', 115000]].map(function (x) {
+            return '<button type="button" data-pl="' + x[0] + '" class="' + (sp === x[0] ? 'on' : '') + '" aria-pressed="' + (sp === x[0]) + '">' +
+                (cp.win === x[0] ? '<i class="pc-best">이득</i>' : '') + '<b>' + x[1].replace('요금제', '<small>요금제</small>') + '</b><span>월 ' + won(x[2]) + '원</span></button>';
+        }).join('') + '</div><p class="pc-gain">' + gainText(cp) + '</p>';
+        h += '<div class="pc-offers">';
         ['2', '1'].forEach(function (t) {
-            var q = quote(m, cap, t, st.plan, st.dc, 24);
+            var plan = sp;
+            var q = quote(m, cap, t, plan, 'sub', 24);
             var off = q.retail ? Math.round((q.retail - q.r.prin) / q.retail * 100) : 0;
-            h += '<button type="button" class="hp-pr' + (t === '2' ? ' mnp' : '') + '" data-t="' + t + '">' +
-                '<span class="hp-pr-t">' + TYPE_NM[t] + (off > 0 ? '<i>' + off + '%</i>' : '') + '</span>' +
-                '<b>' + won(q.r.prin) + '원</b><s>' + won(q.retail) + '</s></button>';
+            h += '<div class="pc-offer' + (t === '2' ? ' is-mnp' : ' is-rejoin') + '">' +
+                '<button type="button" class="pc-offer-btn" data-ofr="' + t + '" data-plan="' + plan + '" aria-expanded="false" data-title="' + nm + ' · ' + TYPE_NM[t] + '">' +
+                '<span class="pc-telco" aria-hidden="true">U<sup>+</sup></span>' +
+                '<span class="pc-main"><span class="pc-top"><span class="pc-label"><span class="pc-tn">LG U+</span><span class="pc-jt">' + TYPE_NM[t] + '</span></span>' +
+                (off > 0 ? '<span class="pc-rate">' + off + '%</span>' : '') + '</span>' +
+                '<span class="pc-final">' + won(q.r.prin) + '원</span><span class="pc-msrp">' + won(q.retail) + '</span></span>' +
+                '<svg class="pc-caret" width="10" height="10" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 5l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2"/></svg></button>' +
+                '<div class="pc-detail" hidden><div class="pc-detail-in">' + offerDetail(q) + '</div></div></div>';
         });
-        h += '<button type="button" class="hp-go" data-open>주문 신청하기</button>';
-        return h + '</article>';
+        h += '</div><p class="pc-plnote">' + (sp === P85 ? '85요금제' : '115요금제') + ' 6개월(181일) 사용 기준' + (st.youth ? ' · <b>07·08년생 −20만 포함</b>' : '') + '</p>' +
+            '<button type="button" class="pc-order" data-open>' + CART + ' 주문 신청하기</button>';
+        return h + '</div></article>';
     }
 
     function renderList() {
@@ -3654,7 +3948,7 @@ var OS_DATA={"models":[{"id":"duo","name":"iPhone Duo","maker":"apple","img":"ip
         if (rest.length) groups.push(['다른 모델', rest]);
         $('osGrid').innerHTML = groups.filter(function (g) { return g[1].length; }).map(function (g) {
             return '<div class="hp-group"><h2 class="hp-gh">' + g[0] + '<small>' + g[1].length + '개</small></h2>' +
-                '<div class="hp-row">' + g[1].map(cardHtml).join('') + '</div></div>';
+                '<div class="hp-row pc-grid">' + g[1].map(cardHtml).join('') + '</div></div>';
         }).join('');
         $('osCount').textContent = list.length;
         var p = planMap[st.plan];
@@ -3664,8 +3958,7 @@ var OS_DATA={"models":[{"id":"duo","name":"iPhone Duo","maker":"apple","img":"ip
 
     function refreshList() {
         renderList();
-        fetchSubsidy('2', st.plan, renderList);
-        fetchSubsidy('1', st.plan, renderList);
+        [P115, P85].forEach(function (pl) { fetchSubsidy('2', pl, renderList); fetchSubsidy('1', pl, renderList); });
     }
 
     /* ---------- 요금제 셀렉트 ---------- */
@@ -3680,7 +3973,8 @@ var OS_DATA={"models":[{"id":"duo","name":"iPhone Duo","maker":"apple","img":"ip
         var m = modelMap[id];
         o = o || {};
         var cap = o.cap && m.caps.some(function (c) { return c.c === o.cap && !c.sold; }) ? o.cap : firstCap(m);
-        pd = { id: id, cap: cap, type: TYPE_NM[o.type] ? o.type : st.type, plan: planMap[o.plan] ? o.plan : st.plan, dc: st.dc, n: 24, after: '' };
+        var t0 = TYPE_NM[o.type] ? o.type : st.type;
+        pd = { id: id, cap: cap, type: t0, plan: planMap[o.plan] ? o.plan : defPlan(m, cap, t0), ap: planMap[o.plan] ? 0 : 1, dc: st.dc, n: 24, after: '' };
         // 사전예약 기종은 신청 버튼 문구만 '사전예약'으로
         [].forEach.call($('osPd').querySelectorAll('[data-apply]'), function (b) {
             if (!b.dataset.t) b.dataset.t = b.textContent;
@@ -3720,9 +4014,15 @@ var OS_DATA={"models":[{"id":"duo","name":"iPhone Duo","maker":"apple","img":"ip
         pd = null;
     }
 
+    function syncYouth() {
+        [].forEach.call(document.querySelectorAll('[data-youth]'), function (b) { b.setAttribute('aria-pressed', st.youth ? 'true' : 'false'); });
+        var t = document.querySelector('.pc-youth');
+        if (t) t.lastChild.textContent = st.youth ? '07·08년생 20만원 할인 적용 중' : '07·08년생 20만원 할인 적용';
+    }
     function renderPd() {
         if (!pd) return;
         var m = modelMap[pd.id];
+        if (pd.ap) pd.plan = defPlan(m, pd.cap, pd.type);   // 요금제를 직접 안 골랐으면 용량·가입유형 바뀔 때 기본값 다시
         if (pd.after && !(planMap[pd.after].fee < planMap[pd.plan].fee)) pd.after = '';
         var q = quote(m, pd.cap, pd.type, pd.plan, pd.dc || 'auto', pd.n, pd.after);
         if (!pd.dc) pd.dc = q.best;
@@ -3732,7 +4032,7 @@ var OS_DATA={"models":[{"id":"duo","name":"iPhone Duo","maker":"apple","img":"ip
         var c = m.caps.filter(function (x) { return x.c === pd.cap; })[0];
 
         // 광고에서 말한 할인액(공시+대리점)과 할부원금을 첫 화면에 바로 보이게 (10/18)
-        var dcSum = (r.subUsed || 0) + (r.agUsed || 0);
+        var dcSum = (r.subUsed || 0) + (r.agUsed || 0) + (r.ydUsed || 0);
         $('osPdCode').innerHTML = (c.code || '') + (c.code ? ' · ' : '') + '출고가 ' + won(q.retail) + '원' +
             (dcSum ? '<span class="os-pd-dc"><b>' + won(dcSum) + '원 할인</b> → 할부원금 <b>' + won(r.prin) + '원</b></span>' : '');
         $('osPdCaps').innerHTML = m.caps.map(function (x) {
@@ -3774,6 +4074,18 @@ var OS_DATA={"models":[{"id":"duo","name":"iPhone Duo","maker":"apple","img":"ip
         }).join('');
         hsel.value = pd.plan;
         $('hdPlanV').textContent = '월 ' + won(planMap[pd.plan].fee) + '원';
+        // 11/16 85·115 나란히 비교 (누르면 그 요금제로)
+        var cc = cmpPlans(m, pd.cap, pd.type, pd.dc, pd.n || 24);
+        $('hdCmp').innerHTML = [[P85, '85요금제', cc.a], [P115, '115요금제', cc.b]].map(function (x) {
+            var qq = x[2], on = pd.plan === x[0];
+            return '<button type="button" class="hd-cmp-b' + (on ? ' on' : '') + '" data-cmp="' + x[0] + '" aria-pressed="' + on + '">' +
+                (cc.win === x[0] ? '<i class="hd-cmp-best">이득</i>' : '') +
+                '<span class="hd-cmp-ck" aria-hidden="true"></span>' +
+                '<b class="hd-cmp-t">' + x[1] + '</b><span class="hd-cmp-n">' + qq.plan.name.replace('5G ', '') + '</span>' +
+                '<span class="hd-cmp-r"><span>월 요금</span><b>' + won(qq.plan.fee) + '원</b></span>' +
+                '<span class="hd-cmp-r"><span>할부원금</span><b class="pk">' + won(qq.r.prin) + '원</b></span></button>';
+        }).join('');
+        $('hdCmpG').innerHTML = gainText(cc) + '<small>폰값(할부이자 포함) + 첫 6개월 요금 합계로 비교 · 7개월째부터는 같은 요금제로 바꾼다고 가정</small>';
         var tier = tierOf(pd.plan);
         $('hdSelf').innerHTML = tier && q.ag
             ? '<span class="hd-self-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 12v10H4V12M2 7h20v5H2zM12 22V7M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7zM12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg></span><span class="hd-self-t">더끌림 대리점 추가지원금<b>' + won(q.ag) + '원</b></span><span class="hd-self-pill">추가 할인</span>'
@@ -3850,6 +4162,9 @@ var OS_DATA={"models":[{"id":"duo","name":"iPhone Duo","maker":"apple","img":"ip
         $('osSumRetail').textContent = won(q.retail) + '원';
         $('osSumSub').textContent = r.subUsed ? '-' + won(r.subUsed) + '원' : '선택약정 선택';
         $('osSumAg').textContent = r.agUsed ? '-' + won(r.agUsed) + '원' : '0원';
+        $('hdYouthRow').style.display = r.ydUsed ? '' : 'none';
+        $('osSumYd').textContent = '-' + won(r.ydUsed || 0) + '원';
+        syncYouth();
         $('osSumPrin').textContent = won(r.prin) + '원';
         $('osSumFee').textContent = won(r.fee) + '원';
         $('osSumPlanM').textContent = won(r.planM) + '원';
@@ -3940,7 +4255,7 @@ var OS_DATA={"models":[{"id":"duo","name":"iPhone Duo","maker":"apple","img":"ip
             id: m.id, name: m.name, img: m.img, cap: pd.cap, type: pd.type, typeNm: TYPE_NM[pd.type],
             plan: pd.plan, planName: q.plan.name, planFee: q.plan.fee, tier: tierOf(pd.plan),
             plan2Name: q.plan2 ? q.plan2.name : '', six: !!q.plan2,
-            dc: pd.dc, n: pd.n, retail: q.retail, sub: r.subUsed, ag: r.agUsed, price: r.prin, pre: m.pre ? (PRE_DATE[m.id] || '출시') : '',
+            dc: pd.dc, n: pd.n, retail: q.retail, sub: r.subUsed, ag: r.agUsed, yd: r.ydUsed || 0, price: r.prin, pre: m.pre ? (PRE_DATE[m.id] || '출시') : '',
             fee: r.fee, devM: r.devM, sel: r.sel, planM: r.planM, total: r.total, total2: r.total2,
             quoteText: quoteText(), cur: pd.qcur || ''
         };
@@ -3970,7 +4285,8 @@ var OS_DATA={"models":[{"id":"duo","name":"iPhone Duo","maker":"apple","img":"ip
         visitCtx: function (id, cap, type, cb) {
             var m = modelMap[id];
             if (!m) return;
-            var tmp = { id: id, cap: cap || firstCap(m), type: type, plan: st.plan, dc: 'sub', n: 24, after: '' };
+            var cp0 = cap || firstCap(m);
+            var tmp = { id: id, cap: cp0, type: type, plan: defPlan(m, cp0, type), dc: 'sub', n: 24, after: '' };
             fetchSubsidy(type, tmp.plan, function () {
                 tmp.dc = quote(m, tmp.cap, type, tmp.plan, 'auto', 24, '').pick;
                 var save = pd; pd = tmp;
@@ -4008,8 +4324,9 @@ var OS_DATA={"models":[{"id":"duo","name":"iPhone Duo","maker":"apple","img":"ip
         L.push('', '<기기>',
             '출고가 : ' + won(q.retail) + '원',
             '공시지원금 : ' + won(r.subUsed) + '원',
-            '대리점 추가지원금 : ' + won(r.agUsed) + '원',
-            '할부원금 : ' + won(r.prin) + '원');
+            '대리점 추가지원금 : ' + won(r.agUsed) + '원');
+        if (r.ydUsed) L.push('07·08년생 추가할인 : ' + won(r.ydUsed) + '원');
+        L.push('할부원금 : ' + won(r.prin) + '원');
         if (pd.n) L.push('할부개월 : ' + pd.n + '개월', '할부원금+이자 : ' + won(r.prin + r.fee) + '원');
         else L.push('할부개월 : 일시불');
         L.push('',
@@ -4082,6 +4399,34 @@ var OS_DATA={"models":[{"id":"duo","name":"iPhone Duo","maker":"apple","img":"ip
             });
         });
 
+        // 11/16 07·08년생 할인 켜고 끄기 (상단 버튼·견적창 버튼·배너 공용)
+        function setYouth(on) {
+            st.youth = !!on;
+            renderList();
+            if (pd) renderPd();
+            syncYouth();
+        }
+        document.addEventListener('click', function (e) {
+            var y = e.target.closest('[data-youth]');
+            if (y) { setYouth(!st.youth); if (st.youth && typeof fbq === 'function') fbq('trackCustom', 'YouthOn'); return; }
+            var g = e.target.closest('[data-youth-go]');
+            if (g) {
+                setYouth(true);
+                if (typeof fbq === 'function') fbq('trackCustom', 'YouthBanner');
+                var ph = document.getElementById('phones');
+                if (ph) ph.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                return;
+            }
+            var cb = e.target.closest('[data-cmp]');
+            if (cb && pd) {
+                pd.plan = cb.dataset.cmp; pd.ap = 0;
+                renderPd();
+                fetchSubsidy(pd.type, pd.plan, renderPd);
+            }
+        });
+        document.addEventListener('keydown', function (e) {
+            if ((e.key === 'Enter' || e.key === ' ') && e.target.matches && e.target.matches('[data-youth-go]')) { e.preventDefault(); e.target.click(); }
+        });
         $('osGrid').addEventListener('click', function (e) {
             var card = e.target.closest('.os-card');
             if (!card) return;
@@ -4097,11 +4442,59 @@ var OS_DATA={"models":[{"id":"duo","name":"iPhone Duo","maker":"apple","img":"ip
                 return;
             }
             if (e.target.closest('a')) return;
+            if (e.target.closest('.pc-detail')) return;
+            var pl = e.target.closest('[data-pl]');
+            if (pl) {
+                st.planSel[card.dataset.id] = pl.dataset.pl;
+                card.outerHTML = cardHtml(modelMap[card.dataset.id]);
+                return;
+            }
+            var ob = e.target.closest('[data-ofr]');
+            if (ob) { pcToggle(ob); return; }
             var m = modelMap[card.dataset.id];
             if ((m.pre && !isPriced(m)) || card.classList.contains('is-soldout')) return;
+            var sp = st.planSel[card.dataset.id] || defPlan(m, firstCap(m), '2');
             var pr = e.target.closest('[data-t]');
-            if (pr) { openPd(card.dataset.id, { type: pr.dataset.t }); return; }
-            openPd(card.dataset.id, { ask: 1 });
+            if (pr) { openPd(card.dataset.id, { type: pr.dataset.t, plan: sp }); return; }
+            openPd(card.dataset.id, { ask: 1, plan: sp });
+        });
+
+        function pcClose(except) {
+            [].forEach.call(document.querySelectorAll('.pc-offer-btn[aria-expanded="true"]'), function (b) {
+                if (b === except) return;
+                b.setAttribute('aria-expanded', 'false');
+                b.nextElementSibling.hidden = true;
+                b.closest('.pcard').classList.remove('is-open');
+            });
+        }
+        function pcToggle(ob) {
+            var det = ob.nextElementSibling;
+            if (window.matchMedia('(max-width: 767px)').matches) {
+                $('pcSheetT').textContent = ob.dataset.title;
+                $('pcSheetB').innerHTML = det.innerHTML;
+                $('pcSheetGo').dataset.id = ob.closest('.pcard').dataset.id;
+                $('pcSheetGo').dataset.t = ob.dataset.ofr;
+                $('pcSheetGo').dataset.plan = ob.dataset.plan;
+                $('pcSheet').hidden = false;
+                return;
+            }
+            var open = ob.getAttribute('aria-expanded') !== 'true';
+            pcClose(ob);
+            ob.setAttribute('aria-expanded', open ? 'true' : 'false');
+            det.hidden = !open;
+            ob.closest('.pcard').classList.toggle('is-open', open);
+        }
+        document.addEventListener('click', function (e) { if (!e.target.closest('.pc-offer')) pcClose(); });
+        $('pcSheet').addEventListener('click', function (e) {
+            if (e.target === this || e.target.closest('[data-sx]')) { this.hidden = true; return; }
+            var g = e.target.closest('#pcSheetGo');
+            if (g) { this.hidden = true; openPd(g.dataset.id, { type: g.dataset.t, plan: g.dataset.plan }); }
+        });
+        [].forEach.call(document.querySelectorAll('.pc-view button'), function (b) {
+            b.addEventListener('click', function () {
+                [].forEach.call(document.querySelectorAll('.pc-view button'), function (x) { x.classList.toggle('on', x === b); });
+                $('osGrid').classList.toggle('list-view', b.dataset.view === 'list');
+            });
         });
 
         var pdEl = $('osPd');
@@ -4158,13 +4551,13 @@ var OS_DATA={"models":[{"id":"duo","name":"iPhone Duo","maker":"apple","img":"ip
             var box = opt.parentNode.id;
             var v = opt.dataset.v;
             if (box === 'osPdType') { pd.type = v; pd.dc = null; renderPd(); fetchSubsidy(pd.type, pd.plan, renderPd); }
-            else if (box === 'osPdPlans') { pd.plan = v; pd.dc = null; renderPd(); fetchSubsidy(pd.type, pd.plan, renderPd); }
+            else if (box === 'osPdPlans') { pd.plan = v; pd.ap = 0; pd.dc = null; renderPd(); fetchSubsidy(pd.type, pd.plan, renderPd); }
             else if (box === 'osPdDc') { pd.dc = v; renderPd(); }
             else if (box === 'osPdInst') { if (!opt.disabled) { pd.n = Number(v); renderPd(); } }
         });
         $('hdPlanSel').addEventListener('change', function () {
             if (!pd) return;
-            pd.plan = this.value; pd.dc = null; renderPd(); fetchSubsidy(pd.type, pd.plan, renderPd);
+            pd.plan = this.value; pd.ap = 0; pd.dc = null; renderPd(); fetchSubsidy(pd.type, pd.plan, renderPd);
         });
         window.addEventListener('popstate', function () { if (pd) closePd(true); });
         $('osPdPlanAll').addEventListener('change', function () {
@@ -4494,7 +4887,7 @@ window.SITE_STORES=[{"name":"신림점","region":"서울","addr":"서울특별�
             (c.tier ? '<p class="ap-note">6개월(181일)간 이 요금제를 유지해 주세요. 이후 월 47,000원 이상 요금제로 바꿀 수 있어요.</p>'
                 : '<p class="ap-note">6개월(181일) 안에 요금제를 낮추면 지원금 차액이 청구될 수 있어요.</p>') + '</div>' +
             '<div class="ap-box"><h4>가격</h4>' + row('출고가', won(c.retail) + '원') + row('공시지원금', '-' + won(c.sub) + '원') +
-            row('대리점 추가지원금', '-' + won(c.ag) + '원') + row('할부원금', won(c.price) + '원') +
+            row('대리점 추가지원금', '-' + won(c.ag) + '원') + (c.yd ? row('07·08년생 추가할인', '-' + won(c.yd) + '원') : '') + row('할부원금', won(c.price) + '원') +
             '<div class="ap-sep"></div>' +
             (c.six ? row('1~6개월 월 납부', '<b class="pink">' + won(c.total) + '원</b>') + row('7개월째부터', won(c.total2) + '원')
                 : row('월 납부금액', '<b class="pink">' + won(c.total) + '원</b>')) +
@@ -4576,7 +4969,7 @@ window.SITE_STORES=[{"name":"신림점","region":"서울","addr":"서울특별�
             return rpc('submit_app', { a: {
                 store_id: sid, model: c.id, cap: c.cap, color: (st.color || '').trim(), type: c.type, plan: c.plan, dc: c.dc, n: c.n,
                 retail: c.retail, sub: c.sub, ag: c.ag, price: c.price, fresh: true, method: st.method,
-                visit_date: st.method === 'visit' ? st.date : '', name: name, phone: fmtPhone(ph), cur: st.cur, src: srcNow()
+                visit_date: st.method === 'visit' ? st.date : '', name: name, phone: fmtPhone(ph), cur: st.cur, src: (srcNow() + (c.yd ? '#0708할인' : '')).slice(0, 130)
             } });
         }).then(function (r) {
             var row = Array.isArray(r) ? r[0] : r;
@@ -4709,7 +5102,7 @@ window.SITE_STORES=[{"name":"신림점","region":"서울","addr":"서울특별�
                 return rpc('submit_app', { a: {
                     store_id: sid, model: ctx.id, cap: ctx.cap, color: '', type: ctx.type, plan: ctx.plan, dc: ctx.dc, n: ctx.n,
                     retail: ctx.retail, sub: ctx.sub, ag: ctx.ag, price: ctx.price, fresh: true, method: 'delivery',
-                    visit_date: '', name: name, phone: fmtPhone(ph), cur: cur, src: (srcNow() + '#quick').slice(0, 130)
+                    visit_date: '', name: name, phone: fmtPhone(ph), cur: cur, src: (srcNow() + '#quick' + (ctx.yd ? '#0708할인' : '')).slice(0, 130)
                 } });
             }).then(function (r) {
                 var row = Array.isArray(r) ? r[0] : r;
@@ -4891,5 +5284,6 @@ window.SITE_STORES=[{"name":"신림점","region":"서울","addr":"서울특별�
     list.addEventListener('click', function (e) { var r = e.target.closest('li'); if (r) open(cards[r.dataset.i]); });
 })()
 </script>
+<div class="pc-sheet" id="pcSheet" hidden><div class="pc-sheet-box"><div class="pc-sheet-head"><strong id="pcSheetT"></strong><button type="button" class="pc-sheet-x" data-sx aria-label="닫기">✕</button></div><div class="pc-sheet-body" id="pcSheetB"></div><button type="button" class="pc-sheet-go" id="pcSheetGo">이 조건으로 견적 보기</button></div></div>
 </body>
 </html>
