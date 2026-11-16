@@ -2477,6 +2477,211 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
   .rv-list .lt { min-width: 52px; }
 }
 @media (max-width: 575px) { .rv-list .la { display: none; } }
+/* 11/16 유플핫픽 detail.php 구조로 상세 화면 */
+#osPd [hidden], #osCarrier[hidden] { display: none !important; }
+#osPd.hd { background: #f8f9fa; }
+#osPd.hd .os-pd-panel { inset: 0; max-width: none; border-radius: 0; background: #f8f9fa; }
+#osPd .hd-top { height: 56px; padding: 0 12px; background: #fff; border-bottom: 1px solid #e7e9ee; display: flex; align-items: center; gap: 8px; }
+#osPd .hd-back { width: 40px; height: 40px; border: 0; background: none; cursor: pointer; color: #222; display: flex; align-items: center; justify-content: center; flex: none; }
+#osPd .hd-back svg { width: 24px; height: 24px; }
+#osPd .hd-crumb { flex: 1; min-width: 0; display: flex; align-items: center; gap: 6px; font-size: 13px; color: #8a8f99; white-space: nowrap; overflow: hidden; }
+#osPd .hd-crumb i { width: 5px; height: 5px; border-top: 1.5px solid #b8bcc4; border-right: 1.5px solid #b8bcc4; transform: rotate(45deg); flex: none; }
+#osPd .hd-crumb b { color: #222; font-weight: 700; overflow: hidden; text-overflow: ellipsis; }
+#osPd .os-pd-grid.hd-wrap { max-width: 1140px; margin: 0 auto; grid-template-columns: minmax(0, 1fr) 451px; gap: 24px; padding: 24px 12px 60px; align-items: start; }
+#osPd .hd-sec { background: #fff; border: 1px solid #e7e9ee; border-radius: 12px; padding: 20px; margin-bottom: 16px; }
+#osPd .hd-h { display: flex; align-items: center; gap: 6px; font-size: 14.72px; font-weight: 700; color: #222; padding-bottom: 6px; margin: 0 0 10px; }
+#osPd .hd-h svg { width: 18px; height: 18px; color: #e91e63; flex: none; }
+#osPd .hd-prod { text-align: center; }
+#osPd .hd-img { height: 320px; display: flex; align-items: center; justify-content: center; margin-bottom: 12px; }
+#osPd .hd-img img { max-height: 100%; max-width: 100%; object-fit: contain; }
+#osPd .hd-prod .os-badges { justify-content: center; }
+#osPd .hd-name { font-size: 24px; font-weight: 800; letter-spacing: -0.03em; margin: 8px 0 4px; color: #222; }
+#osPd .hd-dc { font-size: 13.5px; color: #6b7280; margin: 0 0 18px; }
+#osPd .hd-dc .os-pd-dc { display: block; margin-top: 4px; color: #222; }
+#osPd .hd-dc .os-pd-dc b { color: #e91e63; }
+#osPd .hd-prod .hd-h { text-align: left; border-top: 1px solid #f0f1f4; padding-top: 16px; }
+#osPd .hd-info { width: 100%; border-collapse: collapse; font-size: 14px; text-align: left; }
+#osPd .hd-info th, #osPd .hd-info td { padding: 9px 12px; border-bottom: 1px solid #f0f1f4; }
+#osPd .hd-info th { width: 110px; background: #f8f9fa; color: #6b7280; font-weight: 500; }
+#osPd .hd-info td { color: #222; font-weight: 600; }
+#osPd .hd-blue { color: #2563eb !important; }
+#osPd .hd-car { display: flex; flex-wrap: wrap; gap: 8px; }
+#osPd .hd-car button, #osCarrier .hp-carrier-grid button { min-width: 78px; padding: 10px 14px; border-radius: 12px; background: #fff; border: 1px solid #e7e9ee; display: flex; flex-direction: column; align-items: center; gap: 6px; cursor: pointer; font-family: inherit; font-size: 12.5px; color: #333; font-weight: 600; }
+#osPd .hd-car button.on { border-color: #e91e63; background: #fdeff5; color: #e91e63; }
+#osPd .hd-logo { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 12.8px; font-weight: 800; }
+#osPd .hd-logo.sk { background: #ea002c; } #osPd .hd-logo.kt { background: #111; } #osPd .hd-logo.lg { background: #e6007e; } #osPd .hd-logo.mv { background: #8a8f99; }
+#osPd .hd-car-note { font-size: 13px; color: #6b7280; margin: 10px 0 0; }
+#osPd .hd-car-note b { color: #e91e63; }
+#osPd .hd-stor { display: flex; flex-direction: column; gap: 8px; }
+#osPd .hd-stor .os-cap { width: 100%; height: auto; min-height: 56px; padding: 10px 16px; border-radius: 12px; border: 1px solid #e7e9ee; background: #fff; display: flex; flex-direction: column; align-items: flex-start; justify-content: center; gap: 2px; cursor: pointer; font-family: inherit; text-align: left; }
+#osPd .hd-stor .os-cap b { font-size: 15px; font-weight: 700; color: #222; }
+#osPd .hd-stor .os-cap span { font-size: 13px; color: #6b7280; }
+#osPd .hd-stor .os-cap.on { border-color: #e91e63; background: #fdeff5; }
+#osPd .hd-stor .os-cap.on b, #osPd .hd-stor .os-cap.on span { color: #e91e63; }
+#osPd .hd-stor .os-cap[disabled] { opacity: .45; cursor: default; }
+#osPd .hd-ct { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+#osPd .hd-ct .os-opt { position: relative; min-height: 80px; padding: 9px 6px; border-radius: 12px; border: 1px solid #e7e9ee; background: #fff; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; text-align: center; }
+#osPd .hd-ct .os-opt .os-opt-t { font-size: 14px; font-weight: 700; color: #222; }
+#osPd .hd-ct .os-opt .os-opt-v { font-size: 13px; color: #6b7280; font-weight: 600; margin: 0; }
+#osPd .hd-ct .os-opt.on { border-color: #e91e63; background: #fdeff5; }
+#osPd .hd-ct .os-opt.on .os-opt-t, #osPd .hd-ct .os-opt.on .os-opt-v { color: #e91e63; }
+#osPd .hd-ct .os-opt .best { position: absolute; top: -9px; right: 8px; left: auto; background: #e91e63; color: #fff; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 10px; }
+#osPd .hd-diff { font-size: 13px; color: #6b7280; margin-top: 10px; padding: 0; background: none; }
+#osPd .hd-diff b { color: #e91e63; }
+#osPd .hd-plan { position: relative; display: block; border: 1.5px solid #e91e63; border-radius: 12px; background: #fff; }
+#osPd .hd-plan select { width: 100%; height: 52px; border: 0; background: transparent; padding: 0 150px 0 16px; font-size: 15px; font-weight: 700; color: #222; font-family: inherit; appearance: none; -webkit-appearance: none; cursor: pointer; outline: none; }
+#osPd .hd-plan-v { position: absolute; right: 36px; top: 50%; transform: translateY(-50%); color: #e91e63; font-weight: 800; font-size: 15px; pointer-events: none; }
+#osPd .hd-plan::after { content: ''; position: absolute; right: 16px; top: 50%; width: 7px; height: 7px; margin-top: -6px; border-right: 2px solid #e91e63; border-bottom: 2px solid #e91e63; transform: rotate(45deg); pointer-events: none; }
+#osPd .hd-self { display: flex; align-items: center; gap: 10px; margin-top: 10px; padding: 12px 14px; border-radius: 12px; background: linear-gradient(90deg, #fdeff5, #fff5f9); border: 1px solid #f8c9dc; }
+#osPd .hd-self-ic { width: 32px; height: 32px; border-radius: 50%; background: #e91e63; color: #fff; display: flex; align-items: center; justify-content: center; flex: none; }
+#osPd .hd-self-ic svg { width: 17px; height: 17px; }
+#osPd .hd-self-t { flex: 1; font-size: 13px; color: #555; display: flex; flex-direction: column; }
+#osPd .hd-self-t b { font-size: 17px; color: #e91e63; font-weight: 800; }
+#osPd .hd-self-pill { background: #e91e63; color: #fff; font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 20px; flex: none; }
+#osPd .hd-plan-note { font-size: 13px; color: #6b7280; margin: 10px 0 0; }
+#osPd .hd-plan-note b { color: #222; }
+#osPd .hd-six { margin-top: 14px; }
+#osPd .hd-inst { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+#osPd .hd-inst .os-opt { height: 48px; min-height: 0; padding: 0; border-radius: 12px; border: 1px solid #e7e9ee; background: #fff; font-size: 14px; font-weight: 700; color: #222; display: flex; align-items: center; justify-content: center; }
+#osPd .hd-inst .os-opt.on { border-color: #e91e63; background: #fdeff5; color: #e91e63; }
+#osPd .hd-inst .os-opt[disabled] { opacity: .4; cursor: default; }
+#osPd .hd-inst-note { font-size: 12.5px; color: #8a8f99; margin: 10px 0 0; }
+/* 탭 */
+#osPd .hd-tabs { padding: 0; overflow: hidden; }
+#osPd .hd-tab-btns { display: flex; border-bottom: 1px solid #e7e9ee; position: sticky; top: 0; background: #fff; z-index: 2; }
+#osPd .hd-tab-btns button { flex: 1; padding: 13px 8px 11px; border: 0; background: none; font-family: inherit; font-size: 14.72px; font-weight: 700; color: #8a8f99; cursor: pointer; border-bottom: 2px solid transparent; }
+#osPd .hd-tab-btns button.on { color: #e91e63; border-bottom-color: #e91e63; }
+#osPd .hd-pane { display: none; padding: 20px; }
+#osPd .hd-pane.on { display: block; }
+#osPd .hn-hero { background: #1f2430; color: #fff; border-radius: 12px; padding: 24px 20px; }
+#osPd .hn-eyebrow { font-size: 12px; color: #f48fb1; font-weight: 700; margin: 0 0 8px; }
+#osPd .hn-hero h3 { font-size: 22px; font-weight: 800; line-height: 1.35; margin: 0 0 8px; }
+#osPd .hn-hero p { font-size: 13.5px; color: #c9ccd3; line-height: 1.6; margin: 0; }
+#osPd .hn-chips { display: flex; flex-wrap: wrap; gap: 6px; list-style: none; padding: 0; margin: 14px 0 0; }
+#osPd .hn-chips li { font-size: 12px; padding: 4px 10px; border-radius: 20px; background: rgba(255,255,255,.12); color: #fff; }
+#osPd .hn-h { font-size: 16px; font-weight: 800; color: #222; margin: 26px 0 10px; }
+#osPd .hn-calc { display: flex; align-items: stretch; gap: 6px; }
+#osPd .hn-calc > div { flex: 1; background: #f6f7f9; border-radius: 10px; padding: 10px 6px; text-align: center; display: flex; flex-direction: column; justify-content: center; }
+#osPd .hn-calc > div span { font-size: 13px; font-weight: 700; color: #222; }
+#osPd .hn-calc > div small { font-size: 11px; color: #8a8f99; margin-top: 2px; }
+#osPd .hn-calc > div.pk { background: #fdeff5; } #osPd .hn-calc > div.pk span { color: #e91e63; }
+#osPd .hn-calc > div.dk { background: #1f2430; } #osPd .hn-calc > div.dk span { color: #fff; } #osPd .hn-calc > div.dk small { color: #c9ccd3; }
+#osPd .hn-calc i { align-self: center; font-style: normal; font-weight: 800; color: #8a8f99; }
+#osPd .hn-p { font-size: 13.5px; color: #555; line-height: 1.7; margin: 10px 0 0; }
+#osPd .hn-p.sm { font-size: 12.5px; color: #8a8f99; margin-top: 18px; }
+#osPd .hn-p a { color: #e91e63; }
+#osPd .hn-ways { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+#osPd .hn-way { border: 1px solid #e7e9ee; border-radius: 12px; padding: 14px; position: relative; }
+#osPd .hn-way > b { font-size: 15px; color: #222; }
+#osPd .hn-tag { position: absolute; top: 14px; right: 12px; font-size: 11px; background: #fdeff5; color: #e91e63; padding: 2px 8px; border-radius: 10px; font-weight: 700; }
+#osPd .hn-way ul { margin: 10px 0 0; padding-left: 16px; font-size: 13px; color: #555; line-height: 1.8; }
+#osPd .hn-faq details { border-bottom: 1px solid #f0f1f4; }
+#osPd .hn-faq summary { padding: 13px 4px; font-size: 14px; font-weight: 700; color: #222; cursor: pointer; list-style: none; position: relative; padding-right: 24px; }
+#osPd .hn-faq summary::-webkit-details-marker { display: none; }
+#osPd .hn-faq summary::before { content: 'Q'; color: #e91e63; margin-right: 8px; font-weight: 800; }
+#osPd .hn-faq summary::after { content: ''; position: absolute; right: 6px; top: 18px; width: 7px; height: 7px; border-right: 2px solid #b8bcc4; border-bottom: 2px solid #b8bcc4; transform: rotate(45deg); }
+#osPd .hn-faq details[open] summary::after { transform: rotate(-135deg); top: 21px; }
+#osPd .hn-faq p { font-size: 13.5px; color: #555; line-height: 1.7; margin: 0; padding: 0 4px 14px 24px; }
+#osPd .hn-box { background: #fff8f0; border: 1px solid #fde3c4; border-radius: 12px; padding: 14px 16px; }
+#osPd .hn-box ul { margin: 0; padding-left: 16px; font-size: 13px; color: #555; line-height: 1.75; }
+#osPd .hn-box b { color: #c2410c; }
+#osPd .hn-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+#osPd .hn-table th { background: #f6f7f9; color: #555; font-weight: 700; padding: 9px 10px; text-align: left; }
+#osPd .hn-table td { padding: 10px; border-bottom: 1px solid #f0f1f4; color: #333; line-height: 1.5; }
+#osPd .hn-table td:first-child { color: #555; width: 45%; }
+#osPd .hg-steps { list-style: none; padding: 0; margin: 0; }
+#osPd .hg-steps li { display: flex; gap: 14px; position: relative; padding-bottom: 22px; }
+#osPd .hg-steps li:not(:last-child)::before { content: ''; position: absolute; left: 19px; top: 42px; bottom: 4px; width: 2px; background: #f0f1f4; }
+#osPd .hg-ic { width: 40px; height: 40px; border-radius: 50%; background: #e91e63; color: #fff; font-weight: 800; display: flex; align-items: center; justify-content: center; flex: none; }
+#osPd .hg-ic.c2 { background: #ec407a; } #osPd .hg-ic.c3 { background: #f06292; } #osPd .hg-ic.c4 { background: #7c4dff; } #osPd .hg-ic.c5 { background: #1f2430; }
+#osPd .hg-steps b { font-size: 15px; color: #222; display: block; margin: 9px 0 4px; }
+#osPd .hg-steps p { font-size: 13.5px; color: #555; line-height: 1.7; margin: 0; }
+#osPd .hg-steps em { font-style: normal; color: #e91e63; font-weight: 700; }
+#osPd .hg-note { background: #f6f7f9; border-radius: 12px; padding: 14px 16px; }
+#osPd .hg-note b { font-size: 14px; color: #222; }
+#osPd .hg-note ul { margin: 8px 0 0; padding-left: 16px; font-size: 13px; color: #555; line-height: 1.75; }
+#osPd .hr-filter { display: flex; gap: 6px; margin-bottom: 12px; }
+#osPd .hr-filter button { padding: 7px 14px; border-radius: 20px; border: 1px solid #e7e9ee; background: #fff; font-family: inherit; font-size: 13px; font-weight: 600; color: #555; cursor: pointer; }
+#osPd .hr-filter button.on { background: #e91e63; border-color: #e91e63; color: #fff; }
+#osPd .hr-list { list-style: none; padding: 0; margin: 0; }
+#osPd .hr-list li { display: flex; gap: 12px; padding: 14px 0; border-bottom: 1px solid #f0f1f4; }
+#osPd .hr-list img { width: 72px; height: 72px; border-radius: 10px; object-fit: cover; flex: none; background: #f6f7f9; }
+#osPd .hr-list li > div { flex: 1; min-width: 0; }
+#osPd .hr-tag { display: inline-block; font-size: 11.5px; color: #e91e63; background: #fdeff5; padding: 2px 8px; border-radius: 10px; font-weight: 700; }
+#osPd .hr-list p { font-size: 13.5px; color: #333; line-height: 1.65; margin: 6px 0 4px; }
+#osPd .hr-who { font-size: 12px; color: #8a8f99; }
+#osPd .hr-who b { color: #555; margin-right: 4px; }
+#osPd .hr-empty { color: #8a8f99; font-size: 13px; justify-content: center; }
+/* 오른쪽 견적 카드 */
+#osPd .os-sum.hd-side { position: sticky; top: 24px; border: 0; padding: 0; background: none; border-radius: 0; box-shadow: none; }
+#osPd .hd-est { background: #fff; border: 1px solid #e7e9ee; border-radius: 12px; overflow: hidden; }
+#osPd .hd-es { padding: 11px 16px 12px; border-bottom: 1px solid #f0f1f4; }
+#osPd .hd-es-h { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+#osPd .hd-bdg { width: 24px; height: 24px; border-radius: 6px; background: #e91e63; color: #fff; font-size: 13.6px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex: none; }
+#osPd .hd-es-t { flex: 1; font-size: 14.5px; font-weight: 700; color: #222; }
+#osPd .hd-es-t small { font-size: 12.5px; color: #8a8f99; font-weight: 500; }
+#osPd .hd-es-h > b { font-size: 19.2px; font-weight: 800; color: #222; }
+#osPd .hd-row { display: flex; justify-content: space-between; gap: 10px; font-size: 13.12px; color: #6b7280; padding: 2px 0; }
+#osPd .hd-row b { font-weight: 500; color: #333; white-space: nowrap; }
+#osPd .hd-row b.pk { color: #e91e63; }
+#osPd .hd-row.hl { background: #fdeff5; border-radius: 8px; padding: 5px 10px; margin: 4px 0; }
+#osPd .hd-row.hl strong { color: #222; font-weight: 700; }
+#osPd .hd-row.hl b { font-size: 15px; font-weight: 700; }
+#osPd .hd-row.rs { color: #222; font-weight: 700; border-top: 1px dashed #e7e9ee; margin-top: 4px; padding-top: 6px; }
+#osPd .hd-row.rs b { font-weight: 800; color: #222; }
+#osPd .hd-rate { display: inline-block; margin-top: 8px; background: #f6f7f9; color: #6b7280; border-radius: 20px; font-size: 11.8px; padding: 3px 10px; }
+#osPd .hd-tot { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 14px 16px; background: #fffafc; }
+#osPd .hd-ab { display: flex; align-items: center; gap: 3px; font-weight: 800; color: #8a8f99; }
+#osPd .hd-ab i { font-style: normal; width: 22px; height: 22px; border-radius: 6px; background: #e91e63; color: #fff; font-size: 12px; display: flex; align-items: center; justify-content: center; }
+#osPd .hd-tot > div { text-align: right; }
+#osPd .hd-tot > div span { display: block; font-size: 12.5px; color: #6b7280; }
+#osPd .hd-tot > div b { font-size: 24px; font-weight: 800; color: #e91e63; letter-spacing: -0.02em; }
+#osPd .hd-tot2 { display: flex; justify-content: space-between; align-items: center; padding: 10px 16px; border-top: 1px solid #f8d7e5; background: #fffafc; font-size: 13px; color: #555; }
+#osPd .hd-tot2 small { display: block; font-size: 11.5px; color: #8a8f99; }
+#osPd .hd-tot2 b { color: #222; font-size: 16px; font-weight: 800; }
+#osPd .hd-order { width: 100%; height: 56px; margin-top: 12px; border: 0; border-radius: 12px; background: linear-gradient(90deg, #e91e63, #f06292); color: #fff; font-size: 17px; font-weight: 800; font-family: inherit; cursor: pointer; }
+#osPd .hd-save, #osPd .hd-kk { width: 100%; height: 48px; margin-top: 8px; border: 1px solid #e7e9ee; border-radius: 12px; background: #fff; color: #333; font-size: 14.5px; font-weight: 700; font-family: inherit; cursor: pointer; }
+#osPd .hd-kk { background: #fee500; border-color: #fee500; color: #191919; }
+#osPd .hd-side .os-sum-terms { margin-top: 12px; }
+#osPd .hd-side .os-sum-check { margin-top: 12px; background: #fff; border: 1px solid #e7e9ee; border-radius: 12px; padding: 14px 16px; }
+#osPd .hd-side .os-sum-src { margin-top: 8px; }
+/* 통신사 묻는 창 */
+#osCarrier .hp-carrier-grid button { width: 100%; }
+#osCarrier .hp-carrier-grid button b { font-size: 14px; color: #222; }
+#osCarrier .hp-carrier-grid button > span:last-child { font-size: 12px; color: #8a8f99; font-weight: 500; }
+#osCarrier .hp-carrier-grid button:hover { border-color: #e91e63; background: #fdeff5; }
+#osCarrier .hd-logo { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 12.8px; font-weight: 800; }
+#osCarrier .hd-logo.sk { background: #ea002c; } #osCarrier .hd-logo.kt { background: #111; } #osCarrier .hd-logo.lg { background: #e6007e; } #osCarrier .hd-logo.mv { background: #8a8f99; }
+/* 신청 화면: 단계 이름·기종 줄 */
+.ap-steps { display: flex; list-style: none; margin: 10px 0 0; padding: 0 20px; gap: 4px; flex: none; }
+.ap-steps li { flex: 1; display: flex; align-items: center; gap: 5px; font-size: 12px; color: #9aa0a8; font-weight: 600; }
+.ap-steps li span { width: 18px; height: 18px; border-radius: 50%; background: #e7e9ee; color: #fff; font-size: 11px; display: flex; align-items: center; justify-content: center; flex: none; }
+.ap-steps li.on { color: #e91e63; } .ap-steps li.on span { background: #e91e63; }
+.ap-steps li.done { color: #555; } .ap-steps li.done span { background: #f48fb1; }
+.ap-prod { display: flex; align-items: center; gap: 10px; margin: 12px 20px 0; padding: 10px 12px; border: 1px solid #e7e9ee; border-radius: 12px; background: #fafbfc; flex: none; }
+.ap-prod img { width: 40px; height: 40px; object-fit: contain; flex: none; }
+.ap-prod div { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.ap-prod b { font-size: 14px; color: #222; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ap-prod span { font-size: 12px; color: #8a8f99; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ap-prod em { font-style: normal; font-size: 15px; font-weight: 800; color: #e91e63; white-space: nowrap; }
+@media (max-width: 960px) {
+  #osPd .os-pd-grid.hd-wrap { grid-template-columns: 1fr; padding: 12px 12px 140px; gap: 0; }
+  #osPd .os-sum.hd-side { position: static; margin-bottom: 16px; }
+  #osPd .hd-side .hd-order, #osPd .hd-side .hd-save, #osPd .hd-side .hd-kk { display: none; }
+  #osPd .hd-img { height: 240px; }
+}
+@media (max-width: 520px) {
+  #osPd .hd-sec { padding: 16px; }
+  #osPd .hd-car { display: grid; grid-template-columns: repeat(4, 1fr); }
+  #osPd .hd-car button { min-width: 0; padding: 10px 4px; font-size: 11.5px; }
+  #osPd .hd-plan select { padding-right: 120px; font-size: 14px; }
+  #osPd .hd-plan-v { font-size: 14px; }
+  #osPd .hn-calc { flex-wrap: wrap; }
+  #osPd .hn-calc > div { flex: 1 1 40%; }
+  #osPd .hn-calc i { display: none; }
+  #osPd .hn-ways { grid-template-columns: 1fr; }
+  #osPd .hd-pane { padding: 16px; }
+}
 </style>
 </head>
 <body class="os-body">
@@ -2631,55 +2836,55 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
 </div>
 </section>
 
-<div class="os-pd" id="osPd" aria-hidden="true">
+<div class="os-pd hd" id="osPd" aria-hidden="true">
 <div class="os-pd-panel" role="dialog" aria-modal="true" aria-labelledby="osPdName">
-<div class="os-pd-top"><strong>견적 확인</strong><button type="button" class="os-pd-close" aria-label="닫기" data-close></button></div>
+<div class="os-pd-top hd-top"><button type="button" class="hd-back" data-close aria-label="뒤로"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button><nav class="hd-crumb" aria-label="현재 위치"><span>홈</span><i></i><span id="hdMaker">-</span><i></i><b id="hdCrumb">-</b></nav><button type="button" class="os-pd-close" aria-label="닫기" data-close></button></div>
 <div class="os-pd-body">
-<div class="os-pd-grid">
+<div class="os-pd-grid hd-wrap">
 <div class="os-pd-main">
-<div class="os-pd-prod">
-<div class="os-pd-prod-img"><img id="osPdImg" alt=""></div>
-<div>
+
+<section class="hd-sec hd-prod">
+<div class="hd-img"><img id="osPdImg" alt=""></div>
 <div class="os-badges" id="osPdBadges"></div>
-<h2 class="os-pd-name" id="osPdName"></h2>
-<p class="os-pd-code" id="osPdCode"></p>
-<p class="os-pd-label">용량 선택</p>
-<div class="os-caps" id="osPdCaps"></div>
-</div>
-</div>
+<h2 class="hd-name" id="osPdName"></h2>
+<p class="hd-dc" id="osPdCode"></p>
+<h5 class="hd-h">기본 정보</h5>
+<table class="hd-info"><tr><th>제조사</th><td id="hdMk">-</td></tr><tr><th>모델번호</th><td id="hdCode">-</td></tr><tr><th>출고가</th><td class="hd-blue" id="hdRetail">-</td></tr></table>
+</section>
 
-<div class="os-quick" id="osQuick">
-<p class="os-quick-t">광고·홈페이지에 보이는 가격 <b>그대로</b> 개통해 드려요</p>
-<p class="os-quick-p" id="osQuickP"></p>
-<div class="os-quick-cur" id="osQuickCur"><button type="button" data-qc="SKT">SKT</button><button type="button" data-qc="KT">KT</button><button type="button" data-qc="MVNO">알뜰폰</button><button type="button" data-qc="LGU">LG U+</button></div>
-<button type="button" class="os-quick-lgu" id="osQuickLgu" data-qlgu hidden>LG U+를 쓰고 계시면 기기변경이라 가격이 달라요 · <u>기기변경 가격 보기</u></button>
-<p class="os-quick-hint" id="osQuickHint" hidden></p>
-<div class="os-quick-in"><input id="osQuickName" data-clarity-mask="True" autocomplete="name" placeholder="이름"><input id="osQuickPhone" data-clarity-mask="True" type="tel" inputmode="numeric" autocomplete="tel" placeholder="휴대폰 번호"></div>
-<label class="ap-chk" id="osQuickAgreeF"><input type="checkbox" id="osQuickAgree"><span><em>[필수]</em> 상담을 위해 이름·연락처·견적을 주식회사 더끌림컴퍼니에 제공하는 데 동의해요 (상담 종료 후 3개월 보관) · <a href="#" data-notice>유의사항</a></span></label>
-<button type="button" class="os-btn os-btn-pink os-quick-btn" data-quick>전화 상담 받기</button>
-<a href="http://pf.kakao.com/_xlyGxin/chat" target="_blank" rel="noopener" class="os-btn os-btn-kakao os-quick-kk" data-kakao>전화 말고 카톡으로 먼저 물어볼게요</a>
-<p class="os-quick-s">신청 비용 0원 · 공식 신청서 쓰기 전 언제든 무료 취소<br>담당 직원이 <b>이 가격 그대로</b> 전화로 한 번 더 확인해 드려요</p>
+<section class="hd-sec">
+<h5 class="hd-h"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="6" y="2" width="12" height="20" rx="2"/><path d="M9 7h6v5H9z"/></svg>현재 사용 중인 통신사</h5>
+<div class="hd-car" id="hdCar">
+<button type="button" data-cr="SKT"><span class="hd-logo sk">SK</span><span>SK텔레콤</span></button>
+<button type="button" data-cr="KT"><span class="hd-logo kt">KT</span><span>KT</span></button>
+<button type="button" data-cr="LGU"><span class="hd-logo lg">U+</span><span>LG U+</span></button>
+<button type="button" data-cr="MVNO"><span class="hd-logo mv">알뜰</span><span>알뜰폰</span></button>
 </div>
+<p class="hd-car-note" id="hdCarNote"></p>
+<div class="os-choice c3" id="osPdType" hidden>
+<button type="button" class="os-opt" data-v="1"><span class="os-opt-t">기기변경</span></button>
+<button type="button" class="os-opt" data-v="2"><span class="os-opt-t">번호이동</span></button>
+</div>
+</section>
 
-<div class="os-step">
-<h3>가입 유형을 선택해 주세요</h3>
-<div class="os-choice c3" id="osPdType">
-<button type="button" class="os-opt" data-v="1"><span class="os-opt-t">기기변경</span><span class="os-opt-d">U+에서 쓰던 번호로 휴대폰만 바꿀게요</span></button>
-<button type="button" class="os-opt" data-v="2"><span class="os-opt-t">번호이동</span><span class="os-opt-d">쓰던 번호 그대로 U+로 옮길게요</span></button>
-</div>
-</div>
+<section class="hd-sec">
+<h5 class="hd-h"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 15h.01M11 15h6"/></svg>용량</h5>
+<div class="hd-stor" id="osPdCaps"></div>
+</section>
 
-<div class="os-step">
-<h3>할인 방법을 선택해 주세요<small>둘 중 하나만 받을 수 있어요</small></h3>
-<div class="os-choice c2" id="osPdDc"></div>
-<div class="os-diff" id="osPdDiff"></div>
-</div>
+<section class="hd-sec">
+<h5 class="hd-h"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h5"/></svg>할인방법</h5>
+<div class="hd-ct" id="osPdDc"></div>
+<div class="hd-diff" id="osPdDiff"></div>
+</section>
 
-<div class="os-step">
-<h3>요금제를 선택해 주세요<small>요금제마다 공시지원금이 달라집니다</small></h3>
-<div class="os-choice c4" id="osPdPlans"></div>
-<p class="os-plan-note" id="osPdPlanNote"></p>
-<div class="os-six">
+<section class="hd-sec">
+<h5 class="hd-h"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="6" y="2" width="12" height="20" rx="2"/><path d="M9 7h6v5H9z"/></svg>요금제</h5>
+<label class="hd-plan"><select id="hdPlanSel" aria-label="요금제"></select><span class="hd-plan-v" id="hdPlanV"></span></label>
+<div class="hd-self" id="hdSelf"></div>
+<div class="os-choice c4" id="osPdPlans" hidden></div>
+<p class="hd-plan-note" id="osPdPlanNote"></p>
+<div class="os-six hd-six">
 <div class="os-six-head"><span class="os-six-tag">식스플랜</span><strong>6개월만 쓰고 원하는 요금제로 바꿔도 지원금은 그대로</strong></div>
 <p class="os-six-desc">위 요금제로 개통해 <b>6개월(181일)</b>만 쓰시면, 7개월째부터 낮은 요금제로 바꿔도 받은 <b>공시지원금·대리점 추가지원금을 돌려내지 않습니다.</b></p>
 <div class="os-six-flow" id="osSixFlow"></div>
@@ -2687,41 +2892,127 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
 <p class="os-six-result" id="osSixResult"></p>
 <p class="os-six-warn">6개월 전에 요금제를 낮추면 지원금 차액이 청구될 수 있어요.</p>
 </div>
+</section>
+
+<section class="hd-sec">
+<h5 class="hd-h" id="osPdInstTitle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>할부 개월</h5>
+<div class="hd-inst" id="osPdInst"></div>
+<p class="hd-inst-note" id="hdInstNote"></p>
+</section>
+
+<div class="os-quick" id="osQuick" hidden>
+<p class="os-quick-p" id="osQuickP"></p>
+<div class="os-quick-cur" id="osQuickCur"><button type="button" data-qc="SKT">SKT</button><button type="button" data-qc="KT">KT</button><button type="button" data-qc="MVNO">알뜰폰</button><button type="button" data-qc="LGU">LG U+</button></div>
+<button type="button" class="os-quick-lgu" id="osQuickLgu" data-qlgu hidden></button>
+<p class="os-quick-hint" id="osQuickHint" hidden></p>
+<div class="os-quick-in"><input id="osQuickName" data-clarity-mask="True" autocomplete="name" placeholder="이름"><input id="osQuickPhone" data-clarity-mask="True" type="tel" inputmode="numeric" autocomplete="tel" placeholder="휴대폰 번호"></div>
+<label class="ap-chk" id="osQuickAgreeF"><input type="checkbox" id="osQuickAgree"><span>동의</span></label>
+<button type="button" class="os-btn os-btn-pink os-quick-btn" data-quick>전화 상담 받기</button>
 </div>
 
-<div class="os-step">
-<h3 id="osPdInstTitle">휴대폰 할부를 몇 개월로 할까요?</h3>
-<div class="os-inst" id="osPdInst"></div>
+<section class="hd-sec hd-tabs">
+<div class="hd-tab-btns" role="tablist">
+<button type="button" class="on" data-hdtab="notice" role="tab">안내사항</button>
+<button type="button" data-hdtab="guide" role="tab">개통방법</button>
+<button type="button" data-hdtab="review" role="tab">고객후기</button>
 </div>
+<div class="hd-pane on" data-hdpane="notice">
+<div class="hn-hero">
+<p class="hn-eyebrow">LGU+더끌림컴퍼니 · LG U+ 공식 대리점</p>
+<h3>보이는 가격 그대로<br>개통해 드려요</h3>
+<p>서울·경기 매장 24곳을 운영하는 LG U+ 대리점이에요.<br>홈페이지 가격과 매장 가격이 같아요.</p>
+<ul class="hn-chips"><li>부가서비스 없음</li><li>제휴카드 없음</li><li>중고폰 반납 없음</li></ul>
+</div>
+<h4 class="hn-h">가격은 이렇게 정해져요</h4>
+<div class="hn-calc">
+<div><span>출고가</span><small>제조사 판매가</small></div><i>−</i>
+<div><span>공시지원금</span><small>LG U+ 지원</small></div><i>−</i>
+<div class="pk"><span>대리점 추가지원금</span><small>더끌림 지원</small></div><i>=</i>
+<div class="dk"><span>할부원금</span><small>실제 휴대폰 값</small></div>
+</div>
+<p class="hn-p">대리점 추가지원금은 <b>월 85,000원 이상 요금제를 181일(6개월) 유지</b>하는 조건이에요. 181일이 지나면 월 47,000원 이상 요금제로 바꾸셔도 돼요.</p>
+<h4 class="hn-h">받는 방법은 두 가지예요</h4>
+<div class="hn-ways">
+<div class="hn-way"><b>택배로 받기</b><span class="hn-tag">전국</span><ul><li>100% 비대면 온라인 신청</li><li>우체국 택배로 받은 뒤 개통</li><li>지방도 매장과 같은 가격</li></ul></div>
+<div class="hn-way"><b>매장 방문</b><span class="hn-tag">서울·경기 24곳</span><ul><li>원하는 매장·날짜 선택</li><li>실물 확인 후 그 자리에서 개통</li><li>방문 전 재고 확인 연락</li></ul></div>
+</div>
+<h4 class="hn-h">자주 묻는 질문</h4>
+<div class="hn-faq">
+<details><summary>홈페이지에서 결제하나요?</summary><p>아니요. 홈페이지에서는 이름과 연락처만 받아요. 결제 방법은 담당 직원 안내에 따라 LG U+ 공식 신청서를 쓸 때 등록해요. 카드번호·계좌번호·신분증은 받지 않아요.</p></details>
+<details><summary>신청하면 언제 연락이 오나요?</summary><p>영업시간(매장 방문 10:00~21:00 · 택배 10:00~20:00) 안에 접수 순서대로 담당 직원이 전화드려요. 가격과 유의사항을 다시 확인한 뒤 진행해요.</p></details>
+<details><summary>신청 후 취소할 수 있나요?</summary><p>LG U+ 공식 신청서를 쓰기 전에는 언제든 무료로 취소할 수 있어요. 카톡이나 전화로 말씀해 주세요.</p></details>
+<details><summary>LG U+를 쓰고 있어도 되나요?</summary><p>네. LG U+를 쓰시면 기기변경으로 진행돼요. 기기변경은 지원금이 달라서 가격이 번호이동과 달라요. 위에서 통신사를 LG U+로 고르면 기기변경 가격으로 바꿔 보여드려요.</p></details>
+<details><summary>요금제는 언제 바꿀 수 있나요?</summary><p>개통 후 181일(6개월) 동안은 개통한 요금제를 유지해 주세요. 181일이 지나면 월 47,000원 이상 요금제로 바꾸셔도 지원금을 돌려내지 않아요.</p></details>
+<details><summary>용량·색상을 바꿀 수 있나요?</summary><p>발송 전까지 담당 직원에게 말씀하시면 바꿀 수 있어요. 재고에 따라 달라요.</p></details>
+</div>
+<h4 class="hn-h">위약금 안내</h4>
+<div class="hn-box">
+<ul>
+<li><b>181일 안에</b> 요금제를 낮추거나 해지·번호이동·기기변경·명의변경·일시정지를 하면 받은 <b>대리점 추가지원금 전액</b>을 돌려주셔야 해요.</li>
+<li>181일 안에 요금제를 낮추면 <b>공시지원금 차액</b>이 청구돼요(차액정산).</li>
+<li>24개월 안에 해지하면 남은 기간에 따라 공시지원금·선택약정 할인반환금(위약금)이 생겨요.</li>
+<li>개통 후 <b>181일 동안은 개통한 유심 그대로</b> 써 주세요. <b>12개월 안에는</b> 기기변경·일시정지·명의변경을 피해 주세요.</li>
+<li>실사용 확인을 위해 <b>매월 통화 5회 이상, 누적 10분 이상</b> 사용 기록이 필요해요. 24개월 안에 재판매가 확인되면 지원금 반환과 위약금이 청구될 수 있어요.</li>
+</ul>
+</div>
+<h4 class="hn-h">교환·반품 안내</h4>
+<table class="hn-table">
+<thead><tr><th>상황</th><th>처리</th></tr></thead>
+<tbody>
+<tr><td>LG U+ 공식 신청서 작성 전</td><td>언제든 무료 취소</td></tr>
+<tr><td>공식 신청서 작성 후</td><td>담당 직원을 통해 신청 철회</td></tr>
+<tr><td>상자 개봉 후 단순 변심</td><td>반품·교환 어려움 (출고가가 청구될 수 있음)</td></tr>
+<tr><td>애플 제품 불량 · 받은 날부터 10일 안</td><td>애플 공식 서비스센터 판정 후 환불 또는 새 제품 교환</td></tr>
+<tr><td>애플 제품 불량 · 11~30일</td><td>애플 판정 후 교환</td></tr>
+<tr><td>애플 제품 불량 · 31일 이후</td><td>수리·리퍼</td></tr>
+</tbody>
+</table>
+<p class="hn-p sm">공시지원금과 대리점 추가지원금은 LG U+ 정책에 따라 바뀔 수 있어요. 최종 조건은 LG U+ 공식 신청서를 쓸 때 확정돼요. <a href="#notice" data-notice>유의사항 전체 보기</a></p>
+</div>
+<div class="hd-pane" data-hdpane="guide">
+<ol class="hg-steps">
+<li><span class="hg-ic c1">1</span><div><b>홈페이지에서 신청</b><p>통신사·용량·할인방법·요금제·할부 개월을 고르고 <em>주문 신청하기</em>를 눌러요. 받는 방법(택배·매장 방문)과 이름·연락처만 입력하면 접수돼요.</p></div></li>
+<li><span class="hg-ic c2">2</span><div><b>담당 직원 전화</b><p>영업시간(매장 방문 10:00~21:00 · 택배 10:00~20:00) 안에 접수 순서대로 전화드려요. 화면에서 고른 가격과 유의사항을 한 번 더 확인해요.</p></div></li>
+<li><span class="hg-ic c3">3</span><div><b>LG U+ 공식 신청서 작성</b><p>담당 직원이 보내드리는 LG U+ 공식 신청서를 쓰면 조건이 확정되고, 결제 방법도 이때 등록해요.</p></div></li>
+<li><span class="hg-ic c4">4</span><div><b>휴대폰 받기</b><p><em>택배</em>는 우체국 택배로 휴대폰을 먼저 받아요. <em>매장 방문</em>은 고른 날짜에 매장에서 실물을 확인해요.</p></div></li>
+<li><span class="hg-ic c5">5</span><div><b>개통 완료</b><p>택배는 받은 뒤 유심을 끼우고 개통을 마쳐요. 매장은 그 자리에서 개통해 드려요. 개통 후 181일 동안은 요금제와 유심을 그대로 유지해 주세요.</p></div></li>
+</ol>
+<div class="hg-note"><b>꼭 알아두세요</b><ul><li>신청 비용은 0원이에요. 공식 신청서를 쓰기 전에는 언제든 무료로 취소할 수 있어요.</li><li>신청이 몰리면 재고가 부족해 개통이 늦어질 수 있어요. 이때는 담당 직원이 먼저 연락드려요.</li><li>일시불은 개통한 달 안에 LG U+ 고객센터(114)나 LG U+ 매장에서 납부해요.</li></ul></div>
+</div>
+<div class="hd-pane" data-hdpane="review">
+<div class="hr-filter" id="hdRvFilter"></div>
+<ul class="hr-list" id="hdRvList"></ul>
+</div>
+</section>
 </div>
 
-<aside class="os-sum" id="osSum">
-<div class="os-sum-head"><span id="osSumHeadT">할부원금</span><strong id="osSumTotal">-</strong></div>
-<p class="os-sum-headsub" id="osSumHeadSub"></p>
-<div class="os-sum-sec">
-<h4><span id="osSumDevT">휴대폰</span><span id="osSumDevM">-</span></h4>
-<div class="os-sum-row"><span>출고가</span><b id="osSumRetail">-</b></div>
-<div class="os-sum-row"><span>공시지원금</span><b class="pink" id="osSumSub">-</b></div>
-<div class="os-sum-row"><span>대리점 추가지원금</span><b class="pink" id="osSumAg">-</b></div>
-<div class="os-sum-row"><span>할부원금</span><b class="strong" id="osSumPrin">-</b></div>
-<div class="os-sum-row"><span>할부수수료 (연 5.9%)</span><b id="osSumFee">-</b></div>
+<aside class="os-sum hd-side" id="osSum">
+<div class="hd-est">
+<div class="hd-es">
+<div class="hd-es-h"><span class="hd-bdg">A</span><span class="hd-es-t">월 통신요금</span><b id="osSumPlanM">-</b></div>
+<div class="hd-row"><span id="osSumPlanN">-</span><b id="osSumPlanF">-</b></div>
+<div class="hd-row" id="osSumPlan2" style="display:none"><span id="osSumPlan2N">-</span><b id="osSumPlan2F">-</b></div>
+<div class="hd-row" id="hdSelRow"><span>선택약정할인 (25%)</span><b class="pk" id="osSumSel">-</b></div>
 </div>
-<div class="os-sum-sec">
-<h4><span>요금제</span><span id="osSumPlanM">-</span></h4>
-<div class="os-sum-row"><span id="osSumPlanN">-</span><b id="osSumPlanF">-</b></div>
-<div class="os-sum-row" id="osSumPlan2" style="display:none"><span id="osSumPlan2N">-</span><b id="osSumPlan2F">-</b></div>
-<div class="os-sum-row"><span>선택약정 할인 (24개월)</span><b class="pink" id="osSumSel">-</b></div>
-<div class="os-sum-row os-sum-month"><span id="osSumMonthT">월 예상 납부금액</span><b id="osSumMonth">-</b></div>
-<div class="os-sum-total2" id="osSumTotal2" style="display:none"></div>
+<div class="hd-es">
+<div class="hd-es-h"><span class="hd-bdg">B</span><span class="hd-es-t" id="osSumDevT">월 할부금</span><b id="osSumDevM">-</b></div>
+<div class="hd-row"><span>출고가</span><b id="osSumRetail">-</b></div>
+<div class="hd-row" id="hdSubRow"><span>공시지원금</span><b class="pk" id="osSumSub">-</b></div>
+<div class="hd-row hl"><span><strong>대리점 추가지원금</strong></span><b class="pk" id="osSumAg">-</b></div>
+<div class="hd-row rs"><span>할부원금</span><b id="osSumPrin">-</b></div>
+<div class="hd-row"><span>할부이자</span><b id="osSumFee">-</b></div>
+<span class="hd-rate">할부 원리금균등 연 5.9%</span>
 </div>
+<div class="hd-tot"><span class="hd-ab"><i>A</i>+<i>B</i></span><div><span id="osSumMonthT">월 예상 납부금액</span><b id="osSumMonth">-</b></div></div>
+<div class="hd-tot2" id="osSumTotal2" style="display:none"></div>
+</div>
+<button type="button" class="hd-order" data-apply>주문 신청하기</button>
+<button type="button" class="hd-save" data-qsave>견적 복사하기</button>
+<button type="button" class="hd-kk" data-quote>이 견적으로 카톡 문의</button>
 <div class="os-sum-terms"><span>부가서비스 없음</span><span>제휴카드 없음</span><span>중고폰 반납 없음</span><span id="osSumKeep">요금제 6개월 유지</span></div>
-<p class="os-sum-src" id="osSumSrc"></p>
 <div class="os-sum-check" id="osSumCheck"></div>
-<ul class="os-safe"><li>신청 비용 0원</li><li>공식 신청서 작성 전 언제든 무료 취소</li><li>담당 직원이 전화로 가격을 한 번 더 확인</li></ul>
-<div class="os-sum-btns">
-<button type="button" class="os-btn os-btn-pink" data-apply>이 조건으로 상담 신청</button>
-</div>
-<p class="os-sum-ask">궁금한 점이 있다면 <button type="button" data-quote>이 견적으로 카톡 문의</button></p>
+<p class="os-sum-src" id="osSumSrc"></p>
+<div hidden><span id="osSumHeadT"></span><strong id="osSumTotal"></strong><p id="osSumHeadSub"></p></div>
 </aside>
 </div>
 </div>
@@ -2732,13 +3023,13 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
 <div class="hp-carrier" id="osCarrier" hidden>
 <div class="hp-carrier-box">
 <button type="button" class="hp-carrier-x" data-cr="" aria-label="닫기"></button>
-<strong>지금 쓰고 계신 통신사를 골라주세요</strong>
-<p>통신사에 맞는 가격으로 바로 보여드려요</p>
+<strong>현재 사용 중인 통신사를 선택해 주세요</strong>
+<p>통신사에 맞는 가입 유형과 가격으로 바로 보여드려요</p>
 <div class="hp-carrier-grid">
-<button type="button" data-cr="SKT"><b>SKT</b><span>번호이동</span></button>
-<button type="button" data-cr="KT"><b>KT</b><span>번호이동</span></button>
-<button type="button" data-cr="LGU"><b>LG U+</b><span>기기변경</span></button>
-<button type="button" data-cr="MVNO"><b>알뜰폰</b><span>번호이동</span></button>
+<button type="button" data-cr="SKT"><span class="hd-logo sk">SK</span><b>SK텔레콤</b><span>번호이동</span></button>
+<button type="button" data-cr="KT"><span class="hd-logo kt">KT</span><b>KT</b><span>번호이동</span></button>
+<button type="button" data-cr="LGU"><span class="hd-logo lg">U+</span><b>LG U+</b><span>기기변경</span></button>
+<button type="button" data-cr="MVNO"><span class="hd-logo mv">알뜰</span><b>알뜰폰</b><span>번호이동</span></button>
 </div>
 </div>
 </div>
@@ -3412,10 +3703,15 @@ var OS_DATA={"models":[{"id":"duo","name":"iPhone Duo","maker":"apple","img":"ip
         // 11/16 유플핫픽처럼 주문 신청하기로 열면 통신사부터 묻기 (광고 링크·가격 칸을 눌러 들어오면 묻지 않음)
         $('osCarrier').hidden = !o.ask;
         $('osPd').querySelector('.os-pd-body').scrollTop = 0;
+        hdTab('notice');
+        hdReviews(m);
+        try { if (!(history.state && history.state.osPd)) history.pushState({ osPd: 1 }, ''); } catch (e) {}
         if (typeof fbq === 'function') fbq('trackCustom', 'QuoteOpen', { model: id, auto: pd.auto });
     }
 
-    function closePd() {
+    function closePd(fromPop) {
+        if (!pd) return;
+        if (fromPop !== true) { try { if (history.state && history.state.osPd) { history.back(); return; } } catch (e) {} }
         // 견적창을 얼마나 보고 어디까지 내렸는지 (이탈 원인 확인용, 10/23)
         if (pd && pd.t0 && typeof fbq === 'function') fbq('trackCustom', 'QuoteClose', { model: pd.id, auto: pd.auto, sec: Math.round((Date.now() - pd.t0) / 1000), scroll: pd.sc });
         $('osPd').classList.remove('open');
@@ -3439,7 +3735,23 @@ var OS_DATA={"models":[{"id":"duo","name":"iPhone Duo","maker":"apple","img":"ip
         var dcSum = (r.subUsed || 0) + (r.agUsed || 0);
         $('osPdCode').innerHTML = (c.code || '') + (c.code ? ' · ' : '') + '출고가 ' + won(q.retail) + '원' +
             (dcSum ? '<span class="os-pd-dc"><b>' + won(dcSum) + '원 할인</b> → 할부원금 <b>' + won(r.prin) + '원</b></span>' : '');
-        $('osPdCaps').innerHTML = capsHtml(m, pd.cap);
+        $('osPdCaps').innerHTML = m.caps.map(function (x) {
+            return '<button type="button" class="os-cap' + (x.c === pd.cap ? ' on' : '') + '" data-cap="' + x.c + '"' + (x.sold ? ' disabled' : '') + '>' +
+                '<b>' + x.c + '</b><span>' + (x.sold ? '품절' : won(x.retail) + '원') + '</span></button>';
+        }).join('');
+        // 11/16 핫픽식 기본 정보·경로·통신사
+        $('hdMaker').textContent = m.maker === 'apple' ? '애플' : '삼성';
+        $('hdCrumb').textContent = m.name;
+        $('hdMk').textContent = m.maker === 'apple' ? 'Apple' : 'Samsung';
+        $('hdCode').textContent = c.code || '-';
+        $('hdRetail').textContent = won(q.retail) + '원';
+        [].forEach.call($('hdCar').children, function (b) {
+            var on = pd.qcur ? b.dataset.cr === pd.qcur : false;
+            b.classList.toggle('on', on);
+        });
+        $('hdCarNote').innerHTML = pd.qcur
+            ? (pd.qcur === 'LGU' ? 'LG U+를 쓰시면 <b>기기변경</b> 가격이에요.' : '쓰던 번호 그대로 LG U+로 옮기는 <b>번호이동</b> 가격이에요.')
+            : '지금 보시는 가격은 <b>' + TYPE_NM[pd.type] + '</b> 기준이에요. 통신사를 고르면 맞는 가격으로 바꿔 보여드려요.';
 
         [].forEach.call($('osPdType').children, function (b) { b.classList.toggle('on', b.dataset.v === pd.type); });
 
@@ -3456,7 +3768,16 @@ var OS_DATA={"models":[{"id":"duo","name":"iPhone Duo","maker":"apple","img":"ip
                 '<span class="os-opt-d">월 ' + won(p.fee) + '원</span>' +
                 '<span class="os-opt-v pink">공시 ' + won(sub) + '원</span></button>';
         }).join('');
+        var hsel = $('hdPlanSel');
+        hsel.innerHTML = D.plans.map(function (p) {
+            return '<option value="' + p.code + '"' + (p.code === pd.plan ? ' selected' : '') + '>' + p.name.replace('5G ', '') + '</option>';
+        }).join('');
+        hsel.value = pd.plan;
+        $('hdPlanV').textContent = '월 ' + won(planMap[pd.plan].fee) + '원';
         var tier = tierOf(pd.plan);
+        $('hdSelf').innerHTML = tier && q.ag
+            ? '<span class="hd-self-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 12v10H4V12M2 7h20v5H2zM12 22V7M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7zM12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg></span><span class="hd-self-t">더끌림 대리점 추가지원금<b>' + won(q.ag) + '원</b></span><span class="hd-self-pill">추가 할인</span>'
+            : '<span class="hd-self-t">이 요금제는 대리점 추가지원금이 없어요<b>월 85,000원 이상부터</b></span>';
         $('osPdPlanNote').innerHTML = tier
             ? '대리점 추가지원금 <b>' + won(q.ag) + '원</b> 적용 · 요금제 6개월 유지 후 변경 가능'
             : '이 요금제는 대리점 추가지원금이 없습니다. <b>월 85,000원 이상</b> 요금제부터 적용됩니다.';
@@ -3481,18 +3802,16 @@ var OS_DATA={"models":[{"id":"duo","name":"iPhone Duo","maker":"apple","img":"ip
         $('osSixResult').style.display = six ? '' : 'none';
 
         // 할인 방법 비교
-        function dcBtn(o, title, desc) {
+        function dcBtn(o, title, amt) {
             return '<button type="button" class="os-opt' + (pd.dc === o.kind ? ' on' : '') + '" data-v="' + o.kind + '">' +
-                (q.best === o.kind ? '<span class="best">더 저렴</span>' : '') +
+                (q.best === o.kind ? '<span class="best">더 유리</span>' : '') +
                 '<span class="os-opt-t">' + title + '</span>' +
-                '<span class="os-opt-d">' + desc + '</span>' +
-                '<span class="os-dc-rows"><div><span>할부원금</span><b>' + won(o.prin) + '원</b></div>' +
-                '<div><span>요금제 월 납부</span><b>' + won(o.planM) + '원</b></div></span>' +
-                '<span class="os-opt-v' + (pd.dc === o.kind ? ' pink' : '') + '">월 ' + won(o.total) + '원</span></button>';
+                '<span class="os-opt-v">' + won(amt) + '원 할인</span></button>';
         }
+        var selSum = six ? (q.l.sel || 0) * 6 + (q.l.sel2 || 0) * 18 : (q.l.sel || 0) * 24;
         $('osPdDc').innerHTML =
-            dcBtn(q.s, '공시지원금', '휴대폰 값에서 ' + won(q.s.subUsed) + '원 한 번에 할인') +
-            dcBtn(q.l, '선택약정 25%', '요금제 월 ' + won(q.plan.sel) + '원씩 24개월 할인');
+            dcBtn(q.s, '공시지원금할인', q.s.subUsed || 0) +
+            dcBtn(q.l, '선택약정할인(24개월)', selSum);
         var gap = Math.abs(q.s.costC - q.l.costC);
         var basis = q.planC && !six ? '7개월째부터 월 ' + won(q.planC.fee) + '원 요금제로 바꾸면 ' : '';
         $('osPdDiff').innerHTML = gap < 10
@@ -3500,12 +3819,13 @@ var OS_DATA={"models":[{"id":"duo","name":"iPhone Duo","maker":"apple","img":"ip
             : basis + '24개월 총 납부액 기준 <b>' + (q.best === 'sub' ? '공시지원금' : '선택약정') + '</b>이 <b>' + won(gap) + '원</b> 저렴합니다.';
 
         // 할부 개월
-        $('osPdInst').innerHTML = INSTS.map(function (n) {
-            var i = inst(r.prin, n);
-            return '<button type="button" class="os-opt' + (n === pd.n ? ' on' : '') + '" data-v="' + n + '">' +
-                '<span class="os-opt-t">' + (n ? n + '개월' : '일시불') + '</span>' +
-                '<span class="os-opt-v">' + (n ? '월 ' + won(i.m) + '원' : won(r.prin) + '원') + '</span></button>';
+        var zero = r.prin <= 0;
+        if (zero && pd.n) { pd.n = 0; renderPd(); return; }
+        $('osPdInst').innerHTML = [0, 24, 30, 36].map(function (n) {
+            return '<button type="button" class="os-opt' + (n === pd.n ? ' on' : '') + '" data-v="' + n + '"' + (zero && n ? ' disabled' : '') + '>' +
+                (n ? n + '개월' : '완납') + '</button>';
         }).join('');
+        $('hdInstNote').textContent = zero ? '할부원금이 0원이므로 완납으로 자동 선택됩니다.' : '할부 원리금균등 연 5.9% · 완납은 개통한 달 안에 LG U+ 고객센터(114)에서 납부해요.';
 
         // 요약
         // 큰 숫자는 할부원금 (휴대폰 값), 월 납부는 요금제 영역에만 (10/19)
@@ -3514,7 +3834,7 @@ var OS_DATA={"models":[{"id":"duo","name":"iPhone Duo","maker":"apple","img":"ip
         // 7개월째 요금제를 안 골라도 47,000원 요금제로 바꿨을 때 월 금액을 같이 보여줌 (월 14만원대만 보고 나가는 것 방지, 10/23)
         var low = !six && q.planC;
         $('osSumMonthT').textContent = six || low ? '1~6개월 월 납부금액' : '월 예상 납부금액';
-        $('osSumMonth').textContent = '월 ' + won(r.total) + '원';
+        $('osSumMonth').textContent = won(r.total) + '원';
         $('osSumTotal2').innerHTML = six ? '<span>7개월째부터</span><b>월 ' + won(r.total2) + '원</b>'
             : low ? '<span>7개월째부터<small>월 ' + won(q.planC.fee) + '원 요금제로 바꾸면</small></span><b>월 ' + won(r.totalC) + '원</b>' : '';
         $('osSumTotal2').style.display = six || low ? '' : 'none';
@@ -3523,14 +3843,16 @@ var OS_DATA={"models":[{"id":"duo","name":"iPhone Duo","maker":"apple","img":"ip
             (six || low ? '1~6개월 월 <b>' + won(r.total) + '원</b> → 7개월째부터 월 <b>' + won(six ? r.total2 : r.totalC) + '원</b>' : '월 <b>' + won(r.total) + '원</b>') +
             '</span>' + m.name + ' ' + pd.cap + ' · ' + TYPE_NM[pd.type] + ' · ' + q.plan.name + '<br>할부원금 ' + won(r.prin) + '원 · 요금제 포함 월 납부액';
         quickHint();
-        $('osSumDevT').textContent = '휴대폰 ' + (pd.n ? pd.n + '개월 할부' : '일시불');
-        $('osSumDevM').textContent = pd.n ? '월 ' + won(r.devM) + '원' : '일시불 ' + won(r.prin) + '원';
+        $('osSumDevT').innerHTML = '월 할부금 <small>(' + (pd.n ? pd.n + '개월' : '완납') + ')</small>';
+        $('osSumDevM').textContent = won(pd.n ? r.devM : 0) + '원';
+        $('hdSubRow').style.display = pd.dc === 'sel' ? 'none' : '';
+        $('hdSelRow').style.display = pd.dc === 'sel' ? '' : 'none';
         $('osSumRetail').textContent = won(q.retail) + '원';
         $('osSumSub').textContent = r.subUsed ? '-' + won(r.subUsed) + '원' : '선택약정 선택';
         $('osSumAg').textContent = r.agUsed ? '-' + won(r.agUsed) + '원' : '0원';
         $('osSumPrin').textContent = won(r.prin) + '원';
         $('osSumFee').textContent = won(r.fee) + '원';
-        $('osSumPlanM').textContent = '월 ' + won(r.planM) + '원';
+        $('osSumPlanM').textContent = won(r.planM) + '원';
         $('osSumPlanN').textContent = (six ? '1~6개월 ' : '') + q.plan.name;
         $('osSumPlanF').textContent = won(q.plan.fee) + '원';
         $('osSumPlan2').style.display = six ? '' : 'none';
@@ -3548,6 +3870,34 @@ var OS_DATA={"models":[{"id":"duo","name":"iPhone Duo","maker":"apple","img":"ip
     }
 
     // 모요 상세의 '꼭 확인해 주세요'와 같은 자리: 가입 조건·약정·요금제 유지 조건
+    // 11/16 핫픽식 탭 (안내사항·개통방법·고객후기)
+    function hdTab(k) {
+        [].forEach.call(document.querySelectorAll('#osPd [data-hdtab]'), function (b) { b.classList.toggle('on', b.dataset.hdtab === k); });
+        [].forEach.call(document.querySelectorAll('#osPd [data-hdpane]'), function (p) { p.classList.toggle('on', p.dataset.hdpane === k); });
+    }
+    function hdSeries(t) {
+        var x = (t || '').replace(/\s/g, '');
+        var mm = x.match(/아이폰\d+|S\d+|폴드\d+|플립\d+/);
+        return mm ? mm[0] : '';
+    }
+    var hdRvF = 'all';
+    function hdReviews(m, f) {
+        var cards = [].slice.call(document.querySelectorAll('#rvRow .rv-card'));
+        var ser = hdSeries(m.name.replace('iPhone', '아이폰').replace('갤럭시 Z ', '').replace('갤럭시 ', ''));
+        var mine = cards.filter(function (c) { var t = c.querySelector('.rv-tag'); return ser && t && hdSeries(t.textContent) === ser; });
+        if (!f) f = mine.length ? 'mine' : 'all';
+        hdRvF = f;
+        var list = f === 'mine' ? mine : cards;
+        $('hdRvFilter').innerHTML = '<button type="button" data-hdrv="all"' + (f === 'all' ? ' class="on"' : '') + '>전체 ' + cards.length + '</button>' +
+            (mine.length ? '<button type="button" data-hdrv="mine"' + (f === 'mine' ? ' class="on"' : '') + '>' + ser + ' ' + mine.length + '</button>' : '');
+        $('hdRvList').innerHTML = list.map(function (c) {
+            var img = c.querySelector('.rv-img img'), tag = c.querySelector('.rv-tag'), t = c.querySelector('.rv-t'), who = c.querySelector('.rv-who');
+            return '<li>' + (img ? '<img src="' + img.getAttribute('src') + '" alt="" loading="lazy">' : '') +
+                '<div>' + (tag ? '<span class="hr-tag">' + tag.innerHTML + '</span>' : '') +
+                '<p>' + (t ? t.innerHTML : '') + '</p>' + (who ? '<span class="hr-who">' + who.innerHTML + '</span>' : '') + '</div></li>';
+        }).join('') || '<li class="hr-empty">아직 등록된 후기가 없어요.</li>';
+    }
+
     function renderCheck(q) {
         var el = $('osSumCheck');
         if (!el) return;
@@ -3767,7 +4117,7 @@ var OS_DATA={"models":[{"id":"duo","name":"iPhone Duo","maker":"apple","img":"ip
                 [].forEach.call($('osQuickCur').children, function (b) { b.classList.toggle('on', b.dataset.qc === v0); });
                 if (typeof fbq === 'function') fbq('trackCustom', 'CarrierPick', { model: pd.id, cur: v0 });
                 var want0 = v0 === 'LGU' ? '1' : '2';
-                if (pd.type !== want0) { pd.type = want0; pd.dc = null; renderPd(); fetchSubsidy(pd.type, pd.plan, renderPd); }
+                if (pd.type !== want0) { pd.type = want0; pd.dc = null; renderPd(); fetchSubsidy(pd.type, pd.plan, renderPd); } else renderPd();
                 quickHint();
                 return;
             }
@@ -3794,6 +4144,10 @@ var OS_DATA={"models":[{"id":"duo","name":"iPhone Duo","maker":"apple","img":"ip
                 quickHint();
                 return;
             }
+            var ht = e.target.closest('[data-hdtab]');
+            if (ht) { hdTab(ht.dataset.hdtab); return; }
+            var hr = e.target.closest('[data-hdrv]');
+            if (hr) { hdReviews(modelMap[pd.id], hr.dataset.hdrv); return; }
             if (e.target.closest('[data-quick]')) { quickSubmit(); return; }
             if (e.target.closest('[data-apply]')) { if (window.SiteApply) window.SiteApply.open(applyCtx()); return; }
             if (e.target.closest('[data-notice]')) { e.preventDefault(); if (window.SiteApply) window.SiteApply.notice(); return; }
@@ -3806,8 +4160,13 @@ var OS_DATA={"models":[{"id":"duo","name":"iPhone Duo","maker":"apple","img":"ip
             if (box === 'osPdType') { pd.type = v; pd.dc = null; renderPd(); fetchSubsidy(pd.type, pd.plan, renderPd); }
             else if (box === 'osPdPlans') { pd.plan = v; pd.dc = null; renderPd(); fetchSubsidy(pd.type, pd.plan, renderPd); }
             else if (box === 'osPdDc') { pd.dc = v; renderPd(); }
-            else if (box === 'osPdInst') { pd.n = Number(v); renderPd(); }
+            else if (box === 'osPdInst') { if (!opt.disabled) { pd.n = Number(v); renderPd(); } }
         });
+        $('hdPlanSel').addEventListener('change', function () {
+            if (!pd) return;
+            pd.plan = this.value; pd.dc = null; renderPd(); fetchSubsidy(pd.type, pd.plan, renderPd);
+        });
+        window.addEventListener('popstate', function () { if (pd) closePd(true); });
         $('osPdPlanAll').addEventListener('change', function () {
             if (!pd) return;
             pd.after = this.value;
@@ -3942,7 +4301,13 @@ window.SITE_STORES=[{"name":"신림점","region":"서울","addr":"서울특별�
         el.innerHTML = '<div class="ap-panel" role="dialog" aria-modal="true" aria-label="' + esc(title) + '">' +
             '<div class="ap-top">' + (back ? '<button type="button" class="ap-back" data-ap="back" aria-label="이전">←</button>' : '') +
             '<strong>' + title + '</strong><button type="button" data-ap="close" aria-label="닫기">×</button></div>' +
-            (prog ? '<div class="ap-prog">' + [1, 2, 3].map(function (i) { return '<i' + (i <= prog ? ' class="on"' : '') + '></i>'; }).join('') + '</div>' : '') +
+            (prog ? '<div class="ap-prog">' + [1, 2, 3].map(function (i) { return '<i' + (i <= prog ? ' class="on"' : '') + '></i>'; }).join('') + '</div>' +
+                '<ol class="ap-steps">' + (st.mode === 'visit' ? ['매장·날짜', '기종', '확인'] : ['통신사', '받는 방법', '정보 입력']).map(function (t, i) {
+                    return '<li class="' + (i + 1 < prog ? 'done' : i + 1 === prog ? 'on' : '') + '"><span>' + (i + 1) + '</span>' + t + '</li>';
+                }).join('') + '</ol>' : '') +
+            (prog && st.ctx && st.mode !== 'visit' ? '<div class="ap-prod"><img src="' + esc(st.ctx.img) + '" alt=""><div><b>' + esc(st.ctx.name) + ' ' + esc(st.ctx.cap) + '</b>' +
+                '<span>' + (st.ctx.type === '1' ? 'U+ 기기변경' : 'U+ 번호이동') + ' · ' + esc(st.ctx.planName) + '</span></div>' +
+                '<em>월 ' + won(st.ctx.total) + '원</em></div>' : '') +
             '<div class="ap-body">' + body + '</div>' + (foot ? '<div class="ap-foot">' + foot + '</div>' : '') + '</div>';
         var b = el.querySelector('.ap-body'); if (b) b.scrollTop = 0;
     }
