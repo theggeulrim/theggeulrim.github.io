@@ -2587,6 +2587,16 @@ body.ap-lock .fab-container, body.ap-lock .bottom-cta-bar { display: none !impor
   .pc-plnote { display: none; }
 }
 /* 11/16 견적창 07·08년생 · 85/115 비교 */
+#osPd .hd-youth.hd-yinfo { cursor: default; border-color: #ffd0e6; background: #fff7fb; }
+#osPd .hd-ygift { font-size: 22px; line-height: 1; flex: none; }
+#osPd .hd-yinfo .hd-yt b { color: #191f28; }
+#osPd .hd-yinfo .hd-yt small b { color: #E6007E; font-weight: 800; }
+#osPd .hd-yinfo .hd-yv { color: #E6007E; }
+.ap-byf label small { font-weight: 600; color: #E6007E; margin-left: 6px; font-size: 12.5px; }
+.ap-dates.ap-by { grid-template-columns: repeat(3, 1fr) !important; }
+.ap-byok { margin: 8px 0 0; font-size: 13.5px; font-weight: 700; color: #E6007E; }
+.ap-byok b { font-weight: 900; }
+.ap-byn { margin: 6px 0 0; font-size: 12px; color: #8b95a1; line-height: 1.5; }
 #osPd .hd-youth { width: 100%; display: flex; align-items: center; gap: 12px; border: 1.5px solid #e5e8eb; background: #fff; border-radius: 12px; padding: 14px 16px; cursor: pointer; text-align: left; font-family: inherit; color: #8b95a1; }
 #osPd .hd-youth .hd-yck { width: 22px; height: 22px; border-radius: 7px; }
 #osPd .hd-youth[aria-pressed="true"] .hd-yck::after { left: 6px; top: 2px; width: 6px; height: 11px; }
@@ -2967,7 +2977,7 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
 <span class="yb-badge">2007·2008년생 한정</span>
 <h2 class="yb-h"><em>20만원</em><br>추가 할인</h2>
 <p class="yb-s">공시지원금·대리점 지원금 받고<br class="yb-m"> <b>20만원 더</b> 빼드려요</p>
-<span class="yb-go">내 할인 가격 보기 <span aria-hidden="true">→</span></span>
+<span class="yb-go">할인 받는 기종 보기 <span aria-hidden="true">→</span></span>
 <p class="yb-fine">본인 명의 개통 · 개통 때 신분증으로 출생연도 확인 · 만 19세 미만은 법정대리인(부모님) 동의 필요</p>
 </div>
 <div class="yb-img" aria-hidden="true"><img src="zflip8.png" alt=""><img src="ip18pro.png" alt=""><img src="s26.png" alt=""></div>
@@ -3034,7 +3044,7 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
 <p><i>!</i><span>월 납부금액은 <b>할부 24개월(연 5.9%) 기준</b>입니다. <b>상품을 누르면</b> 할부 개월·요금제를 바꿔 비교할 수 있습니다.</span></p>
 </div>
 <div class="pc-top-bar"><p class="pc-cond">※ 카드마다 <b>85요금제 · 115요금제</b> 중 골라 가격을 비교하세요 · 6개월(181일) 사용 후 요금제 변경 가능</p>
-<div class="pc-tools"><button type="button" class="pc-youth" data-youth aria-pressed="false"><span class="pc-yck" aria-hidden="true"></span>07·08년생 20만원 할인 적용</button>
+<div class="pc-tools">
 <div class="pc-view"><button type="button" class="on" data-view="grid" title="카드 보기" aria-label="카드 보기"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M1 1h4v4H1zM6 1h4v4H6zM11 1h4v4h-4zM1 6h4v4H1zM6 6h4v4H6zM11 6h4v4h-4zM1 11h4v4H1zM6 11h4v4H6zM11 11h4v4h-4z"/></svg></button><button type="button" data-view="list" title="목록 보기" aria-label="목록 보기"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M1 2h2v2H1zM5 2.5h10v1H5zM1 7h2v2H1zM5 7.5h10v1H5zM1 12h2v2H1zM5 12.5h10v1H5z"/></svg></button></div></div></div>
 <div class="os-grid hp-groups" id="osGrid">
 <article class="os-card"><h3 class="os-card-name">아이폰 듀오 (iPhone Duo)</h3><p>256GB·512GB·1TB·2TB · 출고가 3,300,000원부터 · LG U+ 번호이동·기기변경</p></article>
@@ -3102,8 +3112,8 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
 
 <section class="hd-sec hd-ysec">
 <h5 class="hd-h"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 12v10H4V12M2 7h20v5H2zM12 22V7M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7zM12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>추가 할인</h5>
-<button type="button" class="hd-youth" id="hdYouth" data-youth aria-pressed="false"><span class="hd-yck" aria-hidden="true"></span><span class="hd-yt"><b>2007·2008년생이에요</b><small>본인 명의로 개통하면 20만원 더 할인</small></span><span class="hd-yv">-200,000원</span></button>
-<p class="hd-ynote">개통할 때 신분증으로 출생연도를 확인해요 · 만 19세 미만은 법정대리인(부모님) 동의가 필요해요</p>
+<div class="hd-youth hd-yinfo"><span class="hd-ygift" aria-hidden="true">🎁</span><span class="hd-yt"><b>2007·2008년생이면 20만원 더 할인</b><small id="hdYinfo">신청할 때 출생연도만 고르면 돼요</small></span><span class="hd-yv">-200,000원</span></div>
+<p class="hd-ynote">본인 명의 개통 · 개통할 때 신분증으로 출생연도를 확인해요 · 만 19세 미만은 법정대리인(부모님) 동의가 필요해요</p>
 </section>
 
 <section class="hd-sec">
@@ -3700,7 +3710,14 @@ var OS_DATA={"models":[{"id":"duo","name":"iPhone Duo","maker":"apple","img":"ip
     // 11/16 팀장님: 기본 요금제는 115(가격이 더 싸 보이게). 85요금제에서 할부원금 0원인 경우만 85로
     var P85 = 'LPZ1006510', P115 = 'LPZ1007251';
     function defPlan(m, cap, t) {
-        try { return quote(m, cap, t, P85, 'sub', 24, '', true).r.prin <= 0 ? P85 : P115; } catch (e) { return P115; }
+        // 이득인 요금제(폰값+첫 6개월 요금 합계가 1만원 이상 싼 쪽) 먼저, 거의 같으면 85 0원이면 85·아니면 115
+        try {
+            var a = quote(m, cap, t, P85, 'sub', 24, '', true), b = quote(m, cap, t, P115, 'sub', 24, '', true);
+            var g = (a.r.prin + a.r.fee) - (b.r.prin + b.r.fee) - (b.r.planM - a.r.planM) * 6;
+            if (g >= 10000) return P115;
+            if (g <= -10000) return P85;
+            return a.r.prin <= 0 ? P85 : P115;
+        } catch (e) { return P115; }
     }
     var KO = { duo: '아이폰 듀오', ip18pr: '아이폰 18 프로', ip18pm: '아이폰 18 프로맥스', ip17: '아이폰 17', ip17pr: '아이폰 17 프로', ip17pm: '아이폰 17 프로맥스', ip16pr: '아이폰 16 프로', ip16pm: '아이폰 16 프로맥스' };
     var pd = null;          // 모달 상태 {id, cap, type, plan, dc, n}
@@ -4163,6 +4180,7 @@ var OS_DATA={"models":[{"id":"duo","name":"iPhone Duo","maker":"apple","img":"ip
         $('osSumSub').textContent = r.subUsed ? '-' + won(r.subUsed) + '원' : '선택약정 선택';
         $('osSumAg').textContent = r.agUsed ? '-' + won(r.agUsed) + '원' : '0원';
         $('hdYouthRow').style.display = r.ydUsed ? '' : 'none';
+        $('hdYinfo').innerHTML = '신청할 때 출생연도를 고르면 할부원금 <b>' + won(r.prin - Math.min(YOUTH_AMT, r.prin)) + '원</b>';
         $('osSumYd').textContent = '-' + won(r.ydUsed || 0) + '원';
         syncYouth();
         $('osSumPrin').textContent = won(r.prin) + '원';
@@ -4257,8 +4275,17 @@ var OS_DATA={"models":[{"id":"duo","name":"iPhone Duo","maker":"apple","img":"ip
             plan2Name: q.plan2 ? q.plan2.name : '', six: !!q.plan2,
             dc: pd.dc, n: pd.n, retail: q.retail, sub: r.subUsed, ag: r.agUsed, yd: r.ydUsed || 0, price: r.prin, pre: m.pre ? (PRE_DATE[m.id] || '출시') : '',
             fee: r.fee, devM: r.devM, sel: r.sel, planM: r.planM, total: r.total, total2: r.total2,
-            quoteText: quoteText(), cur: pd.qcur || ''
+            quoteText: quoteText(), cur: pd.qcur || '',
+            y: youthCtx()
         };
+    }
+    // 07·08년생 가격 (신청 단계에서 출생연도 2007·2008 고르면 이 값으로 접수)
+    function youthCtx() {
+        var o = st.youth; st.youth = true;
+        try {
+            var q = quote(modelMap[pd.id], pd.cap, pd.type, pd.plan, pd.dc, pd.n, pd.after), r = q.r;
+            return { yd: r.ydUsed || 0, price: r.prin, fee: r.fee, devM: r.devM, total: r.total, total2: r.total2, quoteText: quoteText() };
+        } finally { st.youth = o; }
     }
 
     window.OS_SHOP = {
@@ -4407,11 +4434,9 @@ var OS_DATA={"models":[{"id":"duo","name":"iPhone Duo","maker":"apple","img":"ip
             syncYouth();
         }
         document.addEventListener('click', function (e) {
-            var y = e.target.closest('[data-youth]');
-            if (y) { setYouth(!st.youth); if (st.youth && typeof fbq === 'function') fbq('trackCustom', 'YouthOn'); return; }
+            // 11/16 팀장님: 아무나 눌러 20만원 빠진 가격을 보지 않게 → 토글 없앰, 신청 단계 출생연도로만 적용
             var g = e.target.closest('[data-youth-go]');
             if (g) {
-                setYouth(true);
                 if (typeof fbq === 'function') fbq('trackCustom', 'YouthBanner');
                 var ph = document.getElementById('phones');
                 if (ph) ph.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -4700,7 +4725,7 @@ window.SITE_STORES=[{"name":"신림점","region":"서울","addr":"서울특별�
                 }).join('') + '</ol>' : '') +
             (prog && st.ctx && st.mode !== 'visit' ? '<div class="ap-prod"><img src="' + esc(st.ctx.img) + '" alt=""><div><b>' + esc(st.ctx.name) + ' ' + esc(st.ctx.cap) + '</b>' +
                 '<span>' + (st.ctx.type === '1' ? 'U+ 기기변경' : 'U+ 번호이동') + ' · ' + esc(st.ctx.planName) + '</span></div>' +
-                '<em>월 ' + won(st.ctx.total) + '원</em></div>' : '') +
+                '<em>월 ' + won((yc(st.ctx) || st.ctx).total) + '원</em></div>' : '') +
             '<div class="ap-body">' + body + '</div>' + (foot ? '<div class="ap-foot">' + foot + '</div>' : '') + '</div>';
         var b = el.querySelector('.ap-body'); if (b) b.scrollTop = 0;
     }
@@ -4861,17 +4886,19 @@ window.SITE_STORES=[{"name":"신림점","region":"서울","addr":"서울특별�
     }
     function vConfirm() {
         st.step = 'confirm'; step('ApplyConfirm');
-        var c = st.ctx, n = c.n;
+        var c0 = st.ctx, n = c0.n, Y = yc(c0);
+        var c = Y ? Object.assign({}, c0, Y) : c0;
         var recv = st.method === 'visit' ? '매장 방문 · ' + esc(st.store) + ' · ' + dateNm(st.date) : '택배 (전국)';
         var cols = COLORS[c.id] || [];
         frame(c.pre ? '사전예약 정보 확인' : '신청 정보 확인',
-            '<h3>신청 정보를 확인해 주세요</h3><p class="ap-sub">이름과 연락처만 받아요. 생년월일·카드번호·신분증은 홈페이지에서 받지 않아요.</p>' +
+            '<h3>신청 정보를 확인해 주세요</h3><p class="ap-sub">이름과 연락처만 받아요. 카드번호·신분증은 홈페이지에서 받지 않아요.</p>' +
             '<div class="ap-box"><div class="ap-prod">' + (c.img ? '<img src="' + esc(c.img) + '" alt="">' : '') + '<div><b>' + esc(c.name) + '</b><span>' + c.cap + ' · LG U+ ' + TYPE_NM[c.type] + '</span>' +
             // 이름 쓰는 화면에서도 가격이 바로 보이게 (확인 화면 이탈 67%, 10/23)
-            '<p class="ap-prod-pr">할부원금 <em>' + won(c.price) + '원</em>' + (c.sub + c.ag ? ' <small>' + won(c.sub + c.ag) + '원 할인</small>' : '') + '</p></div></div>' +
+            '<p class="ap-prod-pr">할부원금 <em>' + won(c.price) + '원</em>' + (c.sub + c.ag + (c.yd || 0) ? ' <small>' + won(c.sub + c.ag + (c.yd || 0)) + '원 할인</small>' : '') + '</p></div></div>' +
             (c.tier ? '<p class="ap-prod-cd">' + esc(c.planName) + ' 6개월(181일) 유지 후 월 47,000원 이상 요금제로 변경 가능</p>' : '') + '</div>' +
             '<div class="ap-field" id="apNameF"><label for="apName">이름</label><input id="apName" data-clarity-mask="True" autocomplete="name" placeholder="홍길동" value="' + esc(st.name || '') + '"><p class="ap-err">이름을 입력해 주세요.</p></div>' +
             '<div class="ap-field" id="apPhoneF"><label for="apPhone">휴대폰 번호</label><input id="apPhone" data-clarity-mask="True" type="tel" inputmode="numeric" autocomplete="tel" placeholder="010-1234-5678" value="' + esc(st.phone || '') + '"><p class="ap-err">휴대폰 번호를 확인해 주세요.</p></div>' +
+            byField(c0) +
             '<div class="ap-box"><h4>개통 정보</h4>' +
             row('통신사', curNm(st.cur) + ' → LG U+') + row('가입 유형', TYPE_NM[c.type]) +
             row('할인 방법', c.dc === 'sub' ? '공시지원금' : '선택약정 25%') + row('약정', '24개월') +
@@ -4909,6 +4936,17 @@ window.SITE_STORES=[{"name":"신림점","region":"서울","addr":"서울특별�
         $('apAgree').addEventListener('change', function () { st.a1 = st.a2 = this.checked; $('apAgreeF').classList.remove('need'); });
     }
     function row(k, v) { return '<div class="ap-row"><span>' + k + '</span><b>' + v + '</b></div>'; }
+    // 11/16 07·08년생 20만원: 출생연도 2007·2008을 고른 사람만 할인 가격으로 접수
+    function yc(c) { return (st.by === '2007' || st.by === '2008') && c && c.y && c.y.yd ? c.y : null; }
+    function byField(c) {
+        if (!c || !c.y || !c.y.yd) return '';
+        return '<div class="ap-field ap-byf"><label>출생연도 <small>2007·2008년생은 20만원 더 할인</small></label><div class="ap-dates ap-by">' +
+            [['2007', '2007년생'], ['2008', '2008년생'], ['no', '해당 없음']].map(function (x) {
+                return '<button type="button" data-ap="by" data-v="' + x[0] + '"' + (st.by === x[0] ? ' class="on"' : '') + '>' + x[1] + '</button>';
+            }).join('') + '</div>' +
+            (yc(c) ? '<p class="ap-byok">20만원 할인이 적용됐어요 · 할부원금 <b>' + won(c.y.price) + '원</b></p>' : '') +
+            '<p class="ap-byn">본인 명의 개통만 가능 · 개통할 때 신분증으로 출생연도를 확인해요 · 다르면 할인이 빠져요 · 만 19세 미만은 부모님 동의 필요</p></div>';
+    }
     function dateNm(v) {
         var d = days().filter(function (x) { return x.v === v; })[0];
         return d ? d.t + ' (' + d.d.charAt(0) + ')' : v;
@@ -4947,7 +4985,7 @@ window.SITE_STORES=[{"name":"신림점","region":"서울","addr":"서울특별�
             '이름 : ' + st.name, '연락처 : ' + fmtPhone(digits(st.phone)),
             '현재 통신사 : ' + curNm(st.cur),
             '받는 방법 : ' + (st.method === 'visit' ? '매장 방문 (' + st.store + ', ' + dateNm(st.date) + ')' : '택배'),
-            st.color ? '희망 색상 : ' + st.color : '', '', c.quoteText || '기종 : ' + c.name].filter(function (x, i) { return x !== '' || i === 6; }).join('\n');
+            st.color ? '희망 색상 : ' + st.color : '', '', (yc(c) ? '출생연도 : ' + st.by + '년 (07·08년생 할인, 개통 때 신분증 확인)\n\n' + yc(c).quoteText : c.quoteText) || '기종 : ' + c.name].filter(function (x, i) { return x !== '' || i === 6; }).join('\n');
     }
 
     function submit() {
@@ -4968,8 +5006,8 @@ window.SITE_STORES=[{"name":"신림점","region":"서울","addr":"서울특별�
             if (!sid) throw new Error('store');
             return rpc('submit_app', { a: {
                 store_id: sid, model: c.id, cap: c.cap, color: (st.color || '').trim(), type: c.type, plan: c.plan, dc: c.dc, n: c.n,
-                retail: c.retail, sub: c.sub, ag: c.ag, price: c.price, fresh: true, method: st.method,
-                visit_date: st.method === 'visit' ? st.date : '', name: name, phone: fmtPhone(ph), cur: st.cur, src: (srcNow() + (c.yd ? '#0708할인' : '')).slice(0, 130)
+                retail: c.retail, sub: c.sub, ag: c.ag, price: yc(c) ? yc(c).price : c.price, fresh: true, method: st.method,
+                visit_date: st.method === 'visit' ? st.date : '', name: name, phone: fmtPhone(ph), cur: st.cur, src: (srcNow() + (yc(c) ? '#0708할인#' + st.by : '')).slice(0, 130)
             } });
         }).then(function (r) {
             var row = Array.isArray(r) ? r[0] : r;
@@ -5026,6 +5064,13 @@ window.SITE_STORES=[{"name":"신림점","region":"서울","addr":"서울특별�
         else if (a === 'method') { st.method = v; if (v === 'visit' && !st.date) st.date = days()[0].v; vMethod(); }
         else if (a === 'date') { st.date = v; if (st.step === 'v1') vV1(); else vMethod(); }
         else if (a === 'color') { st.color = v; $('apColor').value = v; [].forEach.call(b.parentNode.children, function (x) { x.classList.toggle('on', x === b); }); }
+        else if (a === 'by') {
+            st.by = v;
+            var bd = el.querySelector('.ap-body'), sc = bd ? bd.scrollTop : 0;
+            vConfirm();
+            bd = el.querySelector('.ap-body'); if (bd) bd.scrollTop = sc;
+            if (yc(st.ctx)) track('YouthBirth');
+        }
         else if (a === 'geo') nearest();
         else if (a === 'submit') submit();
         else if (a === 'resume') { resumeTo = ''; if (st.step === 'v3') vV3(); else if (st.step === 'v2') vV2(); else if (st.step === 'v1') vV1(); else if (st.step === 'confirm') vConfirm(); else if (st.step === 'method') vMethod(); else if (st.step === 'cur') vCur(); else close(); }
