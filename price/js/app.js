@@ -4,7 +4,7 @@
 (function () {
     'use strict';
     var D = window.OS_DATA, STORES = window.SEED_STORES || [];
-    var BRAND = 'LGU+ 핫딜센터';
+    var BRAND = '유플핫딜';
     var IMG = 'https://theggeulrim.com/';
     var KAKAO_CHAT = 'http://pf.kakao.com/_xlyGxin/chat';
     var KAKAO_ADD = 'http://pf.kakao.com/_xlyGxin';
@@ -158,7 +158,7 @@
     function header(back) {
         $('#hd').innerHTML = (back
             ? '<a class="back" href="' + back + '"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M15 5l-7 7 7 7"/></svg>뒤로</a>'
-            : '<a class="brand" href="#/"><em>LGU+</em> 핫딜센터</a>') +
+            : '<a class="brand" href="#/"><em>유플</em>핫딜</a>') +
             '<a class="kbtn" href="' + KAKAO_ADD + '" target="_blank" rel="noopener">' + KICON + '카톡 알림</a>';
     }
     function tab(t) {
@@ -183,7 +183,7 @@
     function regionInfo() {
         if (region === 'dlv') return '<p class="region-info">매장 방문 없이 <b>택배로 전국 개통</b>해요. 신청서 작성부터 배송까지 카톡으로 안내해 드려요.</p>';
         var s = storesOf(region);
-        return '<p class="region-info">이 지역 <b>더끌림컴퍼니 매장 ' + s.length + '곳</b> · ' + s.slice(0, 3).map(function (x) { return x.name; }).join(', ') + (s.length > 3 ? ' 외 ' + (s.length - 3) + '곳' : '') + '</p>';
+        return '<p class="region-info">이 지역 <b>유플핫딜 매장 ' + s.length + '곳</b> · ' + s.slice(0, 3).map(function (x) { return x.name; }).join(', ') + (s.length > 3 ? ' 외 ' + (s.length - 3) + '곳' : '') + '</p>';
     }
     function top5() {
         var list = D.models.filter(priced).map(function (m) {
@@ -245,7 +245,7 @@
         { q: '택배 개통은 어떻게 하나요?', a: ['카톡으로 상담 → 신청서 작성 → 택배 수령 → 개통 순서예요.', '신분증 확인과 신청서 작성은 카톡으로 안내해 드려요.'] }
     ];
     var FAQ = [
-        { q: '이 가격은 어디 기준인가요?', a: '더끌림컴퍼니 홈페이지와 같은 기준이에요. LG U+ 공시지원금이 바뀌면 할부원금도 같이 바뀌어요.' },
+        { q: '이 가격은 어디 기준인가요?', a: '유플핫딜 홈페이지와 같은 기준이에요. LG U+ 공시지원금이 바뀌면 할부원금도 같이 바뀌어요.' },
         { q: '매장에 가면 같은 가격으로 살 수 있나요?', a: '방문 전에 카톡으로 원하는 기종과 매장을 알려주시면 재고와 가격을 확인해 드려요.' },
         { q: '신규가입도 되나요?', a: '지금은 번호이동과 기기변경만 받고 있어요.' },
         { q: '택배로도 개통되나요?', a: '네, 전국 어디서든 택배로 받아서 개통할 수 있어요.' }
@@ -320,7 +320,7 @@
         return h;
     }
     function storeListHtml(rid) {
-        if (rid === 'dlv') return '<div class="store"><div style="font-size:30px">📦</div><div><b>더끌림컴퍼니 온라인센터</b><small>전국 택배 개통 · 카톡으로 신청서 안내</small></div><a href="' + KAKAO_CHAT + '" target="_blank" rel="noopener">카톡</a></div>';
+        if (rid === 'dlv') return '<div class="store"><div style="font-size:30px">📦</div><div><b>유플핫딜 온라인센터</b><small>전국 택배 개통 · 카톡으로 신청서 안내</small></div><a href="' + KAKAO_CHAT + '" target="_blank" rel="noopener">카톡</a></div>';
         return storesOf(rid).map(function (s) {
             return '<div class="store"><img src="' + s.img + '" alt="" loading="lazy"><div><b>' + esc(s.name) + '</b><small>' + esc(s.addr) + '</small></div>' +
                 '<a href="https://map.naver.com/p/search/' + encodeURIComponent('LG U+ 더끌림컴퍼니 ' + s.name) + '" target="_blank" rel="noopener">지도</a></div>';
@@ -383,7 +383,7 @@
     function storesPage(rid) {
         if (rid) { region = rid; lsSet('tg.region', rid); }
         header(); tab('stores');
-        return '<section class="sec fade"><div class="sec-h"><h2>더끌림컴퍼니 매장</h2><span>' + STORES.length + '곳</span></div>' + regionChips() +
+        return '<section class="sec fade"><div class="sec-h"><h2>유플핫딜 매장</h2><span>' + STORES.length + '곳</span></div>' + regionChips() +
             '<div class="box" style="padding:0 18px;margin-top:12px" id="storeBox">' + storeListHtml(region) + '</div>' +
             '<div class="cta"><a class="btn btn-kakao" href="' + KAKAO_CHAT + '" target="_blank" rel="noopener">카톡 상담</a><a class="btn btn-dark" href="' + VISIT + '" target="_blank" rel="noopener">방문 예약</a></div></section>' + footer();
     }
