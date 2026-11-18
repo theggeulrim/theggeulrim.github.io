@@ -2169,6 +2169,7 @@ body.ap-lock .fab-container, body.ap-lock .bottom-cta-bar { display: none !impor
 .ap-body { overflow-y: auto; padding: 20px 20px 24px; flex: 1; -webkit-overflow-scrolling: touch; }
 .ap-foot { flex: none; padding: 12px 20px calc(12px + env(safe-area-inset-bottom)); border-top: 1px solid var(--os-line); background: #fff; }
 .ap-foot .os-btn { width: 100%; height: 54px; font-size: 17px; }
+.ap-foot .os-btn.ap-foot-sub { height: 44px; font-size: 14px; margin-top: 8px; }
 .ap-foot .os-btn[disabled] { background: var(--os-line-2); color: #fff; cursor: default; }
 .ap h3 { font-size: 21px; font-weight: 800; letter-spacing: -0.04em; line-height: 1.4; }
 .ap-sub { font-size: 14px; color: var(--os-grey); margin-top: 6px; line-height: 1.6; }
@@ -4659,6 +4660,8 @@ window.SITE_STORES=[{"name":"신림점","region":"서울","addr":"서울특별�
         samsung: { '1': OM + '3081623&agentId=331515&openmktCd=18682', '2': OM + '3081667&agentId=314423&openmktCd=15525' },
         apple: { '1': OM + '3081654&agentId=331515&openmktCd=18682', '2': OM + '3081678&agentId=314423&openmktCd=15525' }
     };
+    // U+ 우리매장 고객등록(단골) — 공식 신청서 전에 먼저 등록 (11/18, 팀장님 제공 더끌림 314423 QR 링크)
+    var UCRM = 'https://ucrm.lguplus.co.kr/mbl/v2/rcmd/moveInfo?param=bGhqMzE0NDIzJjIwMjQwMjI5MDUyMDExJlFSQ0Rf';
     var omTimer = null;
 
     var el, st = null, preStore = '', storeIds = null, resumeTo = '';
@@ -4945,7 +4948,7 @@ window.SITE_STORES=[{"name":"신림점","region":"서울","addr":"서울특별�
             '<h3 style="margin-top:28px;font-size:18px">유의사항</h3>' + noticeAcc() +
             '<p class="ap-sub">개인정보 제공: 상담·개통을 위해 이름·연락처·신청 내용을 주식회사 더끌림컴퍼니에 제공합니다. (보유: 상담 종료 후 3개월)</p>',
             // 접수 버튼 앞 안내: 택배(공식 신청서 열림)는 핫픽처럼 신청서까지 써야 접수 완료, 그 외는 10/29 문구 (11/18)
-            '<p class="ap-sub" style="margin:0 0 8px;font-size:13px">' + (officialUrl() ? '접수 후 LG U+ 공식 신청서까지 작성하셔야 접수가 완료돼요.' : '접수해도 가입·결제되지 않아요. 전화 상담 후 결정하세요.') + '</p>' +
+            '<p class="ap-sub" style="margin:0 0 8px;font-size:13px">' + (officialUrl() ? '접수 후 U+ 우리매장 고객 등록과 LG U+ 공식 신청서까지 마치셔야 접수가 완료돼요.' : '접수해도 가입·결제되지 않아요. 전화 상담 후 결정하세요.') + '</p>' +
             '<label class="ap-chk" id="apAgreeF"><input type="checkbox" id="apAgree"' + (st.a1 && st.a2 ? ' checked' : '') + '><span><em>[필수]</em> 유의사항 확인 및 개인정보 제공에 동의해요</span></label>' +
             '<button type="button" class="os-btn os-btn-pink" data-ap="submit">' + (c.pre ? '사전예약 접수하기' : '상담 신청 접수하기') + '</button>', 3, true);
         ['apName', 'apPhone', 'apColor'].forEach(function (id) {
@@ -4988,20 +4991,39 @@ window.SITE_STORES=[{"name":"신림점","region":"서울","addr":"서울특별�
         step('OfficialFormOpen');
         window.open(u, '_blank');
     }
+    // 완료 화면 버튼: 고객 등록 전엔 ① 고객 등록이 주 버튼, 연 뒤엔 ② 공식 신청서가 주 버튼
+    // 고객 등록은 만 18세 이상만 됨(LG 페이지 규정) → 2007년생 고른 사람 말고는 먼저 나이를 물어 미성년자는 바로 공식 신청서로 (11/18)
+    function omFoot() {
+        if (!st.age) return '<button type="button" class="os-btn os-btn-pink" data-ap="age" data-v="adult">만 18세 이상 · ① 고객 등록하기</button><button type="button" class="os-btn os-btn-line ap-foot-sub" data-ap="age" data-v="minor">만 18세 미만 · 바로 공식 신청서 쓰기</button>';
+        if (st.age === 'minor') return '<button type="button" class="os-btn os-btn-pink" data-ap="official">LG U+ 공식 신청서 쓰기</button>';
+        return st.ucrm
+            ? '<button type="button" class="os-btn os-btn-pink" data-ap="official">② LG U+ 공식 신청서 쓰기</button><button type="button" class="os-btn os-btn-line ap-foot-sub" data-ap="ucrm">① 고객 등록 페이지 다시 열기</button>'
+            : '<button type="button" class="os-btn os-btn-pink" data-ap="ucrm">① U+ 우리매장 고객 등록하기</button>';
+    }
+    function openUcrm() {
+        clearInterval(omTimer); omTimer = null;
+        st.ucrm = 1;
+        var cd = $('apOmCd'); if (cd) cd.parentNode.innerHTML = '고객 등록 페이지가 새 창으로 열렸어요. 문자 인증까지 마치고 이 화면으로 돌아와 <b>② 공식 신청서</b>를 써 주세요.';
+        var f = el.querySelector('.ap-foot'); if (f) f.innerHTML = omFoot();
+        step('UcrmOpen');
+        window.open(UCRM, '_blank');
+    }
 
     function vDone(id, viaKakao) {
         st.step = 'done';
         var visit = st.method === 'visit';
         var pre = st.ctx && st.ctx.pre;
         var om = viaKakao ? '' : officialUrl();
-        frame(st.mode === 'visit' ? '방문 예약 완료' : pre ? '사전예약 완료' : om ? '신청서 작성' : '신청 완료',
+        st.age = st.by === '2007' ? 'adult' : '';
+        frame(st.mode === 'visit' ? '방문 예약 완료' : pre ? '사전예약 완료' : om ? '고객 등록 · 신청서 작성' : '신청 완료',
             '<div class="ap-done"><span class="ap-done-ic">✓</span>' +
             (viaKakao ? '<h3>카톡으로 신청을 마무리해 주세요</h3><p class="ap-sub">' + (viaKakao === 'copied' ? '신청 내용이 복사됐어요. 열린 카톡 채팅창에 붙여넣기만 하면 접수돼요.' : '열린 카톡 채팅창에 이름·연락처·원하는 모델을 보내주시면 접수돼요.') + '</p>'
-                : om ? '<h3>신청서를 작성해 주세요</h3><p class="ap-sub">신청 접수가 완료됐어요. 아래 LG U+ 공식 신청서를 마저 작성해 주셔야 최종 접수가 완료돼요.</p><p class="ap-sub ap-om-cd"><b id="apOmCd">5</b>초 후 신청서 페이지가 자동으로 열려요.</p><span class="ap-done-id">접수번호 ' + esc(id) + '</span>'
+                : om ? '<h3>고객 등록 후 신청서를 작성해 주세요</h3><p class="ap-sub">신청 접수가 완료됐어요. ① U+ 우리매장 고객 등록 → ② LG U+ 공식 신청서까지 마치셔야 최종 접수가 완료돼요.</p>' + (st.age ? '<p class="ap-sub ap-om-cd"><b id="apOmCd">5</b>초 후 고객 등록 페이지가 자동으로 열려요.</p>' : '<p class="ap-sub ap-om-cd ap-age-q"><span id="apOmCd"></span>고객 등록은 <b>만 18세 이상</b>만 할 수 있어요. 아래에서 나이를 골라 주세요.</p>') + '<span class="ap-done-id">접수번호 ' + esc(id) + '</span>'
                 : '<h3>' + (st.mode === 'visit' ? '방문 예약이 접수됐어요' : pre ? '사전예약이 접수됐어요' : '신청이 접수됐어요') + '</h3><span class="ap-done-id">접수번호 ' + esc(id) + '</span>') + '</div>' +
             '<ol class="ap-next">' +
             '<li class="on"><b>' + (st.mode === 'visit' ? '방문 예약 접수' : pre ? '사전예약 접수' : '신청 접수') + '</b>' + (visit ? esc(st.store) + ' · ' + dateNm(st.date) + ' 방문' : '택배 개통') + '</li>' +
-            (om ? '<li class="on"><b>LG U+ 공식 신청서 작성 (지금)</b>유지 조건과 위약금 조건을 확인하신 뒤 작성해 주세요. 신청서 작성까지 마치셔야 접수가 완료돼요. 본인 명의 공동인증서나 신용카드로 본인 확인을 하고, 판매점은 더끌림컴퍼니로 표시돼요.</li>' +
+            (om ? '<li class="on"><b>U+ 우리매장 고객 등록 (지금, 만 18세 이상)</b>LG U+ 공식 페이지에서 이름·생년월일·휴대폰 문자 인증으로 더끌림컴퍼니 매장 고객으로 등록해요. 1분이면 끝나요. 만 18세 미만은 등록이 안 되니 바로 공식 신청서로 넘어가 주세요.</li>' +
+                '<li class="on"><b>LG U+ 공식 신청서 작성</b>유지 조건과 위약금 조건을 확인하신 뒤 작성해 주세요. 신청서 작성까지 마치셔야 접수가 완료돼요. 본인 명의 공동인증서나 신용카드로 본인 확인을 하고, 판매점은 더끌림컴퍼니로 표시돼요.</li>' +
                 '<li><b>카카오톡 또는 상담 전화</b>접수 내용 확인을 위해 영업시간(10:00~20:00) 안에 접수 순서대로 카카오톡이나 전화를 드려요.</li>' +
                 '<li><b>휴대폰 택배 수령</b>공식 신청서 작성까지 마치면 당일 발송을 원칙으로 우체국 택배로 보내드려요.</li>' +
                 '<li><b>개통 완료</b>휴대폰을 받은 뒤 유심을 끼우고 개통을 마쳐요. 개통 후 181일 동안은 요금제와 유심을 그대로 유지해 주세요.</li>'
@@ -5010,16 +5032,16 @@ window.SITE_STORES=[{"name":"신림점","region":"서울","addr":"서울특별�
             (om ? '' : '<li><b>' + (visit ? '매장 방문 · 개통' : '택배 수령 · 개통') + '</b>' + (pre ? pre + ' 후 사전예약 순서대로 개통해요.' : visit ? '방문하신 날 실물을 보고 개통해요.' : '휴대폰을 받은 뒤 개통해요.') + '</li>') +
             '</ol>' +
             '<p class="ap-sub">' + (om ? '공식 신청서를 쓰기 전에는 언제든 무료로 취소할 수 있고, 쓴 뒤에는 담당 직원을 통해 철회할 수 있어요.' : '공식 신청서를 쓰기 전에는 언제든 무료로 취소할 수 있어요.') + (viaKakao ? '' : ' 진행 상황은 <a href="#my" data-ap="my">접수내역</a>에서 볼 수 있어요.') + '</p>',
-            om ? '<button type="button" class="os-btn os-btn-pink" data-ap="official">LG U+ 공식 신청서 쓰기</button>'
+            om ? omFoot()
                 : '<button type="button" class="os-btn os-btn-pink" data-ap="' + (viaKakao ? 'kakao' : 'my') + '">' + (viaKakao ? '카톡 다시 열기' : '접수내역 보기') + '</button>', 0, false);
         clearInterval(omTimer); omTimer = null;
-        if (om) {
+        if (om && st.age === 'adult') {
             var left = 5;
             omTimer = setInterval(function () {
                 var cd = $('apOmCd');
                 if (!cd || !st || st.step !== 'done' || !el.classList.contains('open')) { clearInterval(omTimer); omTimer = null; return; }
                 left--;
-                if (left > 0) cd.textContent = left; else openOfficial();
+                if (left > 0) cd.textContent = left; else openUcrm();
             }, 1000);
         }
     }
@@ -5128,6 +5150,17 @@ window.SITE_STORES=[{"name":"신림점","region":"서울","addr":"서울특별�
         else if (a === 'geo') nearest();
         else if (a === 'submit') submit();
         else if (a === 'official') openOfficial();
+        else if (a === 'ucrm') openUcrm();
+        else if (a === 'age') {
+            st.age = v === 'minor' ? 'minor' : 'adult';
+            var f = el.querySelector('.ap-foot'), q = el.querySelector('.ap-age-q');
+            if (st.age === 'minor') {
+                step('Under18');
+                if (f) f.innerHTML = omFoot();
+                openOfficial();
+                if (q) q.innerHTML = '만 18세 미만은 고객 등록 없이 공식 신청서만 쓰시면 돼요. 새 창이 안 열렸으면 아래 버튼을 눌러 주세요. 미성년자 개통은 부모님 동의가 필요해서 담당 직원이 따로 안내드려요.';
+            } else openUcrm();
+        }
         else if (a === 'resume') { resumeTo = ''; if (st.step === 'v3') vV3(); else if (st.step === 'v2') vV2(); else if (st.step === 'v1') vV1(); else if (st.step === 'confirm') vConfirm(); else if (st.step === 'method') vMethod(); else if (st.step === 'cur') vCur(); else close(); }
         else if (a === 'my') { e.preventDefault(); close(true); location.hash = '#my'; var m = $('my'); if (m) m.scrollIntoView(); }
         else if (a === 'kakao') { window.open(KAKAO, '_blank'); }
