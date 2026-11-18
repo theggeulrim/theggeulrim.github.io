@@ -4284,7 +4284,7 @@ var OS_DATA={"models":[{"id":"duo","name":"iPhone Duo","maker":"apple","img":"ip
         var q = quote(m, pd.cap, pd.type, pd.plan, pd.dc, pd.n, pd.after);
         var r = q.r;
         return {
-            id: m.id, name: m.name, img: m.img, cap: pd.cap, type: pd.type, typeNm: TYPE_NM[pd.type],
+            id: m.id, name: m.name, maker: m.maker, img: m.img, cap: pd.cap, type: pd.type, typeNm: TYPE_NM[pd.type],
             plan: pd.plan, planName: q.plan.name, planFee: q.plan.fee, tier: tierOf(pd.plan),
             plan2Name: q.plan2 ? q.plan2.name : '', six: !!q.plan2,
             dc: pd.dc, n: pd.n, retail: q.retail, sub: r.subUsed, ag: r.agUsed, yd: r.ydUsed || 0, price: r.prin, pre: m.pre ? (PRE_DATE[m.id] || '출시') : '',
@@ -4651,6 +4651,13 @@ window.SITE_STORES=[{"name":"신림점","region":"서울","addr":"서울특별�
     var STORES = window.SITE_STORES || [];
     var COLORS = { duo: ['스타 화이트', '나이트 스카이'] };   // 사전예약 기종 색상 (10/17)
     var KST = 9 * 3600e3;
+    // LG U+ 공식 온라인 신청서 (11/18, 팀장님 제공) — 기변은 더끌림컴퍼니 수원(331515), 번이는 더끌림컴퍼니(314423)
+    var OM = 'https://onsalemobile.uplus.co.kr/open-market?formId=';
+    var OFFICIAL = {
+        samsung: { '1': OM + '3081623&agentId=331515&openmktCd=18682', '2': OM + '3081667&agentId=314423&openmktCd=15525' },
+        apple: { '1': OM + '3081654&agentId=331515&openmktCd=18682', '2': OM + '3081678&agentId=314423&openmktCd=15525' }
+    };
+    var omTimer = null;
 
     var el, st = null, preStore = '', storeIds = null, resumeTo = '';
 
@@ -4966,22 +4973,51 @@ window.SITE_STORES=[{"name":"신림점","region":"서울","addr":"서울특별�
         return d ? d.t + ' (' + d.d.charAt(0) + ')' : v;
     }
 
+    function officialUrl() {
+        var c = st.ctx;
+        if (!c || c.pre || st.method === 'visit' || st.mode === 'visit') return '';
+        return (OFFICIAL[c.maker] || {})[c.type] || '';
+    }
+    function openOfficial() {
+        var u = officialUrl();
+        if (!u) return;
+        clearInterval(omTimer); omTimer = null;
+        var cd = $('apOmCd'); if (cd) cd.parentNode.textContent = '새 창에서 공식 신청서가 열렸어요. 안 열렸으면 아래 버튼을 눌러주세요.';
+        step('OfficialFormOpen');
+        window.open(u, '_blank');
+    }
+
     function vDone(id, viaKakao) {
         st.step = 'done';
         var visit = st.method === 'visit';
         var pre = st.ctx && st.ctx.pre;
-        frame(st.mode === 'visit' ? '방문 예약 완료' : pre ? '사전예약 완료' : '신청 완료',
+        var om = viaKakao ? '' : officialUrl();
+        frame(st.mode === 'visit' ? '방문 예약 완료' : pre ? '사전예약 완료' : om ? '신청서 작성' : '신청 완료',
             '<div class="ap-done"><span class="ap-done-ic">✓</span>' +
             (viaKakao ? '<h3>카톡으로 신청을 마무리해 주세요</h3><p class="ap-sub">' + (viaKakao === 'copied' ? '신청 내용이 복사됐어요. 열린 카톡 채팅창에 붙여넣기만 하면 접수돼요.' : '열린 카톡 채팅창에 이름·연락처·원하는 모델을 보내주시면 접수돼요.') + '</p>'
+                : om ? '<h3>LG U+ 공식 신청서를 마저 써주세요</h3><p class="ap-sub">공식 신청서까지 써주셔야 최종 접수돼요. 본인 명의 공동인증서나 신용카드로 본인 확인을 해요.</p><p class="ap-sub ap-om-cd"><b id="apOmCd">5</b>초 뒤 공식 신청서가 새 창으로 열려요.</p><span class="ap-done-id">접수번호 ' + esc(id) + '</span>'
                 : '<h3>' + (st.mode === 'visit' ? '방문 예약이 접수됐어요' : pre ? '사전예약이 접수됐어요' : '신청이 접수됐어요') + '</h3><span class="ap-done-id">접수번호 ' + esc(id) + '</span>') + '</div>' +
             '<ol class="ap-next">' +
             '<li class="on"><b>' + (st.mode === 'visit' ? '방문 예약 접수' : pre ? '사전예약 접수' : '신청 접수') + '</b>' + (visit ? esc(st.store) + ' · ' + dateNm(st.date) + ' 방문' : '택배 개통') + '</li>' +
-            '<li><b>담당 직원 연락</b>영업시간(' + (visit ? '10:00~21:00' : '10:00~20:00') + ') 안에 접수 순서대로 전화드려요. 가격과 유의사항을 다시 확인해요.</li>' +
-            '<li><b>LG U+ 공식 신청서 작성</b>조건이 확정되고 결제 방법(일시불·할부)을 등록해요.</li>' +
+            (om ? '<li class="on"><b>LG U+ 공식 신청서 작성 (지금)</b>LG U+ 공식 온라인몰에서 가입 정보와 결제 방법(일시불·할부)을 등록해요. 판매점은 더끌림컴퍼니로 표시돼요.</li>' +
+                '<li><b>담당 직원 연락</b>영업시간(10:00~20:00) 안에 접수 순서대로 전화드려요. 가격과 유의사항을 다시 확인해요.</li>'
+            : '<li><b>담당 직원 연락</b>영업시간(' + (visit ? '10:00~21:00' : '10:00~20:00') + ') 안에 접수 순서대로 전화드려요. 가격과 유의사항을 다시 확인해요.</li>' +
+                '<li><b>LG U+ 공식 신청서 작성</b>조건이 확정되고 결제 방법(일시불·할부)을 등록해요.</li>') +
             '<li><b>' + (visit ? '매장 방문 · 개통' : '택배 수령 · 개통') + '</b>' + (pre ? pre + ' 후 사전예약 순서대로 개통해요.' : visit ? '방문하신 날 실물을 보고 개통해요.' : '휴대폰을 받은 뒤 개통해요.') + '</li>' +
             '</ol>' +
-            '<p class="ap-sub">공식 신청서를 쓰기 전에는 언제든 무료로 취소할 수 있어요.' + (viaKakao ? '' : ' 진행 상황은 <a href="#my" data-ap="my">접수내역</a>에서 볼 수 있어요.') + '</p>',
-            '<button type="button" class="os-btn os-btn-pink" data-ap="' + (viaKakao ? 'kakao' : 'my') + '">' + (viaKakao ? '카톡 다시 열기' : '접수내역 보기') + '</button>', 0, false);
+            '<p class="ap-sub">' + (om ? '개통 전에는 언제든 무료로 취소할 수 있어요.' : '공식 신청서를 쓰기 전에는 언제든 무료로 취소할 수 있어요.') + (viaKakao ? '' : ' 진행 상황은 <a href="#my" data-ap="my">접수내역</a>에서 볼 수 있어요.') + '</p>',
+            om ? '<button type="button" class="os-btn os-btn-pink" data-ap="official">LG U+ 공식 신청서 쓰기</button>'
+                : '<button type="button" class="os-btn os-btn-pink" data-ap="' + (viaKakao ? 'kakao' : 'my') + '">' + (viaKakao ? '카톡 다시 열기' : '접수내역 보기') + '</button>', 0, false);
+        clearInterval(omTimer); omTimer = null;
+        if (om) {
+            var left = 5;
+            omTimer = setInterval(function () {
+                var cd = $('apOmCd');
+                if (!cd || !st || st.step !== 'done' || !el.classList.contains('open')) { clearInterval(omTimer); omTimer = null; return; }
+                left--;
+                if (left > 0) cd.textContent = left; else openOfficial();
+            }, 1000);
+        }
     }
 
     function vNotice() {
@@ -5087,6 +5123,7 @@ window.SITE_STORES=[{"name":"신림점","region":"서울","addr":"서울특별�
         }
         else if (a === 'geo') nearest();
         else if (a === 'submit') submit();
+        else if (a === 'official') openOfficial();
         else if (a === 'resume') { resumeTo = ''; if (st.step === 'v3') vV3(); else if (st.step === 'v2') vV2(); else if (st.step === 'v1') vV1(); else if (st.step === 'confirm') vConfirm(); else if (st.step === 'method') vMethod(); else if (st.step === 'cur') vCur(); else close(); }
         else if (a === 'my') { e.preventDefault(); close(true); location.hash = '#my'; var m = $('my'); if (m) m.scrollIntoView(); }
         else if (a === 'kakao') { window.open(KAKAO, '_blank'); }
