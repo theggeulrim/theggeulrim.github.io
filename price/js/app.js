@@ -155,11 +155,56 @@
 
     /* ---------- 공용 조각 ---------- */
     var KICON = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3C6.5 3 2 6.6 2 11c0 2.8 1.9 5.3 4.7 6.7l-1 3.6c-.1.3.3.6.6.4l4.2-2.8c.5.1 1 .1 1.5.1 5.5 0 10-3.6 10-8S17.5 3 12 3z"/></svg>';
+    var TEL = 'tel:07040077776';
+    function svg(d) { return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' + d + '</svg>'; }
+    var ICO = {
+        box: svg('<path d="M21 8 12 3 3 8v8l9 5 9-5z"/><path d="M3 8l9 5 9-5M12 13v8"/>'),
+        bell: svg('<path d="M6 16V11a6 6 0 0 1 12 0v5l2 2H4z"/><path d="M10 21h4"/>'),
+        pin: svg('<path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/>'),
+        phone: svg('<path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/>'),
+        cart: svg('<circle cx="9" cy="20" r="1.4"/><circle cx="18" cy="20" r="1.4"/><path d="M2 3h3l2.5 12h11.5l2-8H6.2"/>'),
+        shield: svg('<path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6z"/><path d="m9 12 2 2 4-4"/>'),
+        store: svg('<path d="M4 10v10h16V10"/><path d="M3 10 5 4h14l2 6a3 3 0 0 1-6 0 3 3 0 0 1-6 0 3 3 0 0 1-6 0"/><path d="M10 20v-5h4v5"/>'),
+        truck: svg('<path d="M2 6h12v10H2zM14 10h4l3 3v3h-7"/><circle cx="6" cy="18" r="2"/><circle cx="17" cy="18" r="2"/>'),
+        cal: svg('<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/>')
+    };
     function header(back) {
         $('#hd').innerHTML = (back
             ? '<a class="back" href="' + back + '"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M15 5l-7 7 7 7"/></svg>뒤로</a>'
             : '<a class="brand" href="#/"><em>유플</em>핫딜</a>') +
-            '<a class="kbtn" href="' + KAKAO_ADD + '" target="_blank" rel="noopener">' + KICON + '카톡 알림</a>';
+            '<div class="hd-r"><a class="tbtn" href="' + TEL + '" aria-label="전화 상담">' + ICO.phone + '</a>' +
+            '<a class="kbtn" href="' + KAKAO_CHAT + '" target="_blank" rel="noopener">' + KICON + '카톡 상담</a></div>';
+    }
+    // 신청: 홈페이지 신청 화면(공식 신청서까지 이어지는 흐름)을 같은 조건으로 바로 연다
+    function applyUrl(id, cap, type, plan) {
+        var q = [];
+        if (cap) q.push('cap=' + encodeURIComponent(cap));
+        if (type) q.push('type=' + type);
+        if (plan) q.push('plan=' + plan);
+        return '/' + (q.length ? '?' + q.join('&') : '') + '#apply-' + id;
+    }
+    function lowestType(m, t) {
+        var b = null;
+        [PLAN_85, PLAN_115].forEach(function (p) {
+            var x = lowest(m, t, p);
+            if (x && (!b || x.prin < b.prin)) { b = x; b.type = t; b.plan = p; }
+        });
+        return b;
+    }
+    function card(m) {
+        if (!priced(m)) {
+            return '<div class="pc2"><span class="tag g">입고 문의</span><div class="pc2-top"><div class="pc-img"><img src="' + IMG + m.img + '" alt="' + esc(m.name) + '" loading="lazy"></div><b class="nm">' + esc(m.name) + '</b></div>' +
+                '<div style="flex:1"></div><a class="apply ghost" href="' + KAKAO_CHAT + '" target="_blank" rel="noopener">카톡으로 입고 문의</a></div>';
+        }
+        var a = lowestType(m, '2'), b = lowestType(m, '1'), best = a.prin <= b.prin ? a : b;
+        function row(x, on) {
+            return '<a class="prow' + (on ? ' on' : '') + '" href="#/phone/' + m.id + '"><div><small>' + TYPE_NM[x.type] + '</small><b>' + won(x.prin) + '원</b><s>' + won(x.retail) + '</s></div><em>' + off(x) + '%</em></a>';
+        }
+        return '<div class="pc2">' + (m.pre ? '<span class="tag">사전예약</span>' : best.prin === 0 ? '<span class="tag">할부원금 0원</span>' : '') +
+            '<a class="pc2-top" href="#/phone/' + m.id + '"><div class="pc-img"><img src="' + IMG + m.img + '" alt="' + esc(m.name) + '" loading="lazy"></div><b class="nm">' + esc(m.name) + '</b>' +
+            '<div class="caps">' + openCaps(m).map(function (c) { return '<span>' + c.c + '</span>'; }).join('') + '</div></a>' +
+            row(a, true) + row(b) +
+            '<a class="apply" href="' + applyUrl(m.id, best.cap, best.type, best.plan) + '">' + ICO.cart + (m.pre ? '사전예약 신청' : '주문 신청하기') + '</a></div>';
     }
     function tab(t) {
         [].forEach.call(document.querySelectorAll('#tabbar a'), function (a) { a.classList.toggle('on', a.getAttribute('data-t') === t); });
@@ -167,7 +212,7 @@
     }
     function dateTxt() { var s = PRICE_DATE.split('-'); return s[1] + '.' + s[2]; }
     function footer() {
-        return '<footer class="ft"><b>' + BRAND + '</b><br>상호 주식회사 더끌림컴퍼니 · 대표 이민진<br>사업자등록번호 192-88-01136<br>주소 서울특별시 관악구 난곡로 194, 1층(신림동)<br>' +
+        return '<footer class="ft"><div class="ft-links"><a href="/">유플핫딜 홈</a><a href="/support/">고객센터</a><a href="/privacy/">개인정보처리방침</a><a href="' + KAKAO_CHAT + '" target="_blank" rel="noopener">카톡 상담</a></div><b>' + BRAND + '</b><br>상호 주식회사 더끌림컴퍼니 · 대표 이민진<br>사업자등록번호 192-88-01136<br>주소 서울특별시 관악구 난곡로 194, 1층(신림동)<br>' +
             '대표 번호 070-4007-7776 · 상담 카카오톡 채널 \'LGU+더끌림컴퍼니\'<br><br>' +
             '표시 가격은 ' + dateTxt() + ' 기준 LG U+ 공시지원금과 당사 지원금을 반영한 할부원금이에요. 공시지원금이 바뀌면 가격도 바뀔 수 있어요.<br>© 2026 주식회사 더끌림컴퍼니</footer>';
     }
@@ -200,30 +245,30 @@
             '<span class="pill"><i></i>' + dateTxt() + ' 오늘 시세 반영</span>' +
             '<h1>LG U+ 휴대폰,<br>오늘 <em>얼마</em>인지<br>먼저 보고 오세요.</h1>' +
             '<p>출고가에서 공시지원금과 매장 지원금을 뺀 할부원금, 2년 동안 내는 총액까지 그대로 보여드려요.</p>' +
-            '<div class="cta"><a class="btn btn-dark" href="#/cat/galaxy">시세 보러 가기</a><a class="btn btn-line" href="#/subsidy">오늘 공시지원금</a></div>' +
-            '<div class="stats"><div><b>' + storeN + '곳</b><span>서울·경기 매장</span></div><div><b>24개월</b><span>총 납입금 계산</span></div><div><b>전국</b><span>택배 개통</span></div></div>' +
+            '<div class="cta"><a class="btn btn-pink" href="#/cat/iphone">시세 보고 신청하기</a><a class="btn btn-line" href="#/subsidy">오늘 공시지원금</a></div>' +
+            '<div class="trust"><div>' + ICO.store + '<b>직영 ' + storeN + '곳</b><span>서울·경기 매장</span></div><div>' + ICO.truck + '<b>전국 택배</b><span>집에서 개통</span></div><div>' + ICO.cal + '<b>2년 총액</b><span>미리 계산</span></div></div>' +
             '</section>';
-        h += '<div class="banners fade">' +
-            '<a class="box bn" href="#/stores?r=dlv"><div class="bn-ic g">📦</div><div class="bn-t"><small>택배 개통</small><b>매장 안 가도 집에서 받아요</b></div><span class="arr">›</span></a>' +
-            '<a class="box bn" href="' + KAKAO_ADD + '" target="_blank" rel="noopener"><div class="bn-ic p">🔔</div><div class="bn-t"><small>가격 알림</small><b>가격이 내려가면 카톡으로 알려드려요</b></div><span class="arr">›</span></a>' +
+        h += '<section class="sec"><div class="sec-h"><h2>오늘의 특가</h2><span>할인율 높은 순</span></div><div class="grid">' +
+            top5().slice(0, 4).map(function (o) { return card(o.m); }).join('') +
+            '</div><a class="more" href="#/cat/iphone">전체 기종 시세 보기 ›</a><p class="note">할부원금 = 출고가 − 공시지원금 − 매장 지원금. 번호이동·기기변경 각각 85,000원·115,000원 요금제 중 낮은 값이에요.</p></section>';
+        h += '<div class="banners">' +
+            '<a class="box bn" href="#/stores?r=dlv"><div class="ic g">' + ICO.box + '</div><div class="bn-t"><small>택배 개통</small><b>매장 안 가도 집에서 받아요</b></div><span class="arr">›</span></a>' +
+            '<a class="box bn" href="' + KAKAO_ADD + '" target="_blank" rel="noopener"><div class="ic p">' + ICO.bell + '</div><div class="bn-t"><small>가격 알림</small><b>가격이 내려가면 카톡으로 알려드려요</b></div><span class="arr">›</span></a>' +
             '</div>';
-        h += '<section class="sec"><div class="sec-h"><h2>어디서 사시나요?</h2><a href="#/stores">매장 전체</a></div>' + regionChips() + '<div id="regionInfo">' + regionInfo() + '</div></section>';
         h += '<section class="sec"><div class="sec-h"><h2>어떤 휴대폰을 찾으세요?</h2></div><div class="cats">' +
             Object.keys(CATS).map(function (k) {
                 var c = CATS[k];
                 return '<a class="cat" href="#/cat/' + k + '"><b>' + c.nm + '</b><small>' + c.sub + '</small><span class="go">›</span><img src="' + IMG + c.img + '" alt="" loading="lazy"></a>';
             }).join('') +
-            '<a class="cat" href="#/stores?r=dlv"><b>택배 개통</b><small>전국 비대면</small><span class="go">›</span><span class="ico">📦</span></a>' +
-            '<a class="cat" href="#/stores"><b>매장 찾기</b><small>서울·경기 ' + storeN + '곳</small><span class="go">›</span><span class="ico">📍</span></a>' +
+            '<a class="cat" href="#/stores?r=dlv"><b>택배 개통</b><small>전국 비대면</small><span class="go">›</span><span class="cico">' + ICO.truck + '</span></a>' +
+            '<a class="cat" href="#/stores"><b>매장 찾기</b><small>서울·경기 ' + storeN + '곳</small><span class="go">›</span><span class="cico">' + ICO.pin + '</span></a>' +
             '</div>' +
             '<a class="box sub-card" href="#/subsidy"><div><small>LG U+ 발표</small><b>오늘의 공시지원금</b><span>기종·요금제별 한눈에 보기</span></div><span style="color:var(--grey);font-size:22px">›</span></a></section>';
-        h += '<section class="sec"><div class="sec-h"><h2>오늘 할인율 TOP 5</h2></div><div class="box rank">' +
-            top5().map(function (o, i) {
-                return '<a class="rk" href="#/phone/' + o.m.id + '"><span class="rk-n">' + (i + 1) + '</span><img src="' + IMG + o.m.img + '" alt="" loading="lazy">' +
-                    '<div class="rk-t"><b>' + esc(o.m.name) + '</b><small>번호이동 · ' + o.x.cap + '</small></div>' +
-                    '<div class="rk-p"><b>' + man(o.x.prin) + '</b><small>할인 ' + off(o.x) + '%</small></div></a>';
-            }).join('') +
-            '</div><p class="note">5G 데이터플랜 MAX(월 85,000원) 번호이동 기준 할부원금이에요. 내 조건은 기종을 눌러 계산해 보세요.</p></section>';
+        h += '<section class="sec"><div class="sec-h"><h2>신청은 이렇게 해요</h2></div><div class="steps">' +
+            '<div><i>STEP 1</i><b>가격 확인</b><span>기종·조건별 할부원금 확인</span></div>' +
+            '<div><i>STEP 2</i><b>주문 신청</b><span>정보 입력 후 LG U+ 공식 신청서 작성</span></div>' +
+            '<div><i>STEP 3</i><b>개통·수령</b><span>택배로 받거나 가까운 매장 방문</span></div></div></section>';
+        h += '<section class="sec"><div class="sec-h"><h2>어디서 사시나요?</h2><a href="#/stores">매장 전체</a></div>' + regionChips() + '<div id="regionInfo">' + regionInfo() + '</div></section>';
         h += '<section class="sec"><div class="sec-h"><h2>구매 꿀팁</h2></div><div class="box tips">' +
             TIPS.map(function (t, i) { return '<button class="tip" data-tip="' + i + '"><i>0' + (i + 1) + '</i>' + t.q + '</button>'; }).join('') + '</div></section>';
         h += '<section class="sec"><div class="sec-h"><h2>자주 묻는 질문</h2></div><div class="box faq">' +
@@ -259,19 +304,8 @@
         h += '<div class="chips" style="margin-bottom:16px">' + Object.keys(CATS).map(function (x) {
             return '<a class="chip' + (x === k ? ' on' : '') + '" style="display:flex;align-items:center" href="#/cat/' + x + '">' + CATS[x].nm + '</a>';
         }).join('') + '</div><div class="grid">';
-        c.ids.forEach(function (id) {
-            var m = modelMap[id];
-            if (!m) return;
-            if (!priced(m)) {
-                h += '<a class="pc" href="' + KAKAO_CHAT + '" target="_blank" rel="noopener"><span class="tag g">입고 문의</span><div class="pc-img"><img src="' + IMG + m.img + '" alt="" loading="lazy"></div><b>' + esc(m.name) + '</b><small>가격은 상담으로 안내</small></a>';
-                return;
-            }
-            var x = lowestAll(m);
-            h += '<a class="pc" href="#/phone/' + id + '">' + (m.pre ? '<span class="tag">사전예약</span>' : x.prin === 0 ? '<span class="tag">할부원금 0원</span>' : '') +
-                '<div class="pc-img"><img src="' + IMG + m.img + '" alt="" loading="lazy"></div><b>' + esc(m.name) + '</b>' +
-                '<small>출고가 ' + won(x.retail) + '원</small><div class="pr"><em>' + off(x) + '%</em>' + man(x.prin) + '</div></a>';
-        });
-        h += '</div><p class="note">기종별 가장 낮은 할부원금이에요(번호이동·기기변경, 85·115 요금제 중 최저).</p></section>' + footer();
+        c.ids.forEach(function (id) { if (modelMap[id]) h += card(modelMap[id]); });
+        h += '</div><p class="note">번호이동·기기변경별로 85,000원·115,000원 요금제 중 낮은 할부원금이에요. 주문 신청하기를 누르면 그 조건으로 신청 화면이 열려요.</p></section>' + footer();
         return h;
     }
 
@@ -286,8 +320,8 @@
         header('#/cat/' + catOf(id)); tab(null);
         var best = lowestAll(m);
         var h = '<div class="mh fade"><img src="' + IMG + m.img + '" alt=""><div><h1>' + esc(m.name) + '<br>오늘 시세</h1><small><i></i>' + dateTxt() + ' 오늘 · ' + (liveTime ? '공시지원금 실시간 반영' : '공시지원금 ' + D.snapDate.slice(5).replace('-', '.') + ' 기준') + '</small></div></div>';
-        h += '<div class="hl fade"><small>오늘 가장 낮은 할부원금</small><b>' + man(best.prin) + '</b><span>' + TYPE_NM[best.type] + ' · ' + planMap[best.plan].name + ' · ' + best.cap + ' · 출고가 대비 ' + off(best) + '% 할인</span></div>';
-        h += '<div class="acts"><button id="favBtn" class="' + (favs().indexOf(id) >= 0 ? 'on' : '') + '">' + (favs().indexOf(id) >= 0 ? '♥ 찜함' : '♡ 찜하기') + '</button><button id="shareBtn">공유하기</button><a href="' + KAKAO_ADD + '" target="_blank" rel="noopener">🔔 가격 알림</a></div>';
+        h += '<div class="hl fade"><small>오늘 가장 낮은 할부원금</small><b><span class="old" style="font-size:16px;font-weight:600">' + won(best.retail) + '원</span>' + won(best.prin) + '원</b><span>' + TYPE_NM[best.type] + ' · ' + planMap[best.plan].name + ' · ' + best.cap + ' · 출고가 대비 ' + off(best) + '% 할인</span><a class="hl-apply" href="' + applyUrl(id, best.cap, best.type, best.plan) + '">이 가격으로 주문 신청하기</a></div>';
+        h += '<div class="acts"><button id="favBtn" class="' + (favs().indexOf(id) >= 0 ? 'on' : '') + '">' + (favs().indexOf(id) >= 0 ? '♥ 찜함' : '♡ 찜하기') + '</button><button id="shareBtn">공유하기</button><a href="' + KAKAO_ADD + '" target="_blank" rel="noopener">' + ICO.bell + '가격 알림</a></div>';
         // 가입유형·요금제별
         h += '<section class="sec"><div class="sec-h"><h2>조건별 오늘 최저</h2></div><div class="box tbox"><table class="tbl"><thead><tr><th>가입 조건</th><th class="r">할부원금</th><th class="r">공시지원금</th></tr></thead><tbody>';
         ['2', '1'].forEach(function (t) {
@@ -316,14 +350,19 @@
         h += '<section class="sec"><div class="sec-h"><h2>같은 분류 다른 기종</h2></div><div class="links">' +
             CATS[catOf(id)].ids.filter(function (x) { return x !== id && modelMap[x] && priced(modelMap[x]); }).map(function (x) { return '<a href="#/phone/' + x + '">' + esc(modelMap[x].name) + '</a>'; }).join('') + '</div></section>';
         h += footer();
-        h += '<div class="sticky"><a class="btn btn-kakao" href="' + KAKAO_CHAT + '" target="_blank" rel="noopener">카톡으로 이 가격 상담</a><a class="btn btn-dark" href="' + VISIT + '" target="_blank" rel="noopener">방문 예약</a></div>';
+        h += '<div class="sticky" id="sticky">' + stickyHtml() + '</div>';
         return h;
     }
+    function stickyHtml() {
+        return '<a class="btn btn-kakao sq" href="' + KAKAO_CHAT + '" target="_blank" rel="noopener" aria-label="카톡 상담">' + KICON + '</a>' +
+            '<a class="btn btn-line" href="/#visit">방문 예약</a>' +
+            '<a class="btn btn-pink" href="' + applyUrl(cs.id, cs.cap, cs.type, cs.plan) + '">주문 신청하기</a>';
+    }
     function storeListHtml(rid) {
-        if (rid === 'dlv') return '<div class="store"><div style="font-size:30px">📦</div><div><b>유플핫딜 온라인센터</b><small>전국 택배 개통 · 카톡으로 신청서 안내</small></div><a href="' + KAKAO_CHAT + '" target="_blank" rel="noopener">카톡</a></div>';
+        if (rid === 'dlv') return '<div class="store"><div class="ic g">' + ICO.box + '</div><div><b>유플핫딜 온라인센터</b><small>전국 택배 개통 · 카톡으로 신청서 안내</small></div><a href="' + KAKAO_CHAT + '" target="_blank" rel="noopener">카톡</a></div>';
         return storesOf(rid).map(function (s) {
             return '<div class="store"><img src="' + s.img + '" alt="" loading="lazy"><div><b>' + esc(s.name) + '</b><small>' + esc(s.addr) + '</small></div>' +
-                '<a href="https://map.naver.com/p/search/' + encodeURIComponent('LG U+ 더끌림컴퍼니 ' + s.name) + '" target="_blank" rel="noopener">지도</a></div>';
+                '<div class="sb"><a href="https://map.naver.com/p/search/' + encodeURIComponent('LG U+ 더끌림컴퍼니 ' + s.name) + '" target="_blank" rel="noopener">지도</a><a class="v" href="/#visit-' + encodeURIComponent(s.name) + '">방문 예약</a></div></div>';
         }).join('');
     }
     function seg(name, opts, cur) {
@@ -356,7 +395,7 @@
             (q.plan2 ? '<div class="tot"><span>7개월째부터</span><span>' + won(r.total2) + '원</span></div>' : '') +
             '<div class="tot"><span>2년 총 납입금</span><span><b>' + won(r.cost24) + '원</b></span></div>' +
             (cs.dc === 'auto' ? '<div class="tot"><span>적용한 할인</span><span>' + (q.best === 'sub' ? '공시지원금' : '선택약정') + '</span></div>' : '') +
-            '</div><p class="note">할부 수수료 연 5.9% 기준. 부가서비스·결합 할인은 빠진 금액이에요.</p>';
+            '</div><a class="apply" href="' + applyUrl(cs.id, cs.cap, cs.type, cs.plan) + '">' + ICO.cart + '이 조건으로 주문 신청하기</a><p class="note">할부 수수료 연 5.9% 기준. 부가서비스·결합 할인은 빠진 금액이에요. 신청 화면에서 할인 방식·할부 개월을 다시 고를 수 있어요.</p>';
         return h;
     }
 
@@ -385,7 +424,7 @@
         header(); tab('stores');
         return '<section class="sec fade"><div class="sec-h"><h2>유플핫딜 매장</h2><span>' + STORES.length + '곳</span></div>' + regionChips() +
             '<div class="box" style="padding:0 18px;margin-top:12px" id="storeBox">' + storeListHtml(region) + '</div>' +
-            '<div class="cta"><a class="btn btn-kakao" href="' + KAKAO_CHAT + '" target="_blank" rel="noopener">카톡 상담</a><a class="btn btn-dark" href="' + VISIT + '" target="_blank" rel="noopener">방문 예약</a></div></section>' + footer();
+            '<div class="cta"><a class="btn btn-kakao" href="' + KAKAO_CHAT + '" target="_blank" rel="noopener">카톡 상담</a><a class="btn btn-dark" href="/#visit">방문 예약</a></div></section>' + footer();
     }
 
     /* ---------- 찜 ---------- */
@@ -393,11 +432,8 @@
         header(); tab('favs');
         var f = favs().filter(function (id) { return modelMap[id] && priced(modelMap[id]); });
         var h = '<section class="sec fade"><div class="sec-h"><h2>찜한 기종</h2></div>';
-        if (!f.length) h += '<div class="empty">아직 찜한 기종이 없어요.<br>기종 화면에서 ♡를 눌러 보세요.<div class="cta" style="max-width:240px;margin:20px auto 0"><a class="btn btn-dark" href="#/cat/galaxy">시세 보러 가기</a></div></div>';
-        else h += '<div class="grid">' + f.map(function (id) {
-            var m = modelMap[id], x = lowestAll(m);
-            return '<a class="pc" href="#/phone/' + id + '"><div class="pc-img"><img src="' + IMG + m.img + '" alt=""></div><b>' + esc(m.name) + '</b><small>출고가 ' + won(x.retail) + '원</small><div class="pr"><em>' + off(x) + '%</em>' + man(x.prin) + '</div></a>';
-        }).join('') + '</div>';
+        if (!f.length) h += '<div class="empty">아직 찜한 기종이 없어요.<br>기종 화면에서 ♡를 눌러 보세요.<div class="cta" style="max-width:240px;margin:20px auto 0"><a class="btn btn-pink" href="#/cat/iphone">시세 보러 가기</a></div></div>';
+        else h += '<div class="grid">' + f.map(function (id) { return card(modelMap[id]); }).join('') + '</div>';
         return h + '</section>' + footer();
     }
 
@@ -446,7 +482,7 @@
             if (name === 'splan') { sv.plan = v; render(); return; }
             cs[name] = v;
             if (name === 'type') fetchSubsidy(cs.type, cs.plan);
-            $('#calc').innerHTML = calcHtml(modelMap[cs.id]);
+            $('#calc').innerHTML = calcHtml(modelMap[cs.id]); if ($('#sticky')) $('#sticky').innerHTML = stickyHtml();
             return;
         }
         if (e.target.closest('#favBtn')) { toggleFav(cs.id); render(); return; }
@@ -461,7 +497,7 @@
         if (!s) return;
         cs[s] = s === 'n' ? +e.target.value : e.target.value;
         if (s === 'plan') { if (cs.after && planMap[cs.after].fee >= planMap[cs.plan].fee) cs.after = ''; fetchSubsidy(cs.type, cs.plan); }
-        $('#calc').innerHTML = calcHtml(modelMap[cs.id]);
+        $('#calc').innerHTML = calcHtml(modelMap[cs.id]); if ($('#sticky')) $('#sticky').innerHTML = stickyHtml();
     });
     window.addEventListener('hashchange', render);
     render();
